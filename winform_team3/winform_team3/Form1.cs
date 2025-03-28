@@ -38,66 +38,71 @@ namespace winform_team3
 
         private void Form1_Load(object sender, EventArgs e)
         {
+            panel1.SuspendLayout();
             pMain.SuspendLayout();
             panel1.BackgroundImage = Properties.Resources._5;
             panel1.BackgroundImageLayout = ImageLayout.Stretch;
             pMain.Controls.Add(homeSc);
+            panel1.ResumeLayout(true);
             pMain.ResumeLayout(true);
         }
 
 
         private void wpbtn_Click(object sender, EventArgs e)
         {
+            panel1.SuspendLayout();
             pMain.SuspendLayout();
             panel1.BackgroundImage = Properties.Resources._1;
             pMain.Controls.Clear();
             pMain.Controls.Add(wallpaperSc);
+            panel1.ResumeLayout(true);
             pMain.ResumeLayout(true);
         }
 
         private void tbbtn_Click(object sender, EventArgs e)
         {
+            panel1.SuspendLayout();
             pMain.SuspendLayout();
             panel1.BackgroundImage = Properties.Resources._2;
             pMain.Controls.Clear();
             pMain.Controls.Add(taskbarSc);
+            panel1.ResumeLayout(true);
             pMain.ResumeLayout(true);
         }
 
         private void wdbtn_Click(object sender, EventArgs e)
         {
+            panel1.SuspendLayout();
             pMain.SuspendLayout();
             panel1.BackgroundImage = Properties.Resources._3;
             pMain.Controls.Clear();
             pMain.Controls.Add(windowSc);
+            panel1.ResumeLayout(true);
             pMain.ResumeLayout(true);
         }
 
         private void csbtn_Click(object sender, EventArgs e)
         {
+            panel1.SuspendLayout();
             pMain.SuspendLayout();
             panel1.BackgroundImage = Properties.Resources._4;
             pMain.Controls.Clear();
             pMain.Controls.Add(cursorSc);
+            panel1.ResumeLayout(true);
             pMain.ResumeLayout(true);
         }
 
         private void homebtn_Click(object sender, EventArgs e)
         {
+            panel1.SuspendLayout();
             pMain.SuspendLayout();
             panel1.BackgroundImage = Properties.Resources._5;
             pMain.Controls.Clear();
             pMain.Controls.Add(homeSc);
+            panel1.ResumeLayout(true);
             pMain.ResumeLayout(true);
         }
 
     }
-    internal class DoubleBufferPanel : TableLayoutPanel
-    {
-        internal DoubleBufferPanel()
-        {
-            DoubleBuffered = true;
-        }
-    }
-
+    
 }
