@@ -12,31 +12,29 @@ namespace client.menuControl
 {
     public partial class 코드연습 : UserControl
     {
+        private CodePreacticeControl.ShareControl sharecontrol = new CodePreacticeControl.ShareControl();
+        private CodePreacticeControl.CodeExplainControl codecontrol = new CodePreacticeControl.CodeExplainControl();
         public 코드연습()
         {
             InitializeComponent();
-            pictureBox2.BackgroundImageLayout = ImageLayout.Stretch;
-        }
+            panel2.Controls.Add(sharecontrol);
+            panel2.Controls.Add(codecontrol);
 
-        private void pictureBox2_MouseEnter(object sender, EventArgs e)
-        {
-            pictureBox2.BackgroundImage = Properties.Resources.shareBee2;
-        }
-
-        private void pictureBox2_MouseLeave(object sender, EventArgs e)
-        {
-            pictureBox2.BackgroundImage = Properties.Resources.shareBee1;
-        }
-
-        private void pictureBox2_Click(object sender, EventArgs e)
-        {
-            shareform shareBeeform = new shareform();
-            shareBeeform.ShowDialog();
         }
 
         private void 코드연습_Load(object sender, EventArgs e)
         {
-            pictureBox2.BackgroundImage = Properties.Resources.shareBee1;
+            //로컬DB에서 title 가져와서 listbox에 추가
+            sharecontrol.BringToFront();
+            sharecontrol.Show();
         }
+
+        private void listBox1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            codecontrol.BringToFront();
+            codecontrol.Show();
+        }
+
+
     }
 }

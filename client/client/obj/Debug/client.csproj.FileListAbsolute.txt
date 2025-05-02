@@ -17,3 +17,24 @@ C:\Users\milk0\OneDrive\바탕 화면\응소실 실습\client\client\obj\Debug\c
 C:\Users\milk0\OneDrive\바탕 화면\응소실 실습\client\client\obj\Debug\client.menuControl.환경설정.resources
 C:\Users\milk0\OneDrive\바탕 화면\응소실 실습\client\client\obj\Debug\client.shareform.resources
 C:\Users\milk0\OneDrive\바탕 화면\응소실 실습\client\client\obj\Debug\client.menuControl.초기화면.resources
+C:\Users\milk0\source\repos\team3\client\client\bin\Debug\client.exe.config
+C:\Users\milk0\source\repos\team3\client\client\bin\Debug\client.exe
+C:\Users\milk0\source\repos\team3\client\client\bin\Debug\client.pdb
+C:\Users\milk0\source\repos\team3\client\client\bin\Debug\Guna.UI2.dll
+C:\Users\milk0\source\repos\team3\client\client\obj\Debug\client.csproj.AssemblyReference.cache
+C:\Users\milk0\source\repos\team3\client\client\obj\Debug\client.Form1.resources
+C:\Users\milk0\source\repos\team3\client\client\obj\Debug\client.menuControl.PVP.resources
+C:\Users\milk0\source\repos\team3\client\client\obj\Debug\client.menuControl.미니게임.resources
+C:\Users\milk0\source\repos\team3\client\client\obj\Debug\client.menuControl.초기화면.resources
+C:\Users\milk0\source\repos\team3\client\client\obj\Debug\client.menuControl.코드연습.resources
+C:\Users\milk0\source\repos\team3\client\client\obj\Debug\client.menuControl.홈.resources
+C:\Users\milk0\source\repos\team3\client\client\obj\Debug\client.menuControl.환경설정.resources
+C:\Users\milk0\source\repos\team3\client\client\obj\Debug\client.Properties.Resources.resources
+C:\Users\milk0\source\repos\team3\client\client\obj\Debug\client.csproj.GenerateResource.cache
+C:\Users\milk0\source\repos\team3\client\client\obj\Debug\client.csproj.CoreCompileInputs.cache
+C:\Users\milk0\source\repos\team3\client\client\obj\Debug\client.csproj.CopyComplete
+C:\Users\milk0\source\repos\team3\client\client\obj\Debug\client.exe
+C:\Users\milk0\source\repos\team3\client\client\obj\Debug\client.pdb
+C:\Users\milk0\source\repos\team3\client\client\obj\Debug\client.menuControl.CodePreacticeControl.CodeExplainControl.resources
+C:\Users\milk0\source\repos\team3\client\client\obj\Debug\client.menuControl.CodePreacticeControl.ShareControl.resources
+C:\Users\milk0\source\repos\team3\client\client\obj\Debug\client.shareForm.shareform.resources
