@@ -53,6 +53,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="class\CodePractice.cs" />
+    <Compile Include="class\Home.cs" />
     <Compile Include="class\Quiz.cs" />
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
