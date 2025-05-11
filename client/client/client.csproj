@@ -53,6 +53,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="class\CodePractice.cs" />
+    <Compile Include="class\Quiz.cs" />
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -109,6 +110,24 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="quizForm\quizForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="quizForm\quizForm.Designer.cs">
+      <DependentUpon>quizForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="quizForm\quizReady.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="quizForm\quizReady.Designer.cs">
+      <DependentUpon>quizReady.cs</DependentUpon>
+    </Compile>
+    <Compile Include="quizForm\quizStart.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="quizForm\quizStart.Designer.cs">
+      <DependentUpon>quizStart.cs</DependentUpon>
+    </Compile>
     <Compile Include="shareForm\shareform.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -152,6 +171,15 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
+    <EmbeddedResource Include="quizForm\quizForm.resx">
+      <DependentUpon>quizForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="quizForm\quizReady.resx">
+      <DependentUpon>quizReady.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="quizForm\quizStart.resx">
+      <DependentUpon>quizStart.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="shareForm\shareform.resx">
       <DependentUpon>shareform.cs</DependentUpon>
     </EmbeddedResource>
@@ -177,6 +205,13 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\winkufairy.png" />
+  </ItemGroup>
+  <ItemGroup />
+  <ItemGroup>
+    <None Include="Resources\res_quiz\profile_image.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\res_quiz\speech_bubble.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

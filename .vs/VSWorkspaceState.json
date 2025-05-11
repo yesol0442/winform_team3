@@ -2,10 +2,7 @@
   "ExpandedNodes": [
     "",
     "\\client",
-    "\\client\\client",
-    "\\client\\client\\menuControl",
-    "\\client\\client\\menuControl\\CodePreacticeControl"
+    "\\client\\client"
   ],
-  "SelectedNode": "\\client\\client.sln",
   "PreviewInSolutionExplorer": false
 }

@@ -63,6 +63,16 @@ namespace client.Properties {
         /// <summary>
         ///   System.Drawing.Bitmap 형식의 지역화된 리소스를 찾습니다.
         /// </summary>
+        internal static System.Drawing.Bitmap profile_image {
+            get {
+                object obj = ResourceManager.GetObject("profile_image", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   System.Drawing.Bitmap 형식의 지역화된 리소스를 찾습니다.
+        /// </summary>
         internal static System.Drawing.Bitmap shareBee1 {
             get {
                 object obj = ResourceManager.GetObject("shareBee1", resourceCulture);
@@ -76,6 +86,16 @@ namespace client.Properties {
         internal static System.Drawing.Bitmap shareBee2 {
             get {
                 object obj = ResourceManager.GetObject("shareBee2", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   System.Drawing.Bitmap 형식의 지역화된 리소스를 찾습니다.
+        /// </summary>
+        internal static System.Drawing.Bitmap speech_bubble {
+            get {
+                object obj = ResourceManager.GetObject("speech_bubble", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

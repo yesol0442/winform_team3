@@ -1,4 +1,5 @@
-﻿using System;
+﻿using client.quizForm;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -12,9 +13,17 @@ namespace client.menuControl
 {
     public partial class PVP : UserControl
     {
+        quizStart quizstart;
+
         public PVP()
         {
             InitializeComponent();
+        }
+
+        private void btnQuizStart_Click(object sender, EventArgs e)
+        {
+            quizstart = new quizStart();
+            quizstart.Show();
         }
     }
 }
