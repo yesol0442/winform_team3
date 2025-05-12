@@ -24,7 +24,7 @@ namespace client.menuControl
         private void btnLogin_Click(object sender, EventArgs e)
         {
             string userId = txtId.Text;
-
+            /*
             if (userId == "id")  // 검증
             {
                 // 사용자 데이터 가져오기
@@ -42,7 +42,10 @@ namespace client.menuControl
 
                 txtId.Clear();
                 txtId.Focus();
-            }
+            }*/
+
+            this.Hide();
+            LoginSuccess?.Invoke(this, EventArgs.Empty);
 
         }
 

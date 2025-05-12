@@ -87,3 +87,4 @@ C:\Users\cheae\source\repos\winform_team3\client\client\obj\Debug\client.csproj.
 C:\Users\cheae\source\repos\winform_team3\client\client\obj\Debug\client.csproj.Up2Date
 C:\Users\cheae\source\repos\winform_team3\client\client\obj\Debug\client.exe
 C:\Users\cheae\source\repos\winform_team3\client\client\obj\Debug\client.pdb
+C:\Users\cheae\source\repos\winform_team3\client\client\obj\Debug\client.FindDifferForm.FindStart.resources

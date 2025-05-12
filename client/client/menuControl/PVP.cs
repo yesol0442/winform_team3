@@ -1,4 +1,5 @@
 ﻿using client.quizForm;
+using client.FindDifferForm;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -15,6 +16,8 @@ namespace client.menuControl
     {
         quizStart quizstart;
 
+        FindStart findStart;
+
         public PVP()
         {
             InitializeComponent();
@@ -24,6 +27,13 @@ namespace client.menuControl
         {
             quizstart = new quizStart();
             quizstart.Show();
+        }
+
+
+        private void btnFindDiff_Click(object sender, EventArgs e)
+        {
+            findStart = new FindStart();
+            findStart.Show();
         }
     }
 }

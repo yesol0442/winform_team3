@@ -3,24 +3,40 @@
   "WorkspaceRootPath": "C:\\Users\\cheae\\source\\repos\\winform_team3\\client\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{FE6AC6E2-861D-4EF3-9305-D3D920232E1A}|client\\client.csproj|C:\\Users\\cheae\\source\\repos\\winform_team3\\client\\client\\menucontrol\\\uCD08\uAE30\uD654\uBA74.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
-      "RelativeMoniker": "D:0:0:{FE6AC6E2-861D-4EF3-9305-D3D920232E1A}|client\\client.csproj|solutionrelative:client\\menucontrol\\\uCD08\uAE30\uD654\uBA74.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
+      "AbsoluteMoniker": "D:0:0:{FE6AC6E2-861D-4EF3-9305-D3D920232E1A}|client\\client.csproj|c:\\users\\cheae\\source\\repos\\winform_team3\\client\\client\\menucontrol\\pvp.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{FE6AC6E2-861D-4EF3-9305-D3D920232E1A}|client\\client.csproj|solutionrelative:client\\menucontrol\\pvp.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{FE6AC6E2-861D-4EF3-9305-D3D920232E1A}|client\\client.csproj|c:\\users\\cheae\\source\\repos\\winform_team3\\client\\client\\menucontrol\\\uCD08\uAE30\uD654\uBA74.designer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{FE6AC6E2-861D-4EF3-9305-D3D920232E1A}|client\\client.csproj|solutionrelative:client\\menucontrol\\\uCD08\uAE30\uD654\uBA74.designer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{FE6AC6E2-861D-4EF3-9305-D3D920232E1A}|client\\client.csproj|c:\\users\\cheae\\source\\repos\\winform_team3\\client\\client\\finddifferform\\findstart.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "RelativeMoniker": "D:0:0:{FE6AC6E2-861D-4EF3-9305-D3D920232E1A}|client\\client.csproj|solutionrelative:client\\finddifferform\\findstart.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{FE6AC6E2-861D-4EF3-9305-D3D920232E1A}|client\\client.csproj|C:\\Users\\cheae\\source\\repos\\winform_team3\\client\\client\\menucontrol\\\uCD08\uAE30\uD654\uBA74.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{FE6AC6E2-861D-4EF3-9305-D3D920232E1A}|client\\client.csproj|solutionrelative:client\\menucontrol\\\uCD08\uAE30\uD654\uBA74.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{FE6AC6E2-861D-4EF3-9305-D3D920232E1A}|client\\client.csproj|c:\\users\\cheae\\source\\repos\\winform_team3\\client\\client\\quizform\\quizstart.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "RelativeMoniker": "D:0:0:{FE6AC6E2-861D-4EF3-9305-D3D920232E1A}|client\\client.csproj|solutionrelative:client\\quizform\\quizstart.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{FE6AC6E2-861D-4EF3-9305-D3D920232E1A}|client\\client.csproj|c:\\users\\cheae\\source\\repos\\winform_team3\\client\\client\\quizform\\quizform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "RelativeMoniker": "D:0:0:{FE6AC6E2-861D-4EF3-9305-D3D920232E1A}|client\\client.csproj|solutionrelative:client\\quizform\\quizform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{FE6AC6E2-861D-4EF3-9305-D3D920232E1A}|client\\client.csproj|c:\\users\\cheae\\source\\repos\\winform_team3\\client\\client\\menucontrol\\pvp.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "RelativeMoniker": "D:0:0:{FE6AC6E2-861D-4EF3-9305-D3D920232E1A}|client\\client.csproj|solutionrelative:client\\menucontrol\\pvp.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
     },
     {
       "AbsoluteMoniker": "D:0:0:{FE6AC6E2-861D-4EF3-9305-D3D920232E1A}|client\\client.csproj|c:\\users\\cheae\\source\\repos\\winform_team3\\client\\client\\form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
       "RelativeMoniker": "D:0:0:{FE6AC6E2-861D-4EF3-9305-D3D920232E1A}|client\\client.csproj|solutionrelative:client\\form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
     },
     {
+      "AbsoluteMoniker": "D:0:0:{FE6AC6E2-861D-4EF3-9305-D3D920232E1A}|client\\client.csproj|C:\\Users\\cheae\\source\\repos\\winform_team3\\client\\client\\menucontrol\\\uCD08\uAE30\uD654\uBA74.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{FE6AC6E2-861D-4EF3-9305-D3D920232E1A}|client\\client.csproj|solutionrelative:client\\menucontrol\\\uCD08\uAE30\uD654\uBA74.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{FE6AC6E2-861D-4EF3-9305-D3D920232E1A}|client\\client.csproj|C:\\Users\\cheae\\source\\repos\\winform_team3\\client\\client\\form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{FE6AC6E2-861D-4EF3-9305-D3D920232E1A}|client\\client.csproj|solutionrelative:client\\form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{FE6AC6E2-861D-4EF3-9305-D3D920232E1A}|client\\client.csproj|C:\\Users\\cheae\\source\\repos\\winform_team3\\client\\client\\menucontrol\\\uCD08\uAE30\uD654\uBA74.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "RelativeMoniker": "D:0:0:{FE6AC6E2-861D-4EF3-9305-D3D920232E1A}|client\\client.csproj|solutionrelative:client\\menucontrol\\\uCD08\uAE30\uD654\uBA74.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
     }
   ],
   "DocumentGroupContainers": [
@@ -30,17 +46,17 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 1,
+          "SelectedChildIndex": 5,
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 7,
               "Title": "Form1.cs",
               "DocumentMoniker": "C:\\Users\\cheae\\source\\repos\\winform_team3\\client\\client\\Form1.cs",
               "RelativeDocumentMoniker": "client\\Form1.cs",
               "ToolTip": "C:\\Users\\cheae\\source\\repos\\winform_team3\\client\\client\\Form1.cs",
               "RelativeToolTip": "client\\Form1.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAIgAAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAACsAAAAAAAAAAAAAwIgAAAAgAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-05-09T15:46:48.98Z",
               "IsPinned": true,
@@ -48,12 +64,12 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 8,
               "Title": "\uCD08\uAE30\uD654\uBA74.cs [\uB514\uC790\uC778]",
               "DocumentMoniker": "C:\\Users\\cheae\\source\\repos\\winform_team3\\client\\client\\menuControl\\\uCD08\uAE30\uD654\uBA74.cs",
               "RelativeDocumentMoniker": "client\\menuControl\\\uCD08\uAE30\uD654\uBA74.cs",
-              "ToolTip": "C:\\Users\\cheae\\source\\repos\\winform_team3\\client\\client\\menuControl\\\uCD08\uAE30\uD654\uBA74.cs [\uB514\uC790\uC778]*",
-              "RelativeToolTip": "client\\menuControl\\\uCD08\uAE30\uD654\uBA74.cs [\uB514\uC790\uC778]*",
+              "ToolTip": "C:\\Users\\cheae\\source\\repos\\winform_team3\\client\\client\\menuControl\\\uCD08\uAE30\uD654\uBA74.cs [\uB514\uC790\uC778]",
+              "RelativeToolTip": "client\\menuControl\\\uCD08\uAE30\uD654\uBA74.cs [\uB514\uC790\uC778]",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-05-09T15:04:30.418Z",
               "IsPinned": true,
@@ -61,16 +77,72 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "\uCD08\uAE30\uD654\uBA74.Designer.cs",
-              "DocumentMoniker": "C:\\Users\\cheae\\source\\repos\\winform_team3\\client\\client\\menuControl\\\uCD08\uAE30\uD654\uBA74.Designer.cs",
-              "RelativeDocumentMoniker": "client\\menuControl\\\uCD08\uAE30\uD654\uBA74.Designer.cs",
-              "ToolTip": "C:\\Users\\cheae\\source\\repos\\winform_team3\\client\\client\\menuControl\\\uCD08\uAE30\uD654\uBA74.Designer.cs*",
-              "RelativeToolTip": "client\\menuControl\\\uCD08\uAE30\uD654\uBA74.Designer.cs*",
-              "ViewState": "AgIAABsAAAAAAAAAAADwvy0AAAAAAAAAAAAAAA==",
+              "DocumentIndex": 2,
+              "Title": "quizStart.cs [\uB514\uC790\uC778]",
+              "DocumentMoniker": "C:\\Users\\cheae\\source\\repos\\winform_team3\\client\\client\\quizForm\\quizStart.cs",
+              "RelativeDocumentMoniker": "client\\quizForm\\quizStart.cs",
+              "ToolTip": "C:\\Users\\cheae\\source\\repos\\winform_team3\\client\\client\\quizForm\\quizStart.cs [\uB514\uC790\uC778]",
+              "RelativeToolTip": "client\\quizForm\\quizStart.cs [\uB514\uC790\uC778]",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-12T17:58:09.43Z",
+              "WhenOpened": "2025-05-12T18:11:50.205Z",
+              "EditorCaption": " [\uB514\uC790\uC778]"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "quizForm.cs [\uB514\uC790\uC778]",
+              "DocumentMoniker": "C:\\Users\\cheae\\source\\repos\\winform_team3\\client\\client\\quizForm\\quizForm.cs",
+              "RelativeDocumentMoniker": "client\\quizForm\\quizForm.cs",
+              "ToolTip": "C:\\Users\\cheae\\source\\repos\\winform_team3\\client\\client\\quizForm\\quizForm.cs [\uB514\uC790\uC778]",
+              "RelativeToolTip": "client\\quizForm\\quizForm.cs [\uB514\uC790\uC778]",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-12T18:11:27.939Z",
+              "EditorCaption": " [\uB514\uC790\uC778]"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "FindStart.cs [\uB514\uC790\uC778]",
+              "DocumentMoniker": "C:\\Users\\cheae\\source\\repos\\winform_team3\\client\\client\\FindDifferForm\\FindStart.cs",
+              "RelativeDocumentMoniker": "client\\FindDifferForm\\FindStart.cs",
+              "ToolTip": "C:\\Users\\cheae\\source\\repos\\winform_team3\\client\\client\\FindDifferForm\\FindStart.cs [\uB514\uC790\uC778]*",
+              "RelativeToolTip": "client\\FindDifferForm\\FindStart.cs [\uB514\uC790\uC778]*",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-12T18:11:18.171Z",
+              "EditorCaption": " [\uB514\uC790\uC778]"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "PVP.cs",
+              "DocumentMoniker": "C:\\Users\\cheae\\source\\repos\\winform_team3\\client\\client\\menuControl\\PVP.cs",
+              "RelativeDocumentMoniker": "client\\menuControl\\PVP.cs",
+              "ToolTip": "C:\\Users\\cheae\\source\\repos\\winform_team3\\client\\client\\menuControl\\PVP.cs*",
+              "RelativeToolTip": "client\\menuControl\\PVP.cs*",
+              "ViewState": "AgIAAAYAAAAAAAAAAAAAACMAAAAdAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-12T18:07:09.149Z",
               "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "PVP.cs [\uB514\uC790\uC778]",
+              "DocumentMoniker": "C:\\Users\\cheae\\source\\repos\\winform_team3\\client\\client\\menuControl\\PVP.cs",
+              "RelativeDocumentMoniker": "client\\menuControl\\PVP.cs",
+              "ToolTip": "C:\\Users\\cheae\\source\\repos\\winform_team3\\client\\client\\menuControl\\PVP.cs [\uB514\uC790\uC778]*",
+              "RelativeToolTip": "client\\menuControl\\PVP.cs [\uB514\uC790\uC778]*",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-12T18:06:17.3Z",
+              "EditorCaption": " [\uB514\uC790\uC778]"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:134:0:{116d2292-e37d-41cd-a077-ebacac4c8cc4}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{34e76e81-ee4a-11d0-ae2e-00a0c90fffc3}"
             },
             {
               "$type": "Bookmark",
@@ -102,7 +174,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 5,
               "Title": "Form1.cs [\uB514\uC790\uC778]",
               "DocumentMoniker": "C:\\Users\\cheae\\source\\repos\\winform_team3\\client\\client\\Form1.cs",
               "RelativeDocumentMoniker": "client\\Form1.cs",
@@ -114,13 +186,13 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 6,
               "Title": "\uCD08\uAE30\uD654\uBA74.cs",
               "DocumentMoniker": "C:\\Users\\cheae\\source\\repos\\winform_team3\\client\\client\\menuControl\\\uCD08\uAE30\uD654\uBA74.cs",
               "RelativeDocumentMoniker": "client\\menuControl\\\uCD08\uAE30\uD654\uBA74.cs",
-              "ToolTip": "C:\\Users\\cheae\\source\\repos\\winform_team3\\client\\client\\menuControl\\\uCD08\uAE30\uD654\uBA74.cs*",
-              "RelativeToolTip": "client\\menuControl\\\uCD08\uAE30\uD654\uBA74.cs*",
-              "ViewState": "AgIAAAUAAAAAAAAAAAAAABoAAAAAAAAAAAAAAA==",
+              "ToolTip": "C:\\Users\\cheae\\source\\repos\\winform_team3\\client\\client\\menuControl\\\uCD08\uAE30\uD654\uBA74.cs",
+              "RelativeToolTip": "client\\menuControl\\\uCD08\uAE30\uD654\uBA74.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAFkAAAABAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-05-09T15:04:58.424Z",
               "EditorCaption": ""
