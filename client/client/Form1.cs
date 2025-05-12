@@ -133,6 +133,8 @@ namespace client
         private void LoginPage_LoginSuccess(object sender, EventArgs e)
         {
             EnableMenuButtons();
+
+            btn홈.PerformClick();
         }
 
     }
