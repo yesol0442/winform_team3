@@ -55,6 +55,18 @@
     <Compile Include="class\CodePractice.cs" />
     <Compile Include="class\Home.cs" />
     <Compile Include="class\Quiz.cs" />
+    <Compile Include="FindDifferForm\FindForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FindDifferForm\FindForm.Designer.cs">
+      <DependentUpon>FindForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FindDifferForm\FindReady.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FindDifferForm\FindReady.Designer.cs">
+      <DependentUpon>FindReady.cs</DependentUpon>
+    </Compile>
     <Compile Include="FindDifferForm\FindStart.cs">
       <SubType>Form</SubType>
     </Compile>
