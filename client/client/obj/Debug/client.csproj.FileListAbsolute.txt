@@ -114,3 +114,28 @@ C:\Users\yesol\OneDrive\바탕 화면\team3\client\client\bin\Debug\client.exe
 C:\Users\yesol\OneDrive\바탕 화면\team3\client\client\bin\Debug\client.pdb
 C:\Users\yesol\OneDrive\바탕 화면\team3\client\client\bin\Debug\Guna.UI2.dll
 C:\Users\yesol\OneDrive\바탕 화면\team3\client\client\obj\Debug\client.csproj.CopyComplete
+C:\winform_team3\client\client\bin\Debug\client.exe.config
+C:\winform_team3\client\client\bin\Debug\client.exe
+C:\winform_team3\client\client\bin\Debug\client.pdb
+C:\winform_team3\client\client\bin\Debug\Guna.UI2.dll
+C:\winform_team3\client\client\obj\Debug\client.csproj.AssemblyReference.cache
+C:\winform_team3\client\client\obj\Debug\client.FindDifferForm.FindStart.resources
+C:\winform_team3\client\client\obj\Debug\client.Form1.resources
+C:\winform_team3\client\client\obj\Debug\client.menuControl.CodePreacticeControl.CodeExplainControl.resources
+C:\winform_team3\client\client\obj\Debug\client.menuControl.CodePreacticeControl.ShareControl.resources
+C:\winform_team3\client\client\obj\Debug\client.menuControl.PVP.resources
+C:\winform_team3\client\client\obj\Debug\client.menuControl.미니게임.resources
+C:\winform_team3\client\client\obj\Debug\client.menuControl.초기화면.resources
+C:\winform_team3\client\client\obj\Debug\client.menuControl.코드연습.resources
+C:\winform_team3\client\client\obj\Debug\client.menuControl.홈.resources
+C:\winform_team3\client\client\obj\Debug\client.menuControl.환경설정.resources
+C:\winform_team3\client\client\obj\Debug\client.Properties.Resources.resources
+C:\winform_team3\client\client\obj\Debug\client.quizForm.quizForm.resources
+C:\winform_team3\client\client\obj\Debug\client.quizForm.quizReady.resources
+C:\winform_team3\client\client\obj\Debug\client.quizForm.quizStart.resources
+C:\winform_team3\client\client\obj\Debug\client.shareForm.shareform.resources
+C:\winform_team3\client\client\obj\Debug\client.csproj.GenerateResource.cache
+C:\winform_team3\client\client\obj\Debug\client.csproj.CoreCompileInputs.cache
+C:\winform_team3\client\client\obj\Debug\client.csproj.Up2Date
+C:\winform_team3\client\client\obj\Debug\client.exe
+C:\winform_team3\client\client\obj\Debug\client.pdb

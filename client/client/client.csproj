@@ -228,7 +228,9 @@
   <ItemGroup>
     <None Include="Resources\winkufairy.png" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <None Include="Resources\신지.jpeg" />
+  </ItemGroup>
   <ItemGroup>
     <None Include="Resources\res_quiz\profile_image.png" />
   </ItemGroup>

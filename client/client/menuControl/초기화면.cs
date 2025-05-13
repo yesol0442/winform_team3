@@ -22,6 +22,7 @@ namespace client.menuControl
 
         private TcpClient client;
         private NetworkStream stream;
+        private bool isConnected;
 
         public event EventHandler LoginSuccess;
 
