@@ -1,59 +1,83 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
+﻿using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Net.Sockets;
+using System.Threading;
+using System;
 
 namespace client.quizForm
 {
     public partial class quizReady : Form
     {
-        int playerCount = 1; //임시
+        TcpClient client;
+        NetworkStream stream;
+        byte[] buffer = new byte[4];
 
         public quizReady()
         {
             InitializeComponent();
-        }
+            client = new TcpClient();
+            client.Connect("127.0.0.1", 9000); // 서버 IP 주소
+            stream = client.GetStream();
 
-        //player를 추가
-        private void AddPlayer()
-        {
-            if (playerCount < 4)
-            {
-                playerCount++;
-                UpdatePlayerPanels();
-            }
-        }
-
-        private void UpdatePlayerPanels()
-        {
-            Panel[] panels = { panel1, panel2, panel3, panel4 };
-
-            for (int i = 0; i < panels.Length; i++)
-            {
-                if (i < playerCount)
-                {
-                    panels[i].BackColor = Color.Green; // 접속한 플레이어
-                }
-                else
-                {
-                    panels[i].BackColor = Color.Silver;  // 대기 중
-                }
-            }
-        }
-
-        private void guna2Button2_Click(object sender, EventArgs e)
-        {
-            AddPlayer();
+            Thread receiveThread = new Thread(ReceiveData);
+            receiveThread.IsBackground = true;
+            receiveThread.Start();
         }
 
         private void guna2Button1_Click(object sender, EventArgs e)
         {
             this.Close();
+        }
+
+        private void ReceiveData()
+        {
+            while (true)
+            {
+                try
+                {
+                    byte[] buffer = new byte[256];
+                    int bytes = stream.Read(buffer, 0, buffer.Length);
+                    if (bytes > 0)
+                    {
+                        string msg = Encoding.UTF8.GetString(buffer, 0, bytes);
+
+                        if (msg == "FULL")
+                        {
+                            MessageBox.Show("정원이 초과되어 접속할 수 없습니다.", "접속 실패", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                            client.Close();
+                            break;
+                        }
+
+                        // 접속 인원 수인 경우
+                        int count = BitConverter.ToInt32(buffer, 0);
+                        UpdatePanels(count);
+                    }
+                }
+                catch
+                {
+                    break;
+                }
+            }
+        }
+
+        private void UpdatePanels(int count)
+        {
+            if (InvokeRequired)
+            {
+                Invoke(new Action(() => UpdatePanels(count)));
+                return;
+            }
+
+            Panel[] panels = { panel1, panel2, panel3, panel4 };
+            for (int i = 0; i < panels.Length; i++)
+            {
+                panels[i].BackColor = (i < count) ? Color.Green : Color.Silver;
+            }
         }
     }
 }

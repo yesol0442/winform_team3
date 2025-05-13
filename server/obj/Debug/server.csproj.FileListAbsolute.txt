@@ -1,0 +1,11 @@
+C:\Users\yesol\source\repos\winform_team3\server\bin\Debug\server.exe.config
+C:\Users\yesol\source\repos\winform_team3\server\bin\Debug\server.exe
+C:\Users\yesol\source\repos\winform_team3\server\bin\Debug\server.pdb
+C:\Users\yesol\source\repos\winform_team3\server\obj\Debug\server.csproj.AssemblyReference.cache
+C:\Users\yesol\source\repos\winform_team3\server\obj\Debug\server.csproj.SuggestedBindingRedirects.cache
+C:\Users\yesol\source\repos\winform_team3\server\obj\Debug\server.Properties.Resources.resources
+C:\Users\yesol\source\repos\winform_team3\server\obj\Debug\server.csproj.GenerateResource.cache
+C:\Users\yesol\source\repos\winform_team3\server\obj\Debug\server.csproj.CoreCompileInputs.cache
+C:\Users\yesol\source\repos\winform_team3\server\obj\Debug\server.exe
+C:\Users\yesol\source\repos\winform_team3\server\obj\Debug\server.pdb
+C:\Users\yesol\source\repos\winform_team3\server\obj\Debug\server.Room.resources
