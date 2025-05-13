@@ -44,6 +44,9 @@ namespace client
 
             초기화면.LoginSuccess += LoginPage_LoginSuccess; // 로그인 이벤트 핸들러 설정
 
+            // 폼 크기 고정
+            this.MaximumSize = this.Size;
+            this.MinimumSize = this.Size;
 
         }
 

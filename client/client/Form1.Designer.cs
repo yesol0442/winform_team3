@@ -54,9 +54,10 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.나가기.Font = new System.Drawing.Font("굴림", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            this.나가기.Location = new System.Drawing.Point(972, 13);
+            this.나가기.Location = new System.Drawing.Point(1264, 17);
+            this.나가기.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.나가기.Name = "나가기";
-            this.나가기.Size = new System.Drawing.Size(33, 27);
+            this.나가기.Size = new System.Drawing.Size(43, 36);
             this.나가기.TabIndex = 0;
             this.나가기.Text = "X";
             this.나가기.UseVisualStyleBackColor = true;
@@ -68,9 +69,10 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.내림.Font = new System.Drawing.Font("굴림", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            this.내림.Location = new System.Drawing.Point(937, 13);
+            this.내림.Location = new System.Drawing.Point(1218, 17);
+            this.내림.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.내림.Name = "내림";
-            this.내림.Size = new System.Drawing.Size(33, 27);
+            this.내림.Size = new System.Drawing.Size(43, 36);
             this.내림.TabIndex = 1;
             this.내림.Text = "_";
             this.내림.UseVisualStyleBackColor = true;
@@ -78,11 +80,12 @@
             // 
             // guna2Panel1
             // 
-            this.guna2Panel1.Location = new System.Drawing.Point(185, 46);
+            this.guna2Panel1.Location = new System.Drawing.Point(240, 61);
+            this.guna2Panel1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.guna2Panel1.Name = "guna2Panel1";
             this.guna2Panel1.ShadowDecoration.BorderRadius = 7;
             this.guna2Panel1.ShadowDecoration.Color = System.Drawing.Color.DimGray;
-            this.guna2Panel1.Size = new System.Drawing.Size(807, 517);
+            this.guna2Panel1.Size = new System.Drawing.Size(1049, 689);
             this.guna2Panel1.TabIndex = 2;
             // 
             // btn홈
@@ -99,10 +102,11 @@
             this.btn홈.ForeColor = System.Drawing.Color.DimGray;
             this.btn홈.HoverState.BorderColor = System.Drawing.SystemColors.Control;
             this.btn홈.HoverState.FillColor = System.Drawing.SystemColors.Control;
-            this.btn홈.Location = new System.Drawing.Point(3, 3);
+            this.btn홈.Location = new System.Drawing.Point(4, 4);
+            this.btn홈.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.btn홈.Name = "btn홈";
             this.btn홈.PressedColor = System.Drawing.SystemColors.Control;
-            this.btn홈.Size = new System.Drawing.Size(163, 65);
+            this.btn홈.Size = new System.Drawing.Size(212, 87);
             this.btn홈.TabIndex = 3;
             this.btn홈.Text = "홈";
             this.btn홈.Click += new System.EventHandler(this.홈_Click);
@@ -120,10 +124,11 @@
             this.btn코드연습.Font = new System.Drawing.Font("휴먼옛체", 14F, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.btn코드연습.ForeColor = System.Drawing.Color.DimGray;
             this.btn코드연습.HoverState.FillColor = System.Drawing.SystemColors.Control;
-            this.btn코드연습.Location = new System.Drawing.Point(3, 74);
+            this.btn코드연습.Location = new System.Drawing.Point(4, 99);
+            this.btn코드연습.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.btn코드연습.Name = "btn코드연습";
             this.btn코드연습.PressedColor = System.Drawing.SystemColors.Control;
-            this.btn코드연습.Size = new System.Drawing.Size(163, 65);
+            this.btn코드연습.Size = new System.Drawing.Size(212, 87);
             this.btn코드연습.TabIndex = 4;
             this.btn코드연습.Text = "코드연습";
             this.btn코드연습.Click += new System.EventHandler(this.코드연습_Click);
@@ -141,10 +146,11 @@
             this.btnPVP.Font = new System.Drawing.Font("휴먼옛체", 14F, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.btnPVP.ForeColor = System.Drawing.Color.DimGray;
             this.btnPVP.HoverState.FillColor = System.Drawing.SystemColors.Control;
-            this.btnPVP.Location = new System.Drawing.Point(3, 145);
+            this.btnPVP.Location = new System.Drawing.Point(4, 194);
+            this.btnPVP.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.btnPVP.Name = "btnPVP";
             this.btnPVP.PressedColor = System.Drawing.SystemColors.Control;
-            this.btnPVP.Size = new System.Drawing.Size(163, 65);
+            this.btnPVP.Size = new System.Drawing.Size(212, 87);
             this.btnPVP.TabIndex = 5;
             this.btnPVP.Text = "PVP";
             this.btnPVP.Click += new System.EventHandler(this.PVP_Click);
@@ -162,10 +168,11 @@
             this.btn미니게임.Font = new System.Drawing.Font("휴먼옛체", 14F, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.btn미니게임.ForeColor = System.Drawing.Color.DimGray;
             this.btn미니게임.HoverState.FillColor = System.Drawing.SystemColors.Control;
-            this.btn미니게임.Location = new System.Drawing.Point(3, 216);
+            this.btn미니게임.Location = new System.Drawing.Point(4, 289);
+            this.btn미니게임.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.btn미니게임.Name = "btn미니게임";
             this.btn미니게임.PressedColor = System.Drawing.SystemColors.Control;
-            this.btn미니게임.Size = new System.Drawing.Size(163, 65);
+            this.btn미니게임.Size = new System.Drawing.Size(212, 87);
             this.btn미니게임.TabIndex = 6;
             this.btn미니게임.Text = "미니게임";
             this.btn미니게임.Click += new System.EventHandler(this.미니게임_Click);
@@ -183,10 +190,11 @@
             this.btn환경설정.Font = new System.Drawing.Font("휴먼옛체", 14F, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.btn환경설정.ForeColor = System.Drawing.Color.DimGray;
             this.btn환경설정.HoverState.FillColor = System.Drawing.SystemColors.Control;
-            this.btn환경설정.Location = new System.Drawing.Point(3, 287);
+            this.btn환경설정.Location = new System.Drawing.Point(4, 384);
+            this.btn환경설정.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.btn환경설정.Name = "btn환경설정";
             this.btn환경설정.PressedColor = System.Drawing.SystemColors.Control;
-            this.btn환경설정.Size = new System.Drawing.Size(163, 67);
+            this.btn환경설정.Size = new System.Drawing.Size(212, 88);
             this.btn환경설정.TabIndex = 7;
             this.btn환경설정.Text = "환경설정";
             this.btn환경설정.Click += new System.EventHandler(this.환경설정_Click);
@@ -200,7 +208,8 @@
             this.tableLayoutPanel1.Controls.Add(this.btn코드연습, 0, 1);
             this.tableLayoutPanel1.Controls.Add(this.btnPVP, 0, 2);
             this.tableLayoutPanel1.Controls.Add(this.btn홈, 0, 0);
-            this.tableLayoutPanel1.Location = new System.Drawing.Point(12, 110);
+            this.tableLayoutPanel1.Location = new System.Drawing.Point(16, 147);
+            this.tableLayoutPanel1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
             this.tableLayoutPanel1.RowCount = 5;
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 20F));
@@ -208,21 +217,22 @@
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 20F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 20F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 20F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(169, 357);
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(220, 476);
             this.tableLayoutPanel1.TabIndex = 8;
             // 
             // Form1
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 18F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(13F, 24F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.ClientSize = new System.Drawing.Size(1017, 586);
+            this.ClientSize = new System.Drawing.Size(1322, 781);
             this.Controls.Add(this.tableLayoutPanel1);
             this.Controls.Add(this.guna2Panel1);
             this.Controls.Add(this.내림);
             this.Controls.Add(this.나가기);
             this.DoubleBuffered = true;
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
+            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.Name = "Form1";
             this.Text = "Form1";
             this.Load += new System.EventHandler(this.Form1_Load);
