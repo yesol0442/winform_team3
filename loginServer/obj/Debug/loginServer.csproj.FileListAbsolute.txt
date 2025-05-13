@@ -1,0 +1,7 @@
+C:\winform_team3\loginServer\bin\Debug\loginServer.exe.config
+C:\winform_team3\loginServer\bin\Debug\loginServer.exe
+C:\winform_team3\loginServer\bin\Debug\loginServer.pdb
+C:\winform_team3\loginServer\obj\Debug\loginServer.csproj.AssemblyReference.cache
+C:\winform_team3\loginServer\obj\Debug\loginServer.csproj.CoreCompileInputs.cache
+C:\winform_team3\loginServer\obj\Debug\loginServer.exe
+C:\winform_team3\loginServer\obj\Debug\loginServer.pdb
