@@ -14,10 +14,13 @@ using System.Web.UI.HtmlControls;
 using System.Windows.Forms;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.StartPanel;
 
+
 namespace client.menuControl
 {
+    
     public partial class 초기화면 : UserControl
     {
+        
         string connectionString = @"Server=localhost\WINFORM_DB;Database=Winform_DB;Trusted_Connection=True;";
 
         private TcpClient client;
@@ -41,7 +44,7 @@ namespace client.menuControl
             //}
 
             InitializeComponent();
-            ConnectToServer();
+            //ConnectToServer();
             txtId.PlaceholderText = "아이디를 입력하세요.";
         }
 
@@ -193,6 +196,8 @@ namespace client.menuControl
                 txtId.Focus();
             }
         }
-
+            
     }
+
 }
+        

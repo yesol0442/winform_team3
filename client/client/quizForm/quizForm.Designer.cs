@@ -28,15 +28,12 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.txt_answer = new Guna.UI2.WinForms.Guna2TextBox();
             this.guna2HtmlLabel4 = new Guna.UI2.WinForms.Guna2HtmlLabel();
             this.guna2HtmlLabel5 = new Guna.UI2.WinForms.Guna2HtmlLabel();
             this.guna2HtmlLabel6 = new Guna.UI2.WinForms.Guna2HtmlLabel();
             this.guna2HtmlLabel7 = new Guna.UI2.WinForms.Guna2HtmlLabel();
-            this.playerAnswer1 = new Guna.UI2.WinForms.Guna2HtmlLabel();
-            this.playerAnswer2 = new Guna.UI2.WinForms.Guna2HtmlLabel();
-            this.playerAnswer3 = new Guna.UI2.WinForms.Guna2HtmlLabel();
-            this.playerAnswer4 = new Guna.UI2.WinForms.Guna2HtmlLabel();
             this.pic_sb4 = new Guna.UI2.WinForms.Guna2PictureBox();
             this.pic_sb3 = new Guna.UI2.WinForms.Guna2PictureBox();
             this.pic_sb2 = new Guna.UI2.WinForms.Guna2PictureBox();
@@ -54,6 +51,16 @@
             this.playerScore3 = new System.Windows.Forms.Label();
             this.playerScore4 = new System.Windows.Forms.Label();
             this.txt_question = new Guna.UI2.WinForms.Guna2TextBox();
+            this.quizStartTimer = new System.Windows.Forms.Timer(this.components);
+            this.answerReadyTimer = new System.Windows.Forms.Timer(this.components);
+            this.player1Plus = new System.Windows.Forms.Label();
+            this.player2Plus = new System.Windows.Forms.Label();
+            this.player3Plus = new System.Windows.Forms.Label();
+            this.player4Plus = new System.Windows.Forms.Label();
+            this.playerAnswer1 = new System.Windows.Forms.Label();
+            this.playerAnswer2 = new System.Windows.Forms.Label();
+            this.playerAnswer3 = new System.Windows.Forms.Label();
+            this.playerAnswer4 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.pic_sb4)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pic_sb3)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pic_sb2)).BeginInit();
@@ -86,6 +93,7 @@
             this.txt_answer.SelectedText = "";
             this.txt_answer.Size = new System.Drawing.Size(230, 45);
             this.txt_answer.TabIndex = 6;
+            this.txt_answer.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txt_answer_KeyDown);
             // 
             // guna2HtmlLabel4
             // 
@@ -134,46 +142,6 @@
             this.guna2HtmlLabel7.TabIndex = 19;
             this.guna2HtmlLabel7.Text = "4P";
             this.guna2HtmlLabel7.TextAlignment = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // playerAnswer1
-            // 
-            this.playerAnswer1.BackColor = System.Drawing.Color.White;
-            this.playerAnswer1.Font = new System.Drawing.Font("휴먼옛체", 14F);
-            this.playerAnswer1.Location = new System.Drawing.Point(134, 137);
-            this.playerAnswer1.Name = "playerAnswer1";
-            this.playerAnswer1.Size = new System.Drawing.Size(19, 27);
-            this.playerAnswer1.TabIndex = 24;
-            this.playerAnswer1.Text = "O";
-            // 
-            // playerAnswer2
-            // 
-            this.playerAnswer2.BackColor = System.Drawing.Color.White;
-            this.playerAnswer2.Font = new System.Drawing.Font("휴먼옛체", 14F);
-            this.playerAnswer2.Location = new System.Drawing.Point(304, 137);
-            this.playerAnswer2.Name = "playerAnswer2";
-            this.playerAnswer2.Size = new System.Drawing.Size(19, 27);
-            this.playerAnswer2.TabIndex = 25;
-            this.playerAnswer2.Text = "O";
-            // 
-            // playerAnswer3
-            // 
-            this.playerAnswer3.BackColor = System.Drawing.Color.White;
-            this.playerAnswer3.Font = new System.Drawing.Font("휴먼옛체", 14F);
-            this.playerAnswer3.Location = new System.Drawing.Point(475, 137);
-            this.playerAnswer3.Name = "playerAnswer3";
-            this.playerAnswer3.Size = new System.Drawing.Size(19, 27);
-            this.playerAnswer3.TabIndex = 27;
-            this.playerAnswer3.Text = "O";
-            // 
-            // playerAnswer4
-            // 
-            this.playerAnswer4.BackColor = System.Drawing.Color.White;
-            this.playerAnswer4.Font = new System.Drawing.Font("휴먼옛체", 14F);
-            this.playerAnswer4.Location = new System.Drawing.Point(645, 137);
-            this.playerAnswer4.Name = "playerAnswer4";
-            this.playerAnswer4.Size = new System.Drawing.Size(19, 27);
-            this.playerAnswer4.TabIndex = 28;
-            this.playerAnswer4.Text = "O";
             // 
             // pic_sb4
             // 
@@ -367,11 +335,116 @@
             this.txt_question.TabStop = false;
             this.txt_question.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
+            // answerReadyTimer
+            // 
+            this.answerReadyTimer.Interval = 5000;
+            this.answerReadyTimer.Tick += new System.EventHandler(this.answerReadyTimer_Tick);
+            // 
+            // player1Plus
+            // 
+            this.player1Plus.BackColor = System.Drawing.Color.Transparent;
+            this.player1Plus.Font = new System.Drawing.Font("휴먼옛체", 19.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.player1Plus.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.player1Plus.Location = new System.Drawing.Point(85, 244);
+            this.player1Plus.Name = "player1Plus";
+            this.player1Plus.Size = new System.Drawing.Size(120, 35);
+            this.player1Plus.TabIndex = 38;
+            this.player1Plus.Text = "+0";
+            this.player1Plus.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // player2Plus
+            // 
+            this.player2Plus.BackColor = System.Drawing.Color.Transparent;
+            this.player2Plus.Font = new System.Drawing.Font("휴먼옛체", 19.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.player2Plus.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.player2Plus.Location = new System.Drawing.Point(255, 244);
+            this.player2Plus.Name = "player2Plus";
+            this.player2Plus.Size = new System.Drawing.Size(120, 35);
+            this.player2Plus.TabIndex = 39;
+            this.player2Plus.Text = "+0";
+            this.player2Plus.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // player3Plus
+            // 
+            this.player3Plus.BackColor = System.Drawing.Color.Transparent;
+            this.player3Plus.Font = new System.Drawing.Font("휴먼옛체", 19.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.player3Plus.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.player3Plus.Location = new System.Drawing.Point(425, 244);
+            this.player3Plus.Name = "player3Plus";
+            this.player3Plus.Size = new System.Drawing.Size(120, 35);
+            this.player3Plus.TabIndex = 40;
+            this.player3Plus.Text = "+0";
+            this.player3Plus.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // player4Plus
+            // 
+            this.player4Plus.BackColor = System.Drawing.Color.Transparent;
+            this.player4Plus.Font = new System.Drawing.Font("휴먼옛체", 19.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.player4Plus.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.player4Plus.Location = new System.Drawing.Point(595, 244);
+            this.player4Plus.Name = "player4Plus";
+            this.player4Plus.Size = new System.Drawing.Size(120, 35);
+            this.player4Plus.TabIndex = 41;
+            this.player4Plus.Text = "+0";
+            this.player4Plus.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // playerAnswer1
+            // 
+            this.playerAnswer1.BackColor = System.Drawing.Color.White;
+            this.playerAnswer1.Font = new System.Drawing.Font("휴먼옛체", 14F);
+            this.playerAnswer1.Location = new System.Drawing.Point(100, 137);
+            this.playerAnswer1.Name = "playerAnswer1";
+            this.playerAnswer1.Size = new System.Drawing.Size(85, 26);
+            this.playerAnswer1.TabIndex = 42;
+            this.playerAnswer1.Text = "O";
+            this.playerAnswer1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // playerAnswer2
+            // 
+            this.playerAnswer2.BackColor = System.Drawing.Color.White;
+            this.playerAnswer2.Font = new System.Drawing.Font("휴먼옛체", 14F);
+            this.playerAnswer2.Location = new System.Drawing.Point(270, 137);
+            this.playerAnswer2.Name = "playerAnswer2";
+            this.playerAnswer2.Size = new System.Drawing.Size(85, 26);
+            this.playerAnswer2.TabIndex = 43;
+            this.playerAnswer2.Text = "O";
+            this.playerAnswer2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // playerAnswer3
+            // 
+            this.playerAnswer3.BackColor = System.Drawing.Color.White;
+            this.playerAnswer3.Font = new System.Drawing.Font("휴먼옛체", 14F);
+            this.playerAnswer3.Location = new System.Drawing.Point(439, 137);
+            this.playerAnswer3.Name = "playerAnswer3";
+            this.playerAnswer3.Size = new System.Drawing.Size(89, 26);
+            this.playerAnswer3.TabIndex = 44;
+            this.playerAnswer3.Text = "O";
+            this.playerAnswer3.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // playerAnswer4
+            // 
+            this.playerAnswer4.BackColor = System.Drawing.Color.White;
+            this.playerAnswer4.Font = new System.Drawing.Font("휴먼옛체", 14F);
+            this.playerAnswer4.Location = new System.Drawing.Point(610, 137);
+            this.playerAnswer4.Name = "playerAnswer4";
+            this.playerAnswer4.Size = new System.Drawing.Size(85, 26);
+            this.playerAnswer4.TabIndex = 45;
+            this.playerAnswer4.Text = "O";
+            this.playerAnswer4.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
             // quizForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.playerAnswer4);
+            this.Controls.Add(this.playerAnswer3);
+            this.Controls.Add(this.playerAnswer2);
+            this.Controls.Add(this.playerAnswer1);
+            this.Controls.Add(this.player4Plus);
+            this.Controls.Add(this.player3Plus);
+            this.Controls.Add(this.player2Plus);
+            this.Controls.Add(this.player1Plus);
             this.Controls.Add(this.playerScore4);
             this.Controls.Add(this.playerScore3);
             this.Controls.Add(this.playerScore2);
@@ -380,10 +453,6 @@
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
-            this.Controls.Add(this.playerAnswer4);
-            this.Controls.Add(this.playerAnswer3);
-            this.Controls.Add(this.playerAnswer2);
-            this.Controls.Add(this.playerAnswer1);
             this.Controls.Add(this.guna2HtmlLabel7);
             this.Controls.Add(this.guna2HtmlLabel6);
             this.Controls.Add(this.guna2HtmlLabel5);
@@ -427,10 +496,6 @@
         private Guna.UI2.WinForms.Guna2HtmlLabel guna2HtmlLabel5;
         private Guna.UI2.WinForms.Guna2HtmlLabel guna2HtmlLabel6;
         private Guna.UI2.WinForms.Guna2HtmlLabel guna2HtmlLabel7;
-        private Guna.UI2.WinForms.Guna2HtmlLabel playerAnswer1;
-        private Guna.UI2.WinForms.Guna2HtmlLabel playerAnswer2;
-        private Guna.UI2.WinForms.Guna2HtmlLabel playerAnswer3;
-        private Guna.UI2.WinForms.Guna2HtmlLabel playerAnswer4;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label3;
@@ -440,5 +505,15 @@
         private System.Windows.Forms.Label playerScore3;
         private System.Windows.Forms.Label playerScore4;
         private Guna.UI2.WinForms.Guna2TextBox txt_question;
+        private System.Windows.Forms.Timer quizStartTimer;
+        private System.Windows.Forms.Timer answerReadyTimer;
+        private System.Windows.Forms.Label player1Plus;
+        private System.Windows.Forms.Label player2Plus;
+        private System.Windows.Forms.Label player3Plus;
+        private System.Windows.Forms.Label player4Plus;
+        private System.Windows.Forms.Label playerAnswer1;
+        private System.Windows.Forms.Label playerAnswer2;
+        private System.Windows.Forms.Label playerAnswer3;
+        private System.Windows.Forms.Label playerAnswer4;
     }
 }

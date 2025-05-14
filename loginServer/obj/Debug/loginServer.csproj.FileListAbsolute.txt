@@ -5,3 +5,11 @@ C:\winform_team3\loginServer\obj\Debug\loginServer.csproj.AssemblyReference.cach
 C:\winform_team3\loginServer\obj\Debug\loginServer.csproj.CoreCompileInputs.cache
 C:\winform_team3\loginServer\obj\Debug\loginServer.exe
 C:\winform_team3\loginServer\obj\Debug\loginServer.pdb
+C:\Users\yesol\OneDrive\바탕 화면\team3\loginServer\bin\Debug\loginServer.exe.config
+C:\Users\yesol\OneDrive\바탕 화면\team3\loginServer\bin\Debug\loginServer.exe
+C:\Users\yesol\OneDrive\바탕 화면\team3\loginServer\bin\Debug\loginServer.pdb
+C:\Users\yesol\OneDrive\바탕 화면\team3\loginServer\obj\Debug\loginServer.csproj.AssemblyReference.cache
+C:\Users\yesol\OneDrive\바탕 화면\team3\loginServer\obj\Debug\loginServer.csproj.SuggestedBindingRedirects.cache
+C:\Users\yesol\OneDrive\바탕 화면\team3\loginServer\obj\Debug\loginServer.csproj.CoreCompileInputs.cache
+C:\Users\yesol\OneDrive\바탕 화면\team3\loginServer\obj\Debug\loginServer.exe
+C:\Users\yesol\OneDrive\바탕 화면\team3\loginServer\obj\Debug\loginServer.pdb
