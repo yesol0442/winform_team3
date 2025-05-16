@@ -6,6 +6,8 @@ using System.Threading;
 using System.Data.SqlClient;
 using server;
 using System.IO;
+using System.Threading.Tasks;
+using System.Runtime.Remoting.Messaging;
 
 namespace server
 {
@@ -34,68 +36,27 @@ namespace server
             }
         }
 
-        private void HandleClient(TcpClient client)
+        private async Task HandleClient(TcpClient client)
         {
             try
             {
-                using (NetworkStream stream = client.GetStream())
-                {
-                    byte[] buffer = new byte[1024];
-                    int bytesRead = stream.Read(buffer, 0, buffer.Length);
+                NetworkStream stream = client.GetStream();
+                byte[] buffer = new byte[4096];
 
-                    // 바이트 배열을 문자열로 변환
+                while (client.Connected)
+                {
+                    int bytesRead = await stream.ReadAsync(buffer, 0, buffer.Length);
+                    if (bytesRead == 0)
+                        break;
+
                     string message = Encoding.UTF8.GetString(buffer, 0, bytesRead).Trim();
                     Console.WriteLine($"[요청] {message}");
 
-                    string response = "UNKNOWN_COMMAND";
+                    // 클라이언트 인스턴스를 전달하여 메시지 처리
+                    string response = ProcessRequest(client, message);
 
-                    // 명령어 처리
-                    if (message.StartsWith("LOGIN:"))
-                    {
-                        string userId = message.Substring(6).Trim();  // 정수형 인덱스 사용
-                        response = ValidateUser(userId) ? "LOGIN_SUCCESS" : "LOGIN_FAIL";
-                    }
-                    else if (message.StartsWith("REGISTER:"))
-                    {
-                        string userId = message.Substring(9).Trim();
-                        response = AddNewUserToDatabase(userId) ? "REGISTER_SUCCESS" : "REGISTER_FAIL";
-                    }
-                    else if (message.StartsWith("LOAD_PROFILE:"))
-                    {
-                        string userId = message.Substring(13).Trim();
-                        response = GetUserProfile(userId);
-                    }
-                    else if (message.StartsWith("UPDATE_PROFILE_IMAGE:"))
-                    {
-                        string[] parts = message.Split(new[] { ':' }, 3);
-
-                        if (parts.Length == 3)
-                        {
-                            string userId = parts[1].Trim();
-                            string relativeImagePath = parts[2].Trim();
-                            response = UpdateProfileImage(userId, relativeImagePath) ? "OK" : "IMAGE_UPDATE_FAIL";
-                        }
-                    }
-                    else if (message.StartsWith("UPDATE_NICKNAME:"))
-                    {
-                        string[] parts = message.Split(new[] { ':' }, 3);
-
-                        if (parts.Length == 3)
-                        {
-                            string userId = parts[1].Trim();
-                            string newNickname = parts[2].Trim();
-                            response = UpdateNickname(userId, newNickname) ? "OK" : "NICKNAME_UPDATE_FAIL";
-                        }
-                    }
-                    else if (message.StartsWith("DELETE_ACCOUNT:"))
-                    {
-                        string userId = message.Substring(16).Trim();
-                        response = DeleteAccount(userId) ? "OK" : "DELETE_FAIL";
-                    }
-
-                    // 응답 메시지 전송
                     byte[] responseBytes = Encoding.UTF8.GetBytes(response);
-                    stream.Write(responseBytes, 0, responseBytes.Length);  // byte[]와 길이를 전달
+                    await stream.WriteAsync(responseBytes, 0, responseBytes.Length);
                     Console.WriteLine($"[응답 전송] {response}");
                 }
             }
@@ -109,6 +70,122 @@ namespace server
                 Console.WriteLine("[클라이언트 연결 종료]");
             }
         }
+
+        private string ProcessRequest(TcpClient client, string message)
+        {
+            if (message.StartsWith("LOGIN:"))
+            {
+                string userId = message.Substring(6).Trim();
+                return ValidateUser(userId) ? "LOGIN_SUCCESS" : "LOGIN_FAIL";
+            }
+            else if (message.StartsWith("REGISTER:"))
+            {
+                string userId = message.Substring(9).Trim();
+                return AddNewUserToDatabase(userId) ? "REGISTER_SUCCESS" : "REGISTER_FAIL";
+            }
+            else if (message.StartsWith("LOAD_PROFILE:"))
+            {
+                string userId = message.Substring(13).Trim();
+                Console.WriteLine($"LOAD_PROFILE 요청: {userId}");
+
+                var profile = GetUserProfile(userId);
+                if (profile == null)
+                {
+                    Console.WriteLine("프로필을 찾을 수 없습니다.");
+                    return "PROFILE_LOAD_FAIL";
+                }
+
+                string nickname = profile.Nickname;
+                byte[] imageBytes = profile.ProfilePicBytes;
+
+                // 닉네임 전송
+                string header = $"PROFILE:{nickname}:";
+                NetworkStream stream = client.GetStream();
+                byte[] headerBytes = Encoding.UTF8.GetBytes(header);
+                stream.Write(headerBytes, 0, headerBytes.Length);
+                Console.WriteLine($"프로필 닉네임 전송 완료: {nickname}");
+
+                // 이미지가 없으면 바로 종료
+                if (imageBytes == null || imageBytes.Length == 0)
+                {
+                    Console.WriteLine("프로필 이미지 없음");
+                    byte[] endBytes = Encoding.UTF8.GetBytes("::END::");
+                    stream.Write(endBytes, 0, endBytes.Length);
+                    return "";
+                }
+
+                // 이미지 Base64 변환 후 청크 단위 전송
+                string base64Image = Convert.ToBase64String(imageBytes);
+                int chunkSize = 1024;
+                for (int i = 0; i < base64Image.Length; i += chunkSize)
+                {
+                    int length = Math.Min(chunkSize, base64Image.Length - i);
+                    string chunk = base64Image.Substring(i, length);
+
+                    byte[] chunkBytes = Encoding.UTF8.GetBytes(chunk);
+                    stream.Write(chunkBytes, 0, chunkBytes.Length);
+                }
+
+                // 청크 전송 완료 표시
+                byte[] endBytesFinal = Encoding.UTF8.GetBytes("::END::");
+                stream.Write(endBytesFinal, 0, endBytesFinal.Length);
+                Console.WriteLine("프로필 이미지 전송 완료");
+
+                return "";
+            }
+
+            else if (message.StartsWith("UPDATE_PROFILE_IMAGE:"))
+            {
+                string[] parts = message.Split(new[] { ':' }, 3);
+                if (parts.Length == 3)
+                {
+                    string userId = parts[1].Trim();
+                    string base64Image = parts[2].Trim();
+
+                    // 긴 Base64 문자열 수신
+                    StringBuilder imageDataBuilder = new StringBuilder();
+                    imageDataBuilder.Append(base64Image);
+
+                    // 추가 청크 받기
+                    byte[] buffer = new byte[1024];
+                    int bytesRead;
+                    NetworkStream stream = client.GetStream();
+
+                    while ((bytesRead = stream.Read(buffer, 0, buffer.Length)) > 0)
+                    {
+                        string chunk = Encoding.UTF8.GetString(buffer, 0, bytesRead);
+                        if (chunk.EndsWith("::END::"))
+                        {
+                            imageDataBuilder.Append(chunk.Replace("::END::", ""));
+                            break;
+                        }
+                        imageDataBuilder.Append(chunk);
+                    }
+
+                    string fullBase64Image = imageDataBuilder.ToString();
+
+                    return UpdateProfileImage(userId, fullBase64Image) ? "OK" : "IMAGE_UPDATE_FAIL";
+                }
+            }
+            else if (message.StartsWith("UPDATE_NICKNAME:"))
+            {
+                string[] parts = message.Split(new[] { ':' }, 3);
+                if (parts.Length == 3)
+                {
+                    string userId = parts[1].Trim();
+                    string newNickname = parts[2].Trim();
+                    return UpdateNickname(userId, newNickname) ? "OK" : "NICKNAME_UPDATE_FAIL";
+                }
+            }
+            else if (message.StartsWith("DELETE_ACCOUNT:"))
+            {
+                string userId = message.Substring(15).Trim();
+                return DeleteAccount(userId) ? "OK" : "DELETE_FAIL";
+            }
+
+            return "UNKNOWN_COMMAND";
+        }
+
 
         private bool ValidateUser(string userId)
         {
@@ -157,36 +234,39 @@ namespace server
                         }
                     }
 
-                    // 기본 프로필 이미지 로드
-                    byte[] profileImageBytes;
-                    try
-                    {
-                        // 실행 파일 기준으로 Resources 폴더 접근
-                        string projectRoot = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"..\Resources\신지.jpeg");
-                        projectRoot = Path.GetFullPath(projectRoot);
+                    // 기본 프로필 이미지 로드 (없으면 null)
+                    byte[] profileImageBytes = null;
+                    string defaultImagePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"..\Resources\신지.jpeg");
+                    defaultImagePath = Path.GetFullPath(defaultImagePath);
 
-                        if (!File.Exists(projectRoot))
+                    if (File.Exists(defaultImagePath))
+                    {
+                        try
                         {
-                            Console.WriteLine("[오류] 기본 프로필 이미지가 존재하지 않습니다.");
-                            return false;
+                            profileImageBytes = File.ReadAllBytes(defaultImagePath);
                         }
-
-                        profileImageBytes = File.ReadAllBytes(projectRoot);
+                        catch (Exception ex)
+                        {
+                            Console.WriteLine($"[경고] 기본 프로필 이미지 로드 중 오류 발생: {ex.Message} - null로 저장합니다.");
+                        }
                     }
-                    catch (Exception ex)
+                    else
                     {
-                        Console.WriteLine($"[오류] 기본 프로필 이미지 로드 중 오류 발생: {ex.Message}");
-                        return false;
+                        Console.WriteLine("[알림] 기본 프로필 이미지가 존재하지 않아 null로 저장합니다.");
                     }
 
-                    // DB에 사용자 정보 저장
+                    // DB에 사용자 정보 저장 (profilePic이 없으면 null 저장)
                     string insertQuery = "INSERT INTO Users (userId, nickName, profilePic) VALUES (@userId, @nickName, @profilePic)";
                     using (SqlCommand cmd = new SqlCommand(insertQuery, conn))
                     {
                         cmd.Parameters.AddWithValue("@userId", userId);
                         cmd.Parameters.AddWithValue("@nickName", "홍길동");
-                        cmd.Parameters.AddWithValue("@profilePic", profileImageBytes);
+
+                        var profilePicParam = cmd.Parameters.Add("@profilePic", System.Data.SqlDbType.VarBinary, -1);
+                        profilePicParam.Value = profileImageBytes ?? (object)DBNull.Value;
+
                         int rowsAffected = cmd.ExecuteNonQuery();
+                        Console.WriteLine("[알림] 사용자 등록 완료.");
                         return rowsAffected > 0;
                     }
                 }
@@ -198,7 +278,13 @@ namespace server
             }
         }
 
-        private string GetUserProfile(string userId)
+        public class UserProfile
+        {
+            public string Nickname { get; set; }
+            public byte[] ProfilePicBytes { get; set; }
+        }
+
+        private UserProfile GetUserProfile(string userId)
         {
             try
             {
@@ -215,13 +301,18 @@ namespace server
                             if (reader.Read())
                             {
                                 string nickname = reader.GetString(0);
-                                byte[] profilePicBytes = (byte[])reader.GetValue(1);
 
-                                // 이미지 데이터를 base64 문자열로 변환
-                                string base64Image = Convert.ToBase64String(profilePicBytes);
+                                byte[] profilePicBytes = null;
+                                if (!reader.IsDBNull(1))
+                                {
+                                    profilePicBytes = (byte[])reader.GetValue(1);
+                                }
 
-                                // 닉네임과 base64 인코딩된 이미지 데이터를 : 로 구분하여 반환
-                                return $"PROFILE:{nickname}:{base64Image}";
+                                return new UserProfile
+                                {
+                                    Nickname = nickname,
+                                    ProfilePicBytes = profilePicBytes
+                                };
                             }
                         }
                     }
@@ -231,25 +322,16 @@ namespace server
             {
                 Console.WriteLine($"[DB 오류] {ex.Message}");
             }
-            return "PROFILE_LOAD_FAIL";
+            return null; // 실패 시 null 반환
         }
 
-        private bool UpdateProfileImage(string userId, string relativeImagePath)
+
+        private bool UpdateProfileImage(string userId, string base64Image)
         {
             try
             {
-                // 이미지 파일 경로 변환
-                string fullPath = Path.GetFullPath(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"..\..", relativeImagePath));
-
-                // 파일이 존재하는지 확인
-                if (!File.Exists(fullPath))
-                {
-                    Console.WriteLine($"[이미지 오류] 파일을 찾을 수 없습니다: {fullPath}");
-                    return false;
-                }
-
-                // 이미지 파일을 바이트 배열로 읽기
-                byte[] imageBytes = File.ReadAllBytes(fullPath);
+                // Base64 문자열을 바이너리 데이터로 변환
+                byte[] imageBytes = Convert.FromBase64String(base64Image);
 
                 using (SqlConnection conn = new SqlConnection(connectionString))
                 {
@@ -270,6 +352,7 @@ namespace server
                 return false;
             }
         }
+
         private bool UpdateNickname(string userId, string newNickname)
         {
             try
@@ -294,7 +377,6 @@ namespace server
             }
         }
 
-
         private bool DeleteAccount(string userId)
         {
             try
@@ -303,30 +385,18 @@ namespace server
                 {
                     conn.Open();
 
-                    // 프로필 이미지 삭제
-                    string selectQuery = "SELECT profilePic FROM Users WHERE userId = @userId";
-                    using (SqlCommand selectCmd = new SqlCommand(selectQuery, conn))
-                    {
-                        selectCmd.Parameters.AddWithValue("@userId", userId);
-                        string profilePicPath = (string)selectCmd.ExecuteScalar();
-
-                        if (!string.IsNullOrEmpty(profilePicPath))
-                        {
-                            string fullPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, profilePicPath);
-                            if (File.Exists(fullPath))
-                            {
-                                File.Delete(fullPath);
-                            }
-                        }
-                    }
-
                     // 계정 삭제
                     string deleteQuery = "DELETE FROM Users WHERE userId = @userId";
                     using (SqlCommand deleteCmd = new SqlCommand(deleteQuery, conn))
                     {
                         deleteCmd.Parameters.AddWithValue("@userId", userId);
                         int rowsAffected = deleteCmd.ExecuteNonQuery();
-                        return rowsAffected > 0;
+                        if (rowsAffected == 0)
+                        {
+                            Console.WriteLine($"[삭제 실패] userId '{userId}'가 존재하지 않습니다.");
+                            return false;
+                        }
+                        return true;
                     }
                 }
             }
