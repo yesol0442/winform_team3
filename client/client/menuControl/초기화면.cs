@@ -26,6 +26,7 @@ namespace client.menuControl
         private TcpClient client;
         private NetworkStream stream;
         private bool isConnected;
+        private string masterID = "까짓것한번해보죠"; // 테스트할 때 사용용도
 
         public event EventHandler LoginSuccess;
 
@@ -88,7 +89,13 @@ namespace client.menuControl
                 MessageBox.Show("아이디를 입력하세요.", "로그인 실패", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
-
+            if(userId == masterID)
+            {
+                MessageBox.Show("개발자 로그인 성공");
+                this.Hide();
+                LoginSuccess?.Invoke(this, EventArgs.Empty);
+                return;
+            }
             try
             {
                 string message = $"LOGIN:{userId}";
