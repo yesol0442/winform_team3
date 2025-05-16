@@ -11,10 +11,14 @@ namespace client
     internal class CodePractice
     {
         public string userID {  get; set; }
+        public string codeID { get; set; }
+
+        public string nickname {  get; set; }
         public string title {  get; set; }
         public byte[] ProfileImageData { get; set; } // DB 저장용
         public int Level { get; set; }
-        public string UploaderName { get; set; }
+
+        public int status { get; set; } // 1일때 업로드 0일때 임시저장
 
         public List<string> CodeExplanation { get; set; }
         public List<string> Code { get; set; }
