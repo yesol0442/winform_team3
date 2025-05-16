@@ -1,0 +1,7 @@
+C:\winform_team3\server\userServer\userServer\bin\Debug\userServer.exe.config
+C:\winform_team3\server\userServer\userServer\bin\Debug\userServer.exe
+C:\winform_team3\server\userServer\userServer\bin\Debug\userServer.pdb
+C:\winform_team3\server\userServer\userServer\obj\Debug\userServer.csproj.AssemblyReference.cache
+C:\winform_team3\server\userServer\userServer\obj\Debug\userServer.csproj.CoreCompileInputs.cache
+C:\winform_team3\server\userServer\userServer\obj\Debug\userServer.exe
+C:\winform_team3\server\userServer\userServer\obj\Debug\userServer.pdb
