@@ -14,22 +14,16 @@ using System.Web.UI.HtmlControls;
 using System.Windows.Forms;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.StartPanel;
 
-
 namespace client.menuControl
 {
-    
     public partial class 초기화면 : UserControl
     {
-        
-        string connectionString = @"Server=localhost\WINFORM_DB;Database=Winform_DB;Trusted_Connection=True;";
-
         private TcpClient client;
         private NetworkStream stream;
         private bool isConnected;
-        private string masterID = "까짓것한번해보죠"; // 테스트할 때 사용용도
 
         public event EventHandler LoginSuccess;
-
+        //public event EventHandler<LoginSuccessEventArgs> LoginSuccess;
 
         public 초기화면()
         {
@@ -54,6 +48,7 @@ namespace client.menuControl
             try
             {
                 client = new TcpClient("127.0.0.1", 5000);
+                //client = new TcpClient("서버_공인_IP", 5000);
                 stream = client.GetStream();
                 return true;
             }
@@ -78,9 +73,25 @@ namespace client.menuControl
                 Application.Exit();
             }
         }
+        public class LoginSuccessEventArgs : EventArgs
+        {
+            public string UserId { get; }
+            public TcpClient Client { get; }
+            public NetworkStream Stream { get; }
+
+            public LoginSuccessEventArgs(string userId, TcpClient client, NetworkStream stream)
+            {
+                UserId = userId;
+                Client = client;
+                Stream = stream;
+            }
+        }
 
         private void btnLogin_Click(object sender, EventArgs e)
         {
+            //this.Hide();
+            //LoginSuccess?.Invoke(this, EventArgs.Empty);
+
             ReconnectToServer();
             string userId = txtId.Text.Trim();
 
@@ -89,13 +100,7 @@ namespace client.menuControl
                 MessageBox.Show("아이디를 입력하세요.", "로그인 실패", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
-            if(userId == masterID)
-            {
-                MessageBox.Show("개발자 로그인 성공");
-                this.Hide();
-                LoginSuccess?.Invoke(this, EventArgs.Empty);
-                return;
-            }
+
             try
             {
                 string message = $"LOGIN:{userId}";
@@ -111,9 +116,8 @@ namespace client.menuControl
 
                     if (response == "LOGIN_SUCCESS")
                     {
-                        MessageBox.Show("로그인 성공");
                         this.Hide();
-                        LoginSuccess?.Invoke(this, EventArgs.Empty);
+                        LoginSuccess?.Invoke(this, new LoginSuccessEventArgs(userId, client, stream));
                     }
                     else if (response == "LOGIN_FAIL")
                     {
@@ -203,8 +207,6 @@ namespace client.menuControl
                 txtId.Focus();
             }
         }
-            
-    }
 
+    }
 }
-        
