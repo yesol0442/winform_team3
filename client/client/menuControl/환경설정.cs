@@ -11,15 +11,14 @@ using System.Windows.Forms;
 using System.IO;
 using System.Media;
 using System.Net.Sockets;
+using client.classes.NetworkManager;
+
 
 namespace client.menuControl
 {
     public partial class 환경설정 : UserControl
     {
         private string userId;
-        private NetworkStream stream;
-        private TcpClient client;
-
         private bool soundEnabled = true;
 
         public 환경설정()
@@ -39,21 +38,19 @@ namespace client.menuControl
             btnDelete.Visible = false;
         }
 
-        public void SetConnection(string userId, TcpClient client, NetworkStream stream)
+        public async Task SetConnection(string userId)
         {
             try
             {
-                // 서버 연결이 끊어졌다면 재연결 시도
-                if (client == null || !client.Connected)
-                {
-                    client = new TcpClient("127.0.0.1", 5000);
-                    stream = client.GetStream();
-                    Console.WriteLine("[클라이언트] 서버와 재연결 성공");
-                }
+                // 서버와 연결 시도
+                await NetworkManager.Instance.ConnectAsync("127.0.0.1", 5000);
 
+                // 연결 성공 시 사용자 ID 설정
                 this.userId = userId;
-                this.client = client;
-                this.stream = stream;
+                MessageBox.Show("서버 연결 성공", "연결 완료", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                // 프로필 로드 시도
+                await LoadUserProfileAsync();
             }
             catch (Exception ex)
             {
@@ -61,87 +58,99 @@ namespace client.menuControl
             }
         }
 
-        private void txtId_KeyDown(object sender, KeyEventArgs e)
+
+        private async void txtId_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.Enter)
             {
                 e.SuppressKeyPress = true;
-
                 string inputId = txtId.Text.Trim();
+
                 if (string.IsNullOrEmpty(inputId))
                 {
                     MessageBox.Show("아이디를 입력하세요.");
                     return;
                 }
 
-                try
-                {
-                    client = new TcpClient("127.0.0.1", 5000);
-                    stream = client.GetStream();
-
-                    userId = inputId;
-                    LoadUserProfile();
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show($"서버 연결 실패: {ex.Message}");
-                    return;
-                }
-
+                await SetConnection(inputId);
             }
         }
 
-        private void LoadUserProfile()
+        private async Task LoadUserProfileAsync()
         {
             try
             {
                 string message = $"LOAD_PROFILE:{userId}";
-                byte[] data = Encoding.UTF8.GetBytes(message);
-                stream.Write(data, 0, data.Length);
+                await NetworkManager.Instance.SendMessageAsync(message);
 
-                byte[] buffer = new byte[40960];
-                int bytesRead = stream.Read(buffer, 0, buffer.Length);
-                string response = Encoding.UTF8.GetString(buffer, 0, bytesRead).Trim();
+                // 서버가 먼저 PROFILE:{nickname}: 보내고 이미지 청크를 여러번 보내는 상황 가정
+                string headerResponse = await NetworkManager.Instance.ReceiveMessageAsync();
 
-                if (response.StartsWith("PROFILE:"))
+                if (headerResponse == null || !headerResponse.StartsWith("PROFILE:"))
                 {
-                    string[] parts = response.Split(new char[] { ':' }, 3);
+                    MessageBox.Show("프로필 로드 실패", "오류", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
 
-                    string nickname = parts.Length > 1 ? parts[1] : "";
-                    string base64Image = parts.Length > 2 ? parts[2] : "";
+                // 닉네임과 첫 부분 분리
+                string[] parts = headerResponse.Split(new char[] { ':' }, 3);
+                string nickname = parts.Length > 1 ? parts[1] : "";
+                string base64Image = parts.Length > 2 ? parts[2] : "";
 
-                    txtNickname.Text = nickname;
-                    lblNickname.Text = nickname;
+                StringBuilder base64ImageBuilder = new StringBuilder(base64Image);
 
-                    if (!string.IsNullOrEmpty(base64Image))
+                // 이미지 청크를 반복해서 받기 (::END:: 만날 때까지)
+                while (true)
+                {
+                    string chunk = await NetworkManager.Instance.ReceiveMessageAsync();
+                    if (chunk == null)
                     {
-                        // base64 -> 이미지 변환
-                        byte[] imageBytes = Convert.FromBase64String(base64Image);
+                        MessageBox.Show("프로필 이미지 수신 중 오류 발생", "오류", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        return;
+                    }
+                    if (chunk.EndsWith("::END::"))
+                    {
+                        base64ImageBuilder.Append(chunk.Replace("::END::", ""));
+                        break;
+                    }
+                    base64ImageBuilder.Append(chunk);
+                }
+
+                txtNickname.Text = nickname;
+                lblNickname.Text = nickname;
+
+                if (base64ImageBuilder.Length > 0)
+                {
+                    try
+                    {
+                        string cleanedBase64 = base64ImageBuilder.ToString().Replace("\r", "").Replace("\n", "").Trim();
+                        byte[] imageBytes = Convert.FromBase64String(cleanedBase64);
+
                         using (MemoryStream ms = new MemoryStream(imageBytes))
                         {
                             picProfile.Image = Image.FromStream(ms);
                         }
                     }
-
-                    picProfile.Visible = true;
-                    btn_modPicture.Visible = true;
-                    txtNickname.Visible = false;
-                    lblNickname.Visible = true;
-                    btn_modNickname.Visible = true;
-                    lblLanguage.Visible = true;
-                    cmbLanguage.Visible = true;
-                    lblSound.Visible = true;
-                    togSound.Visible = true;
-                    chkGuide.Visible = true;
-                    btnDelete.Visible = true;
-
-                    txtId.Visible = false;
-                    lblId.Visible = false;
+                    catch (FormatException)
+                    {
+                        MessageBox.Show("프로필 이미지 데이터가 손상되었습니다.", "오류", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
                 }
-                else
-                {
-                    MessageBox.Show("프로필 로드 실패", "오류", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
+
+                picProfile.Visible = true;
+                btn_modPicture.Visible = true;
+                txtNickname.Visible = false;
+                lblNickname.Visible = true;
+                btn_modNickname.Visible = true;
+                lblLanguage.Visible = true;
+                cmbLanguage.Visible = true;
+                lblSound.Visible = true;
+                togSound.Visible = true;
+                chkGuide.Visible = true;
+                btnDelete.Visible = true;
+
+                txtId.Visible = false;
+                lblId.Visible = false;
             }
             catch (Exception ex)
             {
@@ -149,7 +158,8 @@ namespace client.menuControl
             }
         }
 
-        private void btn_modPicture_Click(object sender, EventArgs e)
+
+        private async void btn_modPicture_Click(object sender, EventArgs e)
         {
             using (OpenFileDialog openFileDialog = new OpenFileDialog())
             {
@@ -161,26 +171,31 @@ namespace client.menuControl
 
                     try
                     {
-                        // 이미지 파일을 바이트 배열로 읽기
                         byte[] imageBytes = File.ReadAllBytes(imagePath);
+                        string base64Image = Convert.ToBase64String(imageBytes);
 
-                        // 메시지 앞부분: userId와 명령어
-                        string header = $"UPDATE_PROFILE_IMAGE:{userId}:";
-                        byte[] headerBytes = Encoding.UTF8.GetBytes(header);
+                        // 데이터를 청크 단위로 나눠서 전송
+                        int chunkSize = 1024; // 1KB 단위로 전송
+                        int i = 0;
 
-                        // header + 이미지 바이트 합치기
-                        byte[] dataToSend = new byte[headerBytes.Length + imageBytes.Length];
-                        Buffer.BlockCopy(headerBytes, 0, dataToSend, 0, headerBytes.Length);
-                        Buffer.BlockCopy(imageBytes, 0, dataToSend, headerBytes.Length, imageBytes.Length);
+                        int remaining = base64Image.Length - i;
+                        string firstChunk = base64Image.Substring(i, Math.Min(chunkSize, remaining));
+                        string firstMessage = $"UPDATE_PROFILE_IMAGE:{userId}:{firstChunk}";
+                        await NetworkManager.Instance.SendMessageAsync(firstMessage);
+                        i += chunkSize;
 
-                        // 서버에 전송
-                        stream.Write(dataToSend, 0, dataToSend.Length);
+                        // 이후 청크는 Base64 문자열만 전송
+                        for (; i < base64Image.Length; i += chunkSize)
+                        {
+                            remaining = base64Image.Length - i;
+                            string chunk = base64Image.Substring(i, Math.Min(chunkSize, remaining));
+                            await NetworkManager.Instance.SendMessageAsync(chunk);
+                        }
 
-                        // 서버 응답 받기
-                        byte[] buffer = new byte[1024];
-                        int bytesRead = stream.Read(buffer, 0, buffer.Length);
-                        string response = Encoding.UTF8.GetString(buffer, 0, bytesRead).Trim();
+                        // 전송 종료 표시
+                        await NetworkManager.Instance.SendMessageAsync("::END::");
 
+                        string response = await NetworkManager.Instance.ReceiveMessageAsync();
                         if (response == "OK")
                         {
                             picProfile.Image = Image.FromFile(imagePath);
@@ -199,6 +214,8 @@ namespace client.menuControl
             }
         }
 
+
+
         private void btn_modNickname_Click(object sender, EventArgs e)
         {
             lblNickname.Visible = false;
@@ -206,7 +223,7 @@ namespace client.menuControl
             txtNickname.Focus();
         }
 
-        private void txtNickname_KeyDown(object sender, KeyEventArgs e)
+        private async void txtNickname_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.Enter)
             {
@@ -219,30 +236,21 @@ namespace client.menuControl
                     return;
                 }
 
-                lblNickname.Visible = true;
-                txtNickname.Visible = false;
-
-                // 서버에 닉네임 변경 요청
                 try
                 {
                     string message = $"UPDATE_NICKNAME:{userId}:{newNickname}";
-                    byte[] data = Encoding.UTF8.GetBytes(message);
-                    stream.Write(data, 0, data.Length);
-
-                    byte[] buffer = new byte[1024];
-                    int bytesRead = stream.Read(buffer, 0, buffer.Length);
-                    string response = Encoding.UTF8.GetString(buffer, 0, bytesRead).Trim();
+                    await NetworkManager.Instance.SendMessageAsync(message);
+                    string response = await NetworkManager.Instance.ReceiveMessageAsync();
 
                     if (response == "OK")
                     {
                         lblNickname.Text = newNickname;
                         txtNickname.Visible = false;
+                        lblNickname.Visible = true;
                         MessageBox.Show("닉네임이 변경되었습니다.", "변경 완료", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     }
                     else
                     {
-                        lblNickname.Visible = true;
-                        txtNickname.Visible = false;
                         MessageBox.Show("닉네임 변경 실패: " + response);
                     }
                 }
@@ -253,7 +261,8 @@ namespace client.menuControl
             }
         }
 
-        private void btnDelete_Click(object sender, EventArgs e)
+
+        private async void btnDelete_Click(object sender, EventArgs e)
         {
             var confirm = MessageBox.Show("정말로 계정을 삭제하시겠습니까?", "계정 삭제 확인", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
             if (confirm == DialogResult.Yes)
@@ -261,18 +270,13 @@ namespace client.menuControl
                 try
                 {
                     string message = $"DELETE_ACCOUNT:{userId}";
-                    byte[] data = Encoding.UTF8.GetBytes(message);
-                    stream.Write(data, 0, data.Length);
-
-                    byte[] buffer = new byte[1024];
-                    int bytesRead = stream.Read(buffer, 0, buffer.Length);
-                    string response = Encoding.UTF8.GetString(buffer, 0, bytesRead).Trim();
+                    await NetworkManager.Instance.SendMessageAsync(message);
+                    string response = await NetworkManager.Instance.ReceiveMessageAsync();
 
                     if (response == "OK")
                     {
                         MessageBox.Show("계정이 성공적으로 삭제되었습니다.", "삭제 완료", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                        stream?.Close();
-                        client?.Close();
+                        Application.Exit();
                     }
                     else
                     {

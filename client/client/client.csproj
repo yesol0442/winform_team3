@@ -52,9 +52,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="class\CodePractice.cs" />
-    <Compile Include="class\Home.cs" />
-    <Compile Include="class\Quiz.cs" />
+    <Compile Include="classes\CodePractice.cs" />
+    <Compile Include="classes\Home.cs" />
+    <Compile Include="classes\NetworkManager.cs" />
+    <Compile Include="classes\Quiz.cs" />
     <Compile Include="FindDifferForm\FindForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -227,9 +228,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\winkufairy.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\신지.jpeg" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\res_quiz\profile_image.png" />

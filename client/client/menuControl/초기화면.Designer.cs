@@ -34,6 +34,7 @@
             this.guna2AnimateWindow1 = new Guna.UI2.WinForms.Guna2AnimateWindow(this.components);
             this.btnLogin = new System.Windows.Forms.Button();
             this.btnNew = new System.Windows.Forms.Button();
+            this.label2 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // label1
@@ -70,7 +71,7 @@
             // btnLogin
             // 
             this.btnLogin.Font = new System.Drawing.Font("휴먼옛체", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            this.btnLogin.Location = new System.Drawing.Point(391, 396);
+            this.btnLogin.Location = new System.Drawing.Point(405, 396);
             this.btnLogin.Name = "btnLogin";
             this.btnLogin.Size = new System.Drawing.Size(198, 57);
             this.btnLogin.TabIndex = 2;
@@ -81,23 +82,33 @@
             // btnNew
             // 
             this.btnNew.Font = new System.Drawing.Font("휴먼옛체", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            this.btnNew.Location = new System.Drawing.Point(391, 496);
+            this.btnNew.Location = new System.Drawing.Point(405, 496);
             this.btnNew.Name = "btnNew";
             this.btnNew.Size = new System.Drawing.Size(198, 59);
             this.btnNew.TabIndex = 3;
-            this.btnNew.Text = "새로 만들기";
+            this.btnNew.Text = "계정 만들기";
             this.btnNew.UseVisualStyleBackColor = true;
             this.btnNew.Click += new System.EventHandler(this.btnNew_Click);
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(364, 348);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(290, 24);
+            this.label2.TabIndex = 4;
+            this.label2.Text = "마스터키: 신지에바에타라";
             // 
             // 초기화면
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(13F, 24F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.label2);
             this.Controls.Add(this.btnNew);
             this.Controls.Add(this.btnLogin);
             this.Controls.Add(this.txtId);
             this.Controls.Add(this.label1);
-            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "초기화면";
             this.Size = new System.Drawing.Size(1049, 689);
             this.ResumeLayout(false);
@@ -112,5 +123,6 @@
         private Guna.UI2.WinForms.Guna2AnimateWindow guna2AnimateWindow1;
         private System.Windows.Forms.Button btnLogin;
         private System.Windows.Forms.Button btnNew;
+        private System.Windows.Forms.Label label2;
     }
 }

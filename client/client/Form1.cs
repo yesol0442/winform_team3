@@ -1,4 +1,6 @@
-﻿using Guna.UI2.WinForms;
+﻿using client.classes.NetworkManager;
+using client.menuControl;
+using Guna.UI2.WinForms;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -10,6 +12,8 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Web.UI.WebControls;
 using System.Windows.Forms;
+using static Guna.UI2.Native.WinApi;
+using client.classes.NetworkManager;
 
 namespace client
 {
@@ -95,11 +99,23 @@ namespace client
             메뉴버튼_Click(sender, e);
         }
 
-        private void Form1_Load(object sender, EventArgs e)
+        private async void Form1_Load(object sender, EventArgs e)
         {
-            초기화면.BringToFront();
-            초기화면.Show();
-            DisableMenuButtons();
+            try
+            {
+                await NetworkManager.Instance.ConnectAsync("127.0.0.1", 5000);
+
+                // 연결 성공 시 초기화면 표시 및 메뉴 비활성화
+                초기화면.BringToFront();
+                초기화면.Show();
+                DisableMenuButtons();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("서버 연결 실패: " + ex.Message);
+                // 연결 실패 처리: 재접속 유도 or 앱 종료 등
+            }
+
         }
 
         private void 메뉴버튼_Click(object sender, EventArgs e)

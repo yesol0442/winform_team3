@@ -163,7 +163,7 @@
             // txtId
             // 
             this.txtId.Font = new System.Drawing.Font("굴림", 10F);
-            this.txtId.Location = new System.Drawing.Point(388, 34);
+            this.txtId.Location = new System.Drawing.Point(388, 37);
             this.txtId.Name = "txtId";
             this.txtId.Size = new System.Drawing.Size(260, 38);
             this.txtId.TabIndex = 11;

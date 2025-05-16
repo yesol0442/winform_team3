@@ -13,6 +13,8 @@ using System.Threading.Tasks;
 using System.Web.UI.HtmlControls;
 using System.Windows.Forms;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.StartPanel;
+using client.classes.NetworkManager;
+using System.Net;
 
 namespace client.menuControl
 {
@@ -39,85 +41,52 @@ namespace client.menuControl
             //}
 
             InitializeComponent();
-            //ConnectToServer();
+
             txtId.PlaceholderText = "아이디를 입력하세요.";
         }
 
-        private bool ConnectToServer()
-        {
-            try
+            public class LoginSuccessEventArgs : EventArgs
             {
-                client = new TcpClient("127.0.0.1", 5000);
-                //client = new TcpClient("서버_공인_IP", 5000);
-                stream = client.GetStream();
-                return true;
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show($"서버 연결 실패: {ex.Message}");
-                return false;
-            }
-        }
+                public string UserId { get; }
 
-        private void ReconnectToServer()
-        {
-            try
-            {
-                stream?.Close();
-                client?.Close();
-                ConnectToServer();
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show($"재연결 실패: {ex.Message}", "네트워크 오류", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                Application.Exit();
-            }
-        }
-        public class LoginSuccessEventArgs : EventArgs
-        {
-            public string UserId { get; }
-            public TcpClient Client { get; }
-            public NetworkStream Stream { get; }
-
-            public LoginSuccessEventArgs(string userId, TcpClient client, NetworkStream stream)
-            {
-                UserId = userId;
-                Client = client;
-                Stream = stream;
-            }
-        }
-
-        private void btnLogin_Click(object sender, EventArgs e)
-        {
-            //this.Hide();
-            //LoginSuccess?.Invoke(this, EventArgs.Empty);
-
-            ReconnectToServer();
-            string userId = txtId.Text.Trim();
-
-            if (string.IsNullOrEmpty(userId))
-            {
-                MessageBox.Show("아이디를 입력하세요.", "로그인 실패", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                return;
-            }
-
-            try
-            {
-                string message = $"LOGIN:{userId}";
-                byte[] data = Encoding.UTF8.GetBytes(message);
-                stream.Write(data, 0, data.Length);
-
-                byte[] buffer = new byte[1024];
-                int bytesRead = stream.Read(buffer, 0, buffer.Length);
-
-                if (bytesRead > 0)
+                public LoginSuccessEventArgs(string userId)
                 {
-                    string response = Encoding.UTF8.GetString(buffer, 0, bytesRead).Trim();
+                    UserId = userId;
+                }
+            }
+
+            private async void btnLogin_Click(object sender, EventArgs e)
+            {
+                //this.Hide();
+                //LoginSuccess?.Invoke(this, EventArgs.Empty);
+                string userId = txtId.Text.Trim();
+
+                if (string.IsNullOrEmpty(userId))
+                {
+                    MessageBox.Show("아이디를 입력하세요.", "로그인 실패", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
+
+                const string masterKey = "신지에바에타라"; // 원하는 마스터키 설정
+                if (userId == masterKey)
+                {
+                    MessageBox.Show("마스터키로 로그인했습니다. (개발 모드)", "로그인 성공", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    this.Hide();
+                    LoginSuccess?.Invoke(this, new LoginSuccessEventArgs(userId));
+                    return;
+                }
+
+                try
+                {
+                    string message = $"LOGIN:{userId}";
+                    await NetworkManager.Instance.SendMessageAsync(message);
+
+                    string response = await NetworkManager.Instance.ReceiveMessageAsync();
 
                     if (response == "LOGIN_SUCCESS")
                     {
                         this.Hide();
-                        LoginSuccess?.Invoke(this, new LoginSuccessEventArgs(userId, client, stream));
+                        LoginSuccess?.Invoke(this, new LoginSuccessEventArgs(userId));
                     }
                     else if (response == "LOGIN_FAIL")
                     {
@@ -132,27 +101,23 @@ namespace client.menuControl
                         txtId.Focus();
                     }
                 }
+                catch (IOException ex)
+                {
+                    MessageBox.Show($"서버와의 연결이 끊어졌습니다: {ex.Message}", "네트워크 오류", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    txtId.Clear();
+                    txtId.Focus();
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show($"로그인 중 오류 발생: {ex.Message}", "로그인 오류", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    txtId.Clear();
+                    txtId.Focus();
+                }
             }
-            catch (IOException ex)
-            {
-                MessageBox.Show($"서버와의 연결이 끊어졌습니다: {ex.Message}", "네트워크 오류", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                ReconnectToServer();
-                txtId.Clear();
-                txtId.Focus();
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show($"로그인 중 오류 발생: {ex.Message}", "로그인 오류", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                ReconnectToServer();
-                txtId.Clear();
-                txtId.Focus();
-            }
-        }
 
 
-        private void btnNew_Click(object sender, EventArgs e)
+        private async void btnNew_Click(object sender, EventArgs e)
         {
-            ReconnectToServer();
             string userId = txtId.Text.Trim();
 
             if (string.IsNullOrEmpty(userId))
@@ -164,45 +129,36 @@ namespace client.menuControl
             try
             {
                 string message = $"REGISTER:{userId}";
-                byte[] data = Encoding.UTF8.GetBytes(message);
-                stream.Write(data, 0, data.Length);
+                await NetworkManager.Instance.SendMessageAsync(message);
 
-                byte[] buffer = new byte[1024];
-                int bytesRead = stream.Read(buffer, 0, buffer.Length);
+                string response = await NetworkManager.Instance.ReceiveMessageAsync();
 
-                if (bytesRead > 0)
+                if (response == "REGISTER_SUCCESS")
                 {
-                    string response = Encoding.UTF8.GetString(buffer, 0, bytesRead).Trim();
-
-                    if (response == "REGISTER_SUCCESS")
-                    {
-                        MessageBox.Show("회원가입 성공");
-                    }
-                    else if (response == "REGISTER_FAIL")
-                    {
-                        MessageBox.Show("이미 존재하는 아이디입니다.", "회원가입 실패", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                        txtId.Clear();
-                        txtId.Focus();
-                    }
-                    else
-                    {
-                        MessageBox.Show("알 수 없는 오류가 발생했습니다.", "회원가입 실패", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        txtId.Clear();
-                        txtId.Focus();
-                    }
+                    MessageBox.Show("회원가입 성공", "회원가입 완료", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+                else if (response == "REGISTER_FAIL")
+                {
+                    MessageBox.Show("이미 존재하는 아이디입니다.", "회원가입 실패", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    txtId.Clear();
+                    txtId.Focus();
+                }
+                else
+                {
+                    MessageBox.Show("알 수 없는 오류가 발생했습니다.", "회원가입 실패", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    txtId.Clear();
+                    txtId.Focus();
                 }
             }
             catch (IOException ex)
             {
                 MessageBox.Show($"서버와의 연결이 끊어졌습니다: {ex.Message}", "네트워크 오류", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                ReconnectToServer();
                 txtId.Clear();
                 txtId.Focus();
             }
             catch (Exception ex)
             {
                 MessageBox.Show($"회원가입 중 오류 발생: {ex.Message}", "회원가입 오류", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                ReconnectToServer();
                 txtId.Clear();
                 txtId.Focus();
             }
