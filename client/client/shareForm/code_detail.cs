@@ -82,7 +82,7 @@ namespace client.shareForm
                 "// 현실 수용",
                 "print(\"나는... 또 에바에 타고 말았어\");"
             };
-            otherusercode.ProfileImage = Properties.Resources.신지;
+            //otherusercode.ProfileImage = Properties.Resources.신지;
         }
 
         private void 뒤로가기btn_Click(object sender, EventArgs e)

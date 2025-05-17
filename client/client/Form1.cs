@@ -13,7 +13,6 @@ using System.Threading.Tasks;
 using System.Web.UI.WebControls;
 using System.Windows.Forms;
 using static Guna.UI2.Native.WinApi;
-using client.classes.NetworkManager;
 
 namespace client
 {

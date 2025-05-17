@@ -164,3 +164,9 @@ C:\Users\milk0\Source\Repos\winform_team3\client\client\obj\Debug\client.csproj.
 C:\Users\milk0\Source\Repos\winform_team3\client\client\obj\Debug\client.csproj.CopyComplete
 C:\Users\milk0\Source\Repos\winform_team3\client\client\obj\Debug\client.exe
 C:\Users\milk0\Source\Repos\winform_team3\client\client\obj\Debug\client.pdb
+C:\Users\milk0\Source\Repos\winform_team3\client\client\obj\Debug\client.shareForm.code_add.resources
+C:\Users\milk0\Source\Repos\winform_team3\client\client\obj\Debug\client.shareForm.code_detail.resources
+C:\Users\milk0\Source\Repos\winform_team3\client\client\obj\Debug\client.shareForm.other_home.resources
+C:\Users\milk0\Source\Repos\winform_team3\client\client\obj\Debug\client.shareForm.share_base.resources
+C:\Users\milk0\Source\Repos\winform_team3\client\client\obj\Debug\client.shareForm.share_home.resources
+C:\Users\milk0\source\repos\winform_team3\client\client\obj\Debug\client.CodePracticeForm.CodePracticeF.resources

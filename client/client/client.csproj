@@ -52,10 +52,18 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="classes\CodeBriefInfo.cs" />
     <Compile Include="classes\CodePractice.cs" />
     <Compile Include="classes\Home.cs" />
     <Compile Include="classes\NetworkManager.cs" />
+    <Compile Include="classes\OtherUserCodeList.cs" />
     <Compile Include="classes\Quiz.cs" />
+    <Compile Include="classes\ShareCodeSave.cs" />
+    <Compile Include="classes\UserCodeList.cs" />
+    <Compile Include="CodePracticeForm\CodePracticeF.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="CodePracticeForm\CodePracticeF.Designer.cs" />
     <Compile Include="FindDifferForm\FindForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -148,12 +156,43 @@
     <Compile Include="quizForm\quizStart.Designer.cs">
       <DependentUpon>quizStart.cs</DependentUpon>
     </Compile>
+    <Compile Include="shareForm\code_add.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="shareForm\code_add.Designer.cs">
+      <DependentUpon>code_add.cs</DependentUpon>
+    </Compile>
+    <Compile Include="shareForm\code_detail.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="shareForm\code_detail.Designer.cs">
+      <DependentUpon>code_detail.cs</DependentUpon>
+    </Compile>
+    <Compile Include="shareForm\other_home.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="shareForm\other_home.Designer.cs">
+      <DependentUpon>other_home.cs</DependentUpon>
+    </Compile>
     <Compile Include="shareForm\shareform.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="shareForm\shareform.Designer.cs">
       <DependentUpon>shareform.cs</DependentUpon>
     </Compile>
+    <Compile Include="shareForm\share_base.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="shareForm\share_base.Designer.cs">
+      <DependentUpon>share_base.cs</DependentUpon>
+    </Compile>
+    <Compile Include="shareForm\share_home.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="shareForm\share_home.Designer.cs">
+      <DependentUpon>share_home.cs</DependentUpon>
+    </Compile>
+    <EmbeddedResource Include="CodePracticeForm\CodePracticeF.resx" />
     <EmbeddedResource Include="FindDifferForm\FindStart.resx">
       <DependentUpon>FindStart.cs</DependentUpon>
     </EmbeddedResource>
@@ -203,8 +242,23 @@
     <EmbeddedResource Include="quizForm\quizStart.resx">
       <DependentUpon>quizStart.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="shareForm\code_add.resx">
+      <DependentUpon>code_add.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="shareForm\code_detail.resx">
+      <DependentUpon>code_detail.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="shareForm\other_home.resx">
+      <DependentUpon>other_home.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="shareForm\shareform.resx">
       <DependentUpon>shareform.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="shareForm\share_base.resx">
+      <DependentUpon>share_base.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="shareForm\share_home.resx">
+      <DependentUpon>share_home.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
@@ -235,5 +289,6 @@
   <ItemGroup>
     <None Include="Resources\res_quiz\speech_bubble.png" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

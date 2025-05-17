@@ -1,11 +1,7 @@
 {
   "ExpandedNodes": [
-    "",
-    "\\client",
-    "\\client\\client",
-    "\\client\\client\\FindDifferForm",
-    "\\client\\client\\quizForm"
+    ""
   ],
-  "SelectedNode": "\\client\\client\\FindDifferForm\\FindStart.cs",
+  "SelectedNode": "\\client.sln",
   "PreviewInSolutionExplorer": false
 }
