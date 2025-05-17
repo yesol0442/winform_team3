@@ -57,8 +57,6 @@ namespace client.menuControl
 
             private async void btnLogin_Click(object sender, EventArgs e)
             {
-                //this.Hide();
-                //LoginSuccess?.Invoke(this, EventArgs.Empty);
                 string userId = txtId.Text.Trim();
 
                 if (string.IsNullOrEmpty(userId))
