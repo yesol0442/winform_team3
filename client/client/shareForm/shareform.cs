@@ -1,4 +1,5 @@
-﻿using System;
+﻿using client.menuControl;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -9,14 +10,35 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Xml;
 
+
 namespace client.shareForm
 {
     public partial class shareform : Form
     {
-        private Color labelColor = Color.DimGray;
+        private code_add 코드추가 = new code_add();
+        private share_home 공유함홈 = new share_home();
+        private share_base 기본화면 = new share_base();
+        private code_detail 코드내용 = new code_detail();
+        private other_home 남의홈 = new other_home();
+        
         public shareform()
         {
             InitializeComponent();
+            guna2Panel1.Controls.Add(코드추가);
+            guna2Panel1.Controls.Add(공유함홈);
+            guna2Panel1.Controls.Add(기본화면);
+            guna2Panel1.Controls.Add(코드내용);
+            guna2Panel1.Controls.Add(남의홈);
+
+            // 폼 크기 고정
+            this.MaximumSize = this.Size;
+            this.MinimumSize = this.Size;
+        }
+
+        private void shareform_Load(object sender, EventArgs e)
+        {
+            기본화면.BringToFront();
+            기본화면.Show();
         }
 
         private void 나가기_Click(object sender, EventArgs e)
@@ -24,74 +46,40 @@ namespace client.shareForm
             this.Close();
         }
 
-        private void AddCodeItem(string title, string userID)
+        public void HandleChildClick(string message, string userID, string CodeIDORnickname)
         {
-            Panel itemPanel = new Panel();
-            itemPanel.Width = flowLayoutPanel1.Width - 25;
-            itemPanel.Height = 35;
-            itemPanel.BackColor = Color.White;
-
-            Label titleLabel = new Label();
-            titleLabel.Text = title;
-            titleLabel.AutoSize = false;
-            titleLabel.TextAlign = ContentAlignment.MiddleLeft;
-            titleLabel.Width = 260;
-            titleLabel.Height = 35;
-            titleLabel.Location = new Point(10, 0);
-            titleLabel.Font = new Font("휴먼옛체", 10, FontStyle.Regular);
-            titleLabel.Click += Label_Click;
-            titleLabel.Tag = userID;
-
-            titleLabel.MouseEnter += (s, e) =>
+            if(message == "홈")
             {
-                titleLabel.ForeColor = Color.Black;
-            };
-
-            titleLabel.MouseLeave += (s, e) =>
+                공유함홈.BringToFront();
+                공유함홈.Show();
+                return;
+            }
+            if(message == "코드추가")
             {
-                titleLabel.ForeColor = labelColor;
-            };
+                코드추가.Initialize_code_add("", "");
+                코드추가.BringToFront();
+                코드추가.Show();
+                return;
+            }
+            if(message == "코드내용")
+            {
+                코드내용.Initialize_codedetail(userID, CodeIDORnickname); // 코드아이디
+                코드내용.BringToFront();
+                코드내용.Show();
+                return;
 
-            Button btnGet = new Button();
-            btnGet.Tag = titleLabel;
-            btnGet.Text = "가져오기";
-            btnGet.Size = new Size(80, 30);
-            btnGet.Location = new Point(462, 3);
-            btnGet.Font = new Font("휴먼옛체", 9, FontStyle.Regular);
-            btnGet.Click += Getbtn_Click;
-
-            itemPanel.Controls.Add(titleLabel);
-            itemPanel.Controls.Add(btnGet);
-
-            flowLayoutPanel1.Controls.Add(itemPanel);
-        }
-
-        private void Label_Click(object sender, EventArgs e)
-        {
-            Label lbl = sender as Label;
-            string lblText = lbl.Text;
-            string userId = lbl.Tag.ToString();
-            
-            MessageBox.Show($"유저id: [{userId}], 제목[{lblText}]"); // 나중에 지우기
-            // 글 제목과 유저 id로 서버에서 CodePractice 클래스 정보 가져오기
-        }
-        private void Getbtn_Click(object sender, EventArgs e)
-        {
-            Button btn = sender as Button;
-            Label lbl = btn.Tag as Label;
-            string lblText = lbl.Text;
-            string userId = lbl.Tag.ToString();
-
-            MessageBox.Show($"유저id: [{userId}], 제목[{lblText}]"); // 나중에 지우기
-            // 글 제목과 유저 id로 서버에서 CodePractice 클래스 정보 가져오기
-        }
-
-
-        private void shareform_Load(object sender, EventArgs e)
-        {
-            //서버에서 제목 가져와서 로드
-            AddCodeItem("삼성 SDS 2024 코딩테스트 기출","abc");
-            AddCodeItem("백준 23021번 정답","ccc");
+            }if(message == "남의홈")
+            {
+                남의홈.Initialize_otherhome(userID, CodeIDORnickname); // 닉네임
+                남의홈.BringToFront();
+                남의홈.Show();
+                return;
+            }if(message == "코드수정")
+            {
+                코드추가.Initialize_code_add(userID, CodeIDORnickname); // 닉네임
+                코드추가.BringToFront();
+                코드추가.Show();
+            }
         }
     }
 }
