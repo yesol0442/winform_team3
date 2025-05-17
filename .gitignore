@@ -1,1 +1,12 @@
 .vs/
+../.vs/
+client/client/bin/
+client/client/obj/
+*.suo
+*.user
+
+bin/
+obj/
+*.exe
+*.pdb
+*.cache

@@ -64,7 +64,9 @@
     <Compile Include="CodePracticeForm\CodePracticeF.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="CodePracticeForm\CodePracticeF.Designer.cs" />
+    <Compile Include="CodePracticeForm\CodePracticeF.Designer.cs">
+      <DependentUpon>CodePracticeF.cs</DependentUpon>
+    </Compile>
     <Compile Include="FindDifferForm\FindForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -193,7 +195,9 @@
     <Compile Include="shareForm\share_home.Designer.cs">
       <DependentUpon>share_home.cs</DependentUpon>
     </Compile>
-    <EmbeddedResource Include="CodePracticeForm\CodePracticeF.resx" />
+    <EmbeddedResource Include="CodePracticeForm\CodePracticeF.resx">
+      <DependentUpon>CodePracticeF.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="FindDifferForm\FindStart.resx">
       <DependentUpon>FindStart.cs</DependentUpon>
     </EmbeddedResource>
