@@ -15,6 +15,12 @@ namespace client.CodePracticeForm
         private readonly ShareCodeSave shareCodeSave;
         private DateTime? _startTime = null;
 
+        [DllImport("user32.dll")]
+        static extern bool HideCaret(IntPtr hWnd);
+
+        [DllImport("user32.dll")]
+        static extern bool ShowCaret(IntPtr hWnd);
+
 
         private readonly Dictionary<RichTextBox, int> _prevLen = new Dictionary<RichTextBox, int>();
         private readonly Dictionary<RichTextBox, int> _prevErrors = new Dictionary<RichTextBox, int>();
@@ -57,7 +63,7 @@ namespace client.CodePracticeForm
                 {
                     rtb.ReadOnly = false;
                     rtb.TabStop = true;
-                    rtb.Focus();
+                    this.ActiveControl = rtb;
                 }
             }
         }
@@ -90,10 +96,11 @@ namespace client.CodePracticeForm
 
         private SplitContainer table_entryfill(string code, int table_num)
         {
-            var split = new SplitContainer {
+            var split = new SplitContainer
+            {
                 Dock = DockStyle.None,
                 Anchor = AnchorStyles.Left | AnchorStyles.Right,
-                Orientation = Orientation.Horizontal 
+                Orientation = Orientation.Horizontal
             };
 
             var rtbCode = new RichTextBox
@@ -140,7 +147,7 @@ namespace client.CodePracticeForm
 
             rtbInput.KeyPress += rtbInput_KeyPress;
             rtbInput.TextChanged += rtbInput_TextChanged;
-            
+
             split.Panel1.Controls.Add(rtbCode);
             CenterVertically(rtbCode, split.Panel1);
             split.Panel2.Controls.Add(rtbInput);
@@ -164,10 +171,10 @@ namespace client.CodePracticeForm
 
         private void FocusNextInputBox(int nextTableNum)
         {
-            if (nextTableNum % 13 ==0 && code_line_num > 0)
+            if (nextTableNum % 13 == 0 && code_line_num > 0)
             {
                 코드연습panel.Controls.Clear();
-                table_fill(code_line_num); 
+                table_fill(code_line_num);
             }
 
             var ctrl = 코드연습panel.GetControlFromPosition(0, nextTableNum);
@@ -199,49 +206,98 @@ namespace client.CodePracticeForm
             var rtb = (RichTextBox)sender;
             var tag = (Tuple<int, string>)rtb.Tag;
             string code = tag.Item2;
-
             int newLen = rtb.TextLength;
             int oldLen = _prevLen.TryGetValue(rtb, out var pl) ? pl : 0;
             _prevLen[rtb] = newLen;
             _totalTyped += newLen - oldLen;
 
-            int errorsThisLine = 0;
-            int compareLen = Math.Min(code.Length, newLen);
-            rtb.SuspendLayout();
-            for (int i = 0; i < compareLen; i++)
+            int diff = newLen - oldLen;
+            _totalTyped += Math.Max(0, diff);
+
+            int caretPos = rtb.SelectionStart;
+            if (diff < 0)
             {
-                rtb.Select(i, 1);
+                // 문자 삭제된 경우 현재 위치부터 끝까지 다시 색칠
+                int start = caretPos;
+                int len = Math.Min(code.Length, rtb.TextLength);
+
+                for (int i = start; i < len; i++)
+                {
+                    rtb.SelectionStart = i;
+                    rtb.SelectionLength = 1;
+
+                    if (rtb.Text[i] == code[i])
+                        rtb.SelectionColor = Color.Black;
+                    else
+                        rtb.SelectionColor = Color.Red;
+                }
+
+                int errorsThisLine = 0;
+                for (int i = 0; i < rtb.TextLength && i < code.Length; i++)
+                {
+                    if (rtb.Text[i] != code[i])
+                        errorsThisLine++;
+                }
+
+                int oldErrors = _prevErrors.TryGetValue(rtb, out var oe) ? oe : 0;
+                _totalErrors = _totalErrors - oldErrors + errorsThisLine;
+                _prevErrors[rtb] = errorsThisLine;
+            }
+
+            if (caretPos > 0 && caretPos <= code.Length)
+            {
+                int i = caretPos - 1;
+                rtb.SuspendLayout();
+                HideCaret(rtb.Handle);
+
+                rtb.SelectionStart = i;
+                rtb.SelectionLength = 1;
+
                 if (rtb.Text[i] == code[i])
+                {
                     rtb.SelectionColor = Color.Black;
+                }
                 else
                 {
                     rtb.SelectionColor = Color.Red;
-                    errorsThisLine++;
-                    SystemSounds.Beep.Play();
+                    _totalErrors++;
+                    // SystemSounds.Beep.Play();
                 }
-            }
-            rtb.Select(rtb.TextLength, 0);
-            rtb.ResumeLayout();
 
-            int oldErrors = _prevErrors.TryGetValue(rtb, out var oe) ? oe : 0;
-            _totalErrors = _totalErrors - oldErrors + errorsThisLine;
-            _prevErrors[rtb] = errorsThisLine;
+                rtb.SelectionStart = caretPos;
+                rtb.SelectionLength = 0;
+
+                ShowCaret(rtb.Handle);
+                rtb.ResumeLayout();
+            }
 
             UpdateStats(_totalErrors, _totalTyped);
 
+            // 줄이 완성되면 최종 검사
             if (rtb.TextLength == code.Length)
             {
+                int errorsThisLine = 0;
+                for (int i = 0; i < code.Length; i++)
+                {
+                    if (rtb.Text[i] != code[i])
+                        errorsThisLine++;
+                }
+
                 if (_doneRows.Add(tag.Item1))
                     _finishedLines++;
+
+                _prevErrors[rtb] = errorsThisLine;
 
                 if (_finishedLines == _totalLines)
                 {
                     ShowResultAndFinish();
                     return;
                 }
+                rtb.ReadOnly = true;
                 FocusNextInputBox(tag.Item1 + 1);
             }
         }
+
 
 
         private void UpdateStats(int totalErrors, int totalTyped)
@@ -256,7 +312,7 @@ namespace client.CodePracticeForm
             double minutes = (DateTime.Now - _startTime.Value).TotalMinutes;
             if (minutes <= 0) return;
 
-            double cpm = _totalTyped / minutes;  
+            double cpm = _totalTyped / minutes;
             타수TB.Text = $"{cpm:0} 타/분";
         }
 

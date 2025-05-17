@@ -65,115 +65,161 @@ namespace client.menuControl
             // 기본 데이터 1
             var default1 = new ShareCodeSave
             {
-                userID = "edward",
-                codeID = "fma001",
-                nickname = "에드워드 엘릭",
-                title = "연금술의 기본 원칙",
-                Level = 1,
+                userID = "kurisu",
+                codeID = "growth001",
+                nickname = "마키세 크리스",
+                title = "L-시스템 기반 나무 성장 시뮬레이션",
+                Level = 4,
                 CodeExplanation = new List<string>
                 {
-                    "연금술은 등가교환의 법칙을 기반으로 한다.",
-                    "무언가를 얻기 위해선 그에 상응하는 대가가 필요하다."
+                    "L-시스템은 문자열의 반복 규칙을 통해 복잡한 패턴을 시뮬레이션할 수 있는 알고리즘입니다.",
+                    "식물의 가지 구조, 프랙탈 구조 등을 모델링할 때 자주 사용됩니다.",
+                    "이 예시는 'F → F[+F]F[-F]F' 규칙을 기반으로 나무의 성장을 구현합니다."
                 },
                 Code = new List<string>
                 {
-                    "// 등가교환 공식",
-                    "object 결과 = 연금술(재료A + 재료B);",
-                    "if (결과 == null) { throw new Exception(\"대가가 부족합니다.\"); }"
+                    "// L-시스템 나무 성장 알고리즘",
+                    "string axiom = \"F\";",
+                    "Dictionary<char, string> rules = new() { { 'F', \"F[+F]F[-F]F\" } };",
+                    "string Generate(int iterations, string input)",
+                    "{",
+                    "    for (int i = 0; i < iterations; i++)",
+                    "    {",
+                    "        var output = new StringBuilder();",
+                    "        foreach (char c in input)",
+                    "            output.Append(rules.ContainsKey(c) ? rules[c] : c.ToString());",
+                    "        input = output.ToString();",
+                    "    }",
+                    "    return input;",
+                    "}",
+                    "void SimulateGrowth()",
+                    "{",
+                    "    var result = Generate(3, axiom);",
+                    "    Console.WriteLine(\"성장된 나무 구조:\");",
+                    "    Console.WriteLine(result);",
+                    "}"
                 }
             };
             default1.SaveToFile();
 
-            // 기본 데이터 2
-            var default2 = new ShareCodeSave
+            var default6 = new ShareCodeSave
             {
-                userID = "shinji",
-                codeID = "eva001",
-                nickname = "이카리 신지",
-                title = "에바 탑승 매뉴얼",
+                userID = "csuser",
+                codeID = "algo001",
+                nickname = "알고리즘 수련생",
+                title = "이진 탐색 알고리즘",
                 Level = 1,
                 CodeExplanation = new List<string>
                 {
-                    "에반게리온은 반드시 지정된 파일럿만 탑승할 수 있습니다.",
-                    "탑승 전, LCL 충전과 신경 연결이 필요합니다."
+                    "이진 탐색은 정렬된 배열에서 값을 효율적으로 찾는 알고리즘입니다.",
+                    "중앙값을 기준으로 범위를 절반씩 줄여나가며 검색합니다.",
+                    "시간 복잡도는 O(log n)입니다."
                 },
                 Code = new List<string>
                 {
-                    "void EvaStart()",
+                    "// 정렬된 배열에서 target을 찾는다",
+                    "int BinarySearch(int[] arr, int target)",
                     "{",
-                    "    FillLCL();",
-                    "    ConnectNerveSystem();",
-                    "    LaunchEvaUnit01();",
+                    "    int left = 0, right = arr.Length - 1;",
+                    "    while (left <= right)",
+                    "    {",
+                    "        int mid = (left + right) / 2;",
+                    "        if (arr[mid] == target) return mid;",
+                    "        else if (arr[mid] < target) left = mid + 1;",
+                    "        else right = mid - 1;",
+                    "    }",
+                    "    return -1; // not found",
                     "}"
                 }
             };
-            default2.SaveToFile();
+            default6.SaveToFile();
 
-            var default3 = new ShareCodeSave
+            var default7 = new ShareCodeSave
             {
-                userID = "levi",
-                codeID = "aot001",
-                nickname = "리바이",
-                title = "입체기동장치 사용법",
-                Level = 3,
-                CodeExplanation = new List<string>
-                {
-                    "입체기동장치는 가스 압력을 이용해 고속 이동을 가능하게 합니다.",
-                    "중심을 잃지 않고 움직이려면 훈련이 필요합니다.",
-                    "목표는 항상 거인의 뒤통수입니다. 망설이지 마십시오."
-                },
-                Code = new List<string>
-                {
-                    "void EngageTitan(Titan target)",
-                    "{",
-                    "    LockAnchor(target.neck);",
-                    "    BoostWithGas();",
-                    "    if (angle > 90)",
-                    "        AdjustTrajectory();",
-                    "    Slash(target.neck);",
-                    "    RetreatSafely();",
-                    "}"
-                }
-            };
-            default3.SaveToFile();
-
-            var default4 = new ShareCodeSave
-            {
-                userID = "gon",
-                codeID = "nen001",
-                nickname = "곤 프릭스",
-                title = "넨 시스템 기초 수련법",
+                userID = "csuser",
+                codeID = "algo002",
+                nickname = "알고리즘 수련생",
+                title = "너비 우선 탐색 (BFS)",
                 Level = 2,
                 CodeExplanation = new List<string>
                 {
-                    "넨은 생명 에너지인 오라(Aura)를 제어하는 기술이다.",
-                    "기초 네 단계는 텐(纏), 젠(絶), 렌(練), 핫츠(発)로 구성된다.",
-                    "계열은 총 6가지로, 각각의 성향에 따라 오라 활용 방식이 달라진다.",
-                    "곤은 직감형에 가까운 '강화계' 넨 능력자이다."
+                    "BFS는 그래프에서 가까운 노드부터 탐색하는 알고리즘입니다.",
+                    "주로 큐(Queue)를 사용하여 구현하며, 최단 거리 탐색에 유용합니다.",
+                    "시간 복잡도는 O(V + E)입니다."
                 },
                 Code = new List<string>
                 {
-                    "class NenUser {",
-                    "    int aura = 100;",
-                    "    string type = \"강화계\";",
-                    "    void Ten() => Console.WriteLine(\"텐: 오라를 몸에 두른다\");",
-                    "    void Zetsu() => Console.WriteLine(\"젠: 오라 흐름 차단\");",
-                    "    void Ren() { aura += 50; Console.WriteLine($\"렌: 오라 증폭 ({aura})\"); }",
-                    "    void Hatsu() => Console.WriteLine($\"핫츠: {type} 기술 발동\");",
-                    "    void Practice() { Ten(); Zetsu(); Ren(); Hatsu(); }",
-                    "    void ChangeType(string newType) {",
-                    "        if (IsValidType(newType)) type = newType;",
-                    "        else Console.WriteLine(\"유효하지 않은 계열입니다\");",
+                    "// 인접 리스트 기반 BFS 구현",
+                    "void BFS(Dictionary<int, List<int>> graph, int start)",
+                    "{",
+                    "    var visited = new HashSet<int>();",
+                    "    var queue = new Queue<int>();",
+                    "    queue.Enqueue(start);",
+                    "    visited.Add(start);",
+                    "    while (queue.Count > 0)",
+                    "    {",
+                    "        int node = queue.Dequeue();",
+                    "        Console.WriteLine($\"방문: {node}\");",
+                    "        foreach (var neighbor in graph[node])",
+                    "        {",
+                    "            if (!visited.Contains(neighbor))",
+                    "            {",
+                    "                visited.Add(neighbor);",
+                    "                queue.Enqueue(neighbor);",
+                    "            }",
+                    "        }",
                     "    }",
-                    "    bool IsValidType(string t) => new[]{\"강화계\",\"방출계\",\"조작계\",\"변화계\",\"변환계\",\"특질계\"}.Contains(t);",
-                    "    void SenseAura(NenUser target) => Console.WriteLine(\"상대 오라 감지 시도...\");",
-                    "    void BlockAura() { aura = 0; Console.WriteLine(\"오라 완전 차단\"); }",
-                    "    void ShowStatus() => Console.WriteLine($\"계열: {type}, 오라: {aura}\");",
                     "}"
                 }
+            };
+            default7.SaveToFile();
 
-                };
-            default4.SaveToFile();
+            var default8 = new ShareCodeSave
+            {
+                userID = "csuser",
+                codeID = "algo003",
+                nickname = "알고리즘 수련생",
+                title = "다익스트라 최단 거리 알고리즘",
+                Level = 4,
+                CodeExplanation = new List<string>
+                {
+                    "다익스트라 알고리즘은 가중 그래프에서 출발점으로부터 각 정점까지의 최단 거리를 구합니다.",
+                    "우선순위 큐를 사용하여 최소 비용을 가진 정점을 반복적으로 선택합니다.",
+                    "음수 가중치가 없는 경우에만 정확하게 동작합니다."
+                },
+                Code = new List<string>
+                {
+                    "// 다익스트라 최단 거리",
+                    "void Dijkstra(Dictionary<int, List<(int to, int weight)>> graph, int start)",
+                    "{",
+                    "    var dist = new Dictionary<int, int>();",
+                    "    var pq = new PriorityQueue<int, int>();",
+                    "    foreach (var node in graph.Keys)",
+                    "        dist[node] = int.MaxValue;",
+                    "    dist[start] = 0;",
+                    "    pq.Enqueue(start, 0);",
+                    "    while (pq.Count > 0)",
+                    "    {",
+                    "        var current = pq.Dequeue();",
+                    "        foreach (var (next, weight) in graph[current])",
+                    "        {",
+                    "            int cost = dist[current] + weight;",
+                    "            if (cost < dist[next])",
+                    "            {",
+                    "                dist[next] = cost;",
+                    "                pq.Enqueue(next, cost);",
+                    "            }",
+                    "        }",
+                    "    }",
+                    "    foreach (var (node, d) in dist)",
+                    "        Console.WriteLine($\"노드 {node}까지 거리: {d}\");",
+                    "}"
+                }
+            };
+            default8.SaveToFile();
+
+
+
         }
 
 

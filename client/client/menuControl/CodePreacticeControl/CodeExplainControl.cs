@@ -25,6 +25,7 @@ namespace client.menuControl.CodePreacticeControl
 
         public void Initialization_codecontrol(ShareCodeSave scs)
         {
+            제목label.TextChanged += (s, e) => AutoFitLabelFont(제목label);
             코드설명textbox.Text = "";
             제목label.Text = scs.title;
             업로더lbl.Text = scs.nickname;
@@ -49,5 +50,24 @@ namespace client.menuControl.CodePreacticeControl
             codePracticeForm.ShowDialog();
 
         }
+
+        void AutoFitLabelFont(Label label)
+        {
+            int fontsize = 12;
+            if( 23 > label.Text.Length && label.Text.Length > 17)
+            {
+                fontsize = 10;
+                label.Font = new Font(label.Font.FontFamily, fontsize, label.Font.Style);
+            }
+            else if (label.Text.Length >= 23)
+            {
+                fontsize = 9;
+                string original = label.Text;
+                string shortened = original.Substring(0, 23) + "...";
+                label.Text = shortened;
+                label.Font = new Font(label.Font.FontFamily, fontsize, label.Font.Style);
+            }else label.Font = new Font(label.Font.FontFamily, fontsize, label.Font.Style);
+        }
+
     }
 }
