@@ -8,6 +8,7 @@ using server;
 using System.IO;
 using System.Threading.Tasks;
 using System.Runtime.Remoting.Messaging;
+using System.Net.NetworkInformation;
 
 namespace server
 {
@@ -96,17 +97,17 @@ namespace server
                 }
 
                 string nickname = profile.Nickname;
-                byte[] imageBytes = profile.ProfilePicBytes;
+                byte[] imageBytes = profile.ProfilePicBytes ?? Array.Empty<byte>();
 
                 // 닉네임 전송
-                string header = $"PROFILE:{nickname}:";
+                string header = $"PROFILE:{nickname}::END_HEADER::";
                 NetworkStream stream = client.GetStream();
                 byte[] headerBytes = Encoding.UTF8.GetBytes(header);
                 stream.Write(headerBytes, 0, headerBytes.Length);
                 Console.WriteLine($"프로필 닉네임 전송 완료: {nickname}");
 
-                // 이미지가 없으면 바로 종료
-                if (imageBytes == null || imageBytes.Length == 0)
+                // 프로필 이미지가 없으면 바로 종료
+                if (imageBytes.Length == 0)
                 {
                     Console.WriteLine("프로필 이미지 없음");
                     byte[] endBytes = Encoding.UTF8.GetBytes("::END::");
@@ -129,7 +130,7 @@ namespace server
                 // 청크 전송 완료 표시
                 byte[] endBytesFinal = Encoding.UTF8.GetBytes("::END::");
                 stream.Write(endBytesFinal, 0, endBytesFinal.Length);
-                Console.WriteLine("프로필 이미지 전송 완료");
+                Console.WriteLine($"프로필 이미지 전송 완료: {base64Image}");
 
                 return "";
             }
@@ -182,11 +183,64 @@ namespace server
                 string userId = message.Substring(15).Trim();
                 return DeleteAccount(userId) ? "OK" : "DELETE_FAIL";
             }
+            else if (message.StartsWith("LOAD_STATS:"))
+            {
+                string userId = message.Substring(11).Trim();
+                Console.WriteLine($"LOAD_STATS 요청: {userId}");
+
+                var stats = GetUserStats(userId);
+                if (stats == null)
+                {
+                    Console.WriteLine("유저 통계 정보를 찾을 수 없습니다.");
+                    return "STATS_LOAD_FAIL";
+                }
+
+                // 헤더: 모든 통계 데이터 문자열 (프로필 사진 제외) + 구분자
+                string header = $"{stats.NickName}|{stats.StrokeNumber}|{stats.Accurancy}|{stats.MainLanguage}|" +
+                                $"{stats.RainMaxScore}|{stats.RainMaxLevel}|{stats.BlockRecord}|" +
+                                $"{stats.QuizMaxScore}|{stats.QuizWinRate}|{stats.FoundWinRate}::END_HEADER::";
+
+                NetworkStream stream = client.GetStream();
+
+                // 1. 헤더 전송
+                byte[] headerBytes = Encoding.UTF8.GetBytes(header);
+                stream.Write(headerBytes, 0, headerBytes.Length);
+                Console.WriteLine("유저 통계 데이터 헤더 전송 완료");
+
+                // 2. 프로필 이미지 Base64 변환 후 청크 단위 전송
+                byte[] imageBytes = stats.ProfilePicBytes ?? Array.Empty<byte>();
+                if (imageBytes.Length == 0)
+                {
+                    Console.WriteLine("프로필 이미지 없음");
+                    byte[] endBytes = Encoding.UTF8.GetBytes("::END::");
+                    stream.Write(endBytes, 0, endBytes.Length);
+                    return "";
+                }
+
+                string base64Image = Convert.ToBase64String(imageBytes);
+                int chunkSize = 1024;
+                for (int i = 0; i < base64Image.Length; i += chunkSize)
+                {
+                    int length = Math.Min(chunkSize, base64Image.Length - i);
+                    string chunk = base64Image.Substring(i, length);
+
+                    byte[] chunkBytes = Encoding.UTF8.GetBytes(chunk);
+                    stream.Write(chunkBytes, 0, chunkBytes.Length);
+                }
+
+                // 3. 청크 전송 완료 표시
+                byte[] endBytesFinal = Encoding.UTF8.GetBytes("::END::");
+                stream.Write(endBytesFinal, 0, endBytesFinal.Length);
+                Console.WriteLine("프로필 이미지 전송 완료");
+
+                return "";
+            }
+
 
             return "UNKNOWN_COMMAND";
         }
 
-
+        
         private bool ValidateUser(string userId)
         {
             try
@@ -234,25 +288,28 @@ namespace server
                         }
                     }
 
-                    // 기본 프로필 이미지 로드 (없으면 null)
+                    // 기본 프로필 이미지 로드
                     byte[] profileImageBytes = null;
-                    string defaultImagePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"..\Resources\신지.jpeg");
+
+                    string exePath = AppDomain.CurrentDomain.BaseDirectory;
+                    string defaultImagePath = Path.Combine(exePath, "..", "..", "Resources", "sky.jpg");
                     defaultImagePath = Path.GetFullPath(defaultImagePath);
 
-                    if (File.Exists(defaultImagePath))
+                    try
                     {
-                        try
+                        if (File.Exists(defaultImagePath))
                         {
                             profileImageBytes = File.ReadAllBytes(defaultImagePath);
+                            Console.WriteLine("[알림] 기본 프로필 이미지 로드 완료");
                         }
-                        catch (Exception ex)
+                        else
                         {
-                            Console.WriteLine($"[경고] 기본 프로필 이미지 로드 중 오류 발생: {ex.Message} - null로 저장합니다.");
+                            Console.WriteLine($"[경고] 기본 프로필 이미지가 존재하지 않습니다: {defaultImagePath}");
                         }
                     }
-                    else
+                    catch (Exception ex)
                     {
-                        Console.WriteLine("[알림] 기본 프로필 이미지가 존재하지 않아 null로 저장합니다.");
+                        Console.WriteLine($"[경고] 기본 프로필 이미지 로드 중 오류 발생: {ex.Message} - null로 저장합니다.");
                     }
 
                     // DB에 사용자 정보 저장 (profilePic이 없으면 null 저장)
@@ -262,6 +319,7 @@ namespace server
                         cmd.Parameters.AddWithValue("@userId", userId);
                         cmd.Parameters.AddWithValue("@nickName", "홍길동");
 
+                        // 프로필 이미지 설정 (없으면 NULL 저장)
                         var profilePicParam = cmd.Parameters.Add("@profilePic", System.Data.SqlDbType.VarBinary, -1);
                         profilePicParam.Value = profileImageBytes ?? (object)DBNull.Value;
 
@@ -277,6 +335,7 @@ namespace server
                 return false;
             }
         }
+
 
         public class UserProfile
         {
@@ -405,6 +464,75 @@ namespace server
                 Console.WriteLine($"[DB 오류] {ex.Message}");
                 return false;
             }
+        }
+
+        public class UserStats
+        {
+            public string NickName { get; set; }
+            public int StrokeNumber { get; set; }
+            public int Accurancy { get; set; }
+            public string MainLanguage { get; set; }
+            public int RainMaxScore { get; set; }
+            public int RainMaxLevel { get; set; }
+            public float BlockRecord { get; set; }
+            public int QuizMaxScore { get; set; }
+            public float QuizWinRate { get; set; }
+            public float FoundWinRate { get; set; }
+            public byte[] ProfilePicBytes { get; set; } = Array.Empty<byte>(); // 빈 배열로 초기화
+        }
+
+        private UserStats GetUserStats(string userId)
+        {
+            string query = @"
+SELECT U.nickName, S.strokeNumber, S.accurancy, S.mainLanguage, 
+       S.rainMaxScore, S.rainMaxLevel, S.blockRecord, 
+       S.quizMaxScore, S.quizWinRate, S.foundWinRate, U.profilePic
+FROM Users U
+LEFT JOIN UserStats S ON U.userId = S.userId
+WHERE U.userId = @userId;";
+
+            try
+            {
+                using (SqlConnection conn = new SqlConnection(connectionString))
+                {
+                    conn.Open();
+                    using (SqlCommand command = new SqlCommand(query, conn))
+                    {
+                        command.Parameters.AddWithValue("@userId", userId);
+                        using (SqlDataReader reader = command.ExecuteReader())
+                        {
+                            if (reader.Read())
+                            {
+                                // 프로필 사진만 별도 NULL 체크해서 빈 배열로 처리
+                                byte[] profilePicBytes = reader.IsDBNull(reader.GetOrdinal("profilePic"))
+                                    ? Array.Empty<byte>()
+                                    : (byte[])reader["profilePic"];
+
+                                return new UserStats
+                                {
+                                    NickName = reader["nickName"]?.ToString().Trim() ?? string.Empty,
+                                    StrokeNumber = reader.IsDBNull(reader.GetOrdinal("strokeNumber")) ? 0 : Convert.ToInt32(reader["strokeNumber"]),
+                                    Accurancy = reader.IsDBNull(reader.GetOrdinal("accurancy")) ? 0 : Convert.ToInt32(reader["accurancy"]),
+                                    MainLanguage = reader["mainLanguage"]?.ToString().Trim() ?? string.Empty,
+                                    RainMaxScore = reader.IsDBNull(reader.GetOrdinal("rainMaxScore")) ? 0 : Convert.ToInt32(reader["rainMaxScore"]),
+                                    RainMaxLevel = reader.IsDBNull(reader.GetOrdinal("rainMaxLevel")) ? 0 : Convert.ToInt32(reader["rainMaxLevel"]),
+                                    BlockRecord = reader.IsDBNull(reader.GetOrdinal("blockRecord")) ? 0f : Convert.ToSingle(reader["blockRecord"]),
+                                    QuizMaxScore = reader.IsDBNull(reader.GetOrdinal("quizMaxScore")) ? 0 : Convert.ToInt32(reader["quizMaxScore"]),
+                                    QuizWinRate = reader.IsDBNull(reader.GetOrdinal("quizWinRate")) ? 0f : Convert.ToSingle(reader["quizWinRate"]),
+                                    FoundWinRate = reader.IsDBNull(reader.GetOrdinal("foundWinRate")) ? 0f : Convert.ToSingle(reader["foundWinRate"]),
+                                    ProfilePicBytes = profilePicBytes
+                                };
+                            }
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"[DB 오류] {ex.Message}");
+            }
+
+            return null;
         }
 
     }
