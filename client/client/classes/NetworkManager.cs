@@ -3,6 +3,7 @@ using System.IO;
 using System.Net.Sockets;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace client.classes.NetworkManager
 {
@@ -11,6 +12,10 @@ namespace client.classes.NetworkManager
         private static NetworkManager instance;
         private TcpClient client;
         private NetworkStream stream;
+
+        private byte[] leftoverBuffer = null;
+        private int leftoverLength = 0;
+
 
         private NetworkManager() { }
 
@@ -127,6 +132,86 @@ namespace client.classes.NetworkManager
                 Console.WriteLine($"[클라이언트] 메시지 수신 중 오류 발생: {ex.Message}");
             }
             return null;
+        }
+
+        public async Task<string> ReceiveHeaderAsync()
+        {
+            var buffer = new byte[1024];
+            var sb = new StringBuilder();
+
+            while (true)
+            {
+                int bytesRead;
+
+                if (leftoverBuffer != null && leftoverLength > 0)
+                {
+                    bytesRead = leftoverLength;
+                    string chunk = Encoding.UTF8.GetString(leftoverBuffer, 0, bytesRead);
+                    sb.Append(chunk);
+                    leftoverBuffer = null;
+                    leftoverLength = 0;
+                }
+                else
+                {
+                    bytesRead = await stream.ReadAsync(buffer, 0, buffer.Length);
+                    if (bytesRead == 0)
+                        throw new IOException("서버와 연결이 끊어졌습니다.");
+
+                    string chunk = Encoding.UTF8.GetString(buffer, 0, bytesRead);
+                    sb.Append(chunk);
+                }
+
+                string accumulated = sb.ToString();
+                int headerEndIndex = accumulated.IndexOf("::END_HEADER::");
+                if (headerEndIndex >= 0)
+                {
+                    string header = accumulated.Substring(0, headerEndIndex);
+
+                    int leftoverStartIndex = headerEndIndex + "::END_HEADER::".Length;
+                    if (leftoverStartIndex < accumulated.Length)
+                    {
+                        string leftoverStr = accumulated.Substring(leftoverStartIndex);
+                        byte[] leftoverBytes = Encoding.UTF8.GetBytes(leftoverStr);
+
+                        leftoverBuffer = leftoverBytes;
+                        leftoverLength = leftoverBytes.Length;
+                    }
+                    return header;
+                }
+            }
+        }
+
+        public async Task<string> ReceiveFullMessageUntilEndAsync(string initialData)
+        {
+            StringBuilder fullMessage = new StringBuilder(initialData);
+
+            if (leftoverBuffer != null && leftoverLength > 0)
+            {
+                string leftoverStr = Encoding.UTF8.GetString(leftoverBuffer, 0, leftoverLength);
+                fullMessage.Append(leftoverStr);
+                leftoverBuffer = null;
+                leftoverLength = 0;
+            }
+
+            while (true)
+            {
+                string chunk = await ReceiveMessageAsync();
+                if (chunk == null)
+                {
+                    // 오류 처리
+                    return null;
+                }
+
+                if (chunk.EndsWith("::END::"))
+                {
+                    fullMessage.Append(chunk.Replace("::END::", ""));
+                    break;
+                }
+
+                fullMessage.Append(chunk);
+            }
+
+            return fullMessage.ToString();
         }
 
         private async Task ReconnectAsync()

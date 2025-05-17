@@ -77,12 +77,6 @@
             this.listBox1.Font = new System.Drawing.Font("휴먼옛체", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.listBox1.FormattingEnabled = true;
             this.listBox1.ItemHeight = 26;
-            this.listBox1.Items.AddRange(new object[] {
-            "엽떡",
-            "마라탕",
-            "치킨",
-            "피자",
-            "맛있겠다"});
             this.listBox1.Location = new System.Drawing.Point(0, 51);
             this.listBox1.Name = "listBox1";
             this.listBox1.ScrollAlwaysVisible = true;

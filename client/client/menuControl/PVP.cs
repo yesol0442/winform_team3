@@ -9,11 +9,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using client.classes;
 
 namespace client.menuControl
 {
     public partial class PVP : UserControl
     {
+
         quizStart quizstart;
 
         FindStart findStart;

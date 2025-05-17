@@ -1,4 +1,5 @@
-﻿using client.classes.NetworkManager;
+﻿using client.classes;
+using client.classes.NetworkManager;
 using client.menuControl;
 using Guna.UI2.WinForms;
 using System;
@@ -13,7 +14,6 @@ using System.Threading.Tasks;
 using System.Web.UI.WebControls;
 using System.Windows.Forms;
 using static Guna.UI2.Native.WinApi;
-using client.classes.NetworkManager;
 
 namespace client
 {
@@ -27,6 +27,7 @@ namespace client
         private new menuControl.PVP PVP = new menuControl.PVP();
         private new menuControl.초기화면 초기화면 = new menuControl.초기화면();
         private Guna.UI2.WinForms.Guna2Button currentSelectedButton = null;
+
         public Form1()
         {
             InitializeComponent();
@@ -149,9 +150,24 @@ namespace client
             btn환경설정.Enabled = true;
         }
 
-        private void LoginPage_LoginSuccess(object sender, EventArgs e)
+        private async void LoginPage_LoginSuccess(object sender, 초기화면.LoginSuccessEventArgs e)
         {
             EnableMenuButtons();
+
+            UserSession.Instance.SetUserId(e.UserId);
+
+            try
+            {
+                // 로그인 성공 시 UserId 전달해서 초기화 메서드 호출
+                await 홈.LoadUserStats(UserSession.Instance.UserId);
+                환경설정.currentUserId = UserSession.Instance.UserId;
+                await 환경설정.SetCurrentUserIdAsync(UserSession.Instance.UserId);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"[클라이언트] 홈 초기화 중 오류 발생: {ex.Message}");
+                MessageBox.Show("홈 초기화 중 오류가 발생했습니다.", "오류", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
 
             btn홈.PerformClick();
         }
