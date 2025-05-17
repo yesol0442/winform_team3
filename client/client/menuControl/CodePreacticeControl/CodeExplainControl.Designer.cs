@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.label1 = new System.Windows.Forms.Label();
+            this.난이도lbl = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.뒤로가기btn = new System.Windows.Forms.Button();
             this.label2 = new System.Windows.Forms.Label();
@@ -36,19 +36,20 @@
             this.제목label = new System.Windows.Forms.Label();
             this.코드설명textbox = new Guna.UI2.WinForms.Guna2TextBox();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.업로더lbl = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
-            // label1
+            // 난이도lbl
             // 
-            this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("휴먼옛체", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            this.label1.ForeColor = System.Drawing.Color.Black;
-            this.label1.Location = new System.Drawing.Point(16, 135);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(149, 19);
-            this.label1.TabIndex = 1;
-            this.label1.Text = "난이도 표시 라벨";
+            this.난이도lbl.AutoSize = true;
+            this.난이도lbl.Font = new System.Drawing.Font("휴먼옛체", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.난이도lbl.ForeColor = System.Drawing.Color.Black;
+            this.난이도lbl.Location = new System.Drawing.Point(16, 135);
+            this.난이도lbl.Name = "난이도lbl";
+            this.난이도lbl.Size = new System.Drawing.Size(149, 19);
+            this.난이도lbl.TabIndex = 1;
+            this.난이도lbl.Text = "난이도 표시 라벨";
             // 
             // label3
             // 
@@ -58,9 +59,9 @@
             this.label3.ForeColor = System.Drawing.Color.Black;
             this.label3.Location = new System.Drawing.Point(16, 105);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(172, 19);
+            this.label3.Size = new System.Drawing.Size(68, 19);
             this.label3.TabIndex = 4;
-            this.label3.Text = "업로더: 업로더 이름";
+            this.label3.Text = "업로더:";
             // 
             // 뒤로가기btn
             // 
@@ -98,12 +99,13 @@
             this.시작btn.TabIndex = 5;
             this.시작btn.Text = "시작";
             this.시작btn.UseVisualStyleBackColor = true;
+            this.시작btn.Click += new System.EventHandler(this.시작btn_Click);
             // 
             // 제목label
             // 
             this.제목label.AutoSize = true;
             this.제목label.Font = new System.Drawing.Font("휴먼옛체", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            this.제목label.Location = new System.Drawing.Point(166, 51);
+            this.제목label.Location = new System.Drawing.Point(18, 55);
             this.제목label.Name = "제목label";
             this.제목label.Size = new System.Drawing.Size(60, 26);
             this.제목label.TabIndex = 8;
@@ -126,9 +128,11 @@
             this.코드설명textbox.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
             this.코드설명textbox.Location = new System.Drawing.Point(20, 189);
             this.코드설명textbox.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.코드설명textbox.Multiline = true;
             this.코드설명textbox.Name = "코드설명textbox";
             this.코드설명textbox.PlaceholderText = "";
             this.코드설명textbox.ReadOnly = true;
+            this.코드설명textbox.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
             this.코드설명textbox.SelectedText = "";
             this.코드설명textbox.Size = new System.Drawing.Size(353, 192);
             this.코드설명textbox.TabIndex = 9;
@@ -136,22 +140,36 @@
             // panel1
             // 
             this.panel1.BackColor = System.Drawing.Color.White;
+            this.panel1.Controls.Add(this.업로더lbl);
             this.panel1.Controls.Add(this.코드설명textbox);
             this.panel1.Controls.Add(this.제목label);
             this.panel1.Controls.Add(this.시작btn);
             this.panel1.Controls.Add(this.label2);
             this.panel1.Controls.Add(this.뒤로가기btn);
             this.panel1.Controls.Add(this.label3);
-            this.panel1.Controls.Add(this.label1);
+            this.panel1.Controls.Add(this.난이도lbl);
             this.panel1.Location = new System.Drawing.Point(2, 48);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(393, 446);
             this.panel1.TabIndex = 8;
             // 
+            // 업로더lbl
+            // 
+            this.업로더lbl.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.업로더lbl.AutoSize = true;
+            this.업로더lbl.Font = new System.Drawing.Font("휴먼옛체", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.업로더lbl.ForeColor = System.Drawing.Color.Black;
+            this.업로더lbl.Location = new System.Drawing.Point(81, 105);
+            this.업로더lbl.Name = "업로더lbl";
+            this.업로더lbl.Size = new System.Drawing.Size(106, 19);
+            this.업로더lbl.TabIndex = 10;
+            this.업로더lbl.Text = "업로더 이름";
+            // 
             // CodeExplainControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 18F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.AutoScroll = true;
             this.Controls.Add(this.panel1);
             this.Name = "CodeExplainControl";
             this.Size = new System.Drawing.Size(398, 511);
@@ -163,7 +181,7 @@
 
         #endregion
 
-        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label 난이도lbl;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Button 뒤로가기btn;
         private System.Windows.Forms.Label label2;
@@ -171,5 +189,6 @@
         private System.Windows.Forms.Label 제목label;
         private Guna.UI2.WinForms.Guna2TextBox 코드설명textbox;
         private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.Label 업로더lbl;
     }
 }
