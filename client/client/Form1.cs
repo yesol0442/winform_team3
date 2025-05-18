@@ -65,10 +65,21 @@ namespace client
             this.WindowState = FormWindowState.Minimized;
         }
 
-        private void 홈_Click(object sender, EventArgs e)
+        private async void 홈_Click(object sender, EventArgs e)
         {
             홈.BringToFront();
             홈.Show();
+
+            try
+            {
+                // 로그인한 사용자 ID로 최신 정보 다시 불러오기
+                await 홈.LoadUserStats(UserSession.Instance.UserId);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"홈 화면 정보 갱신 실패: {ex.Message}");
+            }
+
             메뉴버튼_Click(sender, e);
         }
 
@@ -100,24 +111,7 @@ namespace client
             메뉴버튼_Click(sender, e);
         }
 
-        private async void Form1_Load(object sender, EventArgs e)
-        {
-            try
-            {
-                await NetworkManager.Instance.ConnectAsync("127.0.0.1", 5000);
-
-                // 연결 성공 시 초기화면 표시 및 메뉴 비활성화
-                초기화면.BringToFront();
-                초기화면.Show();
-                DisableMenuButtons();
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("서버 연결 실패: " + ex.Message);
-                // 연결 실패 처리: 재접속 유도 or 앱 종료 등
-            }
-
-        }
+        
 
         private void 메뉴버튼_Click(object sender, EventArgs e)
         {
@@ -148,6 +142,25 @@ namespace client
             btn미니게임.Enabled = true;
             btn코드연습.Enabled = true;
             btn환경설정.Enabled = true;
+        }
+
+        private async void Form1_Load(object sender, EventArgs e)
+        {
+            try
+            {
+                await NetworkManager.Instance.ConnectAsync("127.0.0.1", 5000);
+
+                // 연결 성공 시 초기화면 표시 및 메뉴 비활성화
+                초기화면.BringToFront();
+                초기화면.Show();
+                DisableMenuButtons();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("서버 연결 실패: " + ex.Message);
+                // 연결 실패 처리: 재접속 유도 or 앱 종료 등
+            }
+
         }
 
         private async void LoginPage_LoginSuccess(object sender, 초기화면.LoginSuccessEventArgs e)

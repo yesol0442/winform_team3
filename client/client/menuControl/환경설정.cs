@@ -28,6 +28,7 @@ namespace client.menuControl
             txtNickname.Visible = false;
         }
 
+
         public async Task SetCurrentUserIdAsync(string userId)
         {
             currentUserId = userId;
