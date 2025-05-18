@@ -3,6 +3,10 @@
   "WorkspaceRootPath": "C:\\Users\\cheae\\source\\repos\\winform_team3\\client\\",
   "Documents": [
     {
+      "AbsoluteMoniker": "D:0:0:{FE6AC6E2-861D-4EF3-9305-D3D920232E1A}|client\\client.csproj|c:\\users\\cheae\\source\\repos\\winform_team3\\client\\client\\finddifferform\\findform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{FE6AC6E2-861D-4EF3-9305-D3D920232E1A}|client\\client.csproj|solutionrelative:client\\finddifferform\\findform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{FE6AC6E2-861D-4EF3-9305-D3D920232E1A}|client\\client.csproj|c:\\users\\cheae\\source\\repos\\winform_team3\\client\\client\\finddifferform\\findform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
       "RelativeMoniker": "D:0:0:{FE6AC6E2-861D-4EF3-9305-D3D920232E1A}|client\\client.csproj|solutionrelative:client\\finddifferform\\findform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
     },
@@ -11,24 +15,20 @@
       "RelativeMoniker": "D:0:0:{FE6AC6E2-861D-4EF3-9305-D3D920232E1A}|client\\client.csproj|solutionrelative:client\\finddifferform\\findstart.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{FE6AC6E2-861D-4EF3-9305-D3D920232E1A}|client\\client.csproj|c:\\users\\cheae\\source\\repos\\winform_team3\\client\\client\\finddifferform\\findform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{FE6AC6E2-861D-4EF3-9305-D3D920232E1A}|client\\client.csproj|solutionrelative:client\\finddifferform\\findform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{FE6AC6E2-861D-4EF3-9305-D3D920232E1A}|client\\client.csproj|c:\\users\\cheae\\source\\repos\\winform_team3\\client\\client\\finddifferform\\transparentpanel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{FE6AC6E2-861D-4EF3-9305-D3D920232E1A}|client\\client.csproj|solutionrelative:client\\finddifferform\\transparentpanel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{FE6AC6E2-861D-4EF3-9305-D3D920232E1A}|client\\client.csproj|c:\\users\\cheae\\source\\repos\\winform_team3\\client\\client\\finddifferform\\findform.designer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{FE6AC6E2-861D-4EF3-9305-D3D920232E1A}|client\\client.csproj|solutionrelative:client\\finddifferform\\findform.designer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{FE6AC6E2-861D-4EF3-9305-D3D920232E1A}|client\\client.csproj|C:\\Users\\cheae\\source\\repos\\winform_team3\\client\\client\\menucontrol\\\uD658\uACBD\uC124\uC815.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{FE6AC6E2-861D-4EF3-9305-D3D920232E1A}|client\\client.csproj|solutionrelative:client\\menucontrol\\\uD658\uACBD\uC124\uC815.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{FE6AC6E2-861D-4EF3-9305-D3D920232E1A}|client\\client.csproj|c:\\users\\cheae\\source\\repos\\winform_team3\\client\\client\\menucontrol\\\uCD08\uAE30\uD654\uBA74.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{FE6AC6E2-861D-4EF3-9305-D3D920232E1A}|client\\client.csproj|solutionrelative:client\\menucontrol\\\uCD08\uAE30\uD654\uBA74.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{FE6AC6E2-861D-4EF3-9305-D3D920232E1A}|client\\client.csproj|c:\\users\\cheae\\source\\repos\\winform_team3\\client\\client\\quizform\\quizstart.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{FE6AC6E2-861D-4EF3-9305-D3D920232E1A}|client\\client.csproj|solutionrelative:client\\quizform\\quizstart.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{FE6AC6E2-861D-4EF3-9305-D3D920232E1A}|client\\client.csproj|c:\\users\\cheae\\source\\repos\\winform_team3\\client\\client\\menucontrol\\\uCD08\uAE30\uD654\uBA74.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{FE6AC6E2-861D-4EF3-9305-D3D920232E1A}|client\\client.csproj|solutionrelative:client\\menucontrol\\\uCD08\uAE30\uD654\uBA74.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{FE6AC6E2-861D-4EF3-9305-D3D920232E1A}|client\\client.csproj|C:\\Users\\cheae\\source\\repos\\winform_team3\\client\\client\\menucontrol\\\uD658\uACBD\uC124\uC815.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{FE6AC6E2-861D-4EF3-9305-D3D920232E1A}|client\\client.csproj|solutionrelative:client\\menucontrol\\\uD658\uACBD\uC124\uC815.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{FE6AC6E2-861D-4EF3-9305-D3D920232E1A}|client\\client.csproj|C:\\Users\\cheae\\source\\repos\\winform_team3\\client\\client\\menucontrol\\\uD648.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -46,7 +46,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 7,
+          "SelectedChildIndex": 6,
           "Children": [
             {
               "$type": "Bookmark",
@@ -63,45 +63,19 @@
             {
               "$type": "Document",
               "DocumentIndex": 3,
-              "Title": "FindForm.Designer.cs",
-              "DocumentMoniker": "C:\\Users\\cheae\\source\\repos\\winform_team3\\client\\client\\FindDifferForm\\FindForm.Designer.cs",
-              "RelativeDocumentMoniker": "client\\FindDifferForm\\FindForm.Designer.cs",
-              "ToolTip": "C:\\Users\\cheae\\source\\repos\\winform_team3\\client\\client\\FindDifferForm\\FindForm.Designer.cs*",
-              "RelativeToolTip": "client\\FindDifferForm\\FindForm.Designer.cs*",
-              "ViewState": "AgIAABcAAAAAAAAAAAAuwCwAAAAAAAAAAAAAAA==",
+              "Title": "TransparentPanel.cs",
+              "DocumentMoniker": "C:\\Users\\cheae\\source\\repos\\winform_team3\\client\\client\\FindDifferForm\\TransparentPanel.cs",
+              "RelativeDocumentMoniker": "client\\FindDifferForm\\TransparentPanel.cs",
+              "ToolTip": "C:\\Users\\cheae\\source\\repos\\winform_team3\\client\\client\\FindDifferForm\\TransparentPanel.cs",
+              "RelativeToolTip": "client\\FindDifferForm\\TransparentPanel.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAACMAAAAFAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-18T15:17:41.024Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 5,
-              "Title": "quizStart.cs",
-              "DocumentMoniker": "C:\\Users\\cheae\\source\\repos\\winform_team3\\client\\client\\quizForm\\quizStart.cs",
-              "RelativeDocumentMoniker": "client\\quizForm\\quizStart.cs",
-              "ToolTip": "C:\\Users\\cheae\\source\\repos\\winform_team3\\client\\client\\quizForm\\quizStart.cs",
-              "RelativeToolTip": "client\\quizForm\\quizStart.cs",
-              "ViewState": "AgIAAA4AAAAAAAAAAAAAwAAAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-18T15:13:45.514Z",
+              "WhenOpened": "2025-05-18T16:16:52.342Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 2,
-              "Title": "FindForm.cs",
-              "DocumentMoniker": "C:\\Users\\cheae\\source\\repos\\winform_team3\\client\\client\\FindDifferForm\\FindForm.cs",
-              "RelativeDocumentMoniker": "client\\FindDifferForm\\FindForm.cs",
-              "ToolTip": "C:\\Users\\cheae\\source\\repos\\winform_team3\\client\\client\\FindDifferForm\\FindForm.cs*",
-              "RelativeToolTip": "client\\FindDifferForm\\FindForm.cs*",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAF0AAAAYAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-18T15:08:35.738Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 1,
               "Title": "FindStart.cs [\uB514\uC790\uC778]",
               "DocumentMoniker": "C:\\Users\\cheae\\source\\repos\\winform_team3\\client\\client\\FindDifferForm\\FindStart.cs",
               "RelativeDocumentMoniker": "client\\FindDifferForm\\FindStart.cs",
@@ -113,19 +87,45 @@
             },
             {
               "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "quizStart.cs",
+              "DocumentMoniker": "C:\\Users\\cheae\\source\\repos\\winform_team3\\client\\client\\quizForm\\quizStart.cs",
+              "RelativeDocumentMoniker": "client\\quizForm\\quizStart.cs",
+              "ToolTip": "C:\\Users\\cheae\\source\\repos\\winform_team3\\client\\client\\quizForm\\quizStart.cs",
+              "RelativeToolTip": "client\\quizForm\\quizStart.cs",
+              "ViewState": "AgIAABMAAAAAAAAAAAAAwBAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-18T15:13:45.514Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
               "DocumentIndex": 0,
+              "Title": "FindForm.cs",
+              "DocumentMoniker": "C:\\Users\\cheae\\source\\repos\\winform_team3\\client\\client\\FindDifferForm\\FindForm.cs",
+              "RelativeDocumentMoniker": "client\\FindDifferForm\\FindForm.cs",
+              "ToolTip": "C:\\Users\\cheae\\source\\repos\\winform_team3\\client\\client\\FindDifferForm\\FindForm.cs",
+              "RelativeToolTip": "client\\FindDifferForm\\FindForm.cs",
+              "ViewState": "AgIAAGAAAAAAAAAAAAAQwHIAAABBAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-18T15:08:35.738Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
               "Title": "FindForm.cs [\uB514\uC790\uC778]",
               "DocumentMoniker": "C:\\Users\\cheae\\source\\repos\\winform_team3\\client\\client\\FindDifferForm\\FindForm.cs",
               "RelativeDocumentMoniker": "client\\FindDifferForm\\FindForm.cs",
-              "ToolTip": "C:\\Users\\cheae\\source\\repos\\winform_team3\\client\\client\\FindDifferForm\\FindForm.cs [\uB514\uC790\uC778]*",
-              "RelativeToolTip": "client\\FindDifferForm\\FindForm.cs [\uB514\uC790\uC778]*",
+              "ToolTip": "C:\\Users\\cheae\\source\\repos\\winform_team3\\client\\client\\FindDifferForm\\FindForm.cs [\uB514\uC790\uC778]",
+              "RelativeToolTip": "client\\FindDifferForm\\FindForm.cs [\uB514\uC790\uC778]",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-05-18T14:54:45.693Z",
               "EditorCaption": " [\uB514\uC790\uC778]"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 6,
+              "DocumentIndex": 4,
               "Title": "\uCD08\uAE30\uD654\uBA74.cs",
               "DocumentMoniker": "C:\\Users\\cheae\\source\\repos\\winform_team3\\client\\client\\menuControl\\\uCD08\uAE30\uD654\uBA74.cs",
               "RelativeDocumentMoniker": "client\\menuControl\\\uCD08\uAE30\uD654\uBA74.cs",
@@ -163,7 +163,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 6,
               "Title": "\uD658\uACBD\uC124\uC815.cs",
               "DocumentMoniker": "C:\\Users\\cheae\\source\\repos\\winform_team3\\client\\client\\menuControl\\\uD658\uACBD\uC124\uC815.cs",
               "RelativeDocumentMoniker": "client\\menuControl\\\uD658\uACBD\uC124\uC815.cs",

@@ -1,9 +1,11 @@
-﻿using System;
+﻿using Guna.UI2.WinForms;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -16,25 +18,38 @@ namespace client.FindDifferForm
         private int score = 0;  // 점수 저장
 
         // 틀린 줄 번호 (0부터 시작)
-        private List<(int line, int charIndex)> wrongPositions = new List<(int, int)>
+        private List<(int line, int charIndex)> answerPositions = new List<(int, int)>
         {
             (1, 10),  // 줄 1, 10번째 문자 위치에 틀린 부분
             (3, 9)    // 줄 3, 9번째 문자 위치
         };
 
-        // 생성한 정답 버튼을 추적하기 위한 리스트 (중복 방지, 비활성화 관리 등)
-        private List<Button> answerButtons = new List<Button>();
+        // 이미 맞춘 정답 좌표 리스트
+        private List<(int line, int col)> answeredPositions = new List<(int, int)>();
 
+
+        TransparentPanel overlayPanel = new TransparentPanel();
 
         public FindForm()
         {
             InitializeComponent();
 
+            // 투명 판넬 생성
+            overlayPanel.Location = codeTxt.Location;
+            overlayPanel.Size = codeTxt.Size;
+            overlayPanel.Parent = this;
+            
+            this.Controls.Add(overlayPanel);
+            overlayPanel.BringToFront();
+            
+            // 클릭/그리기 이벤트 연결 
+            overlayPanel.Paint += overlayPanel_Paint;
+            overlayPanel.MouseClick += overlayPanel_MouseClick;
+
             // 예시 코드 삽입
             LoadSampleCode();
 
-            // 틀린 위치에 투명 버튼 배치
-            PlaceAnswerButtons();
+   
         }
 
 
@@ -52,58 +67,74 @@ namespace client.FindDifferForm
             codeTxt.Lines = codeLines;
         }
 
+        
+       
 
-        // 틀린 위치에 정확한 위치로 버튼 배치
-        private void PlaceAnswerButtons()
+        private void overlayPanel_Paint(object sender, PaintEventArgs e)
         {
-            foreach (var (line, charIndex) in wrongPositions)
+            /*
+            // 테스트용
+            Graphics g = e.Graphics;
+            // Brush brush = new SolidBrush(Color.FromArgb(80, Color.Red));
+            
+
+
+            foreach (var (line, col) in answerPositions)
             {
-                // 줄 시작 인덱스 + 문자 위치 = 실제 문자의 인덱스
-                int lineStart = codeTxt.GetFirstCharIndexFromLine(line);
-                int totalIndex = lineStart + charIndex;
+                int start = codeTxt.GetFirstCharIndexFromLine(line);
+                int index = start + col;
+                Point pos = codeTxt.GetPositionFromCharIndex(index);
 
-                // 문자의 좌표 위치 얻기 (RichTextBox 기준)
-                Point localPos = codeTxt.GetPositionFromCharIndex(totalIndex);
+                Pen pen = new Pen(Color.Green, 2);
+                g.DrawEllipse(pen, new Rectangle(pos.X, pos.Y, 14, 14));
+            }*/
 
-                // RichTextBox가 폼 안에서 떨어진 위치를 더해서 폼 좌표로 환산
-                int globalX = codeTxt.Left + localPos.X;
-                int globalY = codeTxt.Top + localPos.Y;
 
-                // 버튼 생성
-                Button btn = new Button
-                {
-                    Size = new Size(14, 18),
-                    Location = new Point(globalX + 5, globalY + 1),
-                    BackColor = Color.Transparent,
-                    FlatStyle = FlatStyle.Flat,
-                    Text = "",
-                    TabStop = false
-                };
+            // 투명
+            
+            Graphics g = e.Graphics;
 
-                btn.FlatAppearance.BorderSize = 0;
+            int answerLine=0;
+            int answerCol=0;
 
-                // 버튼 클릭 이벤트
-                btn.Click += AnswerButton_Click;
+            foreach (var (line, col) in answeredPositions)
+            {
+                answerLine = line;
+                answerCol = col;
 
-                this.Controls.Add(btn);    // 폼에 추가
-                btn.BringToFront();   // TextBox 위로
-                answerButtons.Add(btn);     // 리스트에 저장
+                int start = codeTxt.GetFirstCharIndexFromLine(line);
+                int index = start + col;
+                Point pos = codeTxt.GetPositionFromCharIndex(index);
+
+                Pen pen = new Pen(Color.FromArgb(100, 255, 0, 0), 3);   // 반투명 빨간색
+                g.DrawEllipse(pen, new Rectangle(pos.X+2, pos.Y+4, 14, 14));   // 동그라미
+             
             }
+           answeredPositions.Remove((answerLine, answerCol));
         }
 
-        // 버튼 클릭 시 정답 처리
-        private void AnswerButton_Click(object sender, EventArgs e)
-        {
-            Button btn = sender as Button;
 
-            if (btn != null)
+        private void overlayPanel_MouseClick(object sender, MouseEventArgs e)
+        {
+            int index = codeTxt.GetCharIndexFromPosition(e.Location);
+            int line = codeTxt.GetLineFromCharIndex(index);
+            int lineStart = codeTxt.GetFirstCharIndexFromLine(line);
+            int col = index - lineStart;
+
+            if (answerPositions.Contains((line, col)))
             {
-                btn.Enabled = false;
-                btn.BackColor = Color.LightGreen; // 정답 시 색 표시
+                answerPositions.Remove((line, col));
+                answeredPositions.Add((line, col));
                 score++;
                 lbScore.Text = $"점수: {score}";
+                overlayPanel.Invalidate(); // 다시 그리기
+            }
+            else
+            {
+                MessageBox.Show("오답!");
             }
         }
+
     }
 }
 
