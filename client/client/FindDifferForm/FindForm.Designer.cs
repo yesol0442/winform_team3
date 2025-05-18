@@ -28,12 +28,49 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
+            this.codeTxt = new System.Windows.Forms.RichTextBox();
+            this.lbScore = new System.Windows.Forms.Label();
+            this.SuspendLayout();
+            // 
+            // codeTxt
+            // 
+            this.codeTxt.Font = new System.Drawing.Font("휴먼옛체", 12F);
+            this.codeTxt.ImeMode = System.Windows.Forms.ImeMode.Disable;
+            this.codeTxt.Location = new System.Drawing.Point(52, 62);
+            this.codeTxt.Name = "codeTxt";
+            this.codeTxt.ReadOnly = true;
+            this.codeTxt.Size = new System.Drawing.Size(1208, 625);
+            this.codeTxt.TabIndex = 0;
+            this.codeTxt.Text = "";
+            // 
+            // lbScore
+            // 
+            this.lbScore.AutoSize = true;
+            this.lbScore.Font = new System.Drawing.Font("휴먼옛체", 12F);
+            this.lbScore.Location = new System.Drawing.Point(36, 9);
+            this.lbScore.Name = "lbScore";
+            this.lbScore.Size = new System.Drawing.Size(117, 34);
+            this.lbScore.TabIndex = 1;
+            this.lbScore.Text = "점수: 0";
+            this.lbScore.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // FindForm
+            // 
+            this.AutoScaleDimensions = new System.Drawing.SizeF(13F, 24F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
-            this.Text = "FindForm";
+            this.ClientSize = new System.Drawing.Size(1296, 710);
+            this.Controls.Add(this.lbScore);
+            this.Controls.Add(this.codeTxt);
+            this.Name = "FindForm";
+            this.Text = "틀린  코드 찾기";
+            this.ResumeLayout(false);
+            this.PerformLayout();
+
         }
 
         #endregion
+
+        private System.Windows.Forms.RichTextBox codeTxt;
+        private System.Windows.Forms.Label lbScore;
     }
 }

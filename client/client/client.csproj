@@ -194,6 +194,9 @@
       <DependentUpon>share_home.cs</DependentUpon>
     </Compile>
     <EmbeddedResource Include="CodePracticeForm\CodePracticeF.resx" />
+    <EmbeddedResource Include="FindDifferForm\FindForm.resx">
+      <DependentUpon>FindForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="FindDifferForm\FindStart.resx">
       <DependentUpon>FindStart.cs</DependentUpon>
     </EmbeddedResource>
