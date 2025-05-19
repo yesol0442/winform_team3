@@ -53,6 +53,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="classes\CodeBriefInfo.cs" />
+    <Compile Include="classes\CodeGame.cs" />
     <Compile Include="classes\CodePractice.cs" />
     <Compile Include="classes\Home.cs" />
     <Compile Include="classes\NetworkManager.cs" />
@@ -83,6 +84,7 @@
     <Compile Include="FindDifferForm\FindStart.Designer.cs">
       <DependentUpon>FindStart.cs</DependentUpon>
     </Compile>
+    <Compile Include="FindDifferForm\Program.cs" />
     <Compile Include="FindDifferForm\TransparentPanel.cs">
       <SubType>Component</SubType>
     </Compile>

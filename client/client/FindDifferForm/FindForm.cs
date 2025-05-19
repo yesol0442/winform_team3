@@ -1,9 +1,11 @@
-﻿using Guna.UI2.WinForms;
+﻿using client.classes;
+using Guna.UI2.WinForms;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Text;
@@ -30,8 +32,13 @@ namespace client.FindDifferForm
 
         TransparentPanel overlayPanel = new TransparentPanel();
 
-        public FindForm()
+        private StreamWriter writer; // 서버로 메시지 전송용
+
+        public FindForm(StreamReader reader, StreamWriter writer)
         {
+
+            this.writer = writer;
+
             InitializeComponent();
 
             // 투명 판넬 생성
@@ -49,7 +56,21 @@ namespace client.FindDifferForm
             // 예시 코드 삽입
             LoadSampleCode();
 
-   
+
+            // 수신 비동기 처리
+            _ = Task.Run(async () =>
+            {
+                while (true)
+                {
+                    string msg = await reader.ReadLineAsync();
+                    if (!string.IsNullOrEmpty(msg))
+                    {
+                        Invoke((Action)(() => ProcessMessage(msg)));
+                    }
+                }
+            });
+
+
         }
 
 
@@ -128,6 +149,9 @@ namespace client.FindDifferForm
                 score++;
                 lbScore.Text = $"점수: {score}";
                 overlayPanel.Invalidate(); // 다시 그리기
+
+                var msg = new CodeGame { Type = "CLICK", Line = line, Col = col };
+                writer.WriteLine(msg.ToString());
             }
             else
             {
@@ -135,6 +159,18 @@ namespace client.FindDifferForm
             }
         }
 
+        private void ProcessMessage(string msg)
+        {
+            var gm = CodeGame.Parse(msg);
+            if (gm.Type == "CLICK")
+            {
+                if (answerPositions.Contains((gm.Line, gm.Col)))
+                {
+                    answeredPositions.Remove((gm.Line, gm.Col));
+                    overlayPanel.Invalidate();
+                }
+            }
+        }
     }
 }
 
