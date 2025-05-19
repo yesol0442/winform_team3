@@ -84,7 +84,6 @@
     <Compile Include="FindDifferForm\FindStart.Designer.cs">
       <DependentUpon>FindStart.cs</DependentUpon>
     </Compile>
-    <Compile Include="FindDifferForm\Program.cs" />
     <Compile Include="FindDifferForm\TransparentPanel.cs">
       <SubType>Component</SubType>
     </Compile>
