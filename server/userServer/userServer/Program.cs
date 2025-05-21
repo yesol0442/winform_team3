@@ -72,7 +72,7 @@ namespace server
             }
         }
 
-        private string ProcessRequest(TcpClient client, string message)
+        private string ProcessRequest(TcpClient client, string message) // 여기에 else if문을 추가해서 각 요청에 대한 처리를 추가
         {
             if (message.StartsWith("LOGIN:"))
             {
@@ -183,6 +183,9 @@ namespace server
                 string userId = message.Substring(15).Trim();
                 return DeleteAccount(userId) ? "OK" : "DELETE_FAIL";
             }
+
+            // --------------------------------------- 환경설정 용 ------------------------------------ //
+
             else if (message.StartsWith("LOAD_STATS:"))
             {
                 string userId = message.Substring(11).Trim();
@@ -236,11 +239,152 @@ namespace server
                 return "";
             }
 
+            // --------------------------------------- 홈 용 ------------------------------------ //
+
+            else if (message.StartsWith("GET_CODE_TITLES:"))
+            {
+                string userId = message.Substring(17).Trim();
+                return GetCodeBriefInfo(userId);
+            }
+            else if (message.StartsWith("GET_USER_CODE_LIST:"))
+            {
+                string userId = message.Substring(20).Trim();
+                return GetUserCodeList(userId);
+            }
+            else if (message.StartsWith("GET_OTHER_USER_CODE_LIST:"))
+            {
+                string userId = message.Substring(27).Trim();
+                return GetOtherUserCodeList(userId);
+            }
+            else if (message.StartsWith("GET_CODE_PRACTICE:"))
+            {
+                string[] parts = message.Substring(19).Split(':');
+                if (parts.Length == 2)
+                {
+                    string userId = parts[0].Trim();
+                    int codeId = int.Parse(parts[1].Trim());
+                    CodePractice code = GetCodePractice(userId, codeId);
+                    if (code == null)
+                        return "코드 정보를 찾을 수 없습니다";
+
+                    // 헤더: 모든 통계 데이터 문자열 (프로필 사진 제외) + 구분자
+                    string header = $"{code.NickName}|{code.CodeTitle}|{code.CodeLevel}|{code.CodeSource}|" +
+                                    $"{code.CodeDescription}|{code.CodeContent}::END_HEADER::";
+
+                    NetworkStream stream = client.GetStream();
+
+                    byte[] headerBytes = Encoding.UTF8.GetBytes(header);
+                    stream.Write(headerBytes, 0, headerBytes.Length);
+                    Console.WriteLine("코드 정보 헤더 전송 완료");
+
+                    // 프로필 이미지 전송 (Base64로 변환하여 청크 전송)
+                    byte[] imageBytes = code.ProfilePicBytes;
+                    if (imageBytes.Length == 0)
+                    {
+                        byte[] endBytes = Encoding.UTF8.GetBytes("::END::");
+                        stream.Write(endBytes, 0, endBytes.Length);
+                        return "";
+                    }
+
+                    string base64Image = Convert.ToBase64String(imageBytes);
+                    int chunkSize = 1024;
+                    for (int i = 0; i < base64Image.Length; i += chunkSize)
+                    {
+                        int length = Math.Min(chunkSize, base64Image.Length - i);
+                        string chunk = base64Image.Substring(i, length);
+
+                        byte[] chunkBytes = Encoding.UTF8.GetBytes(chunk);
+                        stream.Write(chunkBytes, 0, chunkBytes.Length);
+                    }
+
+                    // 프로필 이미지 전송 완료
+                    byte[] endBytesFinal = Encoding.UTF8.GetBytes("::END::");
+                    stream.Write(endBytesFinal, 0, endBytesFinal.Length);
+                    Console.WriteLine("프로필 이미지 전송 완료");
+
+                    return "";
+                }
+            }
+            else if (message.StartsWith("GET_SHARE_CODE_SAVE:"))
+            {
+                string[] parts = message.Substring(21).Split(':');
+                if (parts.Length == 2)
+                {
+                    string userId = parts[0].Trim();
+                    int codeId = int.Parse(parts[1].Trim());
+                    return GetShareCodeSave(userId, codeId);
+                }
+            }
+            else if (message.StartsWith("INSERT_CODE_POST:"))
+            {
+                string[] parts = message.Substring(17).Split(':');
+                if (parts.Length == 6)
+                {
+                    string userId = parts[0].Trim();
+                    string title = parts[1].Trim();
+                    if (!int.TryParse(parts[2].Trim(), out int level))
+                        return "레벨 형식이 올바르지 않습니다";
+                    string source = parts[3].Trim();
+                    string desc = parts[4].Trim();
+                    string content = parts[5].Trim();
+
+                    bool success = InsertCodePost(userId, title, level, source, desc, content);
+                    return success ? "CODE_INSERT_SUCCESS" : "CODE_INSERT_FAIL";
+                }
+                else
+                {
+                    return "CODE_INSERT_FORMAT_ERROR";
+                }
+            }
+            else if (message.StartsWith("UPDATE_CODE_POST:"))
+            {
+                string[] parts = message.Substring(17).Split(':');
+                if (parts.Length == 7)
+                {
+                    if (!int.TryParse(parts[0].Trim(), out int codeId))
+                        return "코드 ID 형식 오류";
+                    string userId = parts[1].Trim();
+                    string newTitle = parts[2].Trim();
+                    if (!int.TryParse(parts[3].Trim(), out int newLevel))
+                        return "레벨 형식 오류";
+                    string newSource = parts[4].Trim();
+                    string newDesc = parts[5].Trim();
+                    string newContent = parts[6].Trim();
+
+                    bool success = UpdateCodePost(codeId, userId, newTitle, newLevel, newSource, newDesc, newContent);
+                    return success ? "CODE_UPDATE_SUCCESS" : "CODE_UPDATE_FAIL";
+                }
+                else
+                {
+                    return "CODE_UPDATE_FORMAT_ERROR";
+                }
+            }
+            else if (message.StartsWith("DELETE_CODE_POST:"))
+            {
+                string[] parts = message.Substring(17).Split(':');
+                if (parts.Length == 2)
+                {
+                    if (!int.TryParse(parts[0].Trim(), out int codeId))
+                        return "코드 ID 형식 오류";
+                    string userId = parts[1].Trim();
+
+                    bool success = DeleteCodePost(codeId, userId);
+                    return success ? "CODE_DELETE_SUCCESS" : "CODE_DELETE_FAIL";
+                }
+                else
+                {
+                    return "CODE_DELETE_FORMAT_ERROR";
+                }
+            }
+            
+            // --------------------------------------- 공유함 용 ------------------------------------ //
+
 
             return "UNKNOWN_COMMAND";
         }
 
-        
+        // ------------------------------------------------------------------------------------------------------------------------------------------ //
+
         private bool ValidateUser(string userId)
         {
             try
@@ -466,6 +610,8 @@ namespace server
             }
         }
 
+        // --------------------------------------- 환경설정 용 ------------------------------------ //
+
         public class UserStats
         {
             public string NickName { get; set; }
@@ -483,13 +629,12 @@ namespace server
 
         private UserStats GetUserStats(string userId)
         {
-            string query = @"
-SELECT U.nickName, S.strokeNumber, S.accurancy, S.mainLanguage, 
-       S.rainMaxScore, S.rainMaxLevel, S.blockRecord, 
-       S.quizMaxScore, S.quizWinRate, S.foundWinRate, U.profilePic
-FROM Users U
-LEFT JOIN UserStats S ON U.userId = S.userId
-WHERE U.userId = @userId;";
+            string query = @"SELECT U.nickName, S.strokeNumber, S.accurancy, S.mainLanguage, 
+                            S.rainMaxScore, S.rainMaxLevel, S.blockRecord, 
+                            S.quizMaxScore, S.quizWinRate, S.foundWinRate, U.profilePic
+                            FROM Users U
+                            LEFT JOIN UserStats S ON U.userId = S.userId
+                            WHERE U.userId = @userId;";
 
             try
             {
@@ -534,6 +679,280 @@ WHERE U.userId = @userId;";
 
             return null;
         }
+
+        // 게임 통계 INSERT, UPDATE 관련 메서드 추가해야 함
+
+        // --------------------------------------- 홈 용 ------------------------------------ //
+
+        private string GetCodeBriefInfo(string userId)
+        {
+            try
+            {
+                using (SqlConnection conn = new SqlConnection(connectionString))
+                {
+                    conn.Open();
+                    string query = "SELECT codeTitle FROM CodePost WHERE shareStatus = 1";
+                    using (SqlCommand cmd = new SqlCommand(query, conn))
+                    {
+                        using (SqlDataReader reader = cmd.ExecuteReader())
+                        {
+                            StringBuilder titles = new StringBuilder();
+                            while (reader.Read())
+                            {
+                                titles.Append(reader.GetString(0)).Append(", ");
+                            }
+                            // 마지막 쉼표와 공백 제거
+                            return titles.Length > 0 ? titles.ToString().TrimEnd(',', ' ') : "공유된 코드가 없습니다";
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"[DB 오류] {ex.Message}");
+            }
+            return "공유된 코드가 없습니다";
+        }
+
+        private string GetUserCodeList(string userId)
+        {
+            try
+            {
+                using (SqlConnection conn = new SqlConnection(connectionString))
+                {
+                    conn.Open();
+                    string query = "SELECT codeTitle, shareStatus FROM CodePost WHERE userId = @userId";
+                    using (SqlCommand cmd = new SqlCommand(query, conn))
+                    {
+                        cmd.Parameters.AddWithValue("@userId", userId);
+                        using (SqlDataReader reader = cmd.ExecuteReader())
+                        {
+                            StringBuilder codeList = new StringBuilder();
+                            while (reader.Read())
+                            {
+                                string title = reader.GetString(0);
+                                bool shareStatus = reader.GetBoolean(1);
+                                codeList.Append(title).Append(" (").Append(shareStatus ? "공유" : "비공유").Append(")").Append(", ");
+                            }
+                            // 마지막 쉼표와 공백 제거
+                            return codeList.Length > 0 ? codeList.ToString().TrimEnd(',', ' ') : "코드가 없습니다";
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"[DB 오류] {ex.Message}");
+            }
+            return "코드가 없습니다";
+        }
+
+        private string GetOtherUserCodeList(string userId)
+        {
+            try
+            {
+                using (SqlConnection conn = new SqlConnection(connectionString))
+                {
+                    conn.Open();
+                    string query = "SELECT codeTitle FROM CodePost WHERE userId = @userId AND shareStatus = 1";
+                    using (SqlCommand cmd = new SqlCommand(query, conn))
+                    {
+                        cmd.Parameters.AddWithValue("@userId", userId);
+                        using (SqlDataReader reader = cmd.ExecuteReader())
+                        {
+                            StringBuilder codeList = new StringBuilder();
+                            while (reader.Read())
+                            {
+                                codeList.Append(reader.GetString(0)).Append(", ");
+                            }
+                            // 마지막 쉼표와 공백 제거
+                            return codeList.Length > 0 ? codeList.ToString().TrimEnd(',', ' ') : "코드가 없습니다";
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"[DB 오류] {ex.Message}");
+            }
+            return "코드가 없습니다";
+        }
+
+        public class CodePractice
+        {
+            public string NickName { get; set; }
+            public string CodeTitle { get; set; }
+            public int CodeLevel { get; set; }
+            public string CodeSource { get; set; }
+            public string CodeDescription { get; set; }
+            public string CodeContent { get; set; }
+            public byte[] ProfilePicBytes { get; set; } = Array.Empty<byte>();
+
+        }
+
+        private CodePractice GetCodePractice(string userId, int codeId)
+        {
+            try
+            {
+                using (SqlConnection conn = new SqlConnection(connectionString))
+                {
+                    conn.Open();
+                    string query = @"SELECT u.nickName, c.codeTitle, c.codeLevel, c.codeSource, c.codeDescription, c.codeContent, u.profilePic
+                                  FROM Users u
+                                  JOIN CodePost c ON u.userId = c.userId
+                                  WHERE u.userId = @userId AND c.codeId = @codeId";
+                    using (SqlCommand cmd = new SqlCommand(query, conn))
+                    {
+                        cmd.Parameters.AddWithValue("@userId", userId);
+                        cmd.Parameters.AddWithValue("@codeId", codeId);
+                        using (SqlDataReader reader = cmd.ExecuteReader())
+                        {
+                            if (reader.Read())
+                            {
+                                // 프로필 사진만 별도 NULL 체크해서 빈 배열로 처리
+                                byte[] profilePicBytes = reader.IsDBNull(reader.GetOrdinal("profilePic"))
+                                    ? Array.Empty<byte>()
+                                    : (byte[])reader["profilePic"];
+
+                                return new CodePractice
+                                {
+                                    NickName = reader.GetString(0),
+                                    CodeTitle = reader.GetString(1),
+                                    CodeLevel = reader.GetInt32(2),
+                                    CodeSource = reader.GetString(3),
+                                    CodeDescription = reader.GetString(4),
+                                    CodeContent = reader.GetString(5),
+                                    ProfilePicBytes = profilePicBytes
+                                };
+                            }
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"[DB 오류] {ex.Message}");
+            }
+            return null;
+        }
+
+        private string GetShareCodeSave(string userId, int codeId)
+        {
+            try
+            {
+                using (SqlConnection conn = new SqlConnection(connectionString))
+                {
+                    conn.Open();
+                    string query = @"SELECT u.nickName, c.codeTitle, c.codeLevel, c.codeDescription, c.codeContent
+                                  FROM Users u
+                                  JOIN CodePost c ON u.userId = c.userId
+                                  WHERE u.userId = @userId AND c.codeId = @codeId";
+                    using (SqlCommand cmd = new SqlCommand(query, conn))
+                    {
+                        cmd.Parameters.AddWithValue("@userId", userId);
+                        cmd.Parameters.AddWithValue("@codeId", codeId);
+                        using (SqlDataReader reader = cmd.ExecuteReader())
+                        {
+                            if (reader.Read())
+                            {
+                                return $"{reader.GetString(0)}|{reader.GetString(1)}|{reader.GetInt32(2)}|{reader.GetString(3)}|{reader.GetString(4)}";
+                            }
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"[DB 오류] {ex.Message}");
+            }
+            return "코드 정보를 찾을 수 없습니다";
+        }
+
+        public bool InsertCodePost(string userId, string codeTitle, int codeLevel, string codeSource, string codeDescription, string codeContent)
+        {
+            try
+            {
+                using (SqlConnection conn = new SqlConnection(connectionString))
+                {
+                    conn.Open();
+                    string query = @"INSERT INTO CodePost (userId, codeTitle, codeLevel, codeSource, codeDescription, codeContent)
+                             VALUES (@userId, @title, @level, @source, @desc, @content)";
+                    using (SqlCommand cmd = new SqlCommand(query, conn))
+                    {
+                        cmd.Parameters.AddWithValue("@userId", userId);
+                        cmd.Parameters.AddWithValue("@title", codeTitle);
+                        cmd.Parameters.AddWithValue("@level", codeLevel);
+                        cmd.Parameters.AddWithValue("@source", codeSource);
+                        cmd.Parameters.AddWithValue("@desc", codeDescription);
+                        cmd.Parameters.AddWithValue("@content", codeContent);
+                        return cmd.ExecuteNonQuery() > 0;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("[DB 오류 - INSERT] " + ex.Message);
+                return false;
+            }
+        }
+
+        public bool UpdateCodePost(int codeId, string userId, string newTitle, int newLevel, string newSource, string newDesc, string newContent)
+        {
+            try
+            {
+                using (SqlConnection conn = new SqlConnection(connectionString))
+                {
+                    conn.Open();
+                    string query = @"UPDATE CodePost
+                             SET codeTitle = @title, codeLevel = @level, codeSource = @source,
+                                 codeDescription = @desc, codeContent = @content
+                             WHERE codeId = @codeId AND userId = @userId";
+                    using (SqlCommand cmd = new SqlCommand(query, conn))
+                    {
+                        cmd.Parameters.AddWithValue("@codeId", codeId);
+                        cmd.Parameters.AddWithValue("@userId", userId);
+                        cmd.Parameters.AddWithValue("@title", newTitle);
+                        cmd.Parameters.AddWithValue("@level", newLevel);
+                        cmd.Parameters.AddWithValue("@source", newSource);
+                        cmd.Parameters.AddWithValue("@desc", newDesc);
+                        cmd.Parameters.AddWithValue("@content", newContent);
+                        return cmd.ExecuteNonQuery() > 0;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("[DB 오류 - UPDATE] " + ex.Message);
+                return false;
+            }
+        }
+
+        public bool DeleteCodePost(int codeId, string userId)
+        {
+            try
+            {
+                using (SqlConnection conn = new SqlConnection(connectionString))
+                {
+                    conn.Open();
+                    string query = "DELETE FROM CodePost WHERE codeId = @codeId AND userId = @userId";
+                    using (SqlCommand cmd = new SqlCommand(query, conn))
+                    {
+                        cmd.Parameters.AddWithValue("@codeId", codeId);
+                        cmd.Parameters.AddWithValue("@userId", userId);
+                        return cmd.ExecuteNonQuery() > 0;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("[DB 오류 - DELETE] " + ex.Message);
+                return false;
+            }
+        }
+
+        // --------------------------------------- 공유함 용 ------------------------------------ //
+
+        // 여기에 게임용 DB 관련 메서드 추가
 
     }
 }

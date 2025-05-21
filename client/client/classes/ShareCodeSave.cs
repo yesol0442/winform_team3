@@ -8,7 +8,7 @@ using System.IO;
 
 namespace client
 {
-    public class ShareCodeSave
+    public class ShareCodeSave // 공유함에 있는 코드를 내 코드에 추가하기
     {
         public string userID { get; set; }
         public string codeID { get; set; }

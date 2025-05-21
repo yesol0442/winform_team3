@@ -8,7 +8,7 @@ using System.IO;
 
 namespace client
 {
-    internal class CodePractice
+    internal class CodePractice // 코드 연습할 수 있도록 코드 추가, 공유함에 올리는 것도 포함
     {
         public string userID {  get; set; }
         public string codeID { get; set; }
