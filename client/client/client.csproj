@@ -84,7 +84,6 @@
     <Compile Include="FindDifferForm\FindStart.Designer.cs">
       <DependentUpon>FindStart.cs</DependentUpon>
     </Compile>
-    <Compile Include="FindDifferForm\Program.cs" />
     <Compile Include="FindDifferForm\TransparentPanel.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -201,6 +200,9 @@
     <EmbeddedResource Include="CodePracticeForm\CodePracticeF.resx" />
     <EmbeddedResource Include="FindDifferForm\FindForm.resx">
       <DependentUpon>FindForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FindDifferForm\FindReady.resx">
+      <DependentUpon>FindReady.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FindDifferForm\FindStart.resx">
       <DependentUpon>FindStart.cs</DependentUpon>
