@@ -7,7 +7,7 @@ using System.Windows.Forms;
 
 namespace client.classes.NetworkManager
 {
-    public class NetworkManager
+    public class NetworkManager // 서버와의 연결을 관리하는 싱글톤 클래스
     {
         private static NetworkManager instance;
         private TcpClient client;
@@ -31,7 +31,7 @@ namespace client.classes.NetworkManager
             }
         }
 
-        public async Task ConnectAsync(string serverAddress, int port)
+        public async Task ConnectAsync(string serverAddress, int port) // 서버랑 연결
         {
             if (client != null && client.Connected)
             {
@@ -60,7 +60,7 @@ namespace client.classes.NetworkManager
             }
         }
 
-        public void Disconnect()
+        public void Disconnect() // 서버랑 연결 끊기
         {
             try
             {
@@ -76,7 +76,7 @@ namespace client.classes.NetworkManager
             }
         }
 
-        public async Task SendMessageAsync(string message)
+        public async Task SendMessageAsync(string message) // 서버에 메시지 전송
         {
             try
             {
@@ -111,7 +111,7 @@ namespace client.classes.NetworkManager
             }
         }
 
-        public async Task<string> ReceiveMessageAsync()
+        public async Task<string> ReceiveMessageAsync() // 서버로부터 메시지 수신
         {
             try
             {
@@ -134,7 +134,7 @@ namespace client.classes.NetworkManager
             return null;
         }
 
-        public async Task<string> ReceiveHeaderAsync()
+        public async Task<string> ReceiveHeaderAsync() // 서버로부터 헤더 수신 (헤더랑 데이터 파싱할 때 사용)
         {
             var buffer = new byte[1024];
             var sb = new StringBuilder();
@@ -181,8 +181,8 @@ namespace client.classes.NetworkManager
             }
         }
 
-        public async Task<string> ReceiveFullMessageUntilEndAsync(string initialData)
-        {
+        public async Task<string> ReceiveFullMessageUntilEndAsync(string initialData) // 이미지 데이터 수신
+        { // 프로필 이미지 받아올 때 청크 단위로 끊어서 보내기 때문에 ::END::로 끝나는 메시지까지 수신해야 중간에 끊기는 거 없이 이미지 정보를 가져올 수 있음
             StringBuilder fullMessage = new StringBuilder(initialData);
 
             if (leftoverBuffer != null && leftoverLength > 0)
@@ -214,7 +214,7 @@ namespace client.classes.NetworkManager
             return fullMessage.ToString();
         }
 
-        private async Task ReconnectAsync()
+        private async Task ReconnectAsync() // 연결이 끊어졌을 때 재연결 시도
         {
             try
             {
