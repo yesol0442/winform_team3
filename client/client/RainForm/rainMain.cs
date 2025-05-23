@@ -19,12 +19,19 @@ namespace client.RainForm
         Random rand = new Random();
         int make_count = 0;    // 블럭 생성 간격 결정
         int score = 0;
+        int countdownValue = 3;
 
         public rainMain()
         {
             InitializeComponent();
             this.DoubleBuffered = true;
-            timer.Start();
+            //timer.Start();
+            lbScore.BackColor = Color.Transparent;
+            inputTxt.Enabled= false;
+            lbCount.Text = "3";
+            lbCount.BackColor = Color.Transparent;
+            lbCount.Location = new Point((this.ClientSize.Width - 60) / 2, (this.ClientSize.Height - 60) / 2);
+            StartTimer.Start();
         }
 
       
@@ -132,7 +139,29 @@ namespace client.RainForm
             Blocks.Clear();
 
             make_count = 0;
-            timer.Start();
+            StartTimer.Start();
+        }
+
+        private void StartTimer_Tick(object sender, EventArgs e)
+        {
+            if (countdownValue > 1)
+            {
+                countdownValue--;
+                lbCount.Text= countdownValue.ToString();
+            }
+            else if(countdownValue ==1)
+            {
+                countdownValue--;
+                lbCount.Location = new Point((this.ClientSize.Width-120) / 2, (this.ClientSize.Height - 60) / 2);
+                lbCount.Text = "시작!";
+            }
+            else
+            {
+                StartTimer.Stop();
+                this.Controls.Remove(lbCount);
+                inputTxt.Enabled = true;
+                timer.Start();
+            }
         }
     }
 }
