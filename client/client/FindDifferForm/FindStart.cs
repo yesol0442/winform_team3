@@ -21,25 +21,26 @@ namespace client.FindDifferForm
         private StreamWriter writer;
 
         quizReady quizready;
-        //FindReady findReady;
+        FindReady findReady;
         FindForm findForm;
 
         public FindStart()
         {
             InitializeComponent();
 
+            /*
             // 서버에 바로 연결 (생성자 내부에서 연결)
             var client = new TcpClient("127.0.0.1", 9000);
             var stream = client.GetStream();
             reader = new StreamReader(stream);
-            writer = new StreamWriter(stream) { AutoFlush = true };
+            writer = new StreamWriter(stream) { AutoFlush = true };*/
         }
 
         private void btnStart_Click(object sender, EventArgs e)
         {
-            //findReady = new FindReady();
-            //findReady.Owner = this;
-            //findReady.Show();
+            findReady = new FindReady();
+            findReady.Owner = this;
+            findReady.Show();
 
             //quizready = new quizReady();
             //quizready.Owner = this;

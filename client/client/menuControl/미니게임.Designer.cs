@@ -28,19 +28,64 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.rainBtn = new Guna.UI2.WinForms.Guna2Button();
+            this.blockBtn = new Guna.UI2.WinForms.Guna2Button();
             this.SuspendLayout();
+            // 
+            // rainBtn
+            // 
+            this.rainBtn.BackColor = System.Drawing.Color.White;
+            this.rainBtn.BorderThickness = 1;
+            this.rainBtn.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
+            this.rainBtn.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
+            this.rainBtn.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
+            this.rainBtn.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
+            this.rainBtn.FillColor = System.Drawing.Color.White;
+            this.rainBtn.Font = new System.Drawing.Font("휴먼옛체", 16F);
+            this.rainBtn.ForeColor = System.Drawing.Color.Black;
+            this.rainBtn.Location = new System.Drawing.Point(137, 289);
+            this.rainBtn.Margin = new System.Windows.Forms.Padding(5);
+            this.rainBtn.Name = "rainBtn";
+            this.rainBtn.Size = new System.Drawing.Size(310, 109);
+            this.rainBtn.TabIndex = 1;
+            this.rainBtn.Text = "산성비";
+            this.rainBtn.Click += new System.EventHandler(this.rainBtn_Click);
+            // 
+            // blockBtn
+            // 
+            this.blockBtn.BackColor = System.Drawing.Color.White;
+            this.blockBtn.BorderThickness = 1;
+            this.blockBtn.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
+            this.blockBtn.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
+            this.blockBtn.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
+            this.blockBtn.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
+            this.blockBtn.FillColor = System.Drawing.Color.White;
+            this.blockBtn.Font = new System.Drawing.Font("휴먼옛체", 16F);
+            this.blockBtn.ForeColor = System.Drawing.Color.Black;
+            this.blockBtn.Location = new System.Drawing.Point(566, 289);
+            this.blockBtn.Margin = new System.Windows.Forms.Padding(5);
+            this.blockBtn.Name = "blockBtn";
+            this.blockBtn.Size = new System.Drawing.Size(310, 109);
+            this.blockBtn.TabIndex = 2;
+            this.blockBtn.Text = "블록 맞추기";
             // 
             // 미니게임
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 18F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(13F, 24F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ActiveBorder;
+            this.Controls.Add(this.blockBtn);
+            this.Controls.Add(this.rainBtn);
+            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.Name = "미니게임";
-            this.Size = new System.Drawing.Size(807, 517);
+            this.Size = new System.Drawing.Size(1049, 689);
             this.ResumeLayout(false);
 
         }
 
         #endregion
+
+        private Guna.UI2.WinForms.Guna2Button rainBtn;
+        private Guna.UI2.WinForms.Guna2Button blockBtn;
     }
 }

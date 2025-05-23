@@ -161,6 +161,12 @@
     <Compile Include="quizForm\quizStart.Designer.cs">
       <DependentUpon>quizStart.cs</DependentUpon>
     </Compile>
+    <Compile Include="RainForm\rainMain.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="RainForm\rainMain.Designer.cs">
+      <DependentUpon>rainMain.cs</DependentUpon>
+    </Compile>
     <Compile Include="shareForm\code_add.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -200,6 +206,9 @@
     <EmbeddedResource Include="CodePracticeForm\CodePracticeF.resx" />
     <EmbeddedResource Include="FindDifferForm\FindForm.resx">
       <DependentUpon>FindForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FindDifferForm\FindReady.resx">
+      <DependentUpon>FindReady.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FindDifferForm\FindStart.resx">
       <DependentUpon>FindStart.cs</DependentUpon>
@@ -249,6 +258,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="quizForm\quizStart.resx">
       <DependentUpon>quizStart.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="RainForm\rainMain.resx">
+      <DependentUpon>rainMain.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="shareForm\code_add.resx">
       <DependentUpon>code_add.cs</DependentUpon>
