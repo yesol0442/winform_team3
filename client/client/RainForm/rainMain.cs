@@ -19,12 +19,19 @@ namespace client.RainForm
         Random rand = new Random();
         int make_count = 0;    // 블럭 생성 간격 결정
         int score = 0;
+        int countdownValue = 3;
 
         public rainMain()
         {
             InitializeComponent();
-
-            timer.Start();
+            this.DoubleBuffered = true;
+            //timer.Start();
+            lbScore.BackColor = Color.Transparent;
+            inputTxt.Enabled= false;
+            lbCount.Text = "3";
+            lbCount.BackColor = Color.Transparent;
+            lbCount.Location = new Point((this.ClientSize.Width - 60) / 2, (this.ClientSize.Height - 60) / 2);
+            StartTimer.Start();
         }
 
       
@@ -33,7 +40,7 @@ namespace client.RainForm
         {
             make_count++;
 
-            if (make_count % 15 == 1)
+            if (make_count % 30 == 1)
             {
                 TextBox buf = new TextBox();
                 buf.Text = word_list[make_count % word_list.Count];
@@ -51,16 +58,18 @@ namespace client.RainForm
                 TextBox box = Blocks[i];
                 int newY = box.Location.Y + 5;
 
-                if (newY >= 470)
+                if (newY >= this.ClientSize.Height)
                 {
                     // 바닥에 닿으면 제거하고 게임 오버 처리 (필요 시 구현)
                     this.Controls.Remove(box);
                     Blocks.RemoveAt(i);
 
+                    /*
                     // 여기서 게임 오버 처리 원하면 추가
                     MessageBox.Show("게임 오버!");
-                    timer.Stop();
-                    return;
+                    timer.Stop();*/
+                    GameOver();
+                    //return;
                 }
                 else
                 {
@@ -95,6 +104,63 @@ namespace client.RainForm
                 }
 
                 inputTxt.Clear();
+            }
+        }
+
+
+        private void GameOver()
+        {
+            timer.Stop();
+
+            GameOver gameOver = new GameOver(score);
+            gameOver.StartPosition = FormStartPosition.CenterParent;
+            gameOver.ShowDialog();
+
+            if (gameOver.RestartRequested)
+            {
+                RestartGame();
+            }
+            else
+            {
+                this.Close();
+            }
+        }
+
+        // 다시 시작
+        private void RestartGame()
+        {
+            score = 0;
+            lbScore.Text = "점수: 0";
+
+            foreach (var block in Blocks)
+            {
+                this.Controls.Remove(block);
+            }
+            Blocks.Clear();
+
+            make_count = 0;
+            StartTimer.Start();
+        }
+
+        private void StartTimer_Tick(object sender, EventArgs e)
+        {
+            if (countdownValue > 1)
+            {
+                countdownValue--;
+                lbCount.Text= countdownValue.ToString();
+            }
+            else if(countdownValue ==1)
+            {
+                countdownValue--;
+                lbCount.Location = new Point((this.ClientSize.Width-120) / 2, (this.ClientSize.Height - 60) / 2);
+                lbCount.Text = "시작!";
+            }
+            else
+            {
+                StartTimer.Stop();
+                this.Controls.Remove(lbCount);
+                inputTxt.Enabled = true;
+                timer.Start();
             }
         }
     }

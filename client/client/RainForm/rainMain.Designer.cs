@@ -33,6 +33,8 @@
             this.inputTxt = new Guna.UI2.WinForms.Guna2TextBox();
             this.timer = new System.Windows.Forms.Timer(this.components);
             this.lbScore = new System.Windows.Forms.Label();
+            this.StartTimer = new System.Windows.Forms.Timer(this.components);
+            this.lbCount = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // inputTxt
@@ -62,11 +64,28 @@
             // lbScore
             // 
             this.lbScore.AutoSize = true;
+            this.lbScore.Font = new System.Drawing.Font("휴먼옛체", 12F);
             this.lbScore.Location = new System.Drawing.Point(28, 28);
             this.lbScore.Name = "lbScore";
-            this.lbScore.Size = new System.Drawing.Size(89, 26);
+            this.lbScore.Size = new System.Drawing.Size(117, 34);
             this.lbScore.TabIndex = 1;
             this.lbScore.Text = "점수: 0";
+            // 
+            // StartTimer
+            // 
+            this.StartTimer.Interval = 1000;
+            this.StartTimer.Tick += new System.EventHandler(this.StartTimer_Tick);
+            // 
+            // lbCount
+            // 
+            this.lbCount.AutoSize = true;
+            this.lbCount.Font = new System.Drawing.Font("휴먼옛체", 36F);
+            this.lbCount.ForeColor = System.Drawing.Color.White;
+            this.lbCount.Location = new System.Drawing.Point(44, 169);
+            this.lbCount.Name = "lbCount";
+            this.lbCount.Size = new System.Drawing.Size(298, 102);
+            this.lbCount.TabIndex = 2;
+            this.lbCount.Text = "label1";
             // 
             // rainMain
             // 
@@ -75,6 +94,7 @@
             this.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("$this.BackgroundImage")));
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.ClientSize = new System.Drawing.Size(374, 429);
+            this.Controls.Add(this.lbCount);
             this.Controls.Add(this.lbScore);
             this.Controls.Add(this.inputTxt);
             this.Font = new System.Drawing.Font("휴먼옛체", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
@@ -90,5 +110,7 @@
         private Guna.UI2.WinForms.Guna2TextBox inputTxt;
         private System.Windows.Forms.Timer timer;
         private System.Windows.Forms.Label lbScore;
+        private System.Windows.Forms.Timer StartTimer;
+        private System.Windows.Forms.Label lbCount;
     }
 }
