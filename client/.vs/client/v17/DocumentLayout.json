@@ -3,12 +3,24 @@
   "WorkspaceRootPath": "C:\\winform_team3\\client\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{FE6AC6E2-861D-4EF3-9305-D3D920232E1A}|client\\client.csproj|C:\\winform_team3\\client\\client\\classes\\sharecodesave.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{FE6AC6E2-861D-4EF3-9305-D3D920232E1A}|client\\client.csproj|solutionrelative:client\\classes\\sharecodesave.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{FE6AC6E2-861D-4EF3-9305-D3D920232E1A}|client\\client.csproj|c:\\winform_team3\\client\\client\\classes\\networkmanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{FE6AC6E2-861D-4EF3-9305-D3D920232E1A}|client\\client.csproj|solutionrelative:client\\classes\\networkmanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{FE6AC6E2-861D-4EF3-9305-D3D920232E1A}|client\\client.csproj|c:\\winform_team3\\client\\client\\classes\\codepractice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{FE6AC6E2-861D-4EF3-9305-D3D920232E1A}|client\\client.csproj|solutionrelative:client\\classes\\codepractice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{FE6AC6E2-861D-4EF3-9305-D3D920232E1A}|client\\client.csproj|c:\\winform_team3\\client\\client\\form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{FE6AC6E2-861D-4EF3-9305-D3D920232E1A}|client\\client.csproj|solutionrelative:client\\form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{FE6AC6E2-861D-4EF3-9305-D3D920232E1A}|client\\client.csproj|c:\\winform_team3\\client\\client\\form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "RelativeMoniker": "D:0:0:{FE6AC6E2-861D-4EF3-9305-D3D920232E1A}|client\\client.csproj|solutionrelative:client\\form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{FE6AC6E2-861D-4EF3-9305-D3D920232E1A}|client\\client.csproj|c:\\winform_team3\\client\\client\\menucontrol\\\uD648.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{FE6AC6E2-861D-4EF3-9305-D3D920232E1A}|client\\client.csproj|solutionrelative:client\\menucontrol\\\uD648.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{FE6AC6E2-861D-4EF3-9305-D3D920232E1A}|client\\client.csproj|c:\\winform_team3\\client\\client\\menucontrol\\\uD648.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "RelativeMoniker": "D:0:0:{FE6AC6E2-861D-4EF3-9305-D3D920232E1A}|client\\client.csproj|solutionrelative:client\\menucontrol\\\uD648.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
     }
   ],
   "DocumentGroupContainers": [
@@ -18,7 +30,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 5,
+          "SelectedChildIndex": 7,
           "Children": [
             {
               "$type": "Bookmark",
@@ -39,28 +51,65 @@
             {
               "$type": "Document",
               "DocumentIndex": 1,
-              "Title": "CodePractice.cs",
-              "DocumentMoniker": "C:\\winform_team3\\client\\client\\classes\\CodePractice.cs",
-              "RelativeDocumentMoniker": "client\\classes\\CodePractice.cs",
-              "ToolTip": "C:\\winform_team3\\client\\client\\classes\\CodePractice.cs",
-              "RelativeToolTip": "client\\classes\\CodePractice.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Title": "Form1.cs",
+              "DocumentMoniker": "C:\\winform_team3\\client\\client\\Form1.cs",
+              "RelativeDocumentMoniker": "client\\Form1.cs",
+              "ToolTip": "C:\\winform_team3\\client\\client\\Form1.cs",
+              "RelativeToolTip": "client\\Form1.cs",
+              "ViewState": "AgIAAIgAAAAAAAAAAAAowKcAAAAgAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-20T14:05:04.514Z",
+              "WhenOpened": "2025-05-23T05:16:32.734Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "Form1.cs [\uB514\uC790\uC778]",
+              "DocumentMoniker": "C:\\winform_team3\\client\\client\\Form1.cs",
+              "RelativeDocumentMoniker": "client\\Form1.cs",
+              "ToolTip": "C:\\winform_team3\\client\\client\\Form1.cs [\uB514\uC790\uC778]",
+              "RelativeToolTip": "client\\Form1.cs [\uB514\uC790\uC778]",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-23T05:16:31.217Z",
+              "EditorCaption": " [\uB514\uC790\uC778]"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "\uD648.cs",
+              "DocumentMoniker": "C:\\winform_team3\\client\\client\\menuControl\\\uD648.cs",
+              "RelativeDocumentMoniker": "client\\menuControl\\\uD648.cs",
+              "ToolTip": "C:\\winform_team3\\client\\client\\menuControl\\\uD648.cs",
+              "RelativeToolTip": "client\\menuControl\\\uD648.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAYAAAAVAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-23T05:16:00.387Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 0,
-              "Title": "ShareCodeSave.cs",
-              "DocumentMoniker": "C:\\winform_team3\\client\\client\\classes\\ShareCodeSave.cs",
-              "RelativeDocumentMoniker": "client\\classes\\ShareCodeSave.cs",
-              "ToolTip": "C:\\winform_team3\\client\\client\\classes\\ShareCodeSave.cs",
-              "RelativeToolTip": "client\\classes\\ShareCodeSave.cs",
-              "ViewState": "AgIAADcAAAAAAAAAAAAmwAAAAAAAAAAAAAAAAA==",
+              "Title": "NetworkManager.cs",
+              "DocumentMoniker": "C:\\winform_team3\\client\\client\\classes\\NetworkManager.cs",
+              "RelativeDocumentMoniker": "client\\classes\\NetworkManager.cs",
+              "ToolTip": "C:\\winform_team3\\client\\client\\classes\\NetworkManager.cs",
+              "RelativeToolTip": "client\\classes\\NetworkManager.cs",
+              "ViewState": "AgIAAJ4AAAAAAAAAAAAgwKYAAAARAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-19T13:23:16.134Z",
+              "WhenOpened": "2025-05-23T04:57:54.247Z",
               "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "\uD648.cs [\uB514\uC790\uC778]",
+              "DocumentMoniker": "C:\\winform_team3\\client\\client\\menuControl\\\uD648.cs",
+              "RelativeDocumentMoniker": "client\\menuControl\\\uD648.cs",
+              "ToolTip": "C:\\winform_team3\\client\\client\\menuControl\\\uD648.cs [\uB514\uC790\uC778]",
+              "RelativeToolTip": "client\\menuControl\\\uD648.cs [\uB514\uC790\uC778]",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-23T05:15:57.765Z",
+              "EditorCaption": " [\uB514\uC790\uC778]"
             }
           ]
         }
