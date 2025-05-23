@@ -484,7 +484,6 @@ namespace server
             }
         }
 
-
         public class UserProfile
         {
             public string Nickname { get; set; }
@@ -730,7 +729,7 @@ namespace server
                 using (SqlConnection conn = new SqlConnection(connectionString))
                 {
                     conn.Open();
-                    string query = "SELECT codeTitle, shareStatus FROM CodePost WHERE userId = @userId";
+                    string query = "SELECT codeTitle, codeId, shareStatus FROM CodePost WHERE userId = @userId";
                     using (SqlCommand cmd = new SqlCommand(query, conn))
                     {
                         cmd.Parameters.AddWithValue("@userId", userId);
@@ -740,9 +739,18 @@ namespace server
                             while (reader.Read())
                             {
                                 string title = reader.GetString(0);
-                                bool shareStatus = reader.GetBoolean(1);
-                                codeList.Append(title).Append(" (").Append(shareStatus ? "공유" : "비공유").Append(")").Append(", ");
+                                int codeId = reader.GetInt32(1);
+                                bool shareStatus = reader.GetBoolean(2);
+
+                                // 예: 버블정렬 : 3 : 공유
+                                codeList.Append(title)
+                                        .Append(" : ")
+                                        .Append(codeId)
+                                        .Append(" : ")
+                                        .Append(shareStatus ? "공유" : "비공유")
+                                        .Append(", ");
                             }
+
                             // 마지막 쉼표와 공백 제거
                             return codeList.Length > 0 ? codeList.ToString().TrimEnd(',', ' ') : "코드가 없습니다";
                         }
@@ -943,7 +951,6 @@ namespace server
                 return false;
             }
         }
-
 
         public bool DeleteCodePost(int codeId, string userId)
         {
