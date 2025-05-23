@@ -23,7 +23,7 @@ namespace client.RainForm
         public rainMain()
         {
             InitializeComponent();
-
+            this.DoubleBuffered = true;
             timer.Start();
         }
 
@@ -33,7 +33,7 @@ namespace client.RainForm
         {
             make_count++;
 
-            if (make_count % 15 == 1)
+            if (make_count % 30 == 1)
             {
                 TextBox buf = new TextBox();
                 buf.Text = word_list[make_count % word_list.Count];
@@ -51,16 +51,18 @@ namespace client.RainForm
                 TextBox box = Blocks[i];
                 int newY = box.Location.Y + 5;
 
-                if (newY >= 470)
+                if (newY >= this.ClientSize.Height)
                 {
                     // 바닥에 닿으면 제거하고 게임 오버 처리 (필요 시 구현)
                     this.Controls.Remove(box);
                     Blocks.RemoveAt(i);
 
+                    /*
                     // 여기서 게임 오버 처리 원하면 추가
                     MessageBox.Show("게임 오버!");
-                    timer.Stop();
-                    return;
+                    timer.Stop();*/
+                    GameOver();
+                    //return;
                 }
                 else
                 {
@@ -96,6 +98,41 @@ namespace client.RainForm
 
                 inputTxt.Clear();
             }
+        }
+
+
+        private void GameOver()
+        {
+            timer.Stop();
+
+            GameOver gameOver = new GameOver(score);
+            gameOver.StartPosition = FormStartPosition.CenterParent;
+            gameOver.ShowDialog();
+
+            if (gameOver.RestartRequested)
+            {
+                RestartGame();
+            }
+            else
+            {
+                this.Close();
+            }
+        }
+
+        // 다시 시작
+        private void RestartGame()
+        {
+            score = 0;
+            lbScore.Text = "점수: 0";
+
+            foreach (var block in Blocks)
+            {
+                this.Controls.Remove(block);
+            }
+            Blocks.Clear();
+
+            make_count = 0;
+            timer.Start();
         }
     }
 }
