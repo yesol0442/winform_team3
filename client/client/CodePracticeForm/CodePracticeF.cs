@@ -1,11 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Data.Common;
+using System.Data;
 using System.Drawing;
 using System.Linq;
-using System.Media;
 using System.Runtime.InteropServices;
+using System.Text;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace client.CodePracticeForm
@@ -66,15 +67,6 @@ namespace client.CodePracticeForm
                     this.ActiveControl = rtb;
                 }
             }
-        }
-
-        private void 내림_Click(object sender, EventArgs e) => WindowState = FormWindowState.Minimized;
-
-        private void 나가기_Click(object sender, EventArgs e)
-        {
-            timer1.Stop();
-            timer1.Dispose();
-            Close();
         }
 
 
@@ -320,6 +312,13 @@ namespace client.CodePracticeForm
         {
             timer1.Stop();
             timer1.Dispose();
+        }
+
+        private void 나가기_Click(object sender, EventArgs e)
+        {
+            timer1.Stop();
+            timer1.Dispose();
+            this.Close();
         }
     }
 }

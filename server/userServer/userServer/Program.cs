@@ -691,18 +691,23 @@ namespace server
                 using (SqlConnection conn = new SqlConnection(connectionString))
                 {
                     conn.Open();
-                    string query = "SELECT codeTitle FROM CodePost WHERE shareStatus = 1";
+                    string query = "SELECT codeTitle, codeId, userId FROM CodePost WHERE shareStatus = 1";
                     using (SqlCommand cmd = new SqlCommand(query, conn))
                     {
                         using (SqlDataReader reader = cmd.ExecuteReader())
                         {
-                            StringBuilder titles = new StringBuilder();
+                            StringBuilder result = new StringBuilder();
                             while (reader.Read())
                             {
-                                titles.Append(reader.GetString(0)).Append(", ");
+                                string title = reader.GetString(0);
+                                int codeId = reader.GetInt32(1);
+                                string ownerId = reader.GetString(2);
+
+                                result.Append($"{title}|{codeId}|{ownerId}, ");
                             }
-                            // 마지막 쉼표와 공백 제거
-                            return titles.Length > 0 ? titles.ToString().TrimEnd(',', ' ') : "공유된 코드가 없습니다";
+
+                            // 마지막 쉼표 제거
+                            return result.Length > 0 ? result.ToString().TrimEnd(',', ' ') : "공유된 코드가 없습니다";
                         }
                     }
                 }
@@ -713,6 +718,7 @@ namespace server
             }
             return "공유된 코드가 없습니다";
         }
+
 
         private string GetUserCodeList(string userId)
         {
@@ -754,7 +760,7 @@ namespace server
                 using (SqlConnection conn = new SqlConnection(connectionString))
                 {
                     conn.Open();
-                    string query = "SELECT codeTitle FROM CodePost WHERE userId = @userId AND shareStatus = 1";
+                    string query = "SELECT codeTitle, codeId FROM CodePost WHERE userId = @userId AND shareStatus = 1";
                     using (SqlCommand cmd = new SqlCommand(query, conn))
                     {
                         cmd.Parameters.AddWithValue("@userId", userId);
@@ -763,9 +769,12 @@ namespace server
                             StringBuilder codeList = new StringBuilder();
                             while (reader.Read())
                             {
-                                codeList.Append(reader.GetString(0)).Append(", ");
+                                string title = reader.GetString(0);
+                                int codeId = reader.GetInt32(1);
+                                codeList.Append($"{title}|{codeId}, ");
                             }
-                            // 마지막 쉼표와 공백 제거
+
+                            // 마지막 쉼표 제거
                             return codeList.Length > 0 ? codeList.ToString().TrimEnd(',', ' ') : "코드가 없습니다";
                         }
                     }
@@ -777,6 +786,7 @@ namespace server
             }
             return "코드가 없습니다";
         }
+
 
         public class CodePractice
         {
