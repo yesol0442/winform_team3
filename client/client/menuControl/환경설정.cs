@@ -20,7 +20,7 @@ namespace client.menuControl
     public partial class 환경설정 : UserControl
     {
         private bool soundEnabled = true;
-        public string currentUserId;
+        public static string currentUserId;
 
         public 환경설정()
         {

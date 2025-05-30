@@ -51,10 +51,10 @@ namespace client.menuControl
         private void loadfile()
         {
             List<string> codeid = ShareCodeSave.GetAllSavedCodeIDs();
-            foreach(string id  in codeid)
+            foreach (string id in codeid)
             {
                 ShareCodeSave scs = new ShareCodeSave();
-                scs.LoadFromFile(id);
+                scs.LoadFromFile(int.Parse(id));
                 sharCodeSaves.Add(scs);
             }
         }
@@ -66,7 +66,7 @@ namespace client.menuControl
             var default1 = new ShareCodeSave
             {
                 userID = "kurisu",
-                codeID = "growth001",
+                codeID = 1,
                 nickname = "마키세 크리스",
                 title = "L-시스템 기반 나무 성장 시뮬레이션",
                 Level = 4,
@@ -105,7 +105,7 @@ namespace client.menuControl
             var default6 = new ShareCodeSave
             {
                 userID = "csuser",
-                codeID = "algo001",
+                codeID = 2,
                 nickname = "알고리즘 수련생",
                 title = "이진 탐색 알고리즘",
                 Level = 1,
@@ -137,7 +137,7 @@ namespace client.menuControl
             var default7 = new ShareCodeSave
             {
                 userID = "csuser",
-                codeID = "algo002",
+                codeID = 3,
                 nickname = "알고리즘 수련생",
                 title = "너비 우선 탐색 (BFS)",
                 Level = 2,
@@ -177,7 +177,7 @@ namespace client.menuControl
             var default8 = new ShareCodeSave
             {
                 userID = "csuser",
-                codeID = "algo003",
+                codeID = 4,
                 nickname = "알고리즘 수련생",
                 title = "다익스트라 최단 거리 알고리즘",
                 Level = 4,

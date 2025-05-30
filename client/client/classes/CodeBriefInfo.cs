@@ -9,7 +9,7 @@ namespace client
     internal class CodeBriefInfo
     {
         public string userID { get; set; }
-        public string codeID { get; set; }
+        public int codeID { get; set; }
         public string title { get; set; }
     }
 }

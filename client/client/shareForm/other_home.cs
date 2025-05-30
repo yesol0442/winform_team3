@@ -1,4 +1,5 @@
-﻿using System;
+﻿using client.classes.NetworkManager;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -20,13 +21,14 @@ namespace client.shareForm
             InitializeComponent();
         }
 
-        public void Initialize_otherhome(string userID, string nickname)
+        public async Task Initialize_otherhome(string userID, string nickname)
         {
             userid = userID;
-            otherusercodelist.userID = userID;
-            사용자이름lbl.Text = nickname+"의";
-            //userid로 title과 codeid 받아서 otherusercodelist만들기.
-            foreach(var cid_title in otherusercodelist.cid_title_list)
+            사용자이름lbl.Text = nickname + "의";
+
+            otherusercodelist = await GetOtherUserCodeListAsync(userID);
+
+            foreach (var cid_title in otherusercodelist.cid_title_list)
             {
                 listBox1.Items.Add(cid_title.ToString());
             }
@@ -42,14 +44,57 @@ namespace client.shareForm
         {
             if (listBox1.SelectedItem is CodeItem selectedItem)
             {
-                string codeid = selectedItem.CodeID;
+                int codeid = selectedItem.CodeID;
 
                 var parentForm = this.FindForm() as shareform;
                 if (parentForm != null)
                 {
-                    parentForm.HandleChildClick("코드내용", userid, codeid);
+                    parentForm.HandleChildClick("코드내용", userid, "", codeid);
                 }
             }
         }
+
+        public async Task<OtherUserCodeList> GetOtherUserCodeListAsync(string userId)
+        {
+            var nm = NetworkManager.Instance;
+
+            await nm.SendMessageAsync($"GET_OTHER_USER_CODE_LIST:{userId}\n");
+
+            string response = await nm.ReceiveMessageAsync();
+
+            if (string.IsNullOrWhiteSpace(response) || response == "코드가 없습니다")
+                return new OtherUserCodeList
+                {
+                    userID = userId,
+                    cid_title_list = new List<OtherUserCodeList.CodeItem>()
+                };
+
+            var list = new List<OtherUserCodeList.CodeItem>();
+
+            string[] entries = response.Split(new[] { ',' }, StringSplitOptions.RemoveEmptyEntries);
+            foreach (string entry in entries)
+            {
+                string[] parts = entry.Trim().Split('|');
+                if (parts.Length == 2)
+                {
+                    string title = parts[0].Trim();
+                    int codeId = int.Parse(parts[1].Trim());
+
+                    list.Add(new OtherUserCodeList.CodeItem
+                    {
+                        Title = title,
+                        CodeID = codeId
+                    });
+                }
+            }
+
+            return new OtherUserCodeList
+            {
+                userID = userId,
+                cid_title_list = list
+            };
+        }
+
     }
 }
+
