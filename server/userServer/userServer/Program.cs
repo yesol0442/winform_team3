@@ -318,7 +318,7 @@ namespace server
             else if (message.StartsWith("INSERT_CODE_POST:"))
             {
                 string[] parts = message.Substring(17).Split(':');
-                if (parts.Length == 6)
+                if (parts.Length == 7)
                 {
                     string userId = parts[0].Trim();
                     string title = parts[1].Trim();
@@ -327,8 +327,10 @@ namespace server
                     string source = parts[3].Trim();
                     string desc = parts[4].Trim();
                     string content = parts[5].Trim();
+                    if (!bool.TryParse(parts[6].Trim(), out bool status))
+                        return "공유 여부 형식이 올바르지 않습니다 (true/false)";
 
-                    bool success = InsertCodePost(userId, title, level, source, desc, content);
+                    bool success = InsertCodePost(userId, title, level, source, desc, content, status);
                     return success ? "CODE_INSERT_SUCCESS" : "CODE_INSERT_FAIL";
                 }
                 else
@@ -339,7 +341,7 @@ namespace server
             else if (message.StartsWith("UPDATE_CODE_POST:"))
             {
                 string[] parts = message.Substring(17).Split(':');
-                if (parts.Length == 7)
+                if (parts.Length == 8)
                 {
                     if (!int.TryParse(parts[0].Trim(), out int codeId))
                         return "코드 ID 형식 오류";
@@ -350,8 +352,10 @@ namespace server
                     string newSource = parts[4].Trim();
                     string newDesc = parts[5].Trim();
                     string newContent = parts[6].Trim();
+                    if (!bool.TryParse(parts[7].Trim(), out bool newStatus))
+                        return "공유 여부 형식 오류 (true/false)";
 
-                    bool success = UpdateCodePost(codeId, userId, newTitle, newLevel, newSource, newDesc, newContent);
+                    bool success = UpdateCodePost(codeId, userId, newTitle, newLevel, newSource, newDesc, newContent, newStatus);
                     return success ? "CODE_UPDATE_SUCCESS" : "CODE_UPDATE_FAIL";
                 }
                 else
@@ -479,7 +483,6 @@ namespace server
                 return false;
             }
         }
-
 
         public class UserProfile
         {
@@ -719,7 +722,6 @@ namespace server
             return "공유된 코드가 없습니다";
         }
 
-
         private string GetUserCodeList(string userId)
         {
             try
@@ -727,7 +729,7 @@ namespace server
                 using (SqlConnection conn = new SqlConnection(connectionString))
                 {
                     conn.Open();
-                    string query = "SELECT codeTitle, shareStatus FROM CodePost WHERE userId = @userId";
+                    string query = "SELECT codeTitle, codeId, shareStatus FROM CodePost WHERE userId = @userId";
                     using (SqlCommand cmd = new SqlCommand(query, conn))
                     {
                         cmd.Parameters.AddWithValue("@userId", userId);
@@ -737,9 +739,18 @@ namespace server
                             while (reader.Read())
                             {
                                 string title = reader.GetString(0);
-                                bool shareStatus = reader.GetBoolean(1);
-                                codeList.Append(title).Append(" (").Append(shareStatus ? "공유" : "비공유").Append(")").Append(", ");
+                                int codeId = reader.GetInt32(1);
+                                bool shareStatus = reader.GetBoolean(2);
+
+                                // 예: 버블정렬 : 3 : 공유
+                                codeList.Append(title)
+                                        .Append(" : ")
+                                        .Append(codeId)
+                                        .Append(" : ")
+                                        .Append(shareStatus ? "공유" : "비공유")
+                                        .Append(", ");
                             }
+
                             // 마지막 쉼표와 공백 제거
                             return codeList.Length > 0 ? codeList.ToString().TrimEnd(',', ' ') : "코드가 없습니다";
                         }
@@ -786,7 +797,6 @@ namespace server
             }
             return "코드가 없습니다";
         }
-
 
         public class CodePractice
         {
@@ -878,15 +888,17 @@ namespace server
             return "코드 정보를 찾을 수 없습니다";
         }
 
-        public bool InsertCodePost(string userId, string codeTitle, int codeLevel, string codeSource, string codeDescription, string codeContent)
+        public bool InsertCodePost(string userId, string codeTitle, int codeLevel, string codeSource, string codeDescription, string codeContent, bool shareStatus)
         {
             try
             {
                 using (SqlConnection conn = new SqlConnection(connectionString))
                 {
                     conn.Open();
-                    string query = @"INSERT INTO CodePost (userId, codeTitle, codeLevel, codeSource, codeDescription, codeContent)
-                             VALUES (@userId, @title, @level, @source, @desc, @content)";
+                    string query = @"INSERT INTO CodePost 
+                (userId, codeTitle, codeLevel, codeSource, codeDescription, codeContent, shareStatus)
+                VALUES (@userId, @title, @level, @source, @desc, @content, @status)";
+
                     using (SqlCommand cmd = new SqlCommand(query, conn))
                     {
                         cmd.Parameters.AddWithValue("@userId", userId);
@@ -895,6 +907,7 @@ namespace server
                         cmd.Parameters.AddWithValue("@source", codeSource);
                         cmd.Parameters.AddWithValue("@desc", codeDescription);
                         cmd.Parameters.AddWithValue("@content", codeContent);
+                        cmd.Parameters.AddWithValue("@status", shareStatus);
                         return cmd.ExecuteNonQuery() > 0;
                     }
                 }
@@ -906,7 +919,7 @@ namespace server
             }
         }
 
-        public bool UpdateCodePost(int codeId, string userId, string newTitle, int newLevel, string newSource, string newDesc, string newContent)
+        public bool UpdateCodePost(int codeId, string userId, string newTitle, int newLevel, string newSource, string newDesc, string newContent, bool newStatus)
         {
             try
             {
@@ -914,9 +927,10 @@ namespace server
                 {
                     conn.Open();
                     string query = @"UPDATE CodePost
-                             SET codeTitle = @title, codeLevel = @level, codeSource = @source,
-                                 codeDescription = @desc, codeContent = @content
-                             WHERE codeId = @codeId AND userId = @userId";
+                SET codeTitle = @title, codeLevel = @level, codeSource = @source,
+                    codeDescription = @desc, codeContent = @content, shareStatus = @status
+                WHERE codeId = @codeId AND userId = @userId";
+
                     using (SqlCommand cmd = new SqlCommand(query, conn))
                     {
                         cmd.Parameters.AddWithValue("@codeId", codeId);
@@ -926,6 +940,7 @@ namespace server
                         cmd.Parameters.AddWithValue("@source", newSource);
                         cmd.Parameters.AddWithValue("@desc", newDesc);
                         cmd.Parameters.AddWithValue("@content", newContent);
+                        cmd.Parameters.AddWithValue("@status", newStatus);
                         return cmd.ExecuteNonQuery() > 0;
                     }
                 }
