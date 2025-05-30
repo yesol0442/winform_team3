@@ -18,23 +18,23 @@ namespace client.shareForm
         public share_base(string userID)
         {
             InitializeComponent();
-            _ = LoadSharedCodesAsync();
+            _ = LoadSharedCodesAsync(userID);
 
         }
 
-        private async Task LoadSharedCodesAsync()
+        private async Task LoadSharedCodesAsync(string userID)
         {
-            codelist = await GetSharedCodeBriefsAsync();
+            codelist = await GetSharedCodeBriefsAsync(userID);
             foreach (CodeBriefInfo info in codelist)
             {
                 AddCodeItem(info.title, info.userID, info.codeID);
             }
         }
 
-        public async Task<List<CodeBriefInfo>> GetSharedCodeBriefsAsync()
+        public async Task<List<CodeBriefInfo>> GetSharedCodeBriefsAsync(string userID)
         {
             var nm = NetworkManager.Instance;
-            await nm.SendMessageAsync("GET_CODE_TITLES:\n");
+            await nm.SendMessageAsync($"GET_CODE_TITLES:{userID}\n");
 
             string response = await nm.ReceiveMessageAsync();
 

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace client
 {
-    internal class CodeBriefInfo
+    public class CodeBriefInfo
     {
         public string userID { get; set; }
         public int codeID { get; set; }

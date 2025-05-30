@@ -27,7 +27,6 @@ namespace client.shareForm
         {
             InitializeComponent();
             this.AutoScaleMode = AutoScaleMode.None;
-            panel1.Size = new Size(980, 510);
 
             코드내용TB.MaxLength = 2000;
             코드설명textbox.MaxLength = 100;
