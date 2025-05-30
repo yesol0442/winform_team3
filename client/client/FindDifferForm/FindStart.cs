@@ -41,10 +41,6 @@ namespace client.FindDifferForm
             findReady = new FindReady();
             findReady.Owner = this;
             findReady.Show();
-
-            //quizready = new quizReady();
-            //quizready.Owner = this;
-            //quizready.Show();
         }
 
         private void btnTutorial_Click(object sender, EventArgs e)
