@@ -11,7 +11,7 @@ namespace client
     public class ShareCodeSave // 공유함에 있는 코드를 내 코드에 추가하기
     {
         public string userID { get; set; }
-        public string codeID { get; set; }
+        public int codeID { get; set; }
 
         public string nickname { get; set; }
         public string title { get; set; }
@@ -34,7 +34,7 @@ namespace client
         {
             return Path.Combine(GetSaveFolder(), $"{codeID}.txt");
         }
-     
+
 
         public void SaveToFile()
         {
@@ -57,7 +57,7 @@ namespace client
             }
         }
 
-        public void LoadFromFile(string codeID)
+        public void LoadFromFile(int codeID)
         {
             this.codeID = codeID; // 코드 ID를 먼저 설정
             string path = GetSavePath();
@@ -68,7 +68,7 @@ namespace client
             int index = 0;
 
             userID = lines[index++];
-            codeID = lines[index++];
+            codeID = int.Parse(lines[index++]);
             nickname = lines[index++];
             title = lines[index++];
             Level = int.Parse(lines[index++]);

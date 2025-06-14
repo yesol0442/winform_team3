@@ -1,4 +1,5 @@
-﻿using System;
+﻿using client.classes.NetworkManager;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -14,11 +15,12 @@ namespace client.shareForm
     {
         private string userid;
         private Color labelColor = Color.DimGray;
-        private UserCodeList usercodelist = new UserCodeList();
-        private List<Tuple<string, string>> checkedCodeList = new List<Tuple<string, string>>();
+        private UserCodeList usercodelist;
+        private List<Tuple<string, int>> checkedCodeList = new List<Tuple<string, int>>();
 
-        public share_home()
+        public share_home(string userId)
         {
+            userid = userId;
             InitializeComponent();
             flowLayoutPanel1.AutoScroll = true;
             flowLayoutPanel1.WrapContents = false;
@@ -26,18 +28,57 @@ namespace client.shareForm
 
         }
 
-        private void share_home_Load(object sender, EventArgs e)
+        private async void share_home_Load(object sender, EventArgs e)
         {
-            //userid = 로컬 db에서 가져오기 아님 전역변수 반드시
-            usercodelist.userID = userid;
-            //userid로 title과 codeid 받아서 otherusercodelist만들기.
+            usercodelist = await GetUserCodeListAsync(userid);
             foreach (var cid_title in usercodelist.cid_title_list)
             {
-                AddCodeItem(cid_title.CodeID,cid_title.Title,cid_title.status);
+                AddCodeItem(cid_title.CodeID, cid_title.Title, cid_title.status);
             }
         }
 
-        private void AddCodeItem(string codeID, string title, int status)
+        public async Task<UserCodeList> GetUserCodeListAsync(string userId)
+        {
+            var nm = NetworkManager.Instance;
+            await nm.SendMessageAsync($"GET_USER_CODE_LIST:{userId}\n");
+
+            string response = await nm.ReceiveMessageAsync();
+            if (response == "코드가 없습니다" || string.IsNullOrWhiteSpace(response))
+                return new UserCodeList { userID = userId, cid_title_list = new List<UserCodeList.CodeItem>() };
+
+            var list = new List<UserCodeList.CodeItem>();
+
+            string[] entries = response.Split(new[] { ',' }, StringSplitOptions.RemoveEmptyEntries);
+            foreach (string entry in entries)
+            {
+                string trimmed = entry.Trim();
+                string[] parts = trimmed.Split(':');
+                if (parts.Length == 3)
+                {
+                    string title = parts[0].Trim();
+                    int codeId = int.Parse(parts[1].Trim());
+                    string statusStr = parts[2].Trim();
+
+                    int status = statusStr == "공유" ? 1 : 0;
+
+                    list.Add(new UserCodeList.CodeItem
+                    {
+                        Title = title,
+                        CodeID = codeId,
+                        status = status
+                    });
+                }
+            }
+
+            return new UserCodeList
+            {
+                userID = userId,
+                cid_title_list = list
+            };
+        }
+
+
+        private void AddCodeItem(int codeID, string title, int status)
         {
             Panel itemPanel = new Panel();
             itemPanel.Width = 955;
@@ -93,9 +134,9 @@ namespace client.shareForm
         private void CheckBox_CheckedChanged(object sender, EventArgs e)
         {
             CheckBox chk = sender as CheckBox;
-            var tag = (Tuple<string, string>)chk.Tag; // 타입은 실제 타입에 맞게 설정
+            var tag = (Tuple<string, int>)chk.Tag;
             string userID = tag.Item1;
-            string codeID = tag.Item2;
+            int codeID = tag.Item2;
 
             var entry = Tuple.Create(userID, codeID);
 
@@ -104,7 +145,6 @@ namespace client.shareForm
                 if (!checkedCodeList.Contains(entry))
                 {
                     checkedCodeList.Add(entry);
-                    Console.WriteLine($"[추가] {userID}, {codeID}");
                 }
             }
             else
@@ -112,7 +152,6 @@ namespace client.shareForm
                 if (checkedCodeList.Contains(entry))
                 {
                     checkedCodeList.Remove(entry);
-                    Console.WriteLine($"[제거] {userID}, {codeID}");
                 }
             }
 
@@ -122,14 +161,14 @@ namespace client.shareForm
         private void itemPanel_Click(object sender, EventArgs e)
         {
             Panel lbl = sender as Panel;
-            var tag = (Tuple<string, string>)lbl.Tag;
+            var tag = (Tuple<string, int>)lbl.Tag;
             string userID = tag.Item1;
-            string codeID = tag.Item2;
+            int codeID = tag.Item2;
 
             var parentForm = this.FindForm() as shareform;
             if (parentForm != null)
             {
-                parentForm.HandleChildClick("코드수정", userID, codeID);
+                parentForm.HandleChildClick("코드수정", userID, "", codeID);
             }
         }
 
@@ -138,19 +177,32 @@ namespace client.shareForm
             this.Visible = false;
         }
 
-        private void 삭제btn_Click(object sender, EventArgs e)
+        private async void 삭제btn_Click(object sender, EventArgs e)
         {
-            //서버에 해당 삭제하겟다는 뭐시기 보내기.
-
             List<Control> toRemove = new List<Control>();
+            List<Tuple<string, int>> codesToDelete = new List<Tuple<string, int>>();
+
             foreach (Control panel in flowLayoutPanel1.Controls)
             {
                 foreach (Control ctrl in panel.Controls)
                 {
                     if (ctrl is CheckBox chk && chk.Checked)
                     {
-                        toRemove.Add(panel);
+                        if (chk.Tag is Tuple<string, int> tag)
+                        {
+                            codesToDelete.Add(tag);
+                            toRemove.Add(panel);
+                        }
                     }
+                }
+            }
+
+            foreach (var (userId, codeId) in codesToDelete)
+            {
+                bool ok = await DeleteCodeAsync(codeId, userId);
+                if (!ok)
+                {
+                    MessageBox.Show($"CodeID {codeId} 삭제 실패!");
                 }
             }
 
@@ -162,5 +214,17 @@ namespace client.shareForm
 
             checkedCodeList.Clear();
         }
+
+        public async Task<bool> DeleteCodeAsync(int codeId, string userId)
+        {
+            var nm = NetworkManager.Instance;
+            string message = $"DELETE_CODE_POST:{codeId}:{Uri.EscapeDataString(userId)}\n";
+
+            await nm.SendMessageAsync(message);
+            string response = await nm.ReceiveMessageAsync();
+
+            return response == "CODE_DELETE_SUCCESS";
+        }
+
     }
 }

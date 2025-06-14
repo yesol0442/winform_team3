@@ -8,13 +8,13 @@ using System.IO;
 
 namespace client
 {
-    internal class CodePractice // 코드 연습할 수 있도록 코드 추가, 공유함에 올리는 것도 포함
+    public class CodePractice // 코드 연습할 수 있도록 코드 추가, 공유함에 올리는 것도 포함
     {
-        public string userID {  get; set; }
-        public string codeID { get; set; }
+        public string userID { get; set; }
+        public int codeID { get; set; }
 
-        public string nickname {  get; set; }
-        public string title {  get; set; }
+        public string nickname { get; set; }
+        public string title { get; set; }
         public byte[] ProfileImageData { get; set; } // DB 저장용
         public int Level { get; set; }
 

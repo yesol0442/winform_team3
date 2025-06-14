@@ -1,4 +1,5 @@
-﻿using client.Properties;
+﻿using client.classes.NetworkManager;
+using client.Properties;
 using System;
 using System.Collections.Generic;
 using System.Collections.Specialized;
@@ -15,20 +16,42 @@ namespace client.shareForm
     public partial class code_detail : UserControl
     {
         private string userid;
-        private string codeid;
+        private int codeid;
         private CodePractice otherusercode = new CodePractice();
 
         public code_detail()
         {
             InitializeComponent();
         }
-        public void Initialize_codedetail(string userID, string codeID)
+        public async Task Initialize_codedetail(string userID, int codeID)
         {
             userid = userID;
             codeid = codeID;
+            await _codedetail(userID, codeID);
+        }
 
-            // otherusercode <= 변수 코드id와 유저 id로 서버에서 CodePractice 클래스 정보 가져오기!!!!
-            exotheruser();//이건 확인용
+
+        public async Task _codedetail(string userID, int codeID)
+        {
+            await NetworkManager.Instance.SendMessageAsync($"GET_CODE_PRACTICE:{userID}:{codeID}\n");
+            string header = await NetworkManager.Instance.ReceiveHeaderAsync();
+            string imageBase64 = await NetworkManager.Instance.ReceiveFullMessageUntilEndAsync("");
+
+            string[] parts = header.Split('|');
+            if (parts.Length < 6) return;
+
+            otherusercode = new CodePractice
+            {
+                userID = userID,
+                codeID = codeID,
+                nickname = parts[0],
+                title = parts[1],
+                Level = int.Parse(parts[2]),
+                ProfileImageData = Convert.FromBase64String(imageBase64),
+                status = 1,
+                CodeExplanation = parts[4].Split('\n').ToList(),
+                Code = parts[5].Split('\n').ToList()
+            };
 
             닉네임lbl.Text = otherusercode.nickname;
             제목lbl.Text = otherusercode.title;
@@ -49,41 +72,6 @@ namespace client.shareForm
             pictureBox1.Image = otherusercode.ProfileImage;
         }
 
-        private void exotheruser()
-        {
-            otherusercode.userID = "eva01pilot";
-            otherusercode.codeID = "operation-test-typeA";
-            otherusercode.nickname = "이카리 신지";
-            otherusercode.title = "에바를 타기 싫을 때 대처법";
-            otherusercode.Level = 1;
-            otherusercode.CodeExplanation = new List<string>
-            {
-                "누구도 나를 이해하지 못해...",
-                "하지만 결국 난 또 에바에 타야만 했어.",
-                "이건... 도망치지 않기 위한, 나만의 방법이야."
-            };
-            otherusercode.Code = new List<string>
-            {
-                "// 에바 타기 전에 반드시 확인할 것",
-                "if (내마음 == 불안정)",
-                "{",
-                "    Misato.술을_주지마();",
-                "    아버지를_직접_보지_않기();",
-                "}",
-                "",
-                "// 탈출 시도",
-                "for (int 시도 = 0; 시도 < 3; 시도++)",
-                "{",
-                "    도망쳐();",
-                "    if (결국_탑니다)",
-                "        break;",
-                "}",
-                "",
-                "// 현실 수용",
-                "print(\"나는... 또 에바에 타고 말았어\");"
-            };
-            //otherusercode.ProfileImage = Properties.Resources.신지;
-        }
 
         private void 뒤로가기btn_Click(object sender, EventArgs e)
         {
@@ -95,7 +83,7 @@ namespace client.shareForm
             var parentForm = this.FindForm() as shareform;
             if (parentForm != null)
             {
-                parentForm.HandleChildClick("남의홈",userid,otherusercode.nickname);
+                parentForm.HandleChildClick("남의홈", userid, otherusercode.nickname, 0);
             }
         }
 
