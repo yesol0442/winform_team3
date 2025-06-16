@@ -77,19 +77,19 @@ namespace server
             if (message.StartsWith("LOGIN:"))
             {
                 string prefix = "LOGIN:";
-                string userId = message.Substring(prefix.Length);
+                string userId = message.Substring(prefix.Length).Trim();
                 return ValidateUser(userId) ? "LOGIN_SUCCESS" : "LOGIN_FAIL";
             }
             else if (message.StartsWith("REGISTER:"))
             {
                 string prefix = "REGISTER:";
-                string userId = message.Substring(prefix.Length);
+                string userId = message.Substring(prefix.Length).Trim();
                 return AddNewUserToDatabase(userId) ? "REGISTER_SUCCESS" : "REGISTER_FAIL";
             }
             else if (message.StartsWith("LOAD_PROFILE:"))
             {
                 string prefix = "LOAD_PROFILE:";
-                string userId = message.Substring(prefix.Length);
+                string userId = message.Substring(prefix.Length).Trim();
                 Console.WriteLine($"LOAD_PROFILE 요청: {userId}");
 
                 var profile = GetUserProfile(userId);
@@ -187,7 +187,7 @@ namespace server
             else if (message.StartsWith("DELETE_ACCOUNT:"))
             {
                 string prefix = "DELETE_ACCOUNT:";
-                string userId = message.Substring(prefix.Length);
+                string userId = message.Substring(prefix.Length).Trim();
                 return DeleteAccount(userId) ? "OK" : "DELETE_FAIL";
             }
 
@@ -196,7 +196,7 @@ namespace server
             else if (message.StartsWith("LOAD_STATS:"))
             {
                 string prefix = "LOAD_STATS:";
-                string userId = message.Substring(prefix.Length);
+                string userId = message.Substring(prefix.Length).Trim();
                 Console.WriteLine($"LOAD_STATS 요청: {userId}");
 
                 var stats = GetUserStats(userId);
@@ -252,20 +252,20 @@ namespace server
             else if (message.StartsWith("GET_CODE_TITLES:"))
             {
                 string prefix = "GET_CODE_TITLES:";
-                string userId = message.Substring(prefix.Length);
+                string userId = message.Substring(prefix.Length).Trim();
 
                 return GetCodeBriefInfo(userId);
             }
             else if (message.StartsWith("GET_USER_CODE_LIST:"))
             {
                 string prefix = "GET_USER_CODE_LIST:";
-                string userId = message.Substring(prefix.Length);
+                string userId = message.Substring(prefix.Length).Trim();
                 return GetUserCodeList(userId);
             }
             else if (message.StartsWith("GET_OTHER_USER_CODE_LIST:"))
             {
                 string prefix = "GET_OTHER_USER_CODE_LIST:";
-                string userId = message.Substring(prefix.Length);
+                string userId = message.Substring(prefix.Length).Trim();
                 return GetOtherUserCodeList(userId);
             }
             else if (message.StartsWith("GET_CODE_PRACTICE:"))
