@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Net;
 using System.Net.Sockets;
 using System.Text;
@@ -76,17 +76,20 @@ namespace server
         {
             if (message.StartsWith("LOGIN:"))
             {
-                string userId = message.Substring(6).Trim();
+                string prefix = "LOGIN:";
+                string userId = message.Substring(prefix.Length);
                 return ValidateUser(userId) ? "LOGIN_SUCCESS" : "LOGIN_FAIL";
             }
             else if (message.StartsWith("REGISTER:"))
             {
-                string userId = message.Substring(9).Trim();
+                string prefix = "REGISTER:";
+                string userId = message.Substring(prefix.Length);
                 return AddNewUserToDatabase(userId) ? "REGISTER_SUCCESS" : "REGISTER_FAIL";
             }
             else if (message.StartsWith("LOAD_PROFILE:"))
             {
-                string userId = message.Substring(13).Trim();
+                string prefix = "LOAD_PROFILE:";
+                string userId = message.Substring(prefix.Length);
                 Console.WriteLine($"LOAD_PROFILE 요청: {userId}");
 
                 var profile = GetUserProfile(userId);
@@ -137,7 +140,9 @@ namespace server
 
             else if (message.StartsWith("UPDATE_PROFILE_IMAGE:"))
             {
-                string[] parts = message.Split(new[] { ':' }, 3);
+
+                string prefix = "UPDATE_PROFILE_IMAGE:";
+                string[] parts = message.Substring(prefix.Length).Split(':');
                 if (parts.Length == 3)
                 {
                     string userId = parts[1].Trim();
@@ -170,7 +175,8 @@ namespace server
             }
             else if (message.StartsWith("UPDATE_NICKNAME:"))
             {
-                string[] parts = message.Split(new[] { ':' }, 3);
+                string prefix = "UPDATE_NICKNAME:";
+                string[] parts = message.Substring(prefix.Length).Split(':');
                 if (parts.Length == 3)
                 {
                     string userId = parts[1].Trim();
@@ -180,7 +186,8 @@ namespace server
             }
             else if (message.StartsWith("DELETE_ACCOUNT:"))
             {
-                string userId = message.Substring(15).Trim();
+                string prefix = "DELETE_ACCOUNT:";
+                string userId = message.Substring(prefix.Length);
                 return DeleteAccount(userId) ? "OK" : "DELETE_FAIL";
             }
 
@@ -188,7 +195,8 @@ namespace server
 
             else if (message.StartsWith("LOAD_STATS:"))
             {
-                string userId = message.Substring(11).Trim();
+                string prefix = "LOAD_STATS:";
+                string userId = message.Substring(prefix.Length);
                 Console.WriteLine($"LOAD_STATS 요청: {userId}");
 
                 var stats = GetUserStats(userId);
@@ -243,22 +251,27 @@ namespace server
 
             else if (message.StartsWith("GET_CODE_TITLES:"))
             {
-                string userId = message.Substring(17).Trim();
+                string prefix = "GET_CODE_TITLES:";
+                string userId = message.Substring(prefix.Length);
+
                 return GetCodeBriefInfo(userId);
             }
             else if (message.StartsWith("GET_USER_CODE_LIST:"))
             {
-                string userId = message.Substring(20).Trim();
+                string prefix = "GET_USER_CODE_LIST:";
+                string userId = message.Substring(prefix.Length);
                 return GetUserCodeList(userId);
             }
             else if (message.StartsWith("GET_OTHER_USER_CODE_LIST:"))
             {
-                string userId = message.Substring(27).Trim();
+                string prefix = "GET_OTHER_USER_CODE_LIST:";
+                string userId = message.Substring(prefix.Length);
                 return GetOtherUserCodeList(userId);
             }
             else if (message.StartsWith("GET_CODE_PRACTICE:"))
             {
-                string[] parts = message.Substring(19).Split(':');
+                string prefix = "GET_CODE_PRACTICE:";
+                string[] parts = message.Substring(prefix.Length).Split(':');
                 if (parts.Length == 2)
                 {
                     string userId = parts[0].Trim();
@@ -268,7 +281,7 @@ namespace server
                         return "코드 정보를 찾을 수 없습니다";
 
                     // 헤더: 모든 통계 데이터 문자열 (프로필 사진 제외) + 구분자
-                    string header = $"{code.NickName}|{code.CodeTitle}|{code.CodeLevel}|{code.CodeSource}|" +
+                    string header = $"{code.NickName}|{code.CodeTitle}|{code.CodeLevel}|" +
                                     $"{code.CodeDescription}|{code.CodeContent}::END_HEADER::";
 
                     NetworkStream stream = client.GetStream();
@@ -307,7 +320,8 @@ namespace server
             }
             else if (message.StartsWith("GET_SHARE_CODE_SAVE:"))
             {
-                string[] parts = message.Substring(21).Split(':');
+                string prefix = "GET_SHARE_CODE_SAVE:";
+                string[] parts = message.Substring(prefix.Length).Split(':');
                 if (parts.Length == 2)
                 {
                     string userId = parts[0].Trim();
@@ -317,7 +331,8 @@ namespace server
             }
             else if (message.StartsWith("INSERT_CODE_POST:"))
             {
-                string[] parts = message.Substring(17).Split(':');
+                string prefix = "INSERT_CODE_POST:";
+                string[] parts = message.Substring(prefix.Length).Split(':');
                 if (parts.Length == 7)
                 {
                     string userId = parts[0].Trim();
@@ -340,7 +355,8 @@ namespace server
             }
             else if (message.StartsWith("UPDATE_CODE_POST:"))
             {
-                string[] parts = message.Substring(17).Split(':');
+                string prefix = "UPDATE_CODE_POST:";
+                string[] parts = message.Substring(prefix.Length).Split(':');
                 if (parts.Length == 8)
                 {
                     if (!int.TryParse(parts[0].Trim(), out int codeId))
@@ -365,7 +381,8 @@ namespace server
             }
             else if (message.StartsWith("DELETE_CODE_POST:"))
             {
-                string[] parts = message.Substring(17).Split(':');
+                string prefix = "DELETE_CODE_POST:";
+                string[] parts = message.Substring(prefix.Length).Split(':');
                 if (parts.Length == 2)
                 {
                     if (!int.TryParse(parts[0].Trim(), out int codeId))
