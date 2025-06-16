@@ -111,6 +111,7 @@ namespace client.shareForm
             titleLabel.Size = new Size(700, 40);
             titleLabel.Location = new Point(40, 0);
             titleLabel.TextAlign = ContentAlignment.MiddleLeft;
+            titleLabel.ForeColor = labelColor;
             titleLabel.MouseEnter += (s, e) =>
             {
                 titleLabel.ForeColor = Color.Black;

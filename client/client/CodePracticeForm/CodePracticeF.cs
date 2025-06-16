@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -49,6 +49,7 @@ namespace client.CodePracticeForm
             _totalLines = scs.Code.Count;
         }
 
+
         private void CodePracticeF_Load(object sender, EventArgs e)
         {
             timer1.Interval = 1000;
@@ -68,6 +69,7 @@ namespace client.CodePracticeForm
                 }
             }
         }
+
 
 
         private void table_fill(int line_num)
@@ -187,14 +189,58 @@ namespace client.CodePracticeForm
         {
             timer1.Stop();
 
-            MessageBox.Show($"🎉 연습이 끝났습니다!\n\n타수  : {타수TB.Text} \n정확도: {정확도TB.Text}",
-                            "완료", MessageBoxButtons.OK);
-            Close();
+            using (var dlg = new Form())
+            {
+                dlg.StartPosition = FormStartPosition.CenterParent;
+                dlg.FormBorderStyle = FormBorderStyle.FixedDialog;
+                dlg.ClientSize = new Size(280, 150);
+                dlg.Text = "완료";
+                dlg.ControlBox = false;
+
+                dlg.AcceptButton = null;   // 기본 Enter-버튼 해제
+                dlg.KeyPreview = true;   // 폼이 키를 먼저 받도록
+
+                // ★ 여기서 Enter 완전히 차단
+                dlg.KeyDown += (s, e) =>
+                {
+                    if (e.KeyCode == Keys.Enter)
+                    {
+                        e.Handled = true;          // 컨트롤로 전달 막기
+                        e.SuppressKeyPress = true; // 시스템에도 전달 막기
+                    }
+                };
+
+                var lbl = new Label
+                {
+                    Dock = DockStyle.Fill,
+                    TextAlign = ContentAlignment.MiddleCenter,
+                    Text = $"🎉 연습이 끝났습니다!\n\n타수  : {타수TB.Text}\n정확도: {정확도TB.Text}"
+                };
+
+                var btn = new Button
+                {
+                    Dock = DockStyle.Bottom,
+                    Height = 34,
+                    Text = "확 인",
+                    TabStop = false          // 처음 포커스가 버튼에 가지 않게
+                };
+                btn.Click += (_, __) => dlg.DialogResult = DialogResult.OK;
+
+                dlg.Controls.Add(lbl);
+                dlg.Controls.Add(btn);
+
+                dlg.ShowDialog(this);       // Enter 눌러도 안 닫힘
+            }
+
+            Close();                        // 반드시 마우스로 “확인” 눌러야 도달
         }
 
 
+
+        private bool _finished = false;
         private void rtbInput_TextChanged(object sender, EventArgs e)
         {
+        
             var rtb = (RichTextBox)sender;
             var tag = (Tuple<int, string>)rtb.Tag;
             string code = tag.Item2;
@@ -204,7 +250,6 @@ namespace client.CodePracticeForm
             _totalTyped += newLen - oldLen;
 
             int diff = newLen - oldLen;
-            _totalTyped += Math.Max(0, diff);
 
             int caretPos = rtb.SelectionStart;
             if (diff < 0)
@@ -279,14 +324,15 @@ namespace client.CodePracticeForm
                     _finishedLines++;
 
                 _prevErrors[rtb] = errorsThisLine;
-
-                if (_finishedLines == _totalLines)
-                {
-                    ShowResultAndFinish();
-                    return;
-                }
                 rtb.ReadOnly = true;
                 FocusNextInputBox(tag.Item1 + 1);
+
+                if (!_finished && _finishedLines == _totalLines)
+                {
+                    _finished = true;
+                    BeginInvoke((Action)ShowResultAndFinish);
+                    return;
+                }
             }
         }
 
