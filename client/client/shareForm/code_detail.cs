@@ -26,6 +26,11 @@ namespace client.shareForm
         }
         public async Task Initialize_codedetail(string userID, int codeID)
         {
+            제목lbl.Text = "";
+            난이도lbl.Text = "";
+            코드설명textbox.Text = "";
+            코드내용TB.Text = "";
+
             userid = userID;
             codeid = codeID;
             await _codedetail(userID, codeID);
