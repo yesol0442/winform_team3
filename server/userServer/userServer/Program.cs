@@ -335,13 +335,13 @@ namespace server
                 string[] parts = message.Substring(prefix.Length).Split(':');
                 if (parts.Length == 7)
                 {
-                    string userId = parts[0].Trim();
-                    string title = parts[1].Trim();
+                    string userId = Uri.UnescapeDataString(parts[0].Trim());
+                    string title = Uri.UnescapeDataString(parts[1].Trim());
                     if (!int.TryParse(parts[2].Trim(), out int level))
                         return "레벨 형식이 올바르지 않습니다";
-                    string source = parts[3].Trim();
-                    string desc = parts[4].Trim();
-                    string content = parts[5].Trim();
+                    string source = Uri.UnescapeDataString(parts[3].Trim());
+                    string desc = Uri.UnescapeDataString(parts[4].Trim());
+                    string content = Uri.UnescapeDataString(parts[5].Trim());
                     if (!bool.TryParse(parts[6].Trim(), out bool status))
                         return "공유 여부 형식이 올바르지 않습니다 (true/false)";
 
@@ -359,15 +359,15 @@ namespace server
                 string[] parts = message.Substring(prefix.Length).Split(':');
                 if (parts.Length == 8)
                 {
-                    if (!int.TryParse(parts[0].Trim(), out int codeId))
+                    if (!int.TryParse(Uri.UnescapeDataString(parts[0]).Trim(), out int codeId))
                         return "코드 ID 형식 오류";
-                    string userId = parts[1].Trim();
-                    string newTitle = parts[2].Trim();
+                    string userId = Uri.UnescapeDataString(parts[1].Trim());
+                    string newTitle = Uri.UnescapeDataString(parts[2]).Trim();
                     if (!int.TryParse(parts[3].Trim(), out int newLevel))
                         return "레벨 형식 오류";
-                    string newSource = parts[4].Trim();
-                    string newDesc = parts[5].Trim();
-                    string newContent = parts[6].Trim();
+                    string newSource = Uri.UnescapeDataString(parts[4].Trim());
+                    string newDesc = Uri.UnescapeDataString(parts[5]).Trim();
+                    string newContent = Uri.UnescapeDataString(parts[6].Trim());
                     if (!bool.TryParse(parts[7].Trim(), out bool newStatus))
                         return "공유 여부 형식 오류 (true/false)";
 
