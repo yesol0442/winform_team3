@@ -7,6 +7,7 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Web.UI.WebControls;
 using System.Windows.Forms;
 
 namespace client.menuControl
@@ -16,16 +17,35 @@ namespace client.menuControl
         private CodePreacticeControl.ShareControl sharecontrol = new CodePreacticeControl.ShareControl();
         private CodePreacticeControl.CodeExplainControl codecontrol = new CodePreacticeControl.CodeExplainControl();
         private List<ShareCodeSave> sharCodeSaves = new List<ShareCodeSave>();
+
         public 코드연습()
         {
             InitializeComponent();
             panel2.Controls.Add(sharecontrol);
+            sharecontrol.NotifyParent += MyControl_NotifyParent;
             panel2.Controls.Add(codecontrol);
 
         }
 
+        private void MyControl_NotifyParent(object sender, string message)
+        {
+            listBox1.DataSource = null;
+            listBox1.Items.Clear();
+            sharCodeSaves.Clear();
+            InitializeDefaultFiles();
+            loadfile();
+            foreach (ShareCodeSave loadcode in sharCodeSaves)
+            {
+                listBox1.Items.Add(loadcode);
+            }
+            //로컬DB에서 title 가져와서 listbox에 추가
+            sharecontrol.BringToFront();
+            sharecontrol.Show();
+        }
+
         private void 코드연습_Load(object sender, EventArgs e)
         {
+            listBox1.Items.Clear();
             InitializeDefaultFiles();
             loadfile();
             foreach (ShareCodeSave loadcode in sharCodeSaves)

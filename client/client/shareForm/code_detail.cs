@@ -22,9 +22,15 @@ namespace client.shareForm
         public code_detail()
         {
             InitializeComponent();
+
         }
         public async Task Initialize_codedetail(string userID, int codeID)
         {
+            제목lbl.Text = "";
+            난이도lbl.Text = "";
+            코드설명textbox.Text = "";
+            코드내용TB.Text = "";
+
             userid = userID;
             codeid = codeID;
             await _codedetail(userID, codeID);
@@ -33,24 +39,70 @@ namespace client.shareForm
 
         public async Task _codedetail(string userID, int codeID)
         {
-            await NetworkManager.Instance.SendMessageAsync($"GET_CODE_PRACTICE:{userID}:{codeID}\n");
-            string header = await NetworkManager.Instance.ReceiveHeaderAsync();
-            string imageBase64 = await NetworkManager.Instance.ReceiveFullMessageUntilEndAsync("");
+            var nm = NetworkManager.Instance;
+            await nm.SendMessageAsync($"GET_CODE_PRACTICE:{userID}:{codeID}\n");
 
-            string[] parts = header.Split('|');
-            if (parts.Length < 6) return;
+            // 헤더 수신
+            StringBuilder headerBuilder = new StringBuilder();
+            string chunk;
+            while (true)
+            {
+                chunk = await nm.ReceiveMessageAsync();
+                if (chunk.Contains("::END_HEADER::"))
+                {
+                    int idx = chunk.IndexOf("::END_HEADER::");
+                    headerBuilder.Append(chunk.Substring(0, idx));
+                    chunk = chunk.Substring(idx + "::END_HEADER::".Length);
+                    break;
+                }
+                else
+                {
+                    headerBuilder.Append(chunk);
+                }
+            }
+
+            string[] parts = headerBuilder.ToString().Split('|');
+            if (parts.Length < 5)
+            {
+                MessageBox.Show("오류");
+                return;
+            }
+
+            StringBuilder imageBuilder = new StringBuilder();
+            if (!chunk.Contains("::END::"))
+                imageBuilder.Append(chunk);
+
+            while (!chunk.Contains("::END::"))
+            {
+                chunk = await nm.ReceiveMessageAsync();
+                if (chunk.Contains("::END::"))
+                {
+                    int endIdx = chunk.IndexOf("::END::");
+                    imageBuilder.Append(chunk.Substring(0, endIdx));
+                    break;
+                }
+                else
+                {
+                    imageBuilder.Append(chunk);
+                }
+            }
+
+            byte[] profileImageBytes = Convert.FromBase64String(imageBuilder.ToString());
+
+            List<string> explanation = Uri.UnescapeDataString(parts[3]).Split('\n').ToList();
+            List<string> codeLines = Uri.UnescapeDataString(parts[4]).Split('\n').ToList();
 
             otherusercode = new CodePractice
             {
                 userID = userID,
                 codeID = codeID,
-                nickname = parts[0],
-                title = parts[1],
+                nickname = Uri.UnescapeDataString(parts[0]).Trim(),
+                title = Uri.UnescapeDataString(parts[1]).Trim(),
                 Level = int.Parse(parts[2]),
-                ProfileImageData = Convert.FromBase64String(imageBase64),
+                ProfileImageData = profileImageBytes,
                 status = 1,
-                CodeExplanation = parts[4].Split('\n').ToList(),
-                Code = parts[5].Split('\n').ToList()
+                CodeExplanation = explanation,
+                Code = codeLines
             };
 
             닉네임lbl.Text = otherusercode.nickname;
@@ -102,6 +154,12 @@ namespace client.shareForm
 
             // 저장
             shareCodeSave.SaveToFile();
+            MessageBox.Show("저장됨");
+        }
+
+        private void 난이도lbl_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }
