@@ -133,26 +133,23 @@ namespace server
                 // 청크 전송 완료 표시
                 byte[] endBytesFinal = Encoding.UTF8.GetBytes("::END::");
                 stream.Write(endBytesFinal, 0, endBytesFinal.Length);
-                Console.WriteLine($"프로필 이미지 전송 완료: {base64Image}");
+                Console.WriteLine($"프로필 이미지 전송 완료");
 
                 return "";
             }
-
             else if (message.StartsWith("UPDATE_PROFILE_IMAGE:"))
             {
-
                 string prefix = "UPDATE_PROFILE_IMAGE:";
                 string[] parts = message.Substring(prefix.Length).Split(':');
-                if (parts.Length == 3)
+                if (parts.Length >= 2)
                 {
-                    string userId = parts[1].Trim();
-                    string base64Image = parts[2].Trim();
+                    string userId = parts[0].Trim();
+                    // base64Image는 :로 분리되면서 조각날 수 있으니 다시 합쳐야 함
+                    string base64ImageStart = string.Join(":", parts, 1, parts.Length - 1).Trim();
 
-                    // 긴 Base64 문자열 수신
                     StringBuilder imageDataBuilder = new StringBuilder();
-                    imageDataBuilder.Append(base64Image);
+                    imageDataBuilder.Append(base64ImageStart);
 
-                    // 추가 청크 받기
                     byte[] buffer = new byte[1024];
                     int bytesRead;
                     NetworkStream stream = client.GetStream();
@@ -172,16 +169,24 @@ namespace server
 
                     return UpdateProfileImage(userId, fullBase64Image) ? "OK" : "IMAGE_UPDATE_FAIL";
                 }
+                else
+                {
+                    return "INVALID_UPDATE_PROFILE_IMAGE_COMMAND";
+                }
             }
             else if (message.StartsWith("UPDATE_NICKNAME:"))
             {
                 string prefix = "UPDATE_NICKNAME:";
                 string[] parts = message.Substring(prefix.Length).Split(':');
-                if (parts.Length == 3)
+                if (parts.Length == 2)
                 {
-                    string userId = parts[1].Trim();
-                    string newNickname = parts[2].Trim();
+                    string userId = parts[0].Trim();
+                    string newNickname = parts[1].Trim();
                     return UpdateNickname(userId, newNickname) ? "OK" : "NICKNAME_UPDATE_FAIL";
+                }
+                else
+                {
+                    return "INVALID_UPDATE_NICKNAME_COMMAND";
                 }
             }
             else if (message.StartsWith("DELETE_ACCOUNT:"))
