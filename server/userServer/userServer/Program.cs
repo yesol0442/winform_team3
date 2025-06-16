@@ -251,6 +251,126 @@ namespace server
 
                 return "";
             }
+            else if (message.StartsWith("UPDATE_STROKE_NUMBER:"))
+            {
+                string prefix = "UPDATE_STROKE_NUMBER:";
+                string[] parts = message.Substring(prefix.Length).Split(':');
+
+                if (parts.Length == 2)
+                {
+                    string userId = parts[0].Trim();
+                    if (int.TryParse(parts[1].Trim(), out int newStrokeNumber))
+                    {
+                        bool result = UpdateStrokeNumber(userId, newStrokeNumber);
+                        return result ? "OK" : "FAIL";
+                    }
+                }
+            }
+            else if (message.StartsWith("UPDATE_ACCURANCY:"))
+            {
+                string prefix = "UPDATE_ACCURANCY:";
+                string[] parts = message.Substring(prefix.Length).Split(':');
+
+                if (parts.Length == 2)
+                {
+                    string userId = parts[0].Trim();
+                    if (int.TryParse(parts[1].Trim(), out int newAccurancy))
+                    {
+                        bool result = UpdateAccurancy(userId, newAccurancy);
+                        return result ? "OK" : "FAIL";
+                    }
+                }
+            }
+            else if (message.StartsWith("UPDATE_RAINMAXSCORE:"))
+            {
+                string prefix = "UPDATE_RAINMAXSCORE:";
+                string[] parts = message.Substring(prefix.Length).Split(':');
+
+                if (parts.Length == 2)
+                {
+                    string userId = parts[0].Trim();
+                    if (int.TryParse(parts[1].Trim(), out int newRainMaxScore))
+                    {
+                        bool result = UpdateRainMaxScore(userId, newRainMaxScore);
+                        return result ? "OK" : "FAIL";
+                    }
+                }
+            }
+            else if (message.StartsWith("UPDATE_RAINMAXLEVEL:"))
+            {
+                string prefix = "UPDATE_RAINMAXLEVEL:";
+                string[] parts = message.Substring(prefix.Length).Split(':');
+
+                if (parts.Length == 2)
+                {
+                    string userId = parts[0].Trim();
+                    if (int.TryParse(parts[1].Trim(), out int newRainMaxLevel))
+                    {
+                        bool result = UpdateRainMaxLevel(userId, newRainMaxLevel);
+                        return result ? "OK" : "FAIL";
+                    }
+                }
+            }
+            else if (message.StartsWith("UPDATE_BLOCKRECORD:"))
+            {
+                string prefix = "UPDATE_BLOCKRECORD:";
+                string[] parts = message.Substring(prefix.Length).Split(':');
+
+                if (parts.Length == 2)
+                {
+                    string userId = parts[0].Trim();
+                    if (float.TryParse(parts[1].Trim(), out float newBlockRecord))
+                    {
+                        bool result = UpdateBlockRecord(userId, newBlockRecord);
+                        return result ? "OK" : "FAIL";
+                    }
+                }
+            }
+            else if (message.StartsWith("UPDATE_QUIZMAXSCORE:"))
+            {
+                string prefix = "UPDATE_QUIZMAXSCORE:";
+                string[] parts = message.Substring(prefix.Length).Split(':');
+
+                if (parts.Length == 2)
+                {
+                    string userId = parts[0].Trim();
+                    if (int.TryParse(parts[1].Trim(), out int newQuizMaxScore))
+                    {
+                        bool result = UpdateQuizMaxScore(userId, newQuizMaxScore);
+                        return result ? "OK" : "FAIL";
+                    }
+                }
+            }
+            else if (message.StartsWith("UPDATE_QUIZWINRATE:"))
+            {
+                string prefix = "UPDATE_QUIZWINRATE:";
+                string[] parts = message.Substring(prefix.Length).Split(':');
+
+                if (parts.Length == 2)
+                {
+                    string userId = parts[0].Trim();
+                    if (float.TryParse(parts[1].Trim(), out float newQuizWinRate))
+                    {
+                        bool result = UpdateQuizWinRate(userId, newQuizWinRate);
+                        return result ? "OK" : "FAIL";
+                    }
+                }
+            }
+            else if (message.StartsWith("UPDATE_FOUNDWINRATE:"))
+            {
+                string prefix = "UPDATE_FOUNDWINRATE:";
+                string[] parts = message.Substring(prefix.Length).Split(':');
+
+                if (parts.Length == 2)
+                {
+                    string userId = parts[0].Trim();
+                    if (float.TryParse(parts[1].Trim(), out float newFoundWinRate))
+                    {
+                        bool result = UpdateFoundWinRate(userId, newFoundWinRate);
+                        return result ? "OK" : "FAIL";
+                    }
+                }
+            }
 
             // --------------------------------------- 홈 용 ------------------------------------ //
 
@@ -705,7 +825,199 @@ namespace server
             return null;
         }
 
-        // 게임 통계 INSERT, UPDATE 관련 메서드 추가해야 함
+        private bool UpdateStrokeNumber(string userId, int newStrokeNumber)
+        {
+            string query = @"UPDATE UserStats SET strokeNumber = @strokeNumber WHERE userId = @userId;";
+
+            try
+            {
+                using (SqlConnection conn = new SqlConnection(connectionString))
+                {
+                    conn.Open();
+                    using (SqlCommand command = new SqlCommand(query, conn))
+                    {
+                        command.Parameters.AddWithValue("@strokeNumber", newStrokeNumber);
+                        command.Parameters.AddWithValue("@userId", userId);
+                        int rowsAffected = command.ExecuteNonQuery();
+
+                        return rowsAffected > 0;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("[DB 오류 - UPDATE StrokeNumber] " + ex.Message);
+                return false;
+            }
+        }
+
+        private bool UpdateAccurancy(string userId, int newAccurancy)
+        {
+            string query = @"UPDATE UserStats SET accurancy = @accurancy WHERE userId = @userId;";
+
+            try
+            {
+                using (SqlConnection conn = new SqlConnection(connectionString))
+                {
+                    conn.Open();
+                    using (SqlCommand command = new SqlCommand(query, conn))
+                    {
+                        command.Parameters.AddWithValue("@accurancy", newAccurancy);
+                        command.Parameters.AddWithValue("@userId", userId);
+                        return command.ExecuteNonQuery() > 0;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("[DB 오류 - UPDATE Accurancy] " + ex.Message);
+                return false;
+            }
+        }
+
+        private bool UpdateRainMaxScore(string userId, int newScore)
+        {
+            string query = @"UPDATE UserStats SET rainMaxScore = @score WHERE userId = @userId;";
+
+            try
+            {
+                using (SqlConnection conn = new SqlConnection(connectionString))
+                {
+                    conn.Open();
+                    using (SqlCommand command = new SqlCommand(query, conn))
+                    {
+                        command.Parameters.AddWithValue("@score", newScore);
+                        command.Parameters.AddWithValue("@userId", userId);
+                        return command.ExecuteNonQuery() > 0;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("[DB 오류 - UPDATE RainMaxScore] " + ex.Message);
+                return false;
+            }
+        }
+
+        private bool UpdateRainMaxLevel(string userId, int newLevel)
+        {
+            string query = @"UPDATE UserStats SET rainMaxLevel = @level WHERE userId = @userId;";
+
+            try
+            {
+                using (SqlConnection conn = new SqlConnection(connectionString))
+                {
+                    conn.Open();
+                    using (SqlCommand command = new SqlCommand(query, conn))
+                    {
+                        command.Parameters.AddWithValue("@level", newLevel);
+                        command.Parameters.AddWithValue("@userId", userId);
+                        return command.ExecuteNonQuery() > 0;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("[DB 오류 - UPDATE RainMaxLevel] " + ex.Message);
+                return false;
+            }
+        }
+
+        private bool UpdateBlockRecord(string userId, float newRecord)
+        {
+            string query = @"UPDATE UserStats SET blockRecord = @record WHERE userId = @userId;";
+
+            try
+            {
+                using (SqlConnection conn = new SqlConnection(connectionString))
+                {
+                    conn.Open();
+                    using (SqlCommand command = new SqlCommand(query, conn))
+                    {
+                        command.Parameters.AddWithValue("@record", newRecord);
+                        command.Parameters.AddWithValue("@userId", userId);
+                        return command.ExecuteNonQuery() > 0;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("[DB 오류 - UPDATE BlockRecord] " + ex.Message);
+                return false;
+            }
+        }
+
+        private bool UpdateQuizMaxScore(string userId, int newScore)
+        {
+            string query = @"UPDATE UserStats SET quizMaxScore = @score WHERE userId = @userId;";
+
+            try
+            {
+                using (SqlConnection conn = new SqlConnection(connectionString))
+                {
+                    conn.Open();
+                    using (SqlCommand command = new SqlCommand(query, conn))
+                    {
+                        command.Parameters.AddWithValue("@score", newScore);
+                        command.Parameters.AddWithValue("@userId", userId);
+                        return command.ExecuteNonQuery() > 0;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("[DB 오류 - UPDATE QuizMaxScore] " + ex.Message);
+                return false;
+            }
+        }
+
+        private bool UpdateQuizWinRate(string userId, float newRate)
+        {
+            string query = @"UPDATE UserStats SET quizWinRate = @rate WHERE userId = @userId;";
+
+            try
+            {
+                using (SqlConnection conn = new SqlConnection(connectionString))
+                {
+                    conn.Open();
+                    using (SqlCommand command = new SqlCommand(query, conn))
+                    {
+                        command.Parameters.AddWithValue("@rate", newRate);
+                        command.Parameters.AddWithValue("@userId", userId);
+                        return command.ExecuteNonQuery() > 0;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("[DB 오류 - UPDATE QuizWinRate] " + ex.Message);
+                return false;
+            }
+        }
+
+        private bool UpdateFoundWinRate(string userId, float newRate)
+        {
+            string query = @"UPDATE UserStats SET foundWinRate = @rate WHERE userId = @userId;";
+
+            try
+            {
+                using (SqlConnection conn = new SqlConnection(connectionString))
+                {
+                    conn.Open();
+                    using (SqlCommand command = new SqlCommand(query, conn))
+                    {
+                        command.Parameters.AddWithValue("@rate", newRate);
+                        command.Parameters.AddWithValue("@userId", userId);
+                        return command.ExecuteNonQuery() > 0;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("[DB 오류 - UPDATE FoundWinRate] " + ex.Message);
+                return false;
+            }
+        }
 
         // --------------------------------------- 홈 용 ------------------------------------ //
 
