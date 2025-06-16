@@ -15,21 +15,29 @@ namespace client.shareForm
     {
         private Color labelColor = Color.DimGray;
         private List<CodeBriefInfo> codelist = new List<CodeBriefInfo>();
+        private string _userId = string.Empty;
         public share_base(string userID)
         {
             InitializeComponent();
-            _ = LoadSharedCodesAsync(userID);
+            _userId = userID;            // 필드로 보관
+            this.Dock = DockStyle.Fill;
 
         }
 
-        private async Task LoadSharedCodesAsync(string userID)
+        private async void share_base_Load(object sender, EventArgs e)
         {
-            codelist = await GetSharedCodeBriefsAsync(userID);
+            await ResetAsync(_userId);
+        }
+        public async Task ResetAsync(string userId)
+        {
+            flowLayoutPanel1.Controls.Clear();
+            codelist = await GetSharedCodeBriefsAsync(userId);
             foreach (CodeBriefInfo info in codelist)
             {
                 AddCodeItem(info.title, info.userID, info.codeID);
             }
         }
+
 
         public async Task<List<CodeBriefInfo>> GetSharedCodeBriefsAsync(string userID)
         {
@@ -54,9 +62,9 @@ namespace client.shareForm
 
                 list.Add(new CodeBriefInfo
                 {
-                    title = parts[0],
+                    title = Uri.UnescapeDataString(parts[0]),
                     codeID = int.Parse(parts[1]),
-                    userID = parts[2]
+                    userID = Uri.UnescapeDataString(parts[2])
                 });
             }
 
@@ -65,6 +73,12 @@ namespace client.shareForm
 
         private void AddCodeItem(string title, string userID, int codeID)
         {
+            if (this.InvokeRequired)
+            {
+                // UI 스레드에 처리를 위임하고 종료
+                this.Invoke(new Action(() => AddCodeItem(title, userID, codeID)));
+                return;
+            }
             Panel itemPanel = new Panel();
             itemPanel.Width = flowLayoutPanel1.Width - 25;
             itemPanel.Height = 35;
@@ -80,6 +94,7 @@ namespace client.shareForm
             titleLabel.Font = new Font("휴먼옛체", 10, FontStyle.Regular);
             titleLabel.Click += Label_Click;
             titleLabel.Tag = Tuple.Create(userID, codeID);
+            titleLabel.ForeColor = labelColor;
 
             titleLabel.MouseEnter += (s, e) =>
             {
@@ -95,7 +110,7 @@ namespace client.shareForm
             btnGet.Tag = Tuple.Create(userID, codeID);
             btnGet.Text = "가져오기";
             btnGet.Size = new Size(80, 30);
-            btnGet.Location = new Point(462, 3);
+            btnGet.Location = new Point(itemPanel.Width - 130, 3);
             btnGet.Font = new Font("휴먼옛체", 9, FontStyle.Regular);
             btnGet.Click += Getbtn_Click;
 
@@ -124,13 +139,13 @@ namespace client.shareForm
             var tag = (Tuple<string, int>)btn.Tag;
             string userID = tag.Item1;
             int codeID = tag.Item2;
-
             try
             {
                 ShareCodeSave shareCodeSave = await GetShareCodeSaveAsync(userID, codeID);
                 if (shareCodeSave != null)
                 {
                     shareCodeSave.SaveToFile();
+                    MessageBox.Show("저장됨");
                 }
                 else
                 {
@@ -146,34 +161,67 @@ namespace client.shareForm
         public async Task<ShareCodeSave> GetShareCodeSaveAsync(string userId, int codeId)
         {
             var nm = NetworkManager.Instance;
+            await nm.SendMessageAsync($"GET_CODE_PRACTICE:{userId}:{codeId}\n");
 
-            // 요청 보내기
-            await nm.SendMessageAsync($"GET_SHARE_CODE_SAVE:{userId}:{codeId}\n");
+            // 헤더 수신
+            StringBuilder headerBuilder = new StringBuilder();
+            string chunk;
+            while (true)
+            {
+                chunk = await nm.ReceiveMessageAsync();
+                if (chunk.Contains("::END_HEADER::"))
+                {
+                    int idx = chunk.IndexOf("::END_HEADER::");
+                    headerBuilder.Append(chunk.Substring(0, idx));
+                    chunk = chunk.Substring(idx + "::END_HEADER::".Length);
+                    break;
+                }
+                else
+                {
+                    headerBuilder.Append(chunk);
+                }
+            }
 
-            // 응답 받기
-            string response = await nm.ReceiveMessageAsync();
-
-            if (response == "코드 정보를 찾을 수 없습니다")
-                return null;
-
-            string[] parts = response.Split('|');
+            string[] parts = headerBuilder.ToString().Split('|');
             if (parts.Length < 5)
                 return null;
 
-            List<string> explanation = parts[3].Split('\n').ToList();
-            List<string> codeLines = parts[4].Split('\n').ToList();
+            StringBuilder imageBuilder = new StringBuilder();
+            if (!chunk.Contains("::END::"))
+                imageBuilder.Append(chunk);
+
+            while (!chunk.Contains("::END::"))
+            {
+                chunk = await nm.ReceiveMessageAsync();
+                if (chunk.Contains("::END::"))
+                {
+                    int endIdx = chunk.IndexOf("::END::");
+                    imageBuilder.Append(chunk.Substring(0, endIdx));
+                    break;
+                }
+                else
+                {
+                    imageBuilder.Append(chunk);
+                }
+            }
+
+            byte[] profileImageBytes = Convert.FromBase64String(imageBuilder.ToString());
+
+            List<string> explanation = Uri.UnescapeDataString(parts[3]).Split('\n').ToList();
+            List<string> codeLines = Uri.UnescapeDataString(parts[4]).Split('\n').ToList();
 
             return new ShareCodeSave
             {
                 userID = userId,
                 codeID = codeId,
-                nickname = parts[0],
-                title = parts[1],
+                nickname = Uri.UnescapeDataString(parts[0]).Trim(),
+                title = Uri.UnescapeDataString(parts[1]),
                 Level = int.Parse(parts[2]),
                 CodeExplanation = explanation,
                 Code = codeLines
             };
         }
+
 
         private void 코드추가btn_Click(object sender, EventArgs e)
         {
@@ -192,7 +240,6 @@ namespace client.shareForm
                 parentForm.HandleChildClick("홈", "", "", 0);
             }
         }
-
 
     }
 }

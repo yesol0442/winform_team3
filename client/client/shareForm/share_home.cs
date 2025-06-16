@@ -5,6 +5,7 @@ using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
+using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -17,6 +18,7 @@ namespace client.shareForm
         private Color labelColor = Color.DimGray;
         private UserCodeList usercodelist;
         private List<Tuple<string, int>> checkedCodeList = new List<Tuple<string, int>>();
+        private bool del = false;
 
         public share_home(string userId)
         {
@@ -25,8 +27,19 @@ namespace client.shareForm
             flowLayoutPanel1.AutoScroll = true;
             flowLayoutPanel1.WrapContents = false;
             flowLayoutPanel1.FlowDirection = FlowDirection.TopDown;
+            this.Dock = DockStyle.Fill;
 
         }
+
+        public async Task ReloadAsync()
+        {
+            flowLayoutPanel1.Controls.Clear();
+
+            usercodelist = await GetUserCodeListAsync(userid);
+            foreach (var c in usercodelist.cid_title_list)
+                AddCodeItem(c.CodeID, c.Title, c.status);
+        }
+
 
         private async void share_home_Load(object sender, EventArgs e)
         {
@@ -81,7 +94,7 @@ namespace client.shareForm
         private void AddCodeItem(int codeID, string title, int status)
         {
             Panel itemPanel = new Panel();
-            itemPanel.Width = 955;
+            itemPanel.Width = flowLayoutPanel1.Width - 25;
             itemPanel.Height = 40;
             itemPanel.Margin = new Padding(0, 0, 0, 2); // 아래 여백 조금
 
@@ -107,7 +120,8 @@ namespace client.shareForm
             {
                 titleLabel.ForeColor = labelColor;
             };
-
+            titleLabel.Click += itemPanel_Click;
+            titleLabel.Tag = Tuple.Create(userid, codeID);
 
             Label statusLabel = new Label();
             statusLabel.Text = (status == 1) ? "업로드" : "임시저장";
@@ -123,8 +137,6 @@ namespace client.shareForm
             itemPanel.Controls.Add(checkBox);
             itemPanel.Controls.Add(titleLabel);
             itemPanel.Controls.Add(statusLabel);
-            itemPanel.Tag = Tuple.Create(userid, codeID);
-            itemPanel.Click += itemPanel_Click;
 
             flowLayoutPanel1.Controls.Add(itemPanel);
         }
@@ -160,7 +172,7 @@ namespace client.shareForm
 
         private void itemPanel_Click(object sender, EventArgs e)
         {
-            Panel lbl = sender as Panel;
+            Label lbl = sender as Label;
             var tag = (Tuple<string, int>)lbl.Tag;
             string userID = tag.Item1;
             int codeID = tag.Item2;
@@ -174,11 +186,21 @@ namespace client.shareForm
 
         private void 뒤로가기btn_Click(object sender, EventArgs e)
         {
+            if (del == true)
+            {
+                var parentForm = this.FindForm() as shareform;
+                if (parentForm != null)
+                {
+                    parentForm.HandleChildClick("기본화면", "", "", 0);
+                }
+                del = false;
+            }
             this.Visible = false;
         }
 
         private async void 삭제btn_Click(object sender, EventArgs e)
         {
+            del = true;
             List<Control> toRemove = new List<Control>();
             List<Tuple<string, int>> codesToDelete = new List<Tuple<string, int>>();
 
@@ -218,7 +240,7 @@ namespace client.shareForm
         public async Task<bool> DeleteCodeAsync(int codeId, string userId)
         {
             var nm = NetworkManager.Instance;
-            string message = $"DELETE_CODE_POST:{codeId}:{Uri.EscapeDataString(userId)}\n";
+            string message = $"DELETE_CODE_POST:{codeId}:{userId}\n";
 
             await nm.SendMessageAsync(message);
             string response = await nm.ReceiveMessageAsync();

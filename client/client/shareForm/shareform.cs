@@ -23,52 +23,56 @@ namespace client.shareForm
         private other_home 남의홈;
         private string userid = string.Empty;
 
+        public event EventHandler<string> ChildClosed;
         public shareform()
         {
-            userid = UserSession.Instance.UserId;
             InitializeComponent();
+        }
 
-
-
+        private async void shareform_Load(object sender, EventArgs e)
+        {
+            userid = 환경설정.currentUserId;
             코드추가 = new code_add();
             공유함홈 = new share_home(userid);
             기본화면 = new share_base(userid);
             코드내용 = new code_detail();
             남의홈 = new other_home();
+
             panel1.Controls.Add(코드추가);
-            panel1.Controls.Add(공유함홈);
             panel1.Controls.Add(기본화면);
+            await 기본화면.ResetAsync(userid);
+            panel1.Controls.Add(공유함홈);
             panel1.Controls.Add(코드내용);
             panel1.Controls.Add(남의홈);
+
+            기본화면.BringToFront();
+            기본화면.Show();
 
             // 폼 크기 고정
             this.MaximumSize = this.Size;
             this.MinimumSize = this.Size;
         }
 
-        private void shareform_Load(object sender, EventArgs e)
-        {
-            userid = 환경설정.currentUserId;
-            기본화면.BringToFront();
-            기본화면.Show();
-        }
+
+
 
         private void 나가기_Click(object sender, EventArgs e)
         {
             this.Close();
+            ChildClosed?.Invoke(this, "자식이 닫힘");
         }
 
         public async void HandleChildClick(string message, string userID, string nickname, int codeID)
         {
             if (message == "홈")
             {
+                await 공유함홈.ReloadAsync();
                 공유함홈.BringToFront();
                 공유함홈.Show();
                 return;
             }
             if (message == "코드추가")
             {
-
                 await 코드추가.Initialize_code_add(userid, 0);
                 코드추가.BringToFront();
                 코드추가.Show();
@@ -94,6 +98,12 @@ namespace client.shareForm
                 await 코드추가.Initialize_code_add(userid, codeID); // 닉네임
                 코드추가.BringToFront();
                 코드추가.Show();
+            }
+            if (message == "기본화면")
+            {
+                await 기본화면.ResetAsync(userid);
+                기본화면.BringToFront();
+                기본화면.Show();
             }
         }
     }

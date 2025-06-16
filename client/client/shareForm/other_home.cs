@@ -19,6 +19,9 @@ namespace client.shareForm
         public other_home()
         {
             InitializeComponent();
+            this.Dock = DockStyle.Fill;
+            listBox1.DisplayMember = "Title";
+            listBox1.ValueMember = "CodeID";
         }
 
         public async Task Initialize_otherhome(string userID, string nickname)
@@ -28,10 +31,7 @@ namespace client.shareForm
 
             otherusercodelist = await GetOtherUserCodeListAsync(userID);
 
-            foreach (var cid_title in otherusercodelist.cid_title_list)
-            {
-                listBox1.Items.Add(cid_title.ToString());
-            }
+            listBox1.DataSource = otherusercodelist.cid_title_list;
 
         }
 
@@ -42,17 +42,13 @@ namespace client.shareForm
 
         private void listBox1_DoubleClick(object sender, EventArgs e)
         {
-            if (listBox1.SelectedItem is CodeItem selectedItem)
+            if (listBox1.SelectedValue is int codeId)
             {
-                int codeid = selectedItem.CodeID;
-
                 var parentForm = this.FindForm() as shareform;
-                if (parentForm != null)
-                {
-                    parentForm.HandleChildClick("코드내용", userid, "", codeid);
-                }
+                parentForm?.HandleChildClick("코드내용", userid, "", codeId);
             }
         }
+
 
         public async Task<OtherUserCodeList> GetOtherUserCodeListAsync(string userId)
         {
@@ -97,4 +93,3 @@ namespace client.shareForm
 
     }
 }
-

@@ -56,6 +56,9 @@
             // 
             // listBox1
             // 
+            this.listBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+            | System.Windows.Forms.AnchorStyles.Left)
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.listBox1.Font = new System.Drawing.Font("휴먼옛체", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.listBox1.FormattingEnabled = true;
             this.listBox1.ItemHeight = 26;
@@ -68,11 +71,12 @@
             // 
             // 뒤로가기btn
             // 
+            this.뒤로가기btn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.뒤로가기btn.Font = new System.Drawing.Font("휴먼옛체", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.뒤로가기btn.ForeColor = System.Drawing.Color.DimGray;
-            this.뒤로가기btn.Location = new System.Drawing.Point(885, 13);
+            this.뒤로가기btn.Location = new System.Drawing.Point(847, 13);
             this.뒤로가기btn.Name = "뒤로가기btn";
-            this.뒤로가기btn.Size = new System.Drawing.Size(89, 27);
+            this.뒤로가기btn.Size = new System.Drawing.Size(127, 46);
             this.뒤로가기btn.TabIndex = 14;
             this.뒤로가기btn.Text = "뒤로가기";
             this.뒤로가기btn.UseVisualStyleBackColor = true;
@@ -101,3 +105,4 @@
         private System.Windows.Forms.Button 뒤로가기btn;
     }
 }
+

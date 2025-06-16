@@ -38,6 +38,11 @@ namespace client.shareForm
 
         public async Task Initialize_code_add(string userid, int codeid)
         {
+            제목TB.Text = "";
+            난이도CB.Text = "";
+            코드설명textbox.Text = "";
+            코드내용TB.Text = "";
+
             codeId = codeid;
             codeinfo.userID = userid;
 
@@ -54,26 +59,75 @@ namespace client.shareForm
 
         public async Task Initialisze_codedetail(string userID, int codeID)
         {
-            await NetworkManager.Instance.SendMessageAsync($"GET_CODE_PRACTICE:{userID}:{codeID}\n");
-            string header = await NetworkManager.Instance.ReceiveHeaderAsync();
-            string imageBase64 = await NetworkManager.Instance.ReceiveFullMessageUntilEndAsync("");
+            var nm = NetworkManager.Instance;
+            await nm.SendMessageAsync($"GET_CODE_PRACTICE:{userID}:{codeID}\n");
 
-            string[] parts = header.Split('|');
-            if (parts.Length < 6) return;
+            // 헤더 수신
+            StringBuilder headerBuilder = new StringBuilder();
+            string chunk;
+            while (true)
+            {
+                chunk = await nm.ReceiveMessageAsync();
+                if (chunk.Contains("::END_HEADER::"))
+                {
+                    int idx = chunk.IndexOf("::END_HEADER::");
+                    headerBuilder.Append(chunk.Substring(0, idx));
+                    chunk = chunk.Substring(idx + "::END_HEADER::".Length);
+                    break;
+                }
+                else
+                {
+                    headerBuilder.Append(chunk);
+                }
+            }
+
+            string[] parts = headerBuilder.ToString().Split('|');
+            if (parts.Length < 5)
+            {
+                MessageBox.Show("오류");
+                return;
+            }
+
+            StringBuilder imageBuilder = new StringBuilder();
+            if (!chunk.Contains("::END::"))
+                imageBuilder.Append(chunk);
+
+            while (!chunk.Contains("::END::"))
+            {
+                chunk = await nm.ReceiveMessageAsync();
+                if (chunk.Contains("::END::"))
+                {
+                    int endIdx = chunk.IndexOf("::END::");
+                    imageBuilder.Append(chunk.Substring(0, endIdx));
+                    break;
+                }
+                else
+                {
+                    imageBuilder.Append(chunk);
+                }
+            }
+
+            byte[] profileImageBytes = Convert.FromBase64String(imageBuilder.ToString());
+
+            List<string> explanation = Uri.UnescapeDataString(parts[3]).Split('\n').ToList();
+            List<string> codeLines = Uri.UnescapeDataString(parts[4]).Split('\n').ToList();
 
             codeinfo = new CodePractice
             {
                 userID = userID,
                 codeID = codeID,
-                nickname = parts[0],
-                title = parts[1],
+                nickname = Uri.UnescapeDataString(parts[0]).Trim(),
+                title = Uri.UnescapeDataString(parts[1]).Trim(),
                 Level = int.Parse(parts[2]),
-                ProfileImageData = Convert.FromBase64String(imageBase64),
+                ProfileImageData = profileImageBytes,
                 status = 1,
-                CodeExplanation = parts[4].Split('\n').ToList(),
-                Code = parts[5].Split('\n').ToList()
+                CodeExplanation = explanation,
+                Code = codeLines
             };
         }
+
+
+
 
 
         private void 텍스트파일가져오기btn_Click(object sender, EventArgs e)
@@ -106,7 +160,7 @@ namespace client.shareForm
             }
             else
             {
-                bool ok = await InsertCodeWithStatusAsync(codeinfo.userID, codeinfo.title, codeinfo.Level, "", ex, code, true);
+                bool ok = await InsertCodeWithStatusAsync(codeinfo.userID, codeinfo.title, codeinfo.Level, "", ex, code, false);
                 MessageBox.Show(ok ? "임시저장 성공!" : "임시저장 실패!");
             }
 
@@ -120,7 +174,7 @@ namespace client.shareForm
             string code = string.Join("\n", codeinfo.Code.Where(s => !string.IsNullOrWhiteSpace(s)));
             if (codeId != 0)
             {
-                bool ok = await UpdateCodeWithStatusAsync(codeId, codeinfo.userID, codeinfo.title, codeinfo.Level, "", ex, code, false);
+                bool ok = await UpdateCodeWithStatusAsync(codeId, codeinfo.userID, codeinfo.title, codeinfo.Level, "", ex, code, true);
                 MessageBox.Show(ok ? "업로드 성공!" : "업로드 실패!");
             }
             else
@@ -177,6 +231,11 @@ namespace client.shareForm
 
         private void 뒤로가기btn_Click(object sender, EventArgs e)
         {
+            var parentForm = this.FindForm() as shareform;
+            if (parentForm != null)
+            {
+                parentForm.HandleChildClick("기본화면", "", "", 0);
+            }
             this.Visible = false;
         }
 
