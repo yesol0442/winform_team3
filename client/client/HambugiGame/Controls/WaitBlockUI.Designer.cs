@@ -1,6 +1,6 @@
 ﻿namespace client.HambugiGame.Controls
 {
-    partial class GrillBlockUI
+    partial class WaitBlockUI
     {
         /// <summary> 
         /// 필수 디자이너 변수입니다.
@@ -29,47 +29,44 @@
         private void InitializeComponent()
         {
             this.label1 = new System.Windows.Forms.Label();
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+            this.textBox1 = new System.Windows.Forms.TextBox();
             this.SuspendLayout();
             // 
             // label1
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("휴먼매직체", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            this.label1.Location = new System.Drawing.Point(103, 28);
+            this.label1.Location = new System.Drawing.Point(109, 15);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(53, 28);
-            this.label1.TabIndex = 3;
-            this.label1.Text = "굽기";
+            this.label1.Size = new System.Drawing.Size(133, 28);
+            this.label1.TabIndex = 2;
+            this.label1.Text = "초 기다리기";
             // 
-            // pictureBox1
+            // textBox1
             // 
-            this.pictureBox1.BackColor = System.Drawing.Color.Gainsboro;
-            this.pictureBox1.Location = new System.Drawing.Point(8, 8);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(70, 70);
-            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.pictureBox1.TabIndex = 4;
-            this.pictureBox1.TabStop = false;
+            this.textBox1.Location = new System.Drawing.Point(27, 15);
+            this.textBox1.Name = "textBox1";
+            this.textBox1.Size = new System.Drawing.Size(76, 28);
+            this.textBox1.TabIndex = 3;
+            this.textBox1.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textBox1_KeyPress);
             // 
-            // GrillBlockUI
+            // WaitBlockUI
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 18F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.Color.Firebrick;
-            this.Controls.Add(this.pictureBox1);
+            this.BackColor = System.Drawing.Color.YellowGreen;
+            this.Controls.Add(this.textBox1);
             this.Controls.Add(this.label1);
-            this.Name = "GrillBlockUI";
-            this.Size = new System.Drawing.Size(375, 86);
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
+            this.Name = "WaitBlockUI";
+            this.Size = new System.Drawing.Size(375, 58);
             this.ResumeLayout(false);
             this.PerformLayout();
 
         }
 
         #endregion
+
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.PictureBox pictureBox1;
+        private System.Windows.Forms.TextBox textBox1;
     }
 }

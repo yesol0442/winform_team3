@@ -12,9 +12,10 @@ namespace client.HambugiGame.Controls
 {
     public partial class IngredientBlockUI : UserControl
     {
-        public IngredientBlockUI()
+        public IngredientBlockUI(Image image)
         {
             InitializeComponent();
+            pictureBox1.Image = image;
         }
     }
 }

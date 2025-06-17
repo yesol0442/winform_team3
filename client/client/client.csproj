@@ -151,7 +151,12 @@
     <Compile Include="HambugiGame\Controls\RepeatBlockUI.Designer.cs">
       <DependentUpon>RepeatBlockUI.cs</DependentUpon>
     </Compile>
-    <Compile Include="HambugiGame\Controls\WaitBlockUI.cs" />
+    <Compile Include="HambugiGame\Controls\WaitBlockUI.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="HambugiGame\Controls\WaitBlockUI.Designer.cs">
+      <DependentUpon>WaitBlockUI.cs</DependentUpon>
+    </Compile>
     <Compile Include="HambugiGame\HambugiGameForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -322,8 +327,17 @@
     <EmbeddedResource Include="HambugiGame\Controls\AssembleBlockUI.resx">
       <DependentUpon>AssembleBlockUI.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="HambugiGame\Controls\GrillBlockUI.resx">
+      <DependentUpon>GrillBlockUI.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="HambugiGame\Controls\IngredientBlockUI.resx">
+      <DependentUpon>IngredientBlockUI.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="HambugiGame\Controls\RepeatBlockUI.resx">
       <DependentUpon>RepeatBlockUI.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="HambugiGame\Controls\WaitBlockUI.resx">
+      <DependentUpon>WaitBlockUI.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="HambugiGame\HambugiGameForm.resx">
       <DependentUpon>HambugiGameForm.cs</DependentUpon>
