@@ -55,6 +55,7 @@
     <Compile Include="classes\CodeBriefInfo.cs" />
     <Compile Include="classes\CodeGame.cs" />
     <Compile Include="classes\CodePractice.cs" />
+    <Compile Include="classes\CodePracticeResult.cs" />
     <Compile Include="classes\Home.cs" />
     <Compile Include="classes\NetworkManager.cs" />
     <Compile Include="classes\OtherUserCodeList.cs" />

@@ -1,3 +1,4 @@
+using client.classes;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -36,6 +37,8 @@ namespace client.CodePracticeForm
         private int code_line_num = 0;
 
         private Font codeFont = new Font("굴림체", 12f, FontStyle.Regular, GraphicsUnit.Pixel);
+
+        public event EventHandler<CodePracticeResult> DataSent;
 
 
         public CodePracticeF(ShareCodeSave scs)
@@ -197,16 +200,16 @@ namespace client.CodePracticeForm
                 dlg.Text = "완료";
                 dlg.ControlBox = false;
 
-                dlg.AcceptButton = null;   // 기본 Enter-버튼 해제
-                dlg.KeyPreview = true;   // 폼이 키를 먼저 받도록
+                dlg.AcceptButton = null;
+                dlg.KeyPreview = true;
 
                 // ★ 여기서 Enter 완전히 차단
                 dlg.KeyDown += (s, e) =>
                 {
                     if (e.KeyCode == Keys.Enter)
                     {
-                        e.Handled = true;          // 컨트롤로 전달 막기
-                        e.SuppressKeyPress = true; // 시스템에도 전달 막기
+                        e.Handled = true;
+                        e.SuppressKeyPress = true;
                     }
                 };
 
@@ -222,17 +225,20 @@ namespace client.CodePracticeForm
                     Dock = DockStyle.Bottom,
                     Height = 34,
                     Text = "확 인",
-                    TabStop = false          // 처음 포커스가 버튼에 가지 않게
+                    TabStop = false
                 };
                 btn.Click += (_, __) => dlg.DialogResult = DialogResult.OK;
 
                 dlg.Controls.Add(lbl);
                 dlg.Controls.Add(btn);
 
-                dlg.ShowDialog(this);       // Enter 눌러도 안 닫힘
+                dlg.ShowDialog(this);
             }
 
-            Close();                        // 반드시 마우스로 “확인” 눌러야 도달
+            DataSent?.Invoke(this, new CodePracticeResult(int.Parse(타수TB.Text.Replace(" 타/분", "").Trim()),(int)Math.Round(double.Parse(정확도TB.Text.Replace("%", "").Trim()))));
+
+            Close();
+
         }
 
 
