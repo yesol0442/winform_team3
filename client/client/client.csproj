@@ -120,10 +120,19 @@
     <Compile Include="Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
+    <Compile Include="HambugiGame\BlockBase.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="HambugiGame\BlockBase.Designer.cs">
+      <DependentUpon>BlockBase.cs</DependentUpon>
+    </Compile>
     <Compile Include="HambugiGame\Burger.cs" />
+    <Compile Include="HambugiGame\FocusManager.cs" />
     <Compile Include="HambugiGame\Ingredient.cs" />
     <Compile Include="HambugiGame\IngredientType.cs" />
     <Compile Include="HambugiGame\Order.cs" />
+    <Compile Include="HambugiGame\OrderGenerator.cs" />
+    <Compile Include="HambugiGame\ScoringEngine.cs" />
     <Compile Include="menuControl\CodePreacticeControl\CodeExplainControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
