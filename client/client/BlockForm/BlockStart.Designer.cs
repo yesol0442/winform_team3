@@ -1,6 +1,6 @@
-﻿namespace client.quizForm
+﻿namespace client.BlockForm
 {
-    partial class quizStart
+    partial class BlockStart
     {
         /// <summary>
         /// Required designer variable.
@@ -28,38 +28,11 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.label1 = new System.Windows.Forms.Label();
-            this.btnTutorial = new Guna.UI2.WinForms.Guna2Button();
             this.btnExit = new Guna.UI2.WinForms.Guna2Button();
+            this.btnTutorial = new Guna.UI2.WinForms.Guna2Button();
             this.btnStart = new Guna.UI2.WinForms.Guna2Button();
+            this.label1 = new System.Windows.Forms.Label();
             this.SuspendLayout();
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("휴먼옛체", 30F, System.Drawing.FontStyle.Bold);
-            this.label1.Location = new System.Drawing.Point(278, 110);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(248, 53);
-            this.label1.TabIndex = 8;
-            this.label1.Text = "퀴즈 대결";
-            // 
-            // btnTutorial
-            // 
-            this.btnTutorial.BorderThickness = 1;
-            this.btnTutorial.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
-            this.btnTutorial.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
-            this.btnTutorial.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
-            this.btnTutorial.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
-            this.btnTutorial.FillColor = System.Drawing.Color.White;
-            this.btnTutorial.Font = new System.Drawing.Font("휴먼옛체", 14F);
-            this.btnTutorial.ForeColor = System.Drawing.Color.Black;
-            this.btnTutorial.Location = new System.Drawing.Point(310, 280);
-            this.btnTutorial.Name = "btnTutorial";
-            this.btnTutorial.Size = new System.Drawing.Size(180, 45);
-            this.btnTutorial.TabIndex = 7;
-            this.btnTutorial.Text = "게임방법";
-            this.btnTutorial.Click += new System.EventHandler(this.btnTutorial_Click);
             // 
             // btnExit
             // 
@@ -74,9 +47,26 @@
             this.btnExit.Location = new System.Drawing.Point(310, 340);
             this.btnExit.Name = "btnExit";
             this.btnExit.Size = new System.Drawing.Size(180, 45);
-            this.btnExit.TabIndex = 6;
+            this.btnExit.TabIndex = 12;
             this.btnExit.Text = "끝내기";
             this.btnExit.Click += new System.EventHandler(this.btnExit_Click);
+            // 
+            // btnTutorial
+            // 
+            this.btnTutorial.BorderThickness = 1;
+            this.btnTutorial.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
+            this.btnTutorial.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
+            this.btnTutorial.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
+            this.btnTutorial.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
+            this.btnTutorial.FillColor = System.Drawing.Color.White;
+            this.btnTutorial.Font = new System.Drawing.Font("휴먼옛체", 14F);
+            this.btnTutorial.ForeColor = System.Drawing.Color.Black;
+            this.btnTutorial.Location = new System.Drawing.Point(310, 280);
+            this.btnTutorial.Name = "btnTutorial";
+            this.btnTutorial.Size = new System.Drawing.Size(180, 45);
+            this.btnTutorial.TabIndex = 11;
+            this.btnTutorial.Text = "게임방법";
+            this.btnTutorial.Click += new System.EventHandler(this.btnTutorial_Click);
             // 
             // btnStart
             // 
@@ -91,21 +81,31 @@
             this.btnStart.Location = new System.Drawing.Point(310, 220);
             this.btnStart.Name = "btnStart";
             this.btnStart.Size = new System.Drawing.Size(180, 45);
-            this.btnStart.TabIndex = 5;
+            this.btnStart.TabIndex = 10;
             this.btnStart.Text = "시작하기";
             this.btnStart.Click += new System.EventHandler(this.btnStart_Click);
             // 
-            // quizStart
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("휴먼옛체", 30F, System.Drawing.FontStyle.Bold);
+            this.label1.Location = new System.Drawing.Point(235, 110);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(329, 53);
+            this.label1.TabIndex = 9;
+            this.label1.Text = "블록　맞추기";
+            // 
+            // BlockStart
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
-            this.Controls.Add(this.label1);
-            this.Controls.Add(this.btnTutorial);
             this.Controls.Add(this.btnExit);
+            this.Controls.Add(this.btnTutorial);
             this.Controls.Add(this.btnStart);
-            this.Name = "quizStart";
-            this.Text = "quizStart";
+            this.Controls.Add(this.label1);
+            this.Name = "BlockStart";
+            this.Text = "BlockStart";
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -113,9 +113,9 @@
 
         #endregion
 
-        private System.Windows.Forms.Label label1;
-        private Guna.UI2.WinForms.Guna2Button btnTutorial;
         private Guna.UI2.WinForms.Guna2Button btnExit;
+        private Guna.UI2.WinForms.Guna2Button btnTutorial;
         private Guna.UI2.WinForms.Guna2Button btnStart;
+        private System.Windows.Forms.Label label1;
     }
 }

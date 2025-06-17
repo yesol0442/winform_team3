@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Guna.UI2.WinForms.Enums;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -8,27 +9,24 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace client.quizForm
+namespace client.BlockForm
 {
-    public partial class quizStart : Form
+    public partial class BlockStart : Form
     {
-        quizReady quizready;
-        quizForm quizform;
-
-        public quizStart()
+        public BlockStart()
         {
             InitializeComponent();
         }
 
         private void btnStart_Click(object sender, EventArgs e)
         {
-            quizready = new quizReady();
-            quizready.ShowDialog();
+            BlockGame blockGame = new BlockGame();
+            blockGame.Show();
         }
 
         private void btnTutorial_Click(object sender, EventArgs e)
         {
-            quizTutorial tutorial = new quizTutorial();
+            BlockTutorial tutorial = new BlockTutorial();
             tutorial.Owner = this;
             tutorial.Show();
         }
