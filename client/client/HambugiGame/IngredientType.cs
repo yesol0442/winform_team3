@@ -9,7 +9,7 @@ namespace client.HambugiGame
     public enum IngredientType
     {
         BunBottom, PattyRaw, PattyMedium, PattyBurnt,
-        Cheese, Lettuce, Tomato, Onion, Pickle, BunTop
+        Cheese, Lettuce, Tomato, Onion, Pickle, BunTop, Ketchup, Mayonnaise, Mustard, TeriyakiSauce, BarbecueSauce
     }
 
     public enum CookState { Raw, Medium, Burnt }

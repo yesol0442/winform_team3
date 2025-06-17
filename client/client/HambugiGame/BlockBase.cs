@@ -24,7 +24,7 @@ namespace client.HambugiGame
         protected override void OnClick(EventArgs e)
         {
             base.OnClick(e);
-            FocusManager.Set(this);   // 이제 정상 컴파일
+            FocusManager.Set(this);
         }
 
         protected override void OnPaint(PaintEventArgs e)

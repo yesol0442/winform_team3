@@ -128,6 +128,12 @@
     </Compile>
     <Compile Include="HambugiGame\Burger.cs" />
     <Compile Include="HambugiGame\FocusManager.cs" />
+    <Compile Include="HambugiGame\HambugiGameForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="HambugiGame\HambugiGameForm.Designer.cs">
+      <DependentUpon>HambugiGameForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="HambugiGame\Ingredient.cs" />
     <Compile Include="HambugiGame\IngredientType.cs" />
     <Compile Include="HambugiGame\Order.cs" />
@@ -288,6 +294,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="HambugiGame\HambugiGameForm.resx">
+      <DependentUpon>HambugiGameForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="menuControl\CodePreacticeControl\CodeExplainControl.resx">
       <DependentUpon>CodeExplainControl.cs</DependentUpon>
