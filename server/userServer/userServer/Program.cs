@@ -673,7 +673,6 @@ namespace server
             return null; // 실패 시 null 반환
         }
 
-
         private bool UpdateProfileImage(string userId, string base64Image)
         {
             try
