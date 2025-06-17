@@ -94,6 +94,10 @@
     <Compile Include="Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
+    <Compile Include="HambugiGame\Burger.cs" />
+    <Compile Include="HambugiGame\Ingredient.cs" />
+    <Compile Include="HambugiGame\IngredientType.cs" />
+    <Compile Include="HambugiGame\Order.cs" />
     <Compile Include="menuControl\CodePreacticeControl\CodeExplainControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
