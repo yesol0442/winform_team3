@@ -120,14 +120,38 @@
     <Compile Include="Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
-    <Compile Include="HambugiGame\BlockBase.cs">
+    <Compile Include="HambugiGame\Burger.cs" />
+    <Compile Include="HambugiGame\Controls\AssembleBlockUI.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="HambugiGame\BlockBase.Designer.cs">
-      <DependentUpon>BlockBase.cs</DependentUpon>
+    <Compile Include="HambugiGame\Controls\AssembleBlockUI.Designer.cs">
+      <DependentUpon>AssembleBlockUI.cs</DependentUpon>
     </Compile>
-    <Compile Include="HambugiGame\Burger.cs" />
-    <Compile Include="HambugiGame\FocusManager.cs" />
+    <Compile Include="HambugiGame\Controls\GrillBlockUI.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="HambugiGame\Controls\GrillBlockUI.Designer.cs">
+      <DependentUpon>GrillBlockUI.cs</DependentUpon>
+    </Compile>
+    <Compile Include="HambugiGame\Controls\IngredientBlockUI.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="HambugiGame\Controls\IngredientBlockUI.Designer.cs">
+      <DependentUpon>IngredientBlockUI.cs</DependentUpon>
+    </Compile>
+    <Compile Include="HambugiGame\Controls\PlaceIngredientBlockUI.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="HambugiGame\Controls\PlaceIngredientBlockUI.Designer.cs">
+      <DependentUpon>PlaceIngredientBlockUI.cs</DependentUpon>
+    </Compile>
+    <Compile Include="HambugiGame\Controls\RepeatBlockUI.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="HambugiGame\Controls\RepeatBlockUI.Designer.cs">
+      <DependentUpon>RepeatBlockUI.cs</DependentUpon>
+    </Compile>
+    <Compile Include="HambugiGame\Controls\WaitBlockUI.cs" />
     <Compile Include="HambugiGame\HambugiGameForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -294,6 +318,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="HambugiGame\Controls\AssembleBlockUI.resx">
+      <DependentUpon>AssembleBlockUI.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="HambugiGame\Controls\RepeatBlockUI.resx">
+      <DependentUpon>RepeatBlockUI.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="HambugiGame\HambugiGameForm.resx">
       <DependentUpon>HambugiGameForm.cs</DependentUpon>

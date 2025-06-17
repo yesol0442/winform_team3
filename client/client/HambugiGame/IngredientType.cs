@@ -12,5 +12,5 @@ namespace client.HambugiGame
         Cheese, Lettuce, Tomato, Onion, Pickle, BunTop, Ketchup, Mayonnaise, Mustard, TeriyakiSauce, BarbecueSauce
     }
 
-    public enum CookState { Raw, Medium, Burnt }
+    public enum CookState { Raw, Medium, Burnt, Place }
 }
