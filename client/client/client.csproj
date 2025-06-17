@@ -87,10 +87,12 @@
     <Compile Include="classes\ShareCodeSave.cs" />
     <Compile Include="classes\UserCodeList.cs" />
     <Compile Include="classes\UserSession.cs" />
-    <Compile Include="CodePracticeForm\CodePracticeF.cs">
+    <Compile Include="CodePracticeForm\CodePracticeFo.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="CodePracticeForm\CodePracticeF.Designer.cs" />
+    <Compile Include="CodePracticeForm\CodePracticeFo.Designer.cs">
+      <DependentUpon>CodePracticeFo.cs</DependentUpon>
+    </Compile>
     <Compile Include="FindDifferForm\FindForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -263,7 +265,9 @@
     <EmbeddedResource Include="BlockForm\BlockTutorial.resx">
       <DependentUpon>BlockTutorial.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="CodePracticeForm\CodePracticeF.resx" />
+    <EmbeddedResource Include="CodePracticeForm\CodePracticeFo.resx">
+      <DependentUpon>CodePracticeFo.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="FindDifferForm\FindForm.resx">
       <DependentUpon>FindForm.cs</DependentUpon>
     </EmbeddedResource>

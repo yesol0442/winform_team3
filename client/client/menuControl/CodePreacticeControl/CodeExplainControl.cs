@@ -49,7 +49,7 @@ namespace client.menuControl.CodePreacticeControl
         private void 시작btn_Click(object sender, EventArgs e)
         {
             this.Hide();
-            CodePracticeForm.CodePracticeF codePracticeForm = new CodePracticeForm.CodePracticeF(shareCodeSave);
+            CodePracticeForm.CodePracticeFo codePracticeForm = new CodePracticeForm.CodePracticeFo(shareCodeSave);
             codePracticeForm.FormClosed += (s, args) => this.Show();
             codePracticeForm.DataSent += PracticeForm_DataSent;
             codePracticeForm.ShowDialog();
