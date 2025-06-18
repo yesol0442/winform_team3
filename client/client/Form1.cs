@@ -1,6 +1,8 @@
-﻿using client.classes;
+﻿using client.BlockForm;
+using client.classes;
 using client.classes.NetworkManager;
 using client.menuControl;
+using client.RainForm;
 using Guna.UI2.WinForms;
 using System;
 using System.Collections.Generic;
@@ -28,6 +30,8 @@ namespace client
         private new menuControl.초기화면 초기화면 = new menuControl.초기화면();
         private Guna.UI2.WinForms.Guna2Button currentSelectedButton = null;
 
+        private string currentLanguage = "C";
+
         public Form1()
         {
             InitializeComponent();
@@ -48,11 +52,31 @@ namespace client
             guna2Panel1.Controls.Add(초기화면);
 
             초기화면.LoginSuccess += LoginPage_LoginSuccess; // 로그인 이벤트 핸들러 설정
+            this.환경설정.LanguageChanged += MainForm_LanguageChanged;
+            this.미니게임.RainButtonClicked += OnRainGameRequested;
+            this.미니게임.BlockButtonClicked += OnBLockGameRequested;
 
             // 폼 크기 고정
             this.MaximumSize = this.Size;
             this.MinimumSize = this.Size;
 
+        }
+
+        private void MainForm_LanguageChanged(object sender, LanguageChangedEventArgs e)
+        {
+            currentLanguage = e.SelectedLanguage;
+        }
+
+        private void OnRainGameRequested(object sender, EventArgs e)
+        {
+            rainMain form = new rainMain(currentLanguage);
+            form.Show();
+        }
+
+        private void OnBLockGameRequested(object sender, EventArgs e)
+        {
+            BlockStart form = new BlockStart(currentLanguage);
+            form.Show();
         }
 
         private void 나가기_Click(object sender, EventArgs e)

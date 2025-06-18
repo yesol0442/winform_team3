@@ -31,7 +31,6 @@ namespace client.menuControl
             txtNickname.Visible = false;
         }
 
-
         public async Task SetCurrentUserIdAsync(string userId)
         {
             currentUserId = userId;
@@ -65,15 +64,17 @@ namespace client.menuControl
                 headerResponse = headerResponse.Replace("::END_HEADER::", "");
 
                 // 닉네임 및 이미지 데이터 분리
-                string[] parts = headerResponse.Split(new char[] { ':' }, 3);
-                if (parts.Length < 2)
+                string[] parts = headerResponse.Split(new char[] { ':' }, 4);
+                if (parts.Length < 3)
                 {
                     MessageBox.Show("프로필 데이터가 잘못되었습니다.", "오류", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return;
                 }
 
                 string nickname = parts[1];
-                string base64ImageStart = parts.Length == 3 ? parts[2] : "";
+                string language = parts[2].Trim();
+                MessageBox.Show($"프로필 데이터 수신 완료: {language}", "알림", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                string base64ImageStart = parts.Length == 4 ? parts[3] : "";
 
                 // UI 업데이트
                 if (txtNickname.InvokeRequired)
@@ -89,6 +90,7 @@ namespace client.menuControl
                     txtNickname.Text = nickname;
                     lblNickname.Text = nickname;
                 }
+                LanguageChanged?.Invoke(this, new LanguageChangedEventArgs(language));
 
                 MessageBox.Show($"닉네임 설정 완료: {nickname}", "알림", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
@@ -297,6 +299,38 @@ namespace client.menuControl
         }
 
 
+        private async void cmbLanguage_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            string selected = cmbLanguage.SelectedItem?.ToString();
+
+            string newLanguage = cmbLanguage.Text.Trim();
+
+            if (!string.IsNullOrEmpty(selected))
+            {
+                LanguageChanged?.Invoke(this, new LanguageChangedEventArgs(selected));
+            }
+
+            try
+            {
+                string message = $"UPDATE_MAINLANGUAGE:{currentUserId}:{newLanguage}";
+                await NetworkManager.Instance.SendMessageAsync(message);
+                string response = await NetworkManager.Instance.ReceiveMessageAsync();
+
+                if (response == "OK")
+                {
+                    MessageBox.Show("사용 언어가 변경되었습니다.", "변경 완료", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+                else
+                {
+                    MessageBox.Show("사용 언어 변경 실패: " + response);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"사용 언어 변경 중 오류 발생: {ex.Message}", "오류", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
         private void togSound_CheckedChanged(object sender, EventArgs e)
         {
             soundEnabled = togSound.Checked;
@@ -315,17 +349,6 @@ namespace client.menuControl
             //    }
             //}
         }
-
-        private void cmbLanguage_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            string selected = cmbLanguage.SelectedItem?.ToString();
-
-            if (!string.IsNullOrEmpty(selected))
-            {
-                LanguageChanged?.Invoke(this, new LanguageChangedEventArgs(selected));
-            }
-        }
-
 
     }
 }

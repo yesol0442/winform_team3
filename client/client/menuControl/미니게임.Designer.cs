@@ -68,6 +68,7 @@
             this.blockBtn.Size = new System.Drawing.Size(310, 109);
             this.blockBtn.TabIndex = 2;
             this.blockBtn.Text = "블록 맞추기";
+            this.blockBtn.Click += new System.EventHandler(this.blockBtn_Click);
             // 
             // 미니게임
             // 
@@ -76,7 +77,7 @@
             this.BackColor = System.Drawing.SystemColors.ActiveBorder;
             this.Controls.Add(this.blockBtn);
             this.Controls.Add(this.rainBtn);
-            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "미니게임";
             this.Size = new System.Drawing.Size(1049, 689);
             this.ResumeLayout(false);

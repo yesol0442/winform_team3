@@ -81,6 +81,7 @@
     <Compile Include="classes\CodePractice.cs" />
     <Compile Include="classes\CodePracticeResult.cs" />
     <Compile Include="classes\Home.cs" />
+    <Compile Include="classes\LanguageChangedEventArgs.cs" />
     <Compile Include="classes\NetworkManager.cs" />
     <Compile Include="classes\OtherUserCodeList.cs" />
     <Compile Include="classes\Quiz.cs" />

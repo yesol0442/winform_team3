@@ -111,21 +111,23 @@
             // 
             // cmbLanguage
             // 
+            this.cmbLanguage.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmbLanguage.Font = new System.Drawing.Font("휴먼옛체", 12F);
             this.cmbLanguage.FormattingEnabled = true;
             this.cmbLanguage.Items.AddRange(new object[] {
             "C",
             "C++"});
-            this.cmbLanguage.Location = new System.Drawing.Point(761, 231);
+            this.cmbLanguage.Location = new System.Drawing.Point(758, 231);
             this.cmbLanguage.Name = "cmbLanguage";
             this.cmbLanguage.Size = new System.Drawing.Size(229, 42);
             this.cmbLanguage.TabIndex = 7;
+            this.cmbLanguage.SelectedIndexChanged += new System.EventHandler(this.cmbLanguage_SelectedIndexChanged);
             // 
             // lblLanguage
             // 
             this.lblLanguage.AutoSize = true;
             this.lblLanguage.Font = new System.Drawing.Font("휴먼옛체", 12F);
-            this.lblLanguage.Location = new System.Drawing.Point(680, 171);
+            this.lblLanguage.Location = new System.Drawing.Point(689, 171);
             this.lblLanguage.Name = "lblLanguage";
             this.lblLanguage.Size = new System.Drawing.Size(310, 34);
             this.lblLanguage.TabIndex = 8;

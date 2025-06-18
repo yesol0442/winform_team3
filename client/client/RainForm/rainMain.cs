@@ -9,12 +9,13 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using client.classes;
+using System.Diagnostics;
 
 namespace client.RainForm
 {
     public partial class rainMain : Form
     {
-        private 환경설정 환경설정컨트롤;
+        private string lang;
 
         List<TextBox> Blocks=new List<TextBox>();
 
@@ -25,12 +26,13 @@ namespace client.RainForm
         int score = 0;
         int countdownValue = 3;
 
-        public rainMain()
+        public rainMain(string language)
         {
             InitializeComponent();
+            lang = language;
 
-            환경설정컨트롤 = new 환경설정();
-            환경설정컨트롤.LanguageChanged += 환경설정_LanguageChanged;
+            if (lang == "C++") { /* C++ 문제로 초기화 */ }
+            else { /* C 문제로 초기화 */ }
 
             this.DoubleBuffered = true;
             //timer.Start();

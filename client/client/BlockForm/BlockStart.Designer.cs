@@ -32,6 +32,7 @@
             this.btnTutorial = new Guna.UI2.WinForms.Guna2Button();
             this.btnStart = new Guna.UI2.WinForms.Guna2Button();
             this.label1 = new System.Windows.Forms.Label();
+            this.textBox1 = new System.Windows.Forms.TextBox();
             this.SuspendLayout();
             // 
             // btnExit
@@ -44,9 +45,10 @@
             this.btnExit.FillColor = System.Drawing.Color.White;
             this.btnExit.Font = new System.Drawing.Font("휴먼옛체", 14F);
             this.btnExit.ForeColor = System.Drawing.Color.Black;
-            this.btnExit.Location = new System.Drawing.Point(310, 340);
+            this.btnExit.Location = new System.Drawing.Point(504, 544);
+            this.btnExit.Margin = new System.Windows.Forms.Padding(5, 5, 5, 5);
             this.btnExit.Name = "btnExit";
-            this.btnExit.Size = new System.Drawing.Size(180, 45);
+            this.btnExit.Size = new System.Drawing.Size(292, 72);
             this.btnExit.TabIndex = 12;
             this.btnExit.Text = "끝내기";
             this.btnExit.Click += new System.EventHandler(this.btnExit_Click);
@@ -61,9 +63,10 @@
             this.btnTutorial.FillColor = System.Drawing.Color.White;
             this.btnTutorial.Font = new System.Drawing.Font("휴먼옛체", 14F);
             this.btnTutorial.ForeColor = System.Drawing.Color.Black;
-            this.btnTutorial.Location = new System.Drawing.Point(310, 280);
+            this.btnTutorial.Location = new System.Drawing.Point(504, 448);
+            this.btnTutorial.Margin = new System.Windows.Forms.Padding(5, 5, 5, 5);
             this.btnTutorial.Name = "btnTutorial";
-            this.btnTutorial.Size = new System.Drawing.Size(180, 45);
+            this.btnTutorial.Size = new System.Drawing.Size(292, 72);
             this.btnTutorial.TabIndex = 11;
             this.btnTutorial.Text = "게임방법";
             this.btnTutorial.Click += new System.EventHandler(this.btnTutorial_Click);
@@ -78,9 +81,10 @@
             this.btnStart.FillColor = System.Drawing.Color.White;
             this.btnStart.Font = new System.Drawing.Font("휴먼옛체", 14F);
             this.btnStart.ForeColor = System.Drawing.Color.Black;
-            this.btnStart.Location = new System.Drawing.Point(310, 220);
+            this.btnStart.Location = new System.Drawing.Point(504, 352);
+            this.btnStart.Margin = new System.Windows.Forms.Padding(5, 5, 5, 5);
             this.btnStart.Name = "btnStart";
-            this.btnStart.Size = new System.Drawing.Size(180, 45);
+            this.btnStart.Size = new System.Drawing.Size(292, 72);
             this.btnStart.TabIndex = 10;
             this.btnStart.Text = "시작하기";
             this.btnStart.Click += new System.EventHandler(this.btnStart_Click);
@@ -89,21 +93,31 @@
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("휴먼옛체", 30F, System.Drawing.FontStyle.Bold);
-            this.label1.Location = new System.Drawing.Point(235, 110);
+            this.label1.Location = new System.Drawing.Point(382, 176);
+            this.label1.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(329, 53);
+            this.label1.Size = new System.Drawing.Size(517, 85);
             this.label1.TabIndex = 9;
             this.label1.Text = "블록　맞추기";
             // 
+            // textBox1
+            // 
+            this.textBox1.Location = new System.Drawing.Point(892, 475);
+            this.textBox1.Name = "textBox1";
+            this.textBox1.Size = new System.Drawing.Size(100, 35);
+            this.textBox1.TabIndex = 13;
+            // 
             // BlockStart
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(13F, 24F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
+            this.ClientSize = new System.Drawing.Size(1300, 720);
+            this.Controls.Add(this.textBox1);
             this.Controls.Add(this.btnExit);
             this.Controls.Add(this.btnTutorial);
             this.Controls.Add(this.btnStart);
             this.Controls.Add(this.label1);
+            this.Margin = new System.Windows.Forms.Padding(5, 5, 5, 5);
             this.Name = "BlockStart";
             this.Text = "BlockStart";
             this.ResumeLayout(false);
@@ -117,5 +131,6 @@
         private Guna.UI2.WinForms.Guna2Button btnTutorial;
         private Guna.UI2.WinForms.Guna2Button btnStart;
         private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.TextBox textBox1;
     }
 }

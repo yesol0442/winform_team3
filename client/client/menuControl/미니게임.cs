@@ -13,7 +13,8 @@ namespace client.menuControl
 {
     public partial class 미니게임 : UserControl
     {
-        rainMain main;
+        public event EventHandler RainButtonClicked;
+        public event EventHandler BlockButtonClicked;
 
         public 미니게임()
         {
@@ -22,8 +23,12 @@ namespace client.menuControl
 
         private void rainBtn_Click(object sender, EventArgs e)
         {
-            main=new rainMain();
-            main.Show();
+            RainButtonClicked?.Invoke(this, EventArgs.Empty);
+        }
+
+        private void blockBtn_Click(object sender, EventArgs e)
+        {
+            BlockButtonClicked?.Invoke(this, EventArgs.Empty);
         }
     }
 }

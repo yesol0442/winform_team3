@@ -13,9 +13,15 @@ namespace client.BlockForm
 {
     public partial class BlockStart : Form
     {
-        public BlockStart()
+        private string lang;
+
+        public BlockStart(string language)
         {
             InitializeComponent();
+            lang = language;
+
+            if (lang == "C++") { /* C++ 문제로 초기화 */ }
+            else { /* C 문제로 초기화 */ }
         }
 
         private void btnStart_Click(object sender, EventArgs e)
