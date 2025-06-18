@@ -39,14 +39,17 @@ namespace client.FindDifferForm
         private void btnStart_Click(object sender, EventArgs e)
         {
             findReady = new FindReady();
-            findReady.Owner = this;
+            //findReady.Owner = this;
             findReady.Show();
+            this.Close();
+            //this.Hide();
+
         }
 
         private void btnTutorial_Click(object sender, EventArgs e)
         {
-            findForm = new FindForm(reader,writer);
-            findForm.Show();
+            //findForm = new FindForm(reader,writer);
+            //findForm.Show();
         }
 
         private void btnExit_Click(object sender, EventArgs e)
