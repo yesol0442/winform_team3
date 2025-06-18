@@ -1,4 +1,5 @@
-﻿using System;
+﻿using client.menuControl;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -7,11 +8,14 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using client.classes;
 
 namespace client.RainForm
 {
     public partial class rainMain : Form
     {
+        private 환경설정 환경설정컨트롤;
+
         List<TextBox> Blocks=new List<TextBox>();
 
         // 예시
@@ -24,6 +28,10 @@ namespace client.RainForm
         public rainMain()
         {
             InitializeComponent();
+
+            환경설정컨트롤 = new 환경설정();
+            환경설정컨트롤.LanguageChanged += 환경설정_LanguageChanged;
+
             this.DoubleBuffered = true;
             //timer.Start();
             lbScore.BackColor = Color.Transparent;
@@ -34,7 +42,12 @@ namespace client.RainForm
             StartTimer.Start();
         }
 
-      
+        private void 환경설정_LanguageChanged(object sender, LanguageChangedEventArgs e)
+        {
+            string lang = e.SelectedLanguage;
+
+            // 언어 바뀌었을 때 처리
+        }
 
         private void timer_Tick(object sender, EventArgs e)
         {

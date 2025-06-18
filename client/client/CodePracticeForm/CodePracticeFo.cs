@@ -1,4 +1,5 @@
 ﻿using client.classes;
+using client.menuControl;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -14,6 +15,8 @@ namespace client.CodePracticeForm
 {
     public partial class CodePracticeFo : Form
     {
+        private 환경설정 환경설정컨트롤;
+
         private readonly ShareCodeSave shareCodeSave;
         private DateTime? _startTime = null;
 
@@ -47,11 +50,18 @@ namespace client.CodePracticeForm
             FormBorderStyle = FormBorderStyle.None;
             WindowState = FormWindowState.Maximized;
 
+            환경설정컨트롤 = new 환경설정();
+            환경설정컨트롤.CheckBoxChecked += 환경설정_CheckBoxChecked;
+
             shareCodeSave = scs;
             code_line_num = scs.Code.Count;
             _totalLines = scs.Code.Count;
         }
 
+        private void 환경설정_CheckBoxChecked(object sender, EventArgs e)
+        {
+            // 타자가이드 이미지 추가, 불러오기 등 동작 수행
+        }
 
         private void CodePracticeFo_Load(object sender, EventArgs e)
         {
