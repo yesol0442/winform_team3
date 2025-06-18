@@ -23,6 +23,9 @@ namespace client.FindDifferForm
         {
             InitializeComponent();
 
+            this.FormBorderStyle = FormBorderStyle.FixedSingle;
+            this.Text = "대기 화면";
+
             ConnectToServer();
 
             

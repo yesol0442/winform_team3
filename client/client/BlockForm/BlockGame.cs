@@ -46,7 +46,7 @@ namespace client.BlockForm
             InitializeComponent();
 
             환경설정컨트롤 = new 환경설정();
-            환경설정컨트롤.LanguageChanged += 환경설정_LanguageChanged;
+            //환경설정컨트롤.LanguageChanged += 환경설정_LanguageChanged;
 
             intialize_question_cpp();
             complete.Visible = false;
@@ -63,12 +63,13 @@ namespace client.BlockForm
             NextQuestion();
         }
 
+        /*
         private void 환경설정_LanguageChanged(object sender, LanguageChangedEventArgs e)
         {
             string lang = e.SelectedLanguage;
 
             // 언어 바뀌었을 때 처리
-        }
+        }*/
 
         private void timer_result_Tick(object sender, EventArgs e)
         {

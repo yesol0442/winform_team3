@@ -24,9 +24,9 @@ namespace client.FindDifferForm
         {
             (2, 1),   // "  static void Main..." → 's' 앞 접근제한자 없던 자리
             (4, 20),  // "int number = 5" → '5' 바로 뒤 (길이 22 → 인덱스 21까지 가능)
-            (5, 21),  // "Writeine"의 e
+            (5, 18),  // "Writeine"의 e
             (6, 0),   // if문의 들여쓰기 오류 (줄 시작)
-            (8, 42),  // ? "Y" "N"; → "Y" 끝나는 위치 기준 (길이 안 넘도록 조정)
+            (8, 37),  // ? "Y" "N"; → "Y" 끝나는 위치 기준 (길이 안 넘도록 조정)
 
 
 
@@ -53,6 +53,9 @@ namespace client.FindDifferForm
 
 
             InitializeComponent();
+
+            this.FormBorderStyle = FormBorderStyle.FixedSingle;
+
 
             // 투명 판넬 생성
             overlayPanel.Location = codeTxt.Location;
@@ -170,7 +173,8 @@ namespace client.FindDifferForm
                 int index = start + col;
                 Point pos = codeTxt.GetPositionFromCharIndex(index);
 
-                Color color = player == myId ? Color.FromArgb(100, 255, 0, 0) : Color.FromArgb(100, 0, 0, 255);
+                //Color color = player == myId ? Color.FromArgb(100, 255, 0, 0) : Color.FromArgb(100, 0, 0, 255);
+                Color color = player == myId ? Color.Red : Color.Blue;
 
                 Pen pen = new Pen(color, 3);   // 반투명 빨간색
                 //g.DrawEllipse(pen, new Rectangle(pos.X+2, pos.Y+4, 14, 14));   // 동그라미
@@ -187,7 +191,8 @@ namespace client.FindDifferForm
                 int index = start + col;
                 Point pos = codeTxt.GetPositionFromCharIndex(index);
 
-                Color color = Color.FromArgb(100, 255, 0, 0);
+                //Color color = Color.FromArgb(100, 255, 0, 0);
+                Color color = Color.Red;
 
                 Pen pen = new Pen(color, 3);   // 반투명 빨간색
                 g.DrawEllipse(pen, new Rectangle(pos.X+2, pos.Y+4, 14, 14));   // 동그라미

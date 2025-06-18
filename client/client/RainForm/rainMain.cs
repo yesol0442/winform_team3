@@ -10,6 +10,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using client.classes;
 
+
 namespace client.RainForm
 {
     public partial class rainMain : Form
@@ -32,8 +33,11 @@ namespace client.RainForm
         {
             InitializeComponent();
 
-            환경설정컨트롤 = new 환경설정();
-            환경설정컨트롤.LanguageChanged += 환경설정_LanguageChanged;
+            this.FormBorderStyle = FormBorderStyle.FixedSingle;
+
+
+            //환경설정컨트롤 = new 환경설정();
+            //환경설정컨트롤.LanguageChanged += 환경설정_LanguageChanged;
 
             this.DoubleBuffered = true;
             //timer.Start();
@@ -44,13 +48,14 @@ namespace client.RainForm
             lbCount.Location = new Point((this.ClientSize.Width - 60) / 2, (this.ClientSize.Height - 60) / 2);
             StartTimer.Start();
         }
-
+        
+        /*
         private void 환경설정_LanguageChanged(object sender, LanguageChangedEventArgs e)
         {
             string lang = e.SelectedLanguage;
 
             // 언어 바뀌었을 때 처리
-        }
+        }*/
 
         private void timer_Tick(object sender, EventArgs e)
         {

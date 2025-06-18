@@ -17,6 +17,8 @@ namespace client.RainForm
         public GameOver(int finalScore)
         {
             InitializeComponent();
+            this.FormBorderStyle = FormBorderStyle.FixedSingle;
+            this.Text = "게임 오버";
 
             lbFinalScore.Text=$"점수: {finalScore}점";
         }

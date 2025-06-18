@@ -38,7 +38,7 @@
             // 
             this.lbFinalScore.AutoSize = true;
             this.lbFinalScore.Font = new System.Drawing.Font("휴먼옛체", 12F);
-            this.lbFinalScore.Location = new System.Drawing.Point(310, 199);
+            this.lbFinalScore.Location = new System.Drawing.Point(293, 199);
             this.lbFinalScore.Name = "lbFinalScore";
             this.lbFinalScore.Size = new System.Drawing.Size(100, 34);
             this.lbFinalScore.TabIndex = 0;
@@ -48,7 +48,7 @@
             // 
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("휴먼옛체", 20F);
-            this.label2.Location = new System.Drawing.Point(276, 105);
+            this.label2.Location = new System.Drawing.Point(256, 100);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(263, 57);
             this.label2.TabIndex = 1;
@@ -65,7 +65,7 @@
             this.restartBtn.FillColor = System.Drawing.Color.White;
             this.restartBtn.Font = new System.Drawing.Font("휴먼옛체", 12F);
             this.restartBtn.ForeColor = System.Drawing.Color.Black;
-            this.restartBtn.Location = new System.Drawing.Point(286, 280);
+            this.restartBtn.Location = new System.Drawing.Point(266, 280);
             this.restartBtn.Margin = new System.Windows.Forms.Padding(5);
             this.restartBtn.Name = "restartBtn";
             this.restartBtn.Size = new System.Drawing.Size(273, 61);
@@ -84,7 +84,7 @@
             this.exitBtn.FillColor = System.Drawing.Color.White;
             this.exitBtn.Font = new System.Drawing.Font("휴먼옛체", 12F);
             this.exitBtn.ForeColor = System.Drawing.Color.Black;
-            this.exitBtn.Location = new System.Drawing.Point(286, 351);
+            this.exitBtn.Location = new System.Drawing.Point(266, 351);
             this.exitBtn.Margin = new System.Windows.Forms.Padding(5);
             this.exitBtn.Name = "exitBtn";
             this.exitBtn.Size = new System.Drawing.Size(273, 55);

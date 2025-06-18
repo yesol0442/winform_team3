@@ -20,7 +20,7 @@ namespace client.menuControl
     public partial class 환경설정 : UserControl
     {
         public event EventHandler CheckBoxChecked;
-        public event EventHandler<LanguageChangedEventArgs> LanguageChanged;
+        //public event EventHandler<LanguageChangedEventArgs> LanguageChanged;
 
         private bool soundEnabled = true;
         public static string currentUserId;
@@ -322,7 +322,7 @@ namespace client.menuControl
 
             if (!string.IsNullOrEmpty(selected))
             {
-                LanguageChanged?.Invoke(this, new LanguageChangedEventArgs(selected));
+                //LanguageChanged?.Invoke(this, new LanguageChangedEventArgs(selected));
             }
         }
 

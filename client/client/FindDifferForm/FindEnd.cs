@@ -15,13 +15,19 @@ namespace client.FindDifferForm
         public FindEnd(string resultMessage)
         {
             InitializeComponent();
+
+            this.FormBorderStyle = FormBorderStyle.FixedSingle;
+            this.Text = "게임 결과";
+
             lbResult.Text = resultMessage;
- 
+
         }
+
 
         private void btnEnd_Click(object sender, EventArgs e)
         {
             this.Close();
+
         }
     }
 }
