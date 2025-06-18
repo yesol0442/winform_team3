@@ -15,11 +15,13 @@ namespace client.HambugiGame.Controls
         public bool CanDrag { get; set; } = true;
         public string DragTag { get; protected set; } = "IngredientBlockUI";
         public Image image = null;
-        public IngredientBlockUI(Image im)
+        public IngredientType IngredientName = 0;
+        public IngredientBlockUI(Image im, IngredientType ingredientName)
         {
             InitializeComponent();
             pictureBox1.Image = im;
             MouseDown += OnMouseDownStartDrag;
+            IngredientName = ingredientName;
         }
         private void OnMouseDownStartDrag(object sender, MouseEventArgs e)
         {
@@ -32,6 +34,6 @@ namespace client.HambugiGame.Controls
 
             DoDragDrop(data, DragDropEffects.Copy);
         }
-        public object Clone() => new IngredientBlockUI(image);
+        public object Clone() => new IngredientBlockUI(image,IngredientName);
     }
 }
