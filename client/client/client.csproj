@@ -94,6 +94,12 @@
     <Compile Include="CodePracticeForm\CodePracticeFo.Designer.cs">
       <DependentUpon>CodePracticeFo.cs</DependentUpon>
     </Compile>
+    <Compile Include="FindDifferForm\FindEnd.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FindDifferForm\FindEnd.Designer.cs">
+      <DependentUpon>FindEnd.cs</DependentUpon>
+    </Compile>
     <Compile Include="FindDifferForm\FindForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -111,6 +117,12 @@
     </Compile>
     <Compile Include="FindDifferForm\FindStart.Designer.cs">
       <DependentUpon>FindStart.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FindDifferForm\FindTutorial.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FindDifferForm\FindTutorial.Designer.cs">
+      <DependentUpon>FindTutorial.cs</DependentUpon>
     </Compile>
     <Compile Include="FindDifferForm\TransparentPanel.cs">
       <SubType>Component</SubType>
@@ -313,6 +325,9 @@
     <EmbeddedResource Include="CodePracticeForm\CodePracticeFo.resx">
       <DependentUpon>CodePracticeFo.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="FindDifferForm\FindEnd.resx">
+      <DependentUpon>FindEnd.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="FindDifferForm\FindForm.resx">
       <DependentUpon>FindForm.cs</DependentUpon>
     </EmbeddedResource>
@@ -321,6 +336,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="FindDifferForm\FindStart.resx">
       <DependentUpon>FindStart.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FindDifferForm\FindTutorial.resx">
+      <DependentUpon>FindTutorial.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
@@ -445,6 +463,11 @@
   <ItemGroup>
     <None Include="Resources\res_quiz\speech_bubble.png" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <None Include="Resources\ketchup.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Resources\ham\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

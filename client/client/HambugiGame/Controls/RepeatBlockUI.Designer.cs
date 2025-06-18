@@ -36,10 +36,10 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("휴먼매직체", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.label1.Font = new System.Drawing.Font("휴먼매직체", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.label1.Location = new System.Drawing.Point(108, 14);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(136, 28);
+            this.label1.Size = new System.Drawing.Size(115, 24);
             this.label1.TabIndex = 0;
             this.label1.Text = "번 반복하기";
             // 
@@ -54,7 +54,7 @@
             // flowLayoutPanel1
             // 
             this.flowLayoutPanel1.AutoSize = true;
-            this.flowLayoutPanel1.Location = new System.Drawing.Point(113, 64);
+            this.flowLayoutPanel1.Location = new System.Drawing.Point(26, 48);
             this.flowLayoutPanel1.Name = "flowLayoutPanel1";
             this.flowLayoutPanel1.Size = new System.Drawing.Size(396, 58);
             this.flowLayoutPanel1.TabIndex = 2;
@@ -69,7 +69,7 @@
             this.Controls.Add(this.textBox1);
             this.Controls.Add(this.label1);
             this.Name = "RepeatBlockUI";
-            this.Size = new System.Drawing.Size(558, 131);
+            this.Size = new System.Drawing.Size(445, 131);
             this.ResumeLayout(false);
             this.PerformLayout();
 

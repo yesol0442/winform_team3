@@ -1,4 +1,4 @@
-﻿using client.menuControl;
+using client.menuControl;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -25,6 +25,7 @@ namespace client.RainForm
         int make_count = 0;    // 블럭 생성 간격 결정
         int score = 0;
         int countdownValue = 3;
+        int index = 0;
 
         public rainMain(string language)
         {
@@ -57,15 +58,22 @@ namespace client.RainForm
 
             if (make_count % 30 == 1)
             {
+                if (index >= word_list.Count)
+                {
+                    index = 0;
+                }
                 TextBox buf = new TextBox();
-                buf.Text = word_list[make_count % word_list.Count];
-                buf.Location = new Point(rand.Next(10, this.ClientSize.Width - 100), 5);
-                buf.Width = 100;
+                buf.Text = word_list[index];
+                buf.Location = new Point(rand.Next(10, this.ClientSize.Width - 140), 5);
+                buf.Width = 140;
+                buf.Height = 45;
                 buf.TextAlign = HorizontalAlignment.Center;
+                buf.Font = new Font("휴먼옛체", 10, FontStyle.Bold);
                 buf.ReadOnly = true;
                 Blocks.Add(buf);
                 this.Controls.Add(buf);
                 buf.BringToFront();
+                index++;
             }
 
             for (int i = Blocks.Count - 1; i >= 0; i--)
@@ -75,7 +83,7 @@ namespace client.RainForm
 
                 if (newY >= this.ClientSize.Height)
                 {
-                    // 바닥에 닿으면 제거하고 게임 오버 처리 (필요 시 구현)
+                    // 바닥에 닿으면 제거하고 게임 오버 처리
                     this.Controls.Remove(box);
                     Blocks.RemoveAt(i);
 

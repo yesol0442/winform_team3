@@ -99,15 +99,16 @@ namespace server
                     return "PROFILE_LOAD_FAIL";
                 }
 
-                string nickname = profile.Nickname;
+                string nickname = profile.Nickname?.Trim();
+                string language = profile.MainLanguage?.Trim();
                 byte[] imageBytes = profile.ProfilePicBytes ?? Array.Empty<byte>();
 
                 // 닉네임 전송
-                string header = $"PROFILE:{nickname}::END_HEADER::";
+                string header = $"PROFILE:{nickname}:{language}::END_HEADER::";
                 NetworkStream stream = client.GetStream();
                 byte[] headerBytes = Encoding.UTF8.GetBytes(header);
                 stream.Write(headerBytes, 0, headerBytes.Length);
-                Console.WriteLine($"프로필 닉네임 전송 완료: {nickname}");
+                Console.WriteLine($"프로필 닉네임, 언어 전송 완료: {nickname}, {language}");
 
                 // 프로필 이미지가 없으면 바로 종료
                 if (imageBytes.Length == 0)
@@ -187,6 +188,21 @@ namespace server
                 else
                 {
                     return "INVALID_UPDATE_NICKNAME_COMMAND";
+                }
+            }
+            else if (message.StartsWith("UPDATE_MAINLANGUAGE:"))
+            {
+                string prefix = "UPDATE_MAINLANGUAGE:";
+                string[] parts = message.Substring(prefix.Length).Split(':');
+                if (parts.Length == 2)
+                {
+                    string userId = parts[0].Trim();
+                    string newLanguage = parts[1].Trim();
+                    return UpdateMainLanguage(userId, newLanguage) ? "OK" : "MAINLANGUAGE_UPDATE_FAIL";
+                }
+                else
+                {
+                    return "INVALID_UPDATE_MAINLANGUAGE_COMMAND";
                 }
             }
             else if (message.StartsWith("DELETE_ACCOUNT:"))
@@ -629,6 +645,7 @@ namespace server
         public class UserProfile
         {
             public string Nickname { get; set; }
+            public string MainLanguage { get; set; }
             public byte[] ProfilePicBytes { get; set; }
         }
 
@@ -640,37 +657,58 @@ namespace server
                 {
                     conn.Open();
 
-                    string query = "SELECT nickName, profilePic FROM Users WHERE userId = @userId";
-                    using (SqlCommand cmd = new SqlCommand(query, conn))
+                    // Users 테이블에서 닉네임과 프로필 사진 조회
+                    string queryUser = "SELECT nickName, profilePic FROM Users WHERE userId = @userId";
+                    string nickname = null;
+                    byte[] profilePicBytes = null;
+
+                    using (SqlCommand cmdUser = new SqlCommand(queryUser, conn))
                     {
-                        cmd.Parameters.AddWithValue("@userId", userId);
-                        using (SqlDataReader reader = cmd.ExecuteReader())
+                        cmdUser.Parameters.AddWithValue("@userId", userId);
+                        using (SqlDataReader reader = cmdUser.ExecuteReader())
                         {
                             if (reader.Read())
                             {
-                                string nickname = reader.GetString(0);
-
-                                byte[] profilePicBytes = null;
+                                nickname = reader.GetString(0)?.Trim(); // ← 공백 제거
                                 if (!reader.IsDBNull(1))
                                 {
                                     profilePicBytes = (byte[])reader.GetValue(1);
                                 }
-
-                                return new UserProfile
-                                {
-                                    Nickname = nickname,
-                                    ProfilePicBytes = profilePicBytes
-                                };
+                            }
+                            else
+                            {
+                                return null;
                             }
                         }
                     }
+
+                    // UserStats 테이블에서 언어 조회
+                    string queryStats = "SELECT MainLanguage FROM UserStats WHERE userId = @userId";
+                    string language = null;
+
+                    using (SqlCommand cmdStats = new SqlCommand(queryStats, conn))
+                    {
+                        cmdStats.Parameters.AddWithValue("@userId", userId);
+                        object result = cmdStats.ExecuteScalar();
+                        if (result != null && result != DBNull.Value)
+                        {
+                            language = ((string)result).Trim(); // ← 공백 제거
+                        }
+                    }
+
+                    return new UserProfile
+                    {
+                        Nickname = nickname,
+                        ProfilePicBytes = profilePicBytes,
+                        MainLanguage = language
+                    };
                 }
             }
             catch (Exception ex)
             {
                 Console.WriteLine($"[DB 오류] {ex.Message}");
             }
-            return null; // 실패 시 null 반환
+            return null;
         }
 
         private bool UpdateProfileImage(string userId, string base64Image)
@@ -711,6 +749,30 @@ namespace server
                     using (SqlCommand cmd = new SqlCommand(query, conn))
                     {
                         cmd.Parameters.AddWithValue("@nickName", newNickname);
+                        cmd.Parameters.AddWithValue("@userId", userId);
+                        int rowsAffected = cmd.ExecuteNonQuery();
+                        return rowsAffected > 0;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"[DB 오류] {ex.Message}");
+                return false;
+            }
+        }
+
+        private bool UpdateMainLanguage(string userId, string newLanguage)
+        {
+            try
+            {
+                using (SqlConnection conn = new SqlConnection(connectionString))
+                {
+                    conn.Open();
+                    string query = "UPDATE UserStats SET mainLanguage = @mainLanguage WHERE userId = @userId";
+                    using (SqlCommand cmd = new SqlCommand(query, conn))
+                    {
+                        cmd.Parameters.AddWithValue("@mainLanguage", newLanguage);
                         cmd.Parameters.AddWithValue("@userId", userId);
                         int rowsAffected = cmd.ExecuteNonQuery();
                         return rowsAffected > 0;

@@ -1,5 +1,4 @@
-﻿using client.quizForm;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -20,13 +19,17 @@ namespace client.FindDifferForm
         private StreamReader reader;
         private StreamWriter writer;
 
-        quizReady quizready;
         FindReady findReady;
         FindForm findForm;
+        FindTutorial findTutorial;
+        
 
         public FindStart()
         {
             InitializeComponent();
+
+            this.FormBorderStyle = FormBorderStyle.FixedSingle;
+            this.Text = "시작 화면";
 
             /*
             // 서버에 바로 연결 (생성자 내부에서 연결)
@@ -39,14 +42,19 @@ namespace client.FindDifferForm
         private void btnStart_Click(object sender, EventArgs e)
         {
             findReady = new FindReady();
-            findReady.Owner = this;
+            //findReady.Owner = this;
             findReady.Show();
+            this.Close();
+            //this.Hide();
+
         }
 
         private void btnTutorial_Click(object sender, EventArgs e)
         {
-            findForm = new FindForm(reader,writer);
-            findForm.Show();
+            findTutorial = new FindTutorial();
+            //findTutorial.Show();
+            findTutorial.Owner = this;
+            findTutorial.ShowDialog();
         }
 
         private void btnExit_Click(object sender, EventArgs e)
