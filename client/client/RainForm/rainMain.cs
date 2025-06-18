@@ -20,10 +20,12 @@ namespace client.RainForm
 
         List<TextBox> Blocks=new List<TextBox>();
 
+        List<string> word_list;
+
         // 예시
-        List<string> word_list = new List<string> { "Console.WriteLine", "Math.Sqrt", "ToString", "StreamReader",
+        /*List<string> word_list = new List<string> { "Console.WriteLine", "Math.Sqrt", "ToString", "StreamReader",
     "List.Add", "string.Split", "File.Open", "DateTime.Now",
-    "Convert.ToInt32", "Thread.Sleep"  };
+    "Convert.ToInt32", "Thread.Sleep"  };*/
 
         Random rand = new Random();
         int make_count = 0;    // 블럭 생성 간격 결정
@@ -46,8 +48,16 @@ namespace client.RainForm
 
             this.FormBorderStyle = FormBorderStyle.FixedSingle;
 
-            if (lang == "C++") { /* C++ 문제로 초기화 */ }
-            else { /* C 문제로 초기화 */ }
+            if (lang == "C++") { /* C++ 문제로 초기화 */
+                word_list = new List<string> { "cout", "cin", "endl", "vector", "map", "set", "string", "getline", 
+                    "push_back", "emplace_back", "size", "begin", "end", "find", "erase", "insert", "sort", "swap", "pair", "make_pair", "unique",
+                    "stack", "queue", "priority_queue", "to_string", "stoi", "stof", "auto", "override", "template", "lambda", "this", "nullptr", "new", "delete", "try", "catch"};
+            }
+            else { /* C 문제로 초기화 */
+                word_list = new List<string> {"printf", "scanf", "fopen", "fclose", "fgets", "fputs", "fprintf",
+                    "malloc", "free", "realloc", "exit", "atoi", "atof", "strlen", "strcpy", "strncpy", "strcmp", "strcat", "strstr", "memcpy",
+                    "memset", "abs", "sqrt", "pow", "ceil", "floor", "sin", "cos", "tan", "log", "time", "clock", "srand", "rand", "qsort", "bsearch" };
+            }
 
             this.DoubleBuffered = true;
             //timer.Start();
@@ -210,6 +220,7 @@ namespace client.RainForm
         private void RestartGame()
         {
             score = 0;
+            level = 1;
             lbScore.Text = "점수: 0";
             lbLevel.Text = "레벨: 1 ";
 
@@ -220,6 +231,8 @@ namespace client.RainForm
             Blocks.Clear();
 
             make_count = 0;
+            blockSpawnInterval = 30;  
+            elapsedTicks = 0;
             StartTimer.Start();
         }
 

@@ -60,14 +60,27 @@ public class CodeGameServer
 
                     if (msg.StartsWith("END"))
                     {
-                        await Task.Delay(50);
+                        //await Task.Delay(50);
                         state.endMsg1 = msg;
 
+                        /*
                         if (!state.resultSent)
                         {
                             state.resultSent = true;
                             string fallback = state.endMsg2 ?? "END 0 B";
                             await BroadcastResult(writer1, writer2, state.endMsg1, fallback);
+                        }*/
+
+                        if (!state.resultSent)
+                        {
+                            await writer2.WriteLineAsync("FORCE_END"); // B에게 강제 종료 유도
+
+                            await WaitForOpponentEndOrTimeout(state, isFirst: true);
+
+                            state.resultSent = true;
+                            string end1 = state.endMsg1;
+                            string end2 = state.endMsg2 ?? "END 0 B";
+                            await BroadcastResult(writer1, writer2, end1, end2);
                         }
                     }
                     else
@@ -95,14 +108,26 @@ public class CodeGameServer
 
                     if (msg.StartsWith("END"))
                     {
-                        await Task.Delay(50);
+                        //await Task.Delay(50);
                         state.endMsg2 = msg;
-
+                        /*
                         if (!state.resultSent)
                         {
                             state.resultSent = true;
                             string fallback = state.endMsg1 ?? "END 0 A";
                             await BroadcastResult(writer1, writer2, fallback, state.endMsg2);
+                        }*/
+
+                        if (!state.resultSent)
+                        {
+                            await writer1.WriteLineAsync("FORCE_END"); // A에게 강제 종료 유도
+
+                            await WaitForOpponentEndOrTimeout(state, isFirst: false);
+
+                            state.resultSent = true;
+                            string end1 = state.endMsg1 ?? "END 0 A";
+                            string end2 = state.endMsg2;
+                            await BroadcastResult(writer1, writer2, end1, end2);
                         }
                     }
                     else
@@ -123,6 +148,26 @@ public class CodeGameServer
         client2.Close();
         Console.WriteLine("[서버] 게임 종료됨. 다음 게임 대기...");
     }
+
+    private static async Task WaitForOpponentEndOrTimeout(GameState state, bool isFirst)
+    {
+        int waited = 0;
+        while (waited < 3000)
+        {
+            if (isFirst)
+            {
+                if (state.endMsg2 != null) break;
+            }
+            else
+            {
+                if (state.endMsg1 != null) break;
+            }
+
+            await Task.Delay(100);
+            waited += 100;
+        }
+    }
+
 
     private static async Task BroadcastResult(StreamWriter w1, StreamWriter w2, string end1, string end2)
     {

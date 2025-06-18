@@ -63,14 +63,14 @@ namespace client.menuControl
                 
                 if (stats[9]=="1")
                 {
-                    lblQuizWinRate.Text = "승리";
+                    lblFoundWinRate.Text = "승리";
                 }else if(stats[9] == "0")
                 {
-                    lblQuizWinRate.Text = "패배";
+                    lblFoundWinRate.Text = "패배";
                 }
                 else
                 {
-                    lblQuizWinRate.Text = "무승부";
+                    lblFoundWinRate.Text = "무승부";
                 }
 
                     // 2. 이미지 데이터 수신 (Base64 문자열, 끝에 ::END::)

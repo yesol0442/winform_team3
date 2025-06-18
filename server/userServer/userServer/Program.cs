@@ -938,7 +938,7 @@ namespace server
 
         private bool UpdateRainMaxScore(string userId, int newScore)
         {
-            string query = @"UPDATE UserStats SET rainMaxScore = @score WHERE userId = @userId;";
+            string query = @"UPDATE UserStats SET rainMaxScore = @score WHERE userId = @userId AND @score > rainMaxScore;";
 
             try
             {
@@ -962,7 +962,7 @@ namespace server
 
         private bool UpdateRainMaxLevel(string userId, int newLevel)
         {
-            string query = @"UPDATE UserStats SET rainMaxLevel = @level WHERE userId = @userId;";
+            string query = @"UPDATE UserStats SET rainMaxLevel = @level WHERE userId = @userId AND @level > rainMaxLevel;";
 
             try
             {

@@ -72,7 +72,7 @@ namespace client
         private void OnRainGameRequested(object sender, EventArgs e)
         {
             rainMain form = new rainMain(this,currentLanguage);
-            form.Show();
+            form.ShowDialog();
         }
 
         private void OnBLockGameRequested(object sender, EventArgs e)
@@ -373,7 +373,7 @@ namespace client
 
             try
             {
-                string message = $"UPDATE_RAINMAXSCORE:{UserId}:{result}";
+                string message = $"UPDATE_FOUNDWINRATE:{UserId}:{result}";
                 await NetworkManager.Instance.SendMessageAsync(message);
                 string response = await NetworkManager.Instance.ReceiveMessageAsync();
 

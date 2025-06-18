@@ -341,6 +341,15 @@ namespace client.FindDifferForm
                     return;
                 }
 
+                if (msg == "FORCE_END")
+                {
+                    string endMsg = $"END {score} {myId}";
+                    writer.WriteLine(endMsg);
+                    writer.Flush();
+                    Console.WriteLine("[클라] FORCE_END 받아서 END 전송함");
+                    return;
+                }
+
                 var gm = CodeGame.Parse(msg);
 
                 if (gm.Type == "CLICK")
