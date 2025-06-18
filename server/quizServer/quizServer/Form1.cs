@@ -13,7 +13,7 @@ using System.Windows.Forms;
 using System.IO;
 using System.Xml.Serialization;
 
-namespace server
+namespace quizServer
 {
     public partial class Form1 : Form
     {
@@ -36,7 +36,7 @@ namespace server
         class UserInfo
         {
             public string userNickname { get; set; }
-            public byte[] userImage { get; set; }
+            public string userImage { get; set; }
         }
 
         UserInfo[] users = new UserInfo[4]; //여기에 클라이언트에서 받은 info 저장!
@@ -50,6 +50,7 @@ namespace server
             public Dictionary<int, TcpClient> playerSockets = new Dictionary<int, TcpClient>(); // playerNum -> TcpClient
             public Dictionary<int, int> playerScores = new Dictionary<int, int>(); // playerNum -> score
             public Dictionary<int, string> playerAnswers = new Dictionary<int, string>(); // playerNum -> answer
+            public Dictionary<int, UserInfo> userInfos = new Dictionary<int, UserInfo>(); // playerNum -> userInfo
 
             public List<(string Question, string Answer)> Questions = new List<(string Question, string Answer)>()
             {
@@ -138,9 +139,6 @@ namespace server
                     {
                         if (!room.GameStarted && room.Players.Count == 4)
                         {
-                            // 모든 클라이언트에게 닉네임 + 이미지 전송
-                            BroadcastToAllClients(room.Players);
-
                             room.GameStarted = true;
 
                             foreach (var p in room.Players)
@@ -182,7 +180,7 @@ namespace server
             StreamReader reader = new StreamReader(stream);
             StreamWriter writer = new StreamWriter(stream) { AutoFlush = true };
 
-            ReceiveFromClient(stream);
+            //ReceiveFromClient(stream);
 
             try
             {
@@ -212,6 +210,27 @@ namespace server
                                 {
                                     JudgeAnswers(room, correctAnswer);
                                 }).Start();
+                            }
+                        }
+                    }
+                    if (message.StartsWith("USER_INFO:"))
+                    {
+                        // 예시: USER_INFO:NICKNAME=철수;IMAGE=dog.png
+                        string data = message.Substring("USER_INFO:".Length);
+                        string[] parts = data.Split(';');
+                        string nickname = parts[0].Split('=')[1];
+                        string image = parts[1].Split('=')[1];
+
+                        var userInfo = new UserInfo { userNickname = nickname, userImage = image };
+
+                        lock (room)
+                        {
+                            room.userInfos[playerNumber] = userInfo;
+
+                            // 모든 유저 정보가 들어오면 브로드캐스트
+                            if (room.userInfos.Count == 4 && room.userInfos.Keys.All(k => room.userInfos[k] != null))
+                            {
+                                BroadcastUserInfos(room);
                             }
                         }
                     }
@@ -349,8 +368,6 @@ namespace server
                 var writer = new StreamWriter(entry.Value.GetStream()) { AutoFlush = true };
                 writer.WriteLine("QUIZ:" + question);
             }
-
-            // 타이머 기반 JudgeAnswers 제거됨
         }
 
         private void AddLog(string msg)
@@ -388,46 +405,30 @@ namespace server
             cleanerThread.Start();
         }
 
-
-
-
-
-        List<(string Nickname, byte[] Image)> allClients = new List<(string Nickname, byte[] Image)>();
-
-        void ReceiveFromClient(NetworkStream stream)
+        private void BroadcastUserInfos(GameRoom room)
         {
-            using (BinaryReader reader = new BinaryReader(stream, Encoding.UTF8, true))
+            StringBuilder sb = new StringBuilder();
+            for (int i = 0; i < 4; i++)
             {
-                int nameLen = reader.ReadInt32();
-                string nickname = new string(reader.ReadChars(nameLen));
-
-                int imageLen = reader.ReadInt32();
-                byte[] image = reader.ReadBytes(imageLen);
-
-                lock (allClients)
+                if (room.userInfos.TryGetValue(i, out UserInfo user))
                 {
-                    allClients.Add((nickname, image));
+                    sb.Append($"{i}={user.userNickname};{user.userImage}|");
                 }
             }
-        }
 
-        void BroadcastToAllClients(List<TcpClient> clients)
-        {
-            foreach (var client in clients)
+            // 맨 마지막 구분자 제거
+            if (sb.Length > 0)
+                sb.Length--;
+
+            string message = "ALL_USERS:" + sb.ToString();
+
+            foreach (var client in room.Players)
             {
-                NetworkStream stream = client.GetStream();
-                using (BinaryWriter writer = new BinaryWriter(stream, Encoding.UTF8, true))
-                {
-                    writer.Write(allClients.Count);
-                    foreach (var data in allClients)
-                    {
-                        writer.Write(data.Nickname.Length);
-                        writer.Write(data.Nickname);
-                        writer.Write(data.Image.Length);
-                        writer.Write(data.Image);
-                    }
-                }
+                var writer = new StreamWriter(client.GetStream()) { AutoFlush = true };
+                writer.WriteLine(message);
             }
+
+            AddLog("모든 유저 정보 전송 완료");
         }
     }
 }

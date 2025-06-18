@@ -14,19 +14,18 @@ namespace client.BlockForm
     public partial class BlockStart : Form
     {
         private string lang;
+        Form1 parentForm;
 
-        public BlockStart(string language)
+        public BlockStart(Form1 main, string language)
         {
             InitializeComponent();
+            parentForm = main;
             lang = language;
-
-            if (lang == "C++") { /* C++ 문제로 초기화 */ }
-            else { /* C 문제로 초기화 */ }
         }
 
         private void btnStart_Click(object sender, EventArgs e)
         {
-            BlockGame blockGame = new BlockGame();
+            BlockGame blockGame = new BlockGame(parentForm, lang);
             blockGame.Show();
         }
 

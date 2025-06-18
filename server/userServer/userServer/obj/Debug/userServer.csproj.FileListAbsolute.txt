@@ -19,3 +19,11 @@ C:\Users\milk0\source\repos\winform_team3\server\userServer\userServer\obj\Debug
 C:\Users\milk0\source\repos\winform_team3\server\userServer\userServer\obj\Debug\userServer.csproj.CoreCompileInputs.cache
 C:\Users\milk0\source\repos\winform_team3\server\userServer\userServer\obj\Debug\userServer.exe
 C:\Users\milk0\source\repos\winform_team3\server\userServer\userServer\obj\Debug\userServer.pdb
+C:\Users\yesol\OneDrive\바탕 화면\250618recent\server\userServer\userServer\bin\Debug\userServer.exe.config
+C:\Users\yesol\OneDrive\바탕 화면\250618recent\server\userServer\userServer\bin\Debug\userServer.exe
+C:\Users\yesol\OneDrive\바탕 화면\250618recent\server\userServer\userServer\bin\Debug\userServer.pdb
+C:\Users\yesol\OneDrive\바탕 화면\250618recent\server\userServer\userServer\obj\Debug\userServer.csproj.AssemblyReference.cache
+C:\Users\yesol\OneDrive\바탕 화면\250618recent\server\userServer\userServer\obj\Debug\userServer.csproj.SuggestedBindingRedirects.cache
+C:\Users\yesol\OneDrive\바탕 화면\250618recent\server\userServer\userServer\obj\Debug\userServer.csproj.CoreCompileInputs.cache
+C:\Users\yesol\OneDrive\바탕 화면\250618recent\server\userServer\userServer\obj\Debug\userServer.exe
+C:\Users\yesol\OneDrive\바탕 화면\250618recent\server\userServer\userServer\obj\Debug\userServer.pdb

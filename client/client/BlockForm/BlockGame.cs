@@ -9,15 +9,11 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Windows.Forms.VisualStyles;
 using System.Threading;
-using client.classes;
-using client.menuControl;
 
 namespace client.BlockForm
 {
     public partial class BlockGame : Form
     {
-        private 환경설정 환경설정컨트롤;
-
         public int time_result;
 
         class Question
@@ -36,21 +32,31 @@ namespace client.BlockForm
             }
         }
 
-        List<Question> question_list = new List<Question>();
+        List<Question> question_list;
         int question_num;
         int blink_num;
         List<String> blink_list;
 
-        public BlockGame()
+        Form1 parentForm;
+
+        public BlockGame(Form1 main, string lang)
         {
             InitializeComponent();
 
-            환경설정컨트롤 = new 환경설정();
-            //환경설정컨트롤.LanguageChanged += 환경설정_LanguageChanged;
+            question_list = new List<Question>();
+            if (lang.Equals("C"))
+            {
+                intialize_question_c();
+            }
+            else if(lang.Equals("C++"))
+            {
+                intialize_question_cpp();
+            }
 
-            intialize_question_cpp();
             complete.Visible = false;
             timer_next.Enabled = false;
+
+            parentForm = main;
 
             question_num = 0;
             blink_num = 0;
@@ -62,14 +68,6 @@ namespace client.BlockForm
 
             NextQuestion();
         }
-
-        /*
-        private void 환경설정_LanguageChanged(object sender, LanguageChangedEventArgs e)
-        {
-            string lang = e.SelectedLanguage;
-
-            // 언어 바뀌었을 때 처리
-        }*/
 
         private void timer_result_Tick(object sender, EventArgs e)
         {
@@ -112,7 +110,7 @@ namespace client.BlockForm
         {
             if (question_num == question_list.Count)
             {
-                BlockResult blockResult = new BlockResult(time_result);
+                BlockResult blockResult = new BlockResult(time_result, parentForm);
                 blockResult.Show();
                 this.Close();
             }
@@ -192,6 +190,17 @@ namespace client.BlockForm
             question_list.Add(new Question(5, "\r\n#include <iostream>\r\nusing namespace std;\r\n\r\nint main() {\r\n    int numbers[] = {3, 7, 2, 9, 5};\r\n    int max = numbers[0];",
                 "\r\n    cout << \"최댓값: \" << max << endl;\r\n    return 0;\r\n}\r\n",
                 new String[] { "for (int i = 1; i < 5; i++)", "{", "if (numbers[i] > max)", "max = numbers[i];", "}" }));
+        }
+
+        private void intialize_question_c()
+        {
+            question_list.Add(new Question(5, "\r\n#include <stdio.h>\r\n\r\nint main() {\r\n    int n;\r\n    printf(\"정수를 입력하세요: \");\r\n    scanf(\"%d\", &n);\r\n\r\n    int result = 1;",
+                "\r\n    return 0;\r\n}",
+                new String[] { "for (int i = 1; i <= n; i++)", "{", "result *= i;", "}", "printf(\"결과: %d\\n\", result);" }));
+
+            question_list.Add(new Question(4, "\r\n#include <stdio.h>\r\n\r\nint main() {\r\n    int arr[] = {1, 2, 3, 4, 5};\r\n    int sum = 0;\r\n",
+                "\r\n    printf(\"합계: %d\\n\", sum);\r\n    return 0;\r\n}\r\n",
+                new String[] { "for (int i = 0; i<5; i++)", "{", "sum+= arr[i];", "}" }));
         }
 
 

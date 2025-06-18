@@ -69,10 +69,9 @@
             // picProfile
             // 
             this.picProfile.ImageRotate = 0F;
-            this.picProfile.Location = new System.Drawing.Point(81, 80);
-            this.picProfile.Margin = new System.Windows.Forms.Padding(5);
+            this.picProfile.Location = new System.Drawing.Point(50, 50);
             this.picProfile.Name = "picProfile";
-            this.picProfile.Size = new System.Drawing.Size(244, 240);
+            this.picProfile.Size = new System.Drawing.Size(150, 150);
             this.picProfile.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
             this.picProfile.TabIndex = 0;
             this.picProfile.TabStop = false;
@@ -81,10 +80,9 @@
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("휴먼옛체", 12F);
-            this.label1.Location = new System.Drawing.Point(75, 360);
-            this.label1.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
+            this.label1.Location = new System.Drawing.Point(46, 225);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(100, 34);
+            this.label1.Size = new System.Drawing.Size(63, 21);
             this.label1.TabIndex = 1;
             this.label1.Text = "이름 :";
             // 
@@ -92,10 +90,9 @@
             // 
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("휴먼옛체", 12F);
-            this.label2.Location = new System.Drawing.Point(75, 424);
-            this.label2.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
+            this.label2.Location = new System.Drawing.Point(46, 265);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(100, 34);
+            this.label2.Size = new System.Drawing.Size(63, 21);
             this.label2.TabIndex = 2;
             this.label2.Text = "타수 :";
             // 
@@ -103,10 +100,9 @@
             // 
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("휴먼옛체", 12F);
-            this.label3.Location = new System.Drawing.Point(75, 488);
-            this.label3.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
+            this.label3.Location = new System.Drawing.Point(46, 305);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(132, 34);
+            this.label3.Size = new System.Drawing.Size(83, 21);
             this.label3.TabIndex = 3;
             this.label3.Text = "정확도 :";
             // 
@@ -114,10 +110,9 @@
             // 
             this.lblNickname.AutoSize = true;
             this.lblNickname.Font = new System.Drawing.Font("휴먼옛체", 12F);
-            this.lblNickname.Location = new System.Drawing.Point(180, 360);
-            this.lblNickname.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
+            this.lblNickname.Location = new System.Drawing.Point(111, 225);
             this.lblNickname.Name = "lblNickname";
-            this.lblNickname.Size = new System.Drawing.Size(111, 34);
+            this.lblNickname.Size = new System.Drawing.Size(70, 21);
             this.lblNickname.TabIndex = 4;
             this.lblNickname.Text = "홍길동";
             // 
@@ -125,10 +120,9 @@
             // 
             this.lblStrokeNumber.AutoSize = true;
             this.lblStrokeNumber.Font = new System.Drawing.Font("휴먼옛체", 12F);
-            this.lblStrokeNumber.Location = new System.Drawing.Point(185, 424);
-            this.lblStrokeNumber.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
+            this.lblStrokeNumber.Location = new System.Drawing.Point(114, 265);
             this.lblStrokeNumber.Name = "lblStrokeNumber";
-            this.lblStrokeNumber.Size = new System.Drawing.Size(98, 34);
+            this.lblStrokeNumber.Size = new System.Drawing.Size(63, 21);
             this.lblStrokeNumber.TabIndex = 5;
             this.lblStrokeNumber.Text = "500타";
             // 
@@ -136,10 +130,9 @@
             // 
             this.lblAccurancy.AutoSize = true;
             this.lblAccurancy.Font = new System.Drawing.Font("휴먼옛체", 12F);
-            this.lblAccurancy.Location = new System.Drawing.Point(217, 488);
-            this.lblAccurancy.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
+            this.lblAccurancy.Location = new System.Drawing.Point(134, 305);
             this.lblAccurancy.Name = "lblAccurancy";
-            this.lblAccurancy.Size = new System.Drawing.Size(90, 34);
+            this.lblAccurancy.Size = new System.Drawing.Size(58, 21);
             this.lblAccurancy.TabIndex = 6;
             this.lblAccurancy.Text = "100%";
             // 
@@ -147,10 +140,9 @@
             // 
             this.label5.AutoSize = true;
             this.label5.Font = new System.Drawing.Font("휴먼옛체", 12F);
-            this.label5.Location = new System.Drawing.Point(75, 552);
-            this.label5.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
+            this.label5.Location = new System.Drawing.Point(46, 345);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(145, 34);
+            this.label5.Size = new System.Drawing.Size(91, 21);
             this.label5.TabIndex = 1;
             this.label5.Text = "주 언어 :";
             // 
@@ -164,31 +156,28 @@
             this.guna2Panel2.Controls.Add(this.guna2Panel1);
             this.guna2Panel2.Controls.Add(this.label9);
             this.guna2Panel2.Controls.Add(this.label8);
-            this.guna2Panel2.Location = new System.Drawing.Point(403, 80);
-            this.guna2Panel2.Margin = new System.Windows.Forms.Padding(5);
+            this.guna2Panel2.Location = new System.Drawing.Point(248, 50);
             this.guna2Panel2.Name = "guna2Panel2";
-            this.guna2Panel2.Size = new System.Drawing.Size(569, 520);
+            this.guna2Panel2.Size = new System.Drawing.Size(350, 325);
             this.guna2Panel2.TabIndex = 8;
             // 
             // lblFoundWinRate
             // 
             this.lblFoundWinRate.AutoSize = true;
-            this.lblFoundWinRate.Location = new System.Drawing.Point(396, 400);
-            this.lblFoundWinRate.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
+            this.lblFoundWinRate.Location = new System.Drawing.Point(274, 250);
             this.lblFoundWinRate.Name = "lblFoundWinRate";
-            this.lblFoundWinRate.Size = new System.Drawing.Size(70, 24);
+            this.lblFoundWinRate.Size = new System.Drawing.Size(22, 15);
             this.lblFoundWinRate.TabIndex = 12;
-            this.lblFoundWinRate.Text = "100%";
+            this.lblFoundWinRate.Text = "승";
             // 
             // label16
             // 
             this.label16.AutoSize = true;
-            this.label16.Location = new System.Drawing.Point(318, 400);
-            this.label16.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
+            this.label16.Location = new System.Drawing.Point(196, 250);
             this.label16.Name = "label16";
-            this.label16.Size = new System.Drawing.Size(66, 24);
+            this.label16.Size = new System.Drawing.Size(72, 15);
             this.label16.TabIndex = 9;
-            this.label16.Text = "승률:";
+            this.label16.Text = "최근기록:";
             // 
             // guna2Panel3
             // 
@@ -198,29 +187,26 @@
             this.guna2Panel3.Controls.Add(this.label13);
             this.guna2Panel3.Controls.Add(this.guna2Panel5);
             this.guna2Panel3.Controls.Add(this.label4);
-            this.guna2Panel3.Location = new System.Drawing.Point(284, 114);
-            this.guna2Panel3.Margin = new System.Windows.Forms.Padding(5);
+            this.guna2Panel3.Location = new System.Drawing.Point(175, 71);
             this.guna2Panel3.Name = "guna2Panel3";
-            this.guna2Panel3.Size = new System.Drawing.Size(284, 205);
+            this.guna2Panel3.Size = new System.Drawing.Size(175, 128);
             this.guna2Panel3.TabIndex = 7;
             // 
             // lblBlockRecord
             // 
             this.lblBlockRecord.AutoSize = true;
-            this.lblBlockRecord.Location = new System.Drawing.Point(159, 85);
-            this.lblBlockRecord.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
+            this.lblBlockRecord.Location = new System.Drawing.Point(98, 53);
             this.lblBlockRecord.Name = "lblBlockRecord";
-            this.lblBlockRecord.Size = new System.Drawing.Size(86, 24);
+            this.lblBlockRecord.Size = new System.Drawing.Size(54, 15);
             this.lblBlockRecord.TabIndex = 7;
             this.lblBlockRecord.Text = "1000초";
             // 
             // label13
             // 
             this.label13.AutoSize = true;
-            this.label13.Location = new System.Drawing.Point(32, 85);
-            this.label13.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
+            this.label13.Location = new System.Drawing.Point(20, 53);
             this.label13.Name = "label13";
-            this.label13.Size = new System.Drawing.Size(114, 24);
+            this.label13.Size = new System.Drawing.Size(72, 15);
             this.label13.TabIndex = 5;
             this.label13.Text = "최단기록:";
             // 
@@ -228,20 +214,18 @@
             // 
             this.guna2Panel5.BorderColor = System.Drawing.Color.Black;
             this.guna2Panel5.BorderThickness = 1;
-            this.guna2Panel5.Location = new System.Drawing.Point(0, 202);
-            this.guna2Panel5.Margin = new System.Windows.Forms.Padding(5);
+            this.guna2Panel5.Location = new System.Drawing.Point(0, 126);
             this.guna2Panel5.Name = "guna2Panel5";
-            this.guna2Panel5.Size = new System.Drawing.Size(284, 205);
+            this.guna2Panel5.Size = new System.Drawing.Size(175, 128);
             this.guna2Panel5.TabIndex = 8;
             // 
             // label4
             // 
             this.label4.AutoSize = true;
             this.label4.Font = new System.Drawing.Font("휴먼옛체", 12F);
-            this.label4.Location = new System.Drawing.Point(32, 22);
-            this.label4.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
+            this.label4.Location = new System.Drawing.Point(20, 14);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(175, 34);
+            this.label4.Size = new System.Drawing.Size(110, 21);
             this.label4.TabIndex = 3;
             this.label4.Text = "블록맞추기";
             // 
@@ -254,49 +238,44 @@
             this.guna2Panel1.Controls.Add(this.label12);
             this.guna2Panel1.Controls.Add(this.label11);
             this.guna2Panel1.Controls.Add(this.label7);
-            this.guna2Panel1.Location = new System.Drawing.Point(0, 114);
-            this.guna2Panel1.Margin = new System.Windows.Forms.Padding(5);
+            this.guna2Panel1.Location = new System.Drawing.Point(0, 71);
             this.guna2Panel1.Name = "guna2Panel1";
-            this.guna2Panel1.Size = new System.Drawing.Size(286, 205);
+            this.guna2Panel1.Size = new System.Drawing.Size(176, 128);
             this.guna2Panel1.TabIndex = 6;
             // 
             // lblRainMaxLevel
             // 
             this.lblRainMaxLevel.AutoSize = true;
-            this.lblRainMaxLevel.Location = new System.Drawing.Point(224, 133);
-            this.lblRainMaxLevel.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
+            this.lblRainMaxLevel.Location = new System.Drawing.Point(138, 83);
             this.lblRainMaxLevel.Name = "lblRainMaxLevel";
-            this.lblRainMaxLevel.Size = new System.Drawing.Size(23, 24);
+            this.lblRainMaxLevel.Size = new System.Drawing.Size(15, 15);
             this.lblRainMaxLevel.TabIndex = 6;
             this.lblRainMaxLevel.Text = "9";
             // 
             // lblRainMaxScore
             // 
             this.lblRainMaxScore.AutoSize = true;
-            this.lblRainMaxScore.Location = new System.Drawing.Point(159, 85);
-            this.lblRainMaxScore.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
+            this.lblRainMaxScore.Location = new System.Drawing.Point(98, 53);
             this.lblRainMaxScore.Name = "lblRainMaxScore";
-            this.lblRainMaxScore.Size = new System.Drawing.Size(73, 24);
+            this.lblRainMaxScore.Size = new System.Drawing.Size(46, 15);
             this.lblRainMaxScore.TabIndex = 5;
             this.lblRainMaxScore.Text = "100점";
             // 
             // label12
             // 
             this.label12.AutoSize = true;
-            this.label12.Location = new System.Drawing.Point(32, 133);
-            this.label12.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
+            this.label12.Location = new System.Drawing.Point(20, 83);
             this.label12.Name = "label12";
-            this.label12.Size = new System.Drawing.Size(178, 24);
+            this.label12.Size = new System.Drawing.Size(112, 15);
             this.label12.TabIndex = 4;
             this.label12.Text = "최고 도달 레벨:";
             // 
             // label11
             // 
             this.label11.AutoSize = true;
-            this.label11.Location = new System.Drawing.Point(32, 85);
-            this.label11.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
+            this.label11.Location = new System.Drawing.Point(20, 53);
             this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(114, 24);
+            this.label11.Size = new System.Drawing.Size(72, 15);
             this.label11.TabIndex = 3;
             this.label11.Text = "최고점수:";
             // 
@@ -304,10 +283,9 @@
             // 
             this.label7.AutoSize = true;
             this.label7.Font = new System.Drawing.Font("휴먼옛체", 12F);
-            this.label7.Location = new System.Drawing.Point(32, 22);
-            this.label7.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
+            this.label7.Location = new System.Drawing.Point(20, 14);
             this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(111, 34);
+            this.label7.Size = new System.Drawing.Size(70, 21);
             this.label7.TabIndex = 2;
             this.label7.Text = "산성비";
             // 
@@ -316,10 +294,9 @@
             this.label9.AutoSize = true;
             this.label9.Font = new System.Drawing.Font("휴먼옛체", 14F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Italic | System.Drawing.FontStyle.Underline))));
             this.label9.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(192)))));
-            this.label9.Location = new System.Drawing.Point(31, 38);
-            this.label9.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
+            this.label9.Location = new System.Drawing.Point(19, 24);
             this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(185, 41);
+            this.label9.Size = new System.Drawing.Size(118, 26);
             this.label9.TabIndex = 0;
             this.label9.Text = "게임 기록";
             // 
@@ -327,10 +304,9 @@
             // 
             this.label8.AutoSize = true;
             this.label8.Font = new System.Drawing.Font("휴먼옛체", 12F);
-            this.label8.Location = new System.Drawing.Point(317, 338);
-            this.label8.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
+            this.label8.Location = new System.Drawing.Point(195, 211);
             this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(207, 34);
+            this.label8.Size = new System.Drawing.Size(130, 21);
             this.label8.TabIndex = 5;
             this.label8.Text = "틀린그림찾기";
             // 
@@ -338,10 +314,9 @@
             // 
             this.label6.AutoSize = true;
             this.label6.Font = new System.Drawing.Font("휴먼옛체", 12F);
-            this.label6.Location = new System.Drawing.Point(32, 22);
-            this.label6.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
+            this.label6.Location = new System.Drawing.Point(20, 14);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(143, 34);
+            this.label6.Size = new System.Drawing.Size(90, 21);
             this.label6.TabIndex = 4;
             this.label6.Text = "퀴즈대결";
             // 
@@ -349,10 +324,9 @@
             // 
             this.lblMainLanguage.AutoSize = true;
             this.lblMainLanguage.Font = new System.Drawing.Font("휴먼옛체", 12F);
-            this.lblMainLanguage.Location = new System.Drawing.Point(230, 552);
-            this.lblMainLanguage.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
+            this.lblMainLanguage.Location = new System.Drawing.Point(142, 345);
             this.lblMainLanguage.Name = "lblMainLanguage";
-            this.lblMainLanguage.Size = new System.Drawing.Size(35, 34);
+            this.lblMainLanguage.Size = new System.Drawing.Size(23, 21);
             this.lblMainLanguage.TabIndex = 9;
             this.lblMainLanguage.Text = "C";
             // 
@@ -365,55 +339,50 @@
             this.guna2Panel4.Controls.Add(this.label15);
             this.guna2Panel4.Controls.Add(this.label14);
             this.guna2Panel4.Controls.Add(this.label6);
-            this.guna2Panel4.Location = new System.Drawing.Point(403, 395);
-            this.guna2Panel4.Margin = new System.Windows.Forms.Padding(5);
+            this.guna2Panel4.Location = new System.Drawing.Point(248, 247);
             this.guna2Panel4.Name = "guna2Panel4";
-            this.guna2Panel4.Size = new System.Drawing.Size(286, 205);
+            this.guna2Panel4.Size = new System.Drawing.Size(176, 128);
             this.guna2Panel4.TabIndex = 7;
             // 
             // lblQuizWinRate
             // 
             this.lblQuizWinRate.AutoSize = true;
-            this.lblQuizWinRate.Location = new System.Drawing.Point(110, 133);
-            this.lblQuizWinRate.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
+            this.lblQuizWinRate.Location = new System.Drawing.Point(102, 83);
             this.lblQuizWinRate.Name = "lblQuizWinRate";
-            this.lblQuizWinRate.Size = new System.Drawing.Size(70, 24);
+            this.lblQuizWinRate.Size = new System.Drawing.Size(30, 15);
             this.lblQuizWinRate.TabIndex = 11;
-            this.lblQuizWinRate.Text = "100%";
+            this.lblQuizWinRate.Text = "4등";
             // 
             // lblQuizMaxScore
             // 
             this.lblQuizMaxScore.AutoSize = true;
-            this.lblQuizMaxScore.Location = new System.Drawing.Point(161, 85);
-            this.lblQuizMaxScore.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
+            this.lblQuizMaxScore.Location = new System.Drawing.Point(99, 53);
             this.lblQuizMaxScore.Name = "lblQuizMaxScore";
-            this.lblQuizMaxScore.Size = new System.Drawing.Size(73, 24);
+            this.lblQuizMaxScore.Size = new System.Drawing.Size(46, 15);
             this.lblQuizMaxScore.TabIndex = 9;
             this.lblQuizMaxScore.Text = "100점";
             // 
             // label15
             // 
             this.label15.AutoSize = true;
-            this.label15.Location = new System.Drawing.Point(32, 133);
-            this.label15.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
+            this.label15.Location = new System.Drawing.Point(20, 83);
             this.label15.Name = "label15";
-            this.label15.Size = new System.Drawing.Size(66, 24);
+            this.label15.Size = new System.Drawing.Size(72, 15);
             this.label15.TabIndex = 10;
-            this.label15.Text = "승률:";
+            this.label15.Text = "최근기록:";
             // 
             // label14
             // 
             this.label14.AutoSize = true;
-            this.label14.Location = new System.Drawing.Point(32, 85);
-            this.label14.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
+            this.label14.Location = new System.Drawing.Point(20, 53);
             this.label14.Name = "label14";
-            this.label14.Size = new System.Drawing.Size(114, 24);
+            this.label14.Size = new System.Drawing.Size(72, 15);
             this.label14.TabIndex = 9;
             this.label14.Text = "최고점수:";
             // 
             // 홈
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(13F, 24F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ControlLight;
             this.Controls.Add(this.lblMainLanguage);
@@ -427,8 +396,9 @@
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.picProfile);
+            this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "홈";
-            this.Size = new System.Drawing.Size(1050, 690);
+            this.Size = new System.Drawing.Size(646, 431);
             ((System.ComponentModel.ISupportInitialize)(this.picProfile)).EndInit();
             this.guna2Panel2.ResumeLayout(false);
             this.guna2Panel2.PerformLayout();

@@ -20,18 +20,25 @@ namespace client.quizForm
         TcpClient client;
         NetworkStream stream;
 
-        int playerNum;
+        Form1 parentForm;
 
-        public quizReady()
+        int playerNum;
+        private string userNickname, user64Image;
+
+        public quizReady(string nickname, string user64image, Form1 parentForm)
         {
             InitializeComponent();
             client = new TcpClient();
             client.Connect("127.0.0.1", 8888); // 서버 IP 주소
             stream = client.GetStream();
 
+            userNickname = nickname;
+            user64Image = user64image;
+
             Thread receiveThread = new Thread(ReceiveData);
             receiveThread.IsBackground = true;
             receiveThread.Start();
+            this.parentForm = parentForm;
         }
 
         private void guna2Button1_Click(object sender, EventArgs e)
@@ -117,7 +124,7 @@ namespace client.quizForm
             }
 
             // 기존 TcpClient 전달
-            quizForm quiz = new quizForm(client, stream, playerNum);
+            quizForm quiz = new quizForm(client, stream, playerNum, userNickname, user64Image, parentForm);
             quiz.Show();
             this.Close();
         }

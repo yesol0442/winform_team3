@@ -986,7 +986,7 @@ namespace server
 
         private bool UpdateBlockRecord(string userId, float newRecord)
         {
-            string query = @"UPDATE UserStats SET blockRecord = @record WHERE userId = @userId;";
+            string query = @"UPDATE UserStats SET blockRecord = @record WHERE userId = @userId AND @record < blockRecord;";
 
             try
             {
@@ -1010,7 +1010,7 @@ namespace server
 
         private bool UpdateQuizMaxScore(string userId, int newScore)
         {
-            string query = @"UPDATE UserStats SET quizMaxScore = @score WHERE userId = @userId;";
+            string query = @"UPDATE UserStats SET quizMaxScore = @score WHERE userId = @userId AND @score > quizMaxScore;";
 
             try
             {

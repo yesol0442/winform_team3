@@ -46,10 +46,6 @@
             this.label3 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
-            this.guna2HtmlLabel7 = new Guna.UI2.WinForms.Guna2HtmlLabel();
-            this.guna2HtmlLabel6 = new Guna.UI2.WinForms.Guna2HtmlLabel();
-            this.guna2HtmlLabel5 = new Guna.UI2.WinForms.Guna2HtmlLabel();
-            this.guna2HtmlLabel4 = new Guna.UI2.WinForms.Guna2HtmlLabel();
             this.pic_sb4 = new Guna.UI2.WinForms.Guna2PictureBox();
             this.pic_sb3 = new Guna.UI2.WinForms.Guna2PictureBox();
             this.pic_sb2 = new Guna.UI2.WinForms.Guna2PictureBox();
@@ -62,6 +58,10 @@
             this.txt_question = new Guna.UI2.WinForms.Guna2TextBox();
             this.quizStartTimer = new System.Windows.Forms.Timer(this.components);
             this.answerReadyTimer = new System.Windows.Forms.Timer(this.components);
+            this.pname1 = new System.Windows.Forms.Label();
+            this.pname2 = new System.Windows.Forms.Label();
+            this.pname3 = new System.Windows.Forms.Label();
+            this.pname4 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.pic_sb4)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pic_sb3)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pic_sb2)).BeginInit();
@@ -255,54 +255,6 @@
             this.label1.TabIndex = 61;
             this.label1.Text = "점수:";
             // 
-            // guna2HtmlLabel7
-            // 
-            this.guna2HtmlLabel7.BackColor = System.Drawing.Color.Transparent;
-            this.guna2HtmlLabel7.Font = new System.Drawing.Font("휴먼옛체", 11F, System.Drawing.FontStyle.Bold);
-            this.guna2HtmlLabel7.ForeColor = System.Drawing.Color.DarkGoldenrod;
-            this.guna2HtmlLabel7.Location = new System.Drawing.Point(608, 321);
-            this.guna2HtmlLabel7.Name = "guna2HtmlLabel7";
-            this.guna2HtmlLabel7.Size = new System.Drawing.Size(26, 21);
-            this.guna2HtmlLabel7.TabIndex = 60;
-            this.guna2HtmlLabel7.Text = "4P";
-            this.guna2HtmlLabel7.TextAlignment = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // guna2HtmlLabel6
-            // 
-            this.guna2HtmlLabel6.BackColor = System.Drawing.Color.Transparent;
-            this.guna2HtmlLabel6.Font = new System.Drawing.Font("휴먼옛체", 11F, System.Drawing.FontStyle.Bold);
-            this.guna2HtmlLabel6.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(192)))));
-            this.guna2HtmlLabel6.Location = new System.Drawing.Point(438, 321);
-            this.guna2HtmlLabel6.Name = "guna2HtmlLabel6";
-            this.guna2HtmlLabel6.Size = new System.Drawing.Size(26, 21);
-            this.guna2HtmlLabel6.TabIndex = 59;
-            this.guna2HtmlLabel6.Text = "3P";
-            this.guna2HtmlLabel6.TextAlignment = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // guna2HtmlLabel5
-            // 
-            this.guna2HtmlLabel5.BackColor = System.Drawing.Color.Transparent;
-            this.guna2HtmlLabel5.Font = new System.Drawing.Font("휴먼옛체", 11F, System.Drawing.FontStyle.Bold);
-            this.guna2HtmlLabel5.ForeColor = System.Drawing.Color.Green;
-            this.guna2HtmlLabel5.Location = new System.Drawing.Point(268, 321);
-            this.guna2HtmlLabel5.Name = "guna2HtmlLabel5";
-            this.guna2HtmlLabel5.Size = new System.Drawing.Size(26, 21);
-            this.guna2HtmlLabel5.TabIndex = 58;
-            this.guna2HtmlLabel5.Text = "2P";
-            this.guna2HtmlLabel5.TextAlignment = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // guna2HtmlLabel4
-            // 
-            this.guna2HtmlLabel4.BackColor = System.Drawing.Color.Transparent;
-            this.guna2HtmlLabel4.Font = new System.Drawing.Font("휴먼옛체", 11F, System.Drawing.FontStyle.Bold);
-            this.guna2HtmlLabel4.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.guna2HtmlLabel4.Location = new System.Drawing.Point(98, 321);
-            this.guna2HtmlLabel4.Name = "guna2HtmlLabel4";
-            this.guna2HtmlLabel4.Size = new System.Drawing.Size(26, 21);
-            this.guna2HtmlLabel4.TabIndex = 57;
-            this.guna2HtmlLabel4.Text = "1P";
-            this.guna2HtmlLabel4.TextAlignment = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
             // pic_sb4
             // 
             this.pic_sb4.BackColor = System.Drawing.SystemColors.Control;
@@ -364,6 +316,7 @@
             this.txt_answer.SelectedText = "";
             this.txt_answer.Size = new System.Drawing.Size(230, 45);
             this.txt_answer.TabIndex = 52;
+            this.txt_answer.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txt_answer_KeyDown);
             // 
             // playerPic4
             // 
@@ -431,11 +384,59 @@
             this.answerReadyTimer.Interval = 1000;
             this.answerReadyTimer.Tick += new System.EventHandler(this.answerReadyTimer_Tick);
             // 
+            // pname1
+            // 
+            this.pname1.AutoSize = true;
+            this.pname1.Font = new System.Drawing.Font("휴먼옛체", 10.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.pname1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.pname1.Location = new System.Drawing.Point(94, 321);
+            this.pname1.Name = "pname1";
+            this.pname1.Size = new System.Drawing.Size(32, 19);
+            this.pname1.TabIndex = 78;
+            this.pname1.Text = "1P";
+            // 
+            // pname2
+            // 
+            this.pname2.AutoSize = true;
+            this.pname2.Font = new System.Drawing.Font("휴먼옛체", 10.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.pname2.ForeColor = System.Drawing.Color.Blue;
+            this.pname2.Location = new System.Drawing.Point(264, 321);
+            this.pname2.Name = "pname2";
+            this.pname2.Size = new System.Drawing.Size(32, 19);
+            this.pname2.TabIndex = 79;
+            this.pname2.Text = "2P";
+            // 
+            // pname3
+            // 
+            this.pname3.AutoSize = true;
+            this.pname3.Font = new System.Drawing.Font("휴먼옛체", 10.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.pname3.ForeColor = System.Drawing.Color.Goldenrod;
+            this.pname3.Location = new System.Drawing.Point(434, 321);
+            this.pname3.Name = "pname3";
+            this.pname3.Size = new System.Drawing.Size(32, 19);
+            this.pname3.TabIndex = 80;
+            this.pname3.Text = "3P";
+            // 
+            // pname4
+            // 
+            this.pname4.AutoSize = true;
+            this.pname4.Font = new System.Drawing.Font("휴먼옛체", 10.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.pname4.ForeColor = System.Drawing.Color.Green;
+            this.pname4.Location = new System.Drawing.Point(604, 321);
+            this.pname4.Name = "pname4";
+            this.pname4.Size = new System.Drawing.Size(32, 19);
+            this.pname4.TabIndex = 81;
+            this.pname4.Text = "4P";
+            // 
             // quizForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.pname4);
+            this.Controls.Add(this.pname3);
+            this.Controls.Add(this.pname2);
+            this.Controls.Add(this.pname1);
             this.Controls.Add(this.lbl_timer);
             this.Controls.Add(this.playerAnswer4);
             this.Controls.Add(this.playerAnswer3);
@@ -453,10 +454,6 @@
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
-            this.Controls.Add(this.guna2HtmlLabel7);
-            this.Controls.Add(this.guna2HtmlLabel6);
-            this.Controls.Add(this.guna2HtmlLabel5);
-            this.Controls.Add(this.guna2HtmlLabel4);
             this.Controls.Add(this.pic_sb4);
             this.Controls.Add(this.pic_sb3);
             this.Controls.Add(this.pic_sb2);
@@ -501,10 +498,6 @@
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label1;
-        private Guna.UI2.WinForms.Guna2HtmlLabel guna2HtmlLabel7;
-        private Guna.UI2.WinForms.Guna2HtmlLabel guna2HtmlLabel6;
-        private Guna.UI2.WinForms.Guna2HtmlLabel guna2HtmlLabel5;
-        private Guna.UI2.WinForms.Guna2HtmlLabel guna2HtmlLabel4;
         private Guna.UI2.WinForms.Guna2PictureBox pic_sb4;
         private Guna.UI2.WinForms.Guna2PictureBox pic_sb3;
         private Guna.UI2.WinForms.Guna2PictureBox pic_sb2;
@@ -517,5 +510,9 @@
         private Guna.UI2.WinForms.Guna2TextBox txt_question;
         private System.Windows.Forms.Timer quizStartTimer;
         private System.Windows.Forms.Timer answerReadyTimer;
+        private System.Windows.Forms.Label pname1;
+        private System.Windows.Forms.Label pname2;
+        private System.Windows.Forms.Label pname3;
+        private System.Windows.Forms.Label pname4;
     }
 }

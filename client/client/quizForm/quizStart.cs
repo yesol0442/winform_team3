@@ -15,14 +15,22 @@ namespace client.quizForm
         quizReady quizready;
         quizForm quizform;
 
-        public quizStart()
+        Form1 parentForm;
+
+        private string userNickname;
+        private string user64Image;
+
+        public quizStart(string nickname, string user64image, Form1 parentForm)
         {
             InitializeComponent();
+            userNickname = nickname;
+            user64Image = user64image;
+            this.parentForm = parentForm;
         }
 
         private void btnStart_Click(object sender, EventArgs e)
         {
-            quizready = new quizReady();
+            quizready = new quizReady(userNickname, user64Image, parentForm);
             quizready.ShowDialog();
         }
 
