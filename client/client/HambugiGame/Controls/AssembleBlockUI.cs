@@ -10,11 +10,30 @@ using System.Windows.Forms;
 
 namespace client.HambugiGame.Controls
 {
-    public partial class AssembleBlockUI : UserControl
+    public partial class AssembleBlockUI : UserControl, ICloneable
     {
+        public bool CanDrag { get; set; } = true;
+        public string DragTag { get; protected set; } = "Default";
+
         public AssembleBlockUI()
         {
             InitializeComponent();
+            DragTag = "AssembleBlockUI";
+            MouseDown += OnMouseDownStartDrag;
         }
+
+        private void OnMouseDownStartDrag(object sender, MouseEventArgs e)
+        {
+            if (!CanDrag) return;
+            if (e.Button != MouseButtons.Left) return;
+
+            var data = new DataObject();
+            data.SetData(DataFormats.StringFormat, DragTag);
+            data.SetData(typeof(ICloneable), this);
+
+            DoDragDrop(data, DragDropEffects.Copy);
+        }
+        public object Clone() => new AssembleBlockUI();
+        
     }
 }

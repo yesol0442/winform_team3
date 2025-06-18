@@ -10,11 +10,60 @@ using System.Windows.Forms;
 
 namespace client.HambugiGame.Controls
 {
-    public partial class GrillBlockUI : UserControl
+    public partial class GrillBlockUI : UserControl, ICloneable
     {
+        public bool CanDrag { get; set; } = true;
+        public string DragTag { get; protected set; } = "GrillBlockUI";
         public GrillBlockUI()
         {
             InitializeComponent();
+            MouseDown += OnMouseDownStartDrag;
+
+            DragEnter += A_DragEnter;
+            DragLeave += (s, e) => Invalidate();
+            DragDrop += A_DragDrop;
+        }
+        private void OnMouseDownStartDrag(object sender, MouseEventArgs e)
+        {
+            if (!CanDrag) return;
+            if (e.Button != MouseButtons.Left) return;
+
+            var data = new DataObject();
+            data.SetData(DataFormats.StringFormat, DragTag);
+            data.SetData(typeof(ICloneable), this);
+
+            DoDragDrop(data, DragDropEffects.Copy);
+        }
+        public object Clone() => new GrillBlockUI();
+
+        private void A_DragEnter(object sender, DragEventArgs e)
+        {
+            if (CanDrag) return;
+            bool isOk = false;
+
+            if (e.Data.GetDataPresent(DataFormats.StringFormat))
+            {
+                string tag = e.Data.GetData(DataFormats.StringFormat) as string;
+                isOk = tag == "IngredientBlockUI";
+            }
+
+            e.Effect = isOk ? DragDropEffects.Copy : DragDropEffects.None;
+            if (isOk) Invalidate();
+        }
+
+        private void A_DragDrop(object sender, DragEventArgs e)
+        {
+            if (CanDrag) return;
+            Invalidate();
+
+            string tag = e.Data.GetData(DataFormats.StringFormat) as string;
+            if (tag != "IngredientBlockUI") return;
+
+
+            var src = e.Data.GetData(typeof(IngredientBlockUI)) as IngredientBlockUI;
+            if (src == null) return;
+
+            pictureBox1.Image = src.image;
         }
     }
 }

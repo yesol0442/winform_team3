@@ -10,42 +10,79 @@ using System.Windows.Forms;
 
 namespace client.HambugiGame.Controls
 {
-    public partial class RepeatBlockUI : UserControl
+    public partial class RepeatBlockUI : UserControl, ICloneable
     {
+        public bool CanDrag { get; set; } = true;
+        public string DragTag { get; protected set; } = "RepeatBlockUI";
+
         public RepeatBlockUI()
         {
             InitializeComponent();
-            this.DragEnter += MyContainer_DragEnter;
-            this.DragDrop += MyContainer_DragDrop;
+
+            flowLayoutPanel1.FlowDirection = FlowDirection.TopDown;
+
+            MouseDown += OnMouseDownStartDrag;
+
+            DragEnter += A_DragEnter;
+            DragLeave += (s, e) => Invalidate();
+            DragDrop += A_DragDrop;
         }
+
+        private void OnMouseDownStartDrag(object sender, MouseEventArgs e)
+        {
+            if (!CanDrag) return;
+            if (e.Button != MouseButtons.Left) return;
+
+            var data = new DataObject();
+            data.SetData(DataFormats.StringFormat, DragTag);
+            data.SetData(typeof(ICloneable), this);
+
+            DoDragDrop(data, DragDropEffects.Copy);
+        }
+        public object Clone() => new RepeatBlockUI();
 
         private void textBox1_KeyPress(object sender, KeyPressEventArgs e)
         {
+            if (!CanDrag) return;
             if (!char.IsDigit(e.KeyChar) && !char.IsControl(e.KeyChar))
             {
                 e.Handled = true;
             }
         }
 
-        private void MyContainer_DragEnter(object sender, DragEventArgs e)
+        private void A_DragEnter(object sender, DragEventArgs e)
         {
-            if (e.Data.GetDataPresent(typeof(Control)))
+            if (CanDrag) return;
+            bool isOk = false;
+
+            if (e.Data.GetDataPresent(DataFormats.StringFormat))
             {
-                e.Effect = DragDropEffects.Move;
+                string tag = e.Data.GetData(DataFormats.StringFormat) as string;
+                isOk = (tag != "IngredientBlockUI");
             }
-            else
-            {
-                e.Effect = DragDropEffects.None;
-            }
+
+            e.Effect = isOk ? DragDropEffects.Copy : DragDropEffects.None;
+            if (isOk) Invalidate();
         }
 
-        private void MyContainer_DragDrop(object sender, DragEventArgs e)
+        private void A_DragDrop(object sender, DragEventArgs e)
         {
-            Control droppedControl = (Control)e.Data.GetData(typeof(Control));
+            if (CanDrag) return;
+            Invalidate();
 
-            droppedControl.Parent.Controls.Remove(droppedControl);
+            string tag = e.Data.GetData(DataFormats.StringFormat) as string;
+            if (tag == "IngredientBlockUI") return;
 
-            flowLayoutPanel1.Controls.Add(droppedControl);
+
+            var src = e.Data.GetData(typeof(ICloneable)) as ICloneable;
+            var copy = src.Clone() as Control;
+            flowLayoutPanel1.Controls.Add(copy);
+
+
+            Point pt = PointToClient(new Point(e.X, e.Y));
+            pt.Offset(-copy.Width / 2, -copy.Height / 2);
+            copy.Location = pt;
+            flowLayoutPanel1.Controls.Add(copy);
         }
     }
 }
