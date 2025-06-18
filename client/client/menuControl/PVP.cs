@@ -40,7 +40,7 @@ namespace client.menuControl
 
         private void btnFindDiff_Click(object sender, EventArgs e)
         {
-            findStart = new FindStart();
+            findStart = new FindStart(parentForm);
             findStart.Show();
         }
 

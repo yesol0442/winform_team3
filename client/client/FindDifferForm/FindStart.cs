@@ -22,11 +22,13 @@ namespace client.FindDifferForm
         FindReady findReady;
         FindForm findForm;
         FindTutorial findTutorial;
-        
+        Form1 Form1;
 
-        public FindStart()
+        public FindStart(Form1 form1)
         {
             InitializeComponent();
+
+            this.Form1 = form1;
 
             this.FormBorderStyle = FormBorderStyle.FixedSingle;
             this.Text = "시작 화면";
@@ -41,7 +43,7 @@ namespace client.FindDifferForm
 
         private void btnStart_Click(object sender, EventArgs e)
         {
-            findReady = new FindReady();
+            findReady = new FindReady(Form1);
             //findReady.Owner = this;
             findReady.Show();
             this.Close();
@@ -51,7 +53,7 @@ namespace client.FindDifferForm
 
         private void btnTutorial_Click(object sender, EventArgs e)
         {
-            findTutorial = new FindTutorial();
+            findTutorial = new FindTutorial(Form1);
             //findTutorial.Show();
             findTutorial.Owner = this;
             findTutorial.ShowDialog();

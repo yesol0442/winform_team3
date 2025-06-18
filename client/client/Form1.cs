@@ -71,7 +71,7 @@ namespace client
 
         private void OnRainGameRequested(object sender, EventArgs e)
         {
-            rainMain form = new rainMain(currentLanguage);
+            rainMain form = new rainMain(this,currentLanguage);
             form.Show();
         }
 
@@ -296,6 +296,99 @@ namespace client
             catch (Exception ex)
             {
                 MessageBox.Show($"블록기록 업데이트 중 오류 발생: {ex.Message}", "오류", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+
+        public async Task SaveRainResult(int score, int level)
+        {
+            string UserId = UserSession.Instance.UserId;
+
+            // 점수
+            if (string.IsNullOrEmpty(UserId))
+            {
+                MessageBox.Show("사용자 ID가 설정되지 않았습니다.", "오류", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
+            try
+            {
+                string message1 = $"UPDATE_RAINMAXSCORE:{UserId}:{score}";
+                await NetworkManager.Instance.SendMessageAsync(message1);
+                string response = await NetworkManager.Instance.ReceiveMessageAsync();
+
+                if (response == "OK")
+                {
+                    MessageBox.Show("산성비 점수가 업데이트되었습니다..", "변경 완료", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+                else
+                {
+                    MessageBox.Show("산성비 점수 업데이트 실패: " + response);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"산성비 점수 업데이트 중 오류 발생: {ex.Message}", "오류", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+
+            // 레벨
+            if (string.IsNullOrEmpty(UserId))
+            {
+                MessageBox.Show("사용자 ID가 설정되지 않았습니다.", "오류", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
+            try
+            {
+                string message2 = $"UPDATE_RAINMAXLEVEL:{UserId}:{level}";
+                await NetworkManager.Instance.SendMessageAsync(message2);
+                string response = await NetworkManager.Instance.ReceiveMessageAsync();
+
+                if (response == "OK")
+                {
+                    MessageBox.Show("산성비 레벨이 업데이트되었습니다..", "변경 완료", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+                else
+                {
+                    MessageBox.Show("산성비 레벨 업데이트 실패: " + response);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"산성비 레벨 업데이트 중 오류 발생: {ex.Message}", "오류", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+
+
+
+        public async Task SaveCodeFindResult(float result)
+        {
+            string UserId = UserSession.Instance.UserId;
+            if (string.IsNullOrEmpty(UserId))
+            {
+                MessageBox.Show("사용자 ID가 설정되지 않았습니다.", "오류", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
+            try
+            {
+                string message = $"UPDATE_RAINMAXSCORE:{UserId}:{result}";
+                await NetworkManager.Instance.SendMessageAsync(message);
+                string response = await NetworkManager.Instance.ReceiveMessageAsync();
+
+                if (response == "OK")
+                {
+                    MessageBox.Show("틀코찾 점수가 업데이트되었습니다..", "변경 완료", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+                else
+                {
+                    MessageBox.Show("틀코찾 점수 업데이트 실패: " + response);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"틀코찾 점수 업데이트 중 오류 발생: {ex.Message}", "오류", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 

@@ -14,13 +14,27 @@ namespace client.RainForm
     {
         public bool RestartRequested { get; private set; } = false;
 
-        public GameOver(int finalScore)
+        Form1 Form1;
+        private int finalScore;
+        private int finalLevel;
+
+        public GameOver(int finalScore, int finalLevel, Form1 form1)
         {
             InitializeComponent();
+
+            this.Form1 = form1;
+
+            this.finalScore = finalScore;
+            this.finalLevel = finalLevel;
+
             this.FormBorderStyle = FormBorderStyle.FixedSingle;
             this.Text = "게임 오버";
 
             lbFinalScore.Text=$"점수: {finalScore}점";
+
+            lbLevel.Text = $"레벨: {finalLevel}";
+
+            OnGameEnd(form1);
         }
 
         private void restartBtn_Click(object sender, EventArgs e)
@@ -33,6 +47,12 @@ namespace client.RainForm
         {
             RestartRequested = false;
             this.Close();
+        }
+
+        private async void OnGameEnd(Form1 form)
+        {
+            await form.SaveRainResult(finalScore, finalLevel);
+
         }
     }
 }

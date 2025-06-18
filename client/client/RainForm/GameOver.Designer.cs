@@ -32,13 +32,14 @@
             this.label2 = new System.Windows.Forms.Label();
             this.restartBtn = new Guna.UI2.WinForms.Guna2Button();
             this.exitBtn = new Guna.UI2.WinForms.Guna2Button();
+            this.lbLevel = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // lbFinalScore
             // 
             this.lbFinalScore.AutoSize = true;
             this.lbFinalScore.Font = new System.Drawing.Font("휴먼옛체", 12F);
-            this.lbFinalScore.Location = new System.Drawing.Point(293, 199);
+            this.lbFinalScore.Location = new System.Drawing.Point(205, 192);
             this.lbFinalScore.Name = "lbFinalScore";
             this.lbFinalScore.Size = new System.Drawing.Size(100, 34);
             this.lbFinalScore.TabIndex = 0;
@@ -48,7 +49,7 @@
             // 
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("휴먼옛체", 20F);
-            this.label2.Location = new System.Drawing.Point(256, 100);
+            this.label2.Location = new System.Drawing.Point(256, 69);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(263, 57);
             this.label2.TabIndex = 1;
@@ -92,11 +93,22 @@
             this.exitBtn.Text = "끝내기";
             this.exitBtn.Click += new System.EventHandler(this.exitBtn_Click);
             // 
+            // lbLevel
+            // 
+            this.lbLevel.AutoSize = true;
+            this.lbLevel.Font = new System.Drawing.Font("휴먼옛체", 12F);
+            this.lbLevel.Location = new System.Drawing.Point(439, 192);
+            this.lbLevel.Name = "lbLevel";
+            this.lbLevel.Size = new System.Drawing.Size(100, 34);
+            this.lbLevel.TabIndex = 6;
+            this.lbLevel.Text = "레벨: ";
+            // 
             // GameOver
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(13F, 24F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.lbLevel);
             this.Controls.Add(this.exitBtn);
             this.Controls.Add(this.restartBtn);
             this.Controls.Add(this.label2);
@@ -114,5 +126,6 @@
         private System.Windows.Forms.Label label2;
         private Guna.UI2.WinForms.Guna2Button restartBtn;
         private Guna.UI2.WinForms.Guna2Button exitBtn;
+        private System.Windows.Forms.Label lbLevel;
     }
 }

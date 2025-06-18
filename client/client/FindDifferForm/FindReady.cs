@@ -18,10 +18,12 @@ namespace client.FindDifferForm
         private StreamWriter writer;
 
         FindForm findForm;
+        Form1 Form1;
 
-        public FindReady()
+        public FindReady(Form1 form1)
         {
             InitializeComponent();
+            this.Form1 = form1;
 
             this.FormBorderStyle = FormBorderStyle.FixedSingle;
             this.Text = "대기 화면";
@@ -78,7 +80,7 @@ namespace client.FindDifferForm
                     await Task.Delay(1000);
                     Invoke((Action)(() =>
                     {
-                        var findForm = new FindForm(reader, writer,playerId);
+                        var findForm = new FindForm(reader, writer,playerId,Form1);
                         findForm.Show();
                         this.Hide();  // 대기창 숨김
                     }));
@@ -94,7 +96,7 @@ namespace client.FindDifferForm
 
         private void FindReady_FormClosed(object sender, FormClosedEventArgs e)
         {
-            var start = new FindStart();
+            var start = new FindStart(Form1);
             start.Show();
         }
     }

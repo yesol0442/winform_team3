@@ -16,21 +16,35 @@ namespace client.RainForm
     public partial class rainMain : Form
     {
         private string lang;
+        Form1 Form1;
 
         List<TextBox> Blocks=new List<TextBox>();
 
         // 예시
-        List<string> word_list = new List<string> { "사과", "핸드폰", "커피", "물티슈", "마우스" };  
+        List<string> word_list = new List<string> { "Console.WriteLine", "Math.Sqrt", "ToString", "StreamReader",
+    "List.Add", "string.Split", "File.Open", "DateTime.Now",
+    "Convert.ToInt32", "Thread.Sleep"  };
+
         Random rand = new Random();
         int make_count = 0;    // 블럭 생성 간격 결정
         int score = 0;
         int countdownValue = 3;
         int index = 0;
+        int blockSpawnInterval = 30;   // 블록 생성 간격
+        int elapsedTicks = 0;          // 경과 틱 누적
+        int ticksPerMinute = 100;     // 1분마다 체크
+        int level = 1;
 
-        public rainMain(string language)
+        Label levelUpLabel = null;
+        Timer levelUpTimer = new Timer(); // 숨김 타이머
+
+        public rainMain(Form1 form1,string language)
         {
             InitializeComponent();
             lang = language;
+            this.Form1 = form1;
+
+            this.FormBorderStyle = FormBorderStyle.FixedSingle;
 
             if (lang == "C++") { /* C++ 문제로 초기화 */ }
             else { /* C 문제로 초기화 */ }
@@ -43,6 +57,25 @@ namespace client.RainForm
             lbCount.BackColor = Color.Transparent;
             lbCount.Location = new Point((this.ClientSize.Width - 60) / 2, (this.ClientSize.Height - 60) / 2);
             StartTimer.Start();
+
+            // "Level Up!" 라벨 생성 및 설정
+            levelUpLabel = new Label();
+            levelUpLabel.Text = "LEVEL UP!";
+            levelUpLabel.Font = new Font("휴먼옛체", 28, FontStyle.Bold);
+            levelUpLabel.ForeColor = Color.Gold;
+            levelUpLabel.BackColor = Color.Transparent;
+            levelUpLabel.AutoSize = true;
+            levelUpLabel.Visible = false;
+
+            this.Controls.Add(levelUpLabel);
+
+            // 숨김용 타이머 설정
+            levelUpTimer.Interval = 1500; // 1.5초 후 숨김
+            levelUpTimer.Tick += (s, e) =>
+            {
+                levelUpLabel.Visible = false;
+                levelUpTimer.Stop();
+            };
         }
 
         private void 환경설정_LanguageChanged(object sender, LanguageChangedEventArgs e)
@@ -55,8 +88,32 @@ namespace client.RainForm
         private void timer_Tick(object sender, EventArgs e)
         {
             make_count++;
+            elapsedTicks++;
 
-            if (make_count % 30 == 1)
+            if (elapsedTicks >= ticksPerMinute)
+            {
+                if (blockSpawnInterval > 10) // 생성 간격 최소값 제한
+                {
+                    blockSpawnInterval -= 5; // 더 자주 생성되도록 간격 줄이기
+                }
+
+
+                level++; // 레벨 증가
+                lbLevel.Text = $"레벨: {level}"; // 라벨 갱신
+
+
+                levelUpLabel.Visible = true;
+                levelUpLabel.Location = new Point(
+                    (this.ClientSize.Width - levelUpLabel.Width) / 2,
+                    (this.ClientSize.Height - levelUpLabel.Height) / 2 - 60
+                );
+                levelUpLabel.BringToFront();
+                levelUpTimer.Start();
+
+                elapsedTicks = 0;
+            }
+
+            if (make_count % blockSpawnInterval == 1)
             {
                 if (index >= word_list.Count)
                 {
@@ -135,7 +192,7 @@ namespace client.RainForm
         {
             timer.Stop();
 
-            GameOver gameOver = new GameOver(score);
+            GameOver gameOver = new GameOver(score, level, Form1);
             gameOver.StartPosition = FormStartPosition.CenterParent;
             gameOver.ShowDialog();
 
@@ -154,6 +211,7 @@ namespace client.RainForm
         {
             score = 0;
             lbScore.Text = "점수: 0";
+            lbLevel.Text = "레벨: 1 ";
 
             foreach (var block in Blocks)
             {

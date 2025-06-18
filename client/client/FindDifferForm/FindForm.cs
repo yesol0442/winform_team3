@@ -17,6 +17,7 @@ namespace client.FindDifferForm
 {
     public partial class FindForm : Form
     {
+        Form1 Form1;
         private int score = 0;  // 점수 저장
 
         // 틀린 줄 번호 (0부터 시작)
@@ -45,7 +46,7 @@ namespace client.FindDifferForm
         private Label lbStatus;
 
 
-        public FindForm(StreamReader reader, StreamWriter writer, string myId)
+        public FindForm(StreamReader reader, StreamWriter writer, string myId,Form1 form1)
         {
 
             this.writer = writer;
@@ -53,6 +54,8 @@ namespace client.FindDifferForm
 
 
             InitializeComponent();
+
+            this.Form1 = form1;
 
             this.FormBorderStyle = FormBorderStyle.FixedSingle;
 
@@ -322,7 +325,16 @@ namespace client.FindDifferForm
                 {
                     string resultText = msg.Substring(7).Trim().Replace("\\n", "\n");
 
-                    var endForm = new FindEnd(resultText);
+                    string result;
+
+                    if (resultText.Contains("승리"))
+                        result = "승리";
+                    else if (resultText.Contains("패배"))
+                        result = "패배";
+                    else
+                        result = "무승부";
+
+                    var endForm = new FindEnd(resultText,result,Form1);
                     endForm.ShowDialog();
 
                     this.Close(); // 게임 화면 닫기
@@ -351,7 +363,7 @@ namespace client.FindDifferForm
 
         private void FindForm_FormClosed(object sender, FormClosedEventArgs e)
         {
-            var start = new FindStart();
+            var start = new FindStart(Form1);
             start.Show();
         }
     }
