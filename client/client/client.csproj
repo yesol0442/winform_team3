@@ -462,6 +462,11 @@
   <ItemGroup>
     <None Include="Resources\res_quiz\speech_bubble.png" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <None Include="Resources\ketchup.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Resources\ham\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

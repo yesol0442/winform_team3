@@ -34,10 +34,10 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("휴먼매직체", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            this.label1.Location = new System.Drawing.Point(20, 18);
+            this.label1.Font = new System.Drawing.Font("휴먼매직체", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.label1.Location = new System.Drawing.Point(14, 13);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(155, 28);
+            this.label1.Size = new System.Drawing.Size(130, 24);
             this.label1.TabIndex = 1;
             this.label1.Text = "재료 조립하기";
             // 
@@ -48,7 +48,7 @@
             this.BackColor = System.Drawing.Color.LightSalmon;
             this.Controls.Add(this.label1);
             this.Name = "AssembleBlockUI";
-            this.Size = new System.Drawing.Size(375, 58);
+            this.Size = new System.Drawing.Size(360, 48);
             this.ResumeLayout(false);
             this.PerformLayout();
 

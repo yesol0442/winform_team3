@@ -35,16 +35,16 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("휴먼매직체", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            this.label1.Location = new System.Drawing.Point(109, 15);
+            this.label1.Font = new System.Drawing.Font("휴먼매직체", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.label1.Location = new System.Drawing.Point(97, 15);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(133, 28);
+            this.label1.Size = new System.Drawing.Size(111, 24);
             this.label1.TabIndex = 2;
             this.label1.Text = "초 기다리기";
             // 
             // textBox1
             // 
-            this.textBox1.Location = new System.Drawing.Point(27, 15);
+            this.textBox1.Location = new System.Drawing.Point(15, 11);
             this.textBox1.Name = "textBox1";
             this.textBox1.Size = new System.Drawing.Size(76, 28);
             this.textBox1.TabIndex = 3;
@@ -58,7 +58,7 @@
             this.Controls.Add(this.textBox1);
             this.Controls.Add(this.label1);
             this.Name = "WaitBlockUI";
-            this.Size = new System.Drawing.Size(375, 58);
+            this.Size = new System.Drawing.Size(360, 48);
             this.ResumeLayout(false);
             this.PerformLayout();
 

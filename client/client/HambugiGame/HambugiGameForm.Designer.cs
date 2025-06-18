@@ -34,9 +34,9 @@
             this.IngredientBP = new System.Windows.Forms.FlowLayoutPanel();
             this.actionBP = new System.Windows.Forms.FlowLayoutPanel();
             this.말풍선P = new System.Windows.Forms.Panel();
-            this.progressBar1 = new System.Windows.Forms.ProgressBar();
+            this.progressBar = new System.Windows.Forms.ProgressBar();
             this.label1 = new System.Windows.Forms.Label();
-            this.수입금 = new System.Windows.Forms.Label();
+            this.수입금TB = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // orderQueue
@@ -84,12 +84,12 @@
             this.말풍선P.Size = new System.Drawing.Size(302, 207);
             this.말풍선P.TabIndex = 5;
             // 
-            // progressBar1
+            // progressBar
             // 
-            this.progressBar1.Location = new System.Drawing.Point(985, 12);
-            this.progressBar1.Name = "progressBar1";
-            this.progressBar1.Size = new System.Drawing.Size(637, 38);
-            this.progressBar1.TabIndex = 6;
+            this.progressBar.Location = new System.Drawing.Point(985, 12);
+            this.progressBar.Name = "progressBar";
+            this.progressBar.Size = new System.Drawing.Size(637, 38);
+            this.progressBar.TabIndex = 6;
             // 
             // label1
             // 
@@ -101,24 +101,24 @@
             this.label1.TabIndex = 7;
             this.label1.Text = "수입금: ";
             // 
-            // 수입금
+            // 수입금TB
             // 
-            this.수입금.AutoSize = true;
-            this.수입금.Font = new System.Drawing.Font("휴먼매직체", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            this.수입금.Location = new System.Drawing.Point(614, 26);
-            this.수입금.Name = "수입금";
-            this.수입금.Size = new System.Drawing.Size(85, 24);
-            this.수입금.TabIndex = 8;
-            this.수입금.Text = "label2";
+            this.수입금TB.AutoSize = true;
+            this.수입금TB.Font = new System.Drawing.Font("휴먼매직체", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.수입금TB.Location = new System.Drawing.Point(614, 26);
+            this.수입금TB.Name = "수입금TB";
+            this.수입금TB.Size = new System.Drawing.Size(85, 24);
+            this.수입금TB.TabIndex = 8;
+            this.수입금TB.Text = "label2";
             // 
             // HambugiGameForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 18F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1634, 883);
-            this.Controls.Add(this.수입금);
+            this.Controls.Add(this.수입금TB);
             this.Controls.Add(this.label1);
-            this.Controls.Add(this.progressBar1);
+            this.Controls.Add(this.progressBar);
             this.Controls.Add(this.말풍선P);
             this.Controls.Add(this.actionBP);
             this.Controls.Add(this.IngredientBP);
@@ -140,8 +140,8 @@
         private System.Windows.Forms.FlowLayoutPanel IngredientBP;
         private System.Windows.Forms.FlowLayoutPanel actionBP;
         private System.Windows.Forms.Panel 말풍선P;
-        private System.Windows.Forms.ProgressBar progressBar1;
+        private System.Windows.Forms.ProgressBar progressBar;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Label 수입금;
+        private System.Windows.Forms.Label 수입금TB;
     }
 }
