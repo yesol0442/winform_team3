@@ -30,7 +30,6 @@
         {
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
-            this.label3 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
             this.텍스트파일가져오기btn = new System.Windows.Forms.Button();
@@ -40,7 +39,6 @@
             this.label5 = new System.Windows.Forms.Label();
             this.업로드btn = new System.Windows.Forms.Button();
             this.제목TB = new System.Windows.Forms.TextBox();
-            this.출처TB = new System.Windows.Forms.TextBox();
             this.난이도CB = new System.Windows.Forms.ComboBox();
             this.뒤로가기btn = new System.Windows.Forms.Button();
             this.SuspendLayout();
@@ -59,27 +57,17 @@
             // 
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("휴먼옛체", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            this.label2.Location = new System.Drawing.Point(14, 138);
+            this.label2.Location = new System.Drawing.Point(12, 68);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(118, 19);
             this.label2.TabIndex = 1;
             this.label2.Text = "난이도 설정: ";
             // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Font = new System.Drawing.Font("휴먼옛체", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            this.label3.Location = new System.Drawing.Point(14, 87);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(57, 19);
-            this.label3.TabIndex = 2;
-            this.label3.Text = "출처: ";
-            // 
             // label4
             // 
             this.label4.AutoSize = true;
             this.label4.Font = new System.Drawing.Font("휴먼옛체", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            this.label4.Location = new System.Drawing.Point(14, 277);
+            this.label4.Location = new System.Drawing.Point(14, 124);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(88, 19);
             this.label4.TabIndex = 3;
@@ -91,7 +79,7 @@
             // 
             // 텍스트파일가져오기btn
             // 
-            this.텍스트파일가져오기btn.Location = new System.Drawing.Point(17, 512);
+            this.텍스트파일가져오기btn.Location = new System.Drawing.Point(17, 425);
             this.텍스트파일가져오기btn.Name = "텍스트파일가져오기btn";
             this.텍스트파일가져오기btn.Size = new System.Drawing.Size(353, 42);
             this.텍스트파일가져오기btn.TabIndex = 5;
@@ -101,7 +89,7 @@
             // 
             // 임시저장btn
             // 
-            this.임시저장btn.Location = new System.Drawing.Point(753, 512);
+            this.임시저장btn.Location = new System.Drawing.Point(742, 425);
             this.임시저장btn.Name = "임시저장btn";
             this.임시저장btn.Size = new System.Drawing.Size(115, 42);
             this.임시저장btn.TabIndex = 6;
@@ -124,14 +112,15 @@
             this.코드설명textbox.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.코드설명textbox.ForeColor = System.Drawing.Color.DimGray;
             this.코드설명textbox.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
-            this.코드설명textbox.Location = new System.Drawing.Point(17, 301);
+            this.코드설명textbox.Location = new System.Drawing.Point(16, 148);
             this.코드설명textbox.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.코드설명textbox.Multiline = true;
             this.코드설명textbox.Name = "코드설명textbox";
             this.코드설명textbox.PlaceholderText = "";
             this.코드설명textbox.SelectedText = "";
-            this.코드설명textbox.Size = new System.Drawing.Size(353, 203);
+            this.코드설명textbox.Size = new System.Drawing.Size(353, 269);
             this.코드설명textbox.TabIndex = 11;
+            this.코드설명textbox.TextChanged += new System.EventHandler(this.textBox1_TextChanged);
             // 
             // 코드내용TB
             // 
@@ -154,8 +143,9 @@
             this.코드내용TB.Name = "코드내용TB";
             this.코드내용TB.PlaceholderText = "";
             this.코드내용TB.SelectedText = "";
-            this.코드내용TB.Size = new System.Drawing.Size(588, 470);
+            this.코드내용TB.Size = new System.Drawing.Size(577, 383);
             this.코드내용TB.TabIndex = 14;
+            this.코드내용TB.TextChanged += new System.EventHandler(this.textBox1_TextChanged);
             // 
             // label5
             // 
@@ -169,7 +159,7 @@
             // 
             // 업로드btn
             // 
-            this.업로드btn.Location = new System.Drawing.Point(874, 512);
+            this.업로드btn.Location = new System.Drawing.Point(863, 425);
             this.업로드btn.Name = "업로드btn";
             this.업로드btn.Size = new System.Drawing.Size(115, 42);
             this.업로드btn.TabIndex = 16;
@@ -184,13 +174,6 @@
             this.제목TB.Size = new System.Drawing.Size(300, 28);
             this.제목TB.TabIndex = 17;
             // 
-            // 출처TB
-            // 
-            this.출처TB.Location = new System.Drawing.Point(70, 84);
-            this.출처TB.Name = "출처TB";
-            this.출처TB.Size = new System.Drawing.Size(300, 28);
-            this.출처TB.TabIndex = 18;
-            // 
             // 난이도CB
             // 
             this.난이도CB.FormattingEnabled = true;
@@ -200,7 +183,7 @@
             "3",
             "4",
             "5"});
-            this.난이도CB.Location = new System.Drawing.Point(135, 133);
+            this.난이도CB.Location = new System.Drawing.Point(133, 63);
             this.난이도CB.Name = "난이도CB";
             this.난이도CB.Size = new System.Drawing.Size(121, 27);
             this.난이도CB.TabIndex = 20;
@@ -209,7 +192,7 @@
             // 
             this.뒤로가기btn.Font = new System.Drawing.Font("휴먼옛체", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.뒤로가기btn.ForeColor = System.Drawing.Color.DimGray;
-            this.뒤로가기btn.Location = new System.Drawing.Point(900, 3);
+            this.뒤로가기btn.Location = new System.Drawing.Point(889, 3);
             this.뒤로가기btn.Name = "뒤로가기btn";
             this.뒤로가기btn.Size = new System.Drawing.Size(89, 27);
             this.뒤로가기btn.TabIndex = 21;
@@ -223,7 +206,6 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.뒤로가기btn);
             this.Controls.Add(this.난이도CB);
-            this.Controls.Add(this.출처TB);
             this.Controls.Add(this.제목TB);
             this.Controls.Add(this.업로드btn);
             this.Controls.Add(this.label5);
@@ -232,12 +214,11 @@
             this.Controls.Add(this.임시저장btn);
             this.Controls.Add(this.텍스트파일가져오기btn);
             this.Controls.Add(this.label4);
-            this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
             this.Font = new System.Drawing.Font("휴먼옛체", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.Name = "code_add";
-            this.Size = new System.Drawing.Size(993, 557);
+            this.Size = new System.Drawing.Size(993, 528);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -247,7 +228,6 @@
 
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.OpenFileDialog openFileDialog1;
         private System.Windows.Forms.Button 텍스트파일가져오기btn;
@@ -257,7 +237,6 @@
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Button 업로드btn;
         private System.Windows.Forms.TextBox 제목TB;
-        private System.Windows.Forms.TextBox 출처TB;
         private System.Windows.Forms.ComboBox 난이도CB;
         private System.Windows.Forms.Button 뒤로가기btn;
     }

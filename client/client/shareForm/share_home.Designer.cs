@@ -39,7 +39,7 @@
             // 
             this.사용자이름lbl.AutoSize = true;
             this.사용자이름lbl.Font = new System.Drawing.Font("휴먼옛체", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            this.사용자이름lbl.Location = new System.Drawing.Point(25, 54);
+            this.사용자이름lbl.Location = new System.Drawing.Point(12, 40);
             this.사용자이름lbl.Name = "사용자이름lbl";
             this.사용자이름lbl.Size = new System.Drawing.Size(69, 30);
             this.사용자이름lbl.TabIndex = 1;
@@ -49,7 +49,7 @@
             // 
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("휴먼옛체", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            this.label2.Location = new System.Drawing.Point(25, 87);
+            this.label2.Location = new System.Drawing.Point(12, 73);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(164, 30);
             this.label2.TabIndex = 2;
@@ -57,6 +57,9 @@
             // 
             // flowLayoutPanel1
             // 
+            this.flowLayoutPanel1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+            | System.Windows.Forms.AnchorStyles.Left)
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.flowLayoutPanel1.BackColor = System.Drawing.Color.White;
             this.flowLayoutPanel1.Location = new System.Drawing.Point(17, 171);
             this.flowLayoutPanel1.Name = "flowLayoutPanel1";
@@ -65,11 +68,12 @@
             // 
             // 뒤로가기btn
             // 
+            this.뒤로가기btn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.뒤로가기btn.Font = new System.Drawing.Font("휴먼옛체", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.뒤로가기btn.ForeColor = System.Drawing.Color.DimGray;
-            this.뒤로가기btn.Location = new System.Drawing.Point(885, 13);
+            this.뒤로가기btn.Location = new System.Drawing.Point(843, 13);
             this.뒤로가기btn.Name = "뒤로가기btn";
-            this.뒤로가기btn.Size = new System.Drawing.Size(89, 27);
+            this.뒤로가기btn.Size = new System.Drawing.Size(131, 47);
             this.뒤로가기btn.TabIndex = 15;
             this.뒤로가기btn.Text = "뒤로가기";
             this.뒤로가기btn.UseVisualStyleBackColor = true;
@@ -80,9 +84,9 @@
             this.삭제btn.Enabled = false;
             this.삭제btn.Font = new System.Drawing.Font("휴먼옛체", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.삭제btn.ForeColor = System.Drawing.Color.DimGray;
-            this.삭제btn.Location = new System.Drawing.Point(29, 138);
+            this.삭제btn.Location = new System.Drawing.Point(17, 118);
             this.삭제btn.Name = "삭제btn";
-            this.삭제btn.Size = new System.Drawing.Size(89, 27);
+            this.삭제btn.Size = new System.Drawing.Size(131, 47);
             this.삭제btn.TabIndex = 16;
             this.삭제btn.Text = "삭제하기";
             this.삭제btn.UseVisualStyleBackColor = true;

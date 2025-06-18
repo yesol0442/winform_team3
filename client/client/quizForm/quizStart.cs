@@ -23,14 +23,14 @@ namespace client.quizForm
         private void btnStart_Click(object sender, EventArgs e)
         {
             quizready = new quizReady();
-            quizready.Owner = this;
-            quizready.Show();
+            quizready.ShowDialog();
         }
 
         private void btnTutorial_Click(object sender, EventArgs e)
         {
-            quizform = new quizForm();
-            quizform.Show();
+            quizTutorial tutorial = new quizTutorial();
+            tutorial.Owner = this;
+            tutorial.Show();
         }
 
         private void btnExit_Click(object sender, EventArgs e)

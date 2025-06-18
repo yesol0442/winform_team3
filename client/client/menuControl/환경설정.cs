@@ -19,8 +19,11 @@ namespace client.menuControl
 {
     public partial class 환경설정 : UserControl
     {
+        public event EventHandler CheckBoxChecked;
+        public event EventHandler<LanguageChangedEventArgs> LanguageChanged;
+
         private bool soundEnabled = true;
-        public string currentUserId;
+        public static string currentUserId;
 
         public 환경설정()
         {
@@ -287,7 +290,10 @@ namespace client.menuControl
 
         private void chkGuide_CheckedChanged(object sender, EventArgs e)
         {
-            //타자 가이드를 어떤 식으로 집어넣을지 모르겠으니 일단 보류
+            if (chkGuide.Checked)
+            {
+                CheckBoxChecked?.Invoke(this, EventArgs.Empty);
+            }
         }
 
 
@@ -312,7 +318,12 @@ namespace client.menuControl
 
         private void cmbLanguage_SelectedIndexChanged(object sender, EventArgs e)
         {
-            //로컬 DB 만드는 게 우선이기 때문에 일단 보류
+            string selected = cmbLanguage.SelectedItem?.ToString();
+
+            if (!string.IsNullOrEmpty(selected))
+            {
+                LanguageChanged?.Invoke(this, new LanguageChangedEventArgs(selected));
+            }
         }
 
 

@@ -28,30 +28,32 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.btnStartServer = new System.Windows.Forms.Button();
             this.lstLog = new System.Windows.Forms.ListBox();
+            this.btnStartServer = new System.Windows.Forms.Button();
             this.SuspendLayout();
-            // 
-            // btnStartServer
-            // 
-            this.btnStartServer.Font = new System.Drawing.Font("굴림", 15F);
-            this.btnStartServer.Location = new System.Drawing.Point(264, 12);
-            this.btnStartServer.Name = "btnStartServer";
-            this.btnStartServer.Size = new System.Drawing.Size(278, 47);
-            this.btnStartServer.TabIndex = 0;
-            this.btnStartServer.Text = "서버 시작";
-            this.btnStartServer.UseVisualStyleBackColor = true;
-            this.btnStartServer.Click += new System.EventHandler(this.btnStartServer_Click);
             // 
             // lstLog
             // 
             this.lstLog.FormattingEnabled = true;
+            this.lstLog.HorizontalScrollbar = true;
             this.lstLog.ItemHeight = 15;
-            this.lstLog.Location = new System.Drawing.Point(72, 99);
+            this.lstLog.Location = new System.Drawing.Point(69, 117);
             this.lstLog.MultiColumn = true;
             this.lstLog.Name = "lstLog";
+            this.lstLog.ScrollAlwaysVisible = true;
             this.lstLog.Size = new System.Drawing.Size(663, 304);
-            this.lstLog.TabIndex = 2;
+            this.lstLog.TabIndex = 4;
+            // 
+            // btnStartServer
+            // 
+            this.btnStartServer.Font = new System.Drawing.Font("굴림", 15F);
+            this.btnStartServer.Location = new System.Drawing.Point(261, 30);
+            this.btnStartServer.Name = "btnStartServer";
+            this.btnStartServer.Size = new System.Drawing.Size(278, 47);
+            this.btnStartServer.TabIndex = 3;
+            this.btnStartServer.Text = "서버 시작";
+            this.btnStartServer.UseVisualStyleBackColor = true;
+            this.btnStartServer.Click += new System.EventHandler(this.btnStartServer_Click);
             // 
             // Form1
             // 
@@ -68,8 +70,8 @@
 
         #endregion
 
-        private System.Windows.Forms.Button btnStartServer;
         private System.Windows.Forms.ListBox lstLog;
+        private System.Windows.Forms.Button btnStartServer;
     }
 }
 

@@ -12,6 +12,7 @@ namespace client.menuControl.CodePreacticeControl
 {
     public partial class ShareControl : UserControl
     {
+        public event EventHandler<string> NotifyParent;
         public ShareControl()
         {
             InitializeComponent();
@@ -31,6 +32,10 @@ namespace client.menuControl.CodePreacticeControl
         private void pictureBox2_Click(object sender, EventArgs e)
         {
             shareForm.shareform shareBeeform = new shareForm.shareform();
+            shareBeeform.ChildClosed += (s, msg) =>
+            {
+                NotifyParent?.Invoke(this, "초기화필요");
+            };
             shareBeeform.ShowDialog();
         }
 

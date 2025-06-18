@@ -52,9 +52,34 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BlockForm\BlockGame.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="BlockForm\BlockGame.Designer.cs">
+      <DependentUpon>BlockGame.cs</DependentUpon>
+    </Compile>
+    <Compile Include="BlockForm\BlockResult.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="BlockForm\BlockResult.Designer.cs">
+      <DependentUpon>BlockResult.cs</DependentUpon>
+    </Compile>
+    <Compile Include="BlockForm\BlockStart.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="BlockForm\BlockStart.Designer.cs">
+      <DependentUpon>BlockStart.cs</DependentUpon>
+    </Compile>
+    <Compile Include="BlockForm\BlockTutorial.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="BlockForm\BlockTutorial.Designer.cs">
+      <DependentUpon>BlockTutorial.cs</DependentUpon>
+    </Compile>
     <Compile Include="classes\CodeBriefInfo.cs" />
     <Compile Include="classes\CodeGame.cs" />
     <Compile Include="classes\CodePractice.cs" />
+    <Compile Include="classes\CodePracticeResult.cs" />
     <Compile Include="classes\Home.cs" />
     <Compile Include="classes\NetworkManager.cs" />
     <Compile Include="classes\OtherUserCodeList.cs" />
@@ -62,15 +87,11 @@
     <Compile Include="classes\ShareCodeSave.cs" />
     <Compile Include="classes\UserCodeList.cs" />
     <Compile Include="classes\UserSession.cs" />
-    <Compile Include="CodePracticeForm\CodePracticeF.cs">
+    <Compile Include="CodePracticeForm\CodePracticeFo.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="CodePracticeForm\CodePracticeF.Designer.cs" />
-    <Compile Include="FindDifferForm\FindEnd.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="FindDifferForm\FindEnd.Designer.cs">
-      <DependentUpon>FindEnd.cs</DependentUpon>
+    <Compile Include="CodePracticeForm\CodePracticeFo.Designer.cs">
+      <DependentUpon>CodePracticeFo.cs</DependentUpon>
     </Compile>
     <Compile Include="FindDifferForm\FindForm.cs">
       <SubType>Form</SubType>
@@ -99,6 +120,54 @@
     <Compile Include="Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
+    <Compile Include="HambugiGame\Burger.cs" />
+    <Compile Include="HambugiGame\Controls\AssembleBlockUI.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="HambugiGame\Controls\AssembleBlockUI.Designer.cs">
+      <DependentUpon>AssembleBlockUI.cs</DependentUpon>
+    </Compile>
+    <Compile Include="HambugiGame\Controls\GrillBlockUI.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="HambugiGame\Controls\GrillBlockUI.Designer.cs">
+      <DependentUpon>GrillBlockUI.cs</DependentUpon>
+    </Compile>
+    <Compile Include="HambugiGame\Controls\IngredientBlockUI.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="HambugiGame\Controls\IngredientBlockUI.Designer.cs">
+      <DependentUpon>IngredientBlockUI.cs</DependentUpon>
+    </Compile>
+    <Compile Include="HambugiGame\Controls\PlaceIngredientBlockUI.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="HambugiGame\Controls\PlaceIngredientBlockUI.Designer.cs">
+      <DependentUpon>PlaceIngredientBlockUI.cs</DependentUpon>
+    </Compile>
+    <Compile Include="HambugiGame\Controls\RepeatBlockUI.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="HambugiGame\Controls\RepeatBlockUI.Designer.cs">
+      <DependentUpon>RepeatBlockUI.cs</DependentUpon>
+    </Compile>
+    <Compile Include="HambugiGame\Controls\WaitBlockUI.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="HambugiGame\Controls\WaitBlockUI.Designer.cs">
+      <DependentUpon>WaitBlockUI.cs</DependentUpon>
+    </Compile>
+    <Compile Include="HambugiGame\HambugiGameForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="HambugiGame\HambugiGameForm.Designer.cs">
+      <DependentUpon>HambugiGameForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="HambugiGame\Ingredient.cs" />
+    <Compile Include="HambugiGame\IngredientType.cs" />
+    <Compile Include="HambugiGame\Order.cs" />
+    <Compile Include="HambugiGame\OrderGenerator.cs" />
+    <Compile Include="HambugiGame\ScoringEngine.cs" />
     <Compile Include="menuControl\CodePreacticeControl\CodeExplainControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -149,6 +218,7 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="quizForm\PlayerResult.cs" />
     <Compile Include="quizForm\quizForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -161,11 +231,23 @@
     <Compile Include="quizForm\quizReady.Designer.cs">
       <DependentUpon>quizReady.cs</DependentUpon>
     </Compile>
+    <Compile Include="quizForm\quizResult.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="quizForm\quizResult.Designer.cs">
+      <DependentUpon>quizResult.cs</DependentUpon>
+    </Compile>
     <Compile Include="quizForm\quizStart.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="quizForm\quizStart.Designer.cs">
       <DependentUpon>quizStart.cs</DependentUpon>
+    </Compile>
+    <Compile Include="quizForm\quizTutorial.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="quizForm\quizTutorial.Designer.cs">
+      <DependentUpon>quizTutorial.cs</DependentUpon>
     </Compile>
     <Compile Include="RainForm\GameOver.cs">
       <SubType>Form</SubType>
@@ -215,9 +297,20 @@
     <Compile Include="shareForm\share_home.Designer.cs">
       <DependentUpon>share_home.cs</DependentUpon>
     </Compile>
-    <EmbeddedResource Include="CodePracticeForm\CodePracticeF.resx" />
-    <EmbeddedResource Include="FindDifferForm\FindEnd.resx">
-      <DependentUpon>FindEnd.cs</DependentUpon>
+    <EmbeddedResource Include="BlockForm\BlockGame.resx">
+      <DependentUpon>BlockGame.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="BlockForm\BlockResult.resx">
+      <DependentUpon>BlockResult.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="BlockForm\BlockStart.resx">
+      <DependentUpon>BlockStart.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="BlockForm\BlockTutorial.resx">
+      <DependentUpon>BlockTutorial.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CodePracticeForm\CodePracticeFo.resx">
+      <DependentUpon>CodePracticeFo.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FindDifferForm\FindForm.resx">
       <DependentUpon>FindForm.cs</DependentUpon>
@@ -230,6 +323,24 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="HambugiGame\Controls\AssembleBlockUI.resx">
+      <DependentUpon>AssembleBlockUI.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="HambugiGame\Controls\GrillBlockUI.resx">
+      <DependentUpon>GrillBlockUI.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="HambugiGame\Controls\IngredientBlockUI.resx">
+      <DependentUpon>IngredientBlockUI.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="HambugiGame\Controls\RepeatBlockUI.resx">
+      <DependentUpon>RepeatBlockUI.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="HambugiGame\Controls\WaitBlockUI.resx">
+      <DependentUpon>WaitBlockUI.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="HambugiGame\HambugiGameForm.resx">
+      <DependentUpon>HambugiGameForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="menuControl\CodePreacticeControl\CodeExplainControl.resx">
       <DependentUpon>CodeExplainControl.cs</DependentUpon>
@@ -271,8 +382,14 @@
     <EmbeddedResource Include="quizForm\quizReady.resx">
       <DependentUpon>quizReady.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="quizForm\quizResult.resx">
+      <DependentUpon>quizResult.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="quizForm\quizStart.resx">
       <DependentUpon>quizStart.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="quizForm\quizTutorial.resx">
+      <DependentUpon>quizTutorial.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="RainForm\GameOver.resx">
       <DependentUpon>GameOver.cs</DependentUpon>

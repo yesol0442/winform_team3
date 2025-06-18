@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Net;
 using System.Net.Sockets;
 using System.Text;
@@ -76,17 +76,20 @@ namespace server
         {
             if (message.StartsWith("LOGIN:"))
             {
-                string userId = message.Substring(6).Trim();
+                string prefix = "LOGIN:";
+                string userId = message.Substring(prefix.Length).Trim();
                 return ValidateUser(userId) ? "LOGIN_SUCCESS" : "LOGIN_FAIL";
             }
             else if (message.StartsWith("REGISTER:"))
             {
-                string userId = message.Substring(9).Trim();
+                string prefix = "REGISTER:";
+                string userId = message.Substring(prefix.Length).Trim();
                 return AddNewUserToDatabase(userId) ? "REGISTER_SUCCESS" : "REGISTER_FAIL";
             }
             else if (message.StartsWith("LOAD_PROFILE:"))
             {
-                string userId = message.Substring(13).Trim();
+                string prefix = "LOAD_PROFILE:";
+                string userId = message.Substring(prefix.Length).Trim();
                 Console.WriteLine($"LOAD_PROFILE 요청: {userId}");
 
                 var profile = GetUserProfile(userId);
@@ -130,24 +133,23 @@ namespace server
                 // 청크 전송 완료 표시
                 byte[] endBytesFinal = Encoding.UTF8.GetBytes("::END::");
                 stream.Write(endBytesFinal, 0, endBytesFinal.Length);
-                Console.WriteLine($"프로필 이미지 전송 완료: {base64Image}");
+                Console.WriteLine($"프로필 이미지 전송 완료");
 
                 return "";
             }
-
             else if (message.StartsWith("UPDATE_PROFILE_IMAGE:"))
             {
-                string[] parts = message.Split(new[] { ':' }, 3);
-                if (parts.Length == 3)
+                string prefix = "UPDATE_PROFILE_IMAGE:";
+                string[] parts = message.Substring(prefix.Length).Split(':');
+                if (parts.Length >= 2)
                 {
-                    string userId = parts[1].Trim();
-                    string base64Image = parts[2].Trim();
+                    string userId = parts[0].Trim();
+                    // base64Image는 :로 분리되면서 조각날 수 있으니 다시 합쳐야 함
+                    string base64ImageStart = string.Join(":", parts, 1, parts.Length - 1).Trim();
 
-                    // 긴 Base64 문자열 수신
                     StringBuilder imageDataBuilder = new StringBuilder();
-                    imageDataBuilder.Append(base64Image);
+                    imageDataBuilder.Append(base64ImageStart);
 
-                    // 추가 청크 받기
                     byte[] buffer = new byte[1024];
                     int bytesRead;
                     NetworkStream stream = client.GetStream();
@@ -167,20 +169,30 @@ namespace server
 
                     return UpdateProfileImage(userId, fullBase64Image) ? "OK" : "IMAGE_UPDATE_FAIL";
                 }
+                else
+                {
+                    return "INVALID_UPDATE_PROFILE_IMAGE_COMMAND";
+                }
             }
             else if (message.StartsWith("UPDATE_NICKNAME:"))
             {
-                string[] parts = message.Split(new[] { ':' }, 3);
-                if (parts.Length == 3)
+                string prefix = "UPDATE_NICKNAME:";
+                string[] parts = message.Substring(prefix.Length).Split(':');
+                if (parts.Length == 2)
                 {
-                    string userId = parts[1].Trim();
-                    string newNickname = parts[2].Trim();
+                    string userId = parts[0].Trim();
+                    string newNickname = parts[1].Trim();
                     return UpdateNickname(userId, newNickname) ? "OK" : "NICKNAME_UPDATE_FAIL";
+                }
+                else
+                {
+                    return "INVALID_UPDATE_NICKNAME_COMMAND";
                 }
             }
             else if (message.StartsWith("DELETE_ACCOUNT:"))
             {
-                string userId = message.Substring(15).Trim();
+                string prefix = "DELETE_ACCOUNT:";
+                string userId = message.Substring(prefix.Length).Trim();
                 return DeleteAccount(userId) ? "OK" : "DELETE_FAIL";
             }
 
@@ -188,7 +200,8 @@ namespace server
 
             else if (message.StartsWith("LOAD_STATS:"))
             {
-                string userId = message.Substring(11).Trim();
+                string prefix = "LOAD_STATS:";
+                string userId = message.Substring(prefix.Length).Trim();
                 Console.WriteLine($"LOAD_STATS 요청: {userId}");
 
                 var stats = GetUserStats(userId);
@@ -238,27 +251,152 @@ namespace server
 
                 return "";
             }
+            else if (message.StartsWith("UPDATE_STROKE_NUMBER:"))
+            {
+                string prefix = "UPDATE_STROKE_NUMBER:";
+                string[] parts = message.Substring(prefix.Length).Split(':');
+
+                if (parts.Length == 2)
+                {
+                    string userId = parts[0].Trim();
+                    if (int.TryParse(parts[1].Trim(), out int newStrokeNumber))
+                    {
+                        bool result = UpdateStrokeNumber(userId, newStrokeNumber);
+                        return result ? "OK" : "FAIL";
+                    }
+                }
+            }
+            else if (message.StartsWith("UPDATE_ACCURANCY:"))
+            {
+                string prefix = "UPDATE_ACCURANCY:";
+                string[] parts = message.Substring(prefix.Length).Split(':');
+
+                if (parts.Length == 2)
+                {
+                    string userId = parts[0].Trim();
+                    if (int.TryParse(parts[1].Trim(), out int newAccurancy))
+                    {
+                        bool result = UpdateAccurancy(userId, newAccurancy);
+                        return result ? "OK" : "FAIL";
+                    }
+                }
+            }
+            else if (message.StartsWith("UPDATE_RAINMAXSCORE:"))
+            {
+                string prefix = "UPDATE_RAINMAXSCORE:";
+                string[] parts = message.Substring(prefix.Length).Split(':');
+
+                if (parts.Length == 2)
+                {
+                    string userId = parts[0].Trim();
+                    if (int.TryParse(parts[1].Trim(), out int newRainMaxScore))
+                    {
+                        bool result = UpdateRainMaxScore(userId, newRainMaxScore);
+                        return result ? "OK" : "FAIL";
+                    }
+                }
+            }
+            else if (message.StartsWith("UPDATE_RAINMAXLEVEL:"))
+            {
+                string prefix = "UPDATE_RAINMAXLEVEL:";
+                string[] parts = message.Substring(prefix.Length).Split(':');
+
+                if (parts.Length == 2)
+                {
+                    string userId = parts[0].Trim();
+                    if (int.TryParse(parts[1].Trim(), out int newRainMaxLevel))
+                    {
+                        bool result = UpdateRainMaxLevel(userId, newRainMaxLevel);
+                        return result ? "OK" : "FAIL";
+                    }
+                }
+            }
+            else if (message.StartsWith("UPDATE_BLOCKRECORD:"))
+            {
+                string prefix = "UPDATE_BLOCKRECORD:";
+                string[] parts = message.Substring(prefix.Length).Split(':');
+
+                if (parts.Length == 2)
+                {
+                    string userId = parts[0].Trim();
+                    if (float.TryParse(parts[1].Trim(), out float newBlockRecord))
+                    {
+                        bool result = UpdateBlockRecord(userId, newBlockRecord);
+                        return result ? "OK" : "FAIL";
+                    }
+                }
+            }
+            else if (message.StartsWith("UPDATE_QUIZMAXSCORE:"))
+            {
+                string prefix = "UPDATE_QUIZMAXSCORE:";
+                string[] parts = message.Substring(prefix.Length).Split(':');
+
+                if (parts.Length == 2)
+                {
+                    string userId = parts[0].Trim();
+                    if (int.TryParse(parts[1].Trim(), out int newQuizMaxScore))
+                    {
+                        bool result = UpdateQuizMaxScore(userId, newQuizMaxScore);
+                        return result ? "OK" : "FAIL";
+                    }
+                }
+            }
+            else if (message.StartsWith("UPDATE_QUIZWINRATE:"))
+            {
+                string prefix = "UPDATE_QUIZWINRATE:";
+                string[] parts = message.Substring(prefix.Length).Split(':');
+
+                if (parts.Length == 2)
+                {
+                    string userId = parts[0].Trim();
+                    if (float.TryParse(parts[1].Trim(), out float newQuizWinRate))
+                    {
+                        bool result = UpdateQuizWinRate(userId, newQuizWinRate);
+                        return result ? "OK" : "FAIL";
+                    }
+                }
+            }
+            else if (message.StartsWith("UPDATE_FOUNDWINRATE:"))
+            {
+                string prefix = "UPDATE_FOUNDWINRATE:";
+                string[] parts = message.Substring(prefix.Length).Split(':');
+
+                if (parts.Length == 2)
+                {
+                    string userId = parts[0].Trim();
+                    if (float.TryParse(parts[1].Trim(), out float newFoundWinRate))
+                    {
+                        bool result = UpdateFoundWinRate(userId, newFoundWinRate);
+                        return result ? "OK" : "FAIL";
+                    }
+                }
+            }
 
             // --------------------------------------- 홈 용 ------------------------------------ //
 
             else if (message.StartsWith("GET_CODE_TITLES:"))
             {
-                string userId = message.Substring(17).Trim();
+                string prefix = "GET_CODE_TITLES:";
+                string userId = message.Substring(prefix.Length).Trim();
+
                 return GetCodeBriefInfo(userId);
             }
             else if (message.StartsWith("GET_USER_CODE_LIST:"))
             {
-                string userId = message.Substring(20).Trim();
+                string prefix = "GET_USER_CODE_LIST:";
+                string userId = message.Substring(prefix.Length).Trim();
                 return GetUserCodeList(userId);
             }
             else if (message.StartsWith("GET_OTHER_USER_CODE_LIST:"))
             {
-                string userId = message.Substring(27).Trim();
+                string prefix = "GET_OTHER_USER_CODE_LIST:";
+                string userId = message.Substring(prefix.Length).Trim();
                 return GetOtherUserCodeList(userId);
             }
             else if (message.StartsWith("GET_CODE_PRACTICE:"))
             {
-                string[] parts = message.Substring(19).Split(':');
+                string prefix = "GET_CODE_PRACTICE:";
+                string[] parts = message.Substring(prefix.Length).Split(':');
                 if (parts.Length == 2)
                 {
                     string userId = parts[0].Trim();
@@ -268,7 +406,7 @@ namespace server
                         return "코드 정보를 찾을 수 없습니다";
 
                     // 헤더: 모든 통계 데이터 문자열 (프로필 사진 제외) + 구분자
-                    string header = $"{code.NickName}|{code.CodeTitle}|{code.CodeLevel}|{code.CodeSource}|" +
+                    string header = $"{code.NickName}|{code.CodeTitle}|{code.CodeLevel}|" +
                                     $"{code.CodeDescription}|{code.CodeContent}::END_HEADER::";
 
                     NetworkStream stream = client.GetStream();
@@ -307,7 +445,8 @@ namespace server
             }
             else if (message.StartsWith("GET_SHARE_CODE_SAVE:"))
             {
-                string[] parts = message.Substring(21).Split(':');
+                string prefix = "GET_SHARE_CODE_SAVE:";
+                string[] parts = message.Substring(prefix.Length).Split(':');
                 if (parts.Length == 2)
                 {
                     string userId = parts[0].Trim();
@@ -317,16 +456,17 @@ namespace server
             }
             else if (message.StartsWith("INSERT_CODE_POST:"))
             {
-                string[] parts = message.Substring(17).Split(':');
+                string prefix = "INSERT_CODE_POST:";
+                string[] parts = message.Substring(prefix.Length).Split(':');
                 if (parts.Length == 7)
                 {
-                    string userId = parts[0].Trim();
-                    string title = parts[1].Trim();
+                    string userId = Uri.UnescapeDataString(parts[0].Trim());
+                    string title = Uri.UnescapeDataString(parts[1].Trim());
                     if (!int.TryParse(parts[2].Trim(), out int level))
                         return "레벨 형식이 올바르지 않습니다";
-                    string source = parts[3].Trim();
-                    string desc = parts[4].Trim();
-                    string content = parts[5].Trim();
+                    string source = Uri.UnescapeDataString(parts[3].Trim());
+                    string desc = Uri.UnescapeDataString(parts[4].Trim());
+                    string content = Uri.UnescapeDataString(parts[5].Trim());
                     if (!bool.TryParse(parts[6].Trim(), out bool status))
                         return "공유 여부 형식이 올바르지 않습니다 (true/false)";
 
@@ -340,18 +480,19 @@ namespace server
             }
             else if (message.StartsWith("UPDATE_CODE_POST:"))
             {
-                string[] parts = message.Substring(17).Split(':');
+                string prefix = "UPDATE_CODE_POST:";
+                string[] parts = message.Substring(prefix.Length).Split(':');
                 if (parts.Length == 8)
                 {
-                    if (!int.TryParse(parts[0].Trim(), out int codeId))
+                    if (!int.TryParse(Uri.UnescapeDataString(parts[0]).Trim(), out int codeId))
                         return "코드 ID 형식 오류";
-                    string userId = parts[1].Trim();
-                    string newTitle = parts[2].Trim();
+                    string userId = Uri.UnescapeDataString(parts[1].Trim());
+                    string newTitle = Uri.UnescapeDataString(parts[2]).Trim();
                     if (!int.TryParse(parts[3].Trim(), out int newLevel))
                         return "레벨 형식 오류";
-                    string newSource = parts[4].Trim();
-                    string newDesc = parts[5].Trim();
-                    string newContent = parts[6].Trim();
+                    string newSource = Uri.UnescapeDataString(parts[4].Trim());
+                    string newDesc = Uri.UnescapeDataString(parts[5]).Trim();
+                    string newContent = Uri.UnescapeDataString(parts[6].Trim());
                     if (!bool.TryParse(parts[7].Trim(), out bool newStatus))
                         return "공유 여부 형식 오류 (true/false)";
 
@@ -365,7 +506,8 @@ namespace server
             }
             else if (message.StartsWith("DELETE_CODE_POST:"))
             {
-                string[] parts = message.Substring(17).Split(':');
+                string prefix = "DELETE_CODE_POST:";
+                string[] parts = message.Substring(prefix.Length).Split(':');
                 if (parts.Length == 2)
                 {
                     if (!int.TryParse(parts[0].Trim(), out int codeId))
@@ -531,7 +673,6 @@ namespace server
             return null; // 실패 시 null 반환
         }
 
-
         private bool UpdateProfileImage(string userId, string base64Image)
         {
             try
@@ -683,7 +824,199 @@ namespace server
             return null;
         }
 
-        // 게임 통계 INSERT, UPDATE 관련 메서드 추가해야 함
+        private bool UpdateStrokeNumber(string userId, int newStrokeNumber)
+        {
+            string query = @"UPDATE UserStats SET strokeNumber = @strokeNumber WHERE userId = @userId;";
+
+            try
+            {
+                using (SqlConnection conn = new SqlConnection(connectionString))
+                {
+                    conn.Open();
+                    using (SqlCommand command = new SqlCommand(query, conn))
+                    {
+                        command.Parameters.AddWithValue("@strokeNumber", newStrokeNumber);
+                        command.Parameters.AddWithValue("@userId", userId);
+                        int rowsAffected = command.ExecuteNonQuery();
+
+                        return rowsAffected > 0;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("[DB 오류 - UPDATE StrokeNumber] " + ex.Message);
+                return false;
+            }
+        }
+
+        private bool UpdateAccurancy(string userId, int newAccurancy)
+        {
+            string query = @"UPDATE UserStats SET accurancy = @accurancy WHERE userId = @userId;";
+
+            try
+            {
+                using (SqlConnection conn = new SqlConnection(connectionString))
+                {
+                    conn.Open();
+                    using (SqlCommand command = new SqlCommand(query, conn))
+                    {
+                        command.Parameters.AddWithValue("@accurancy", newAccurancy);
+                        command.Parameters.AddWithValue("@userId", userId);
+                        return command.ExecuteNonQuery() > 0;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("[DB 오류 - UPDATE Accurancy] " + ex.Message);
+                return false;
+            }
+        }
+
+        private bool UpdateRainMaxScore(string userId, int newScore)
+        {
+            string query = @"UPDATE UserStats SET rainMaxScore = @score WHERE userId = @userId;";
+
+            try
+            {
+                using (SqlConnection conn = new SqlConnection(connectionString))
+                {
+                    conn.Open();
+                    using (SqlCommand command = new SqlCommand(query, conn))
+                    {
+                        command.Parameters.AddWithValue("@score", newScore);
+                        command.Parameters.AddWithValue("@userId", userId);
+                        return command.ExecuteNonQuery() > 0;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("[DB 오류 - UPDATE RainMaxScore] " + ex.Message);
+                return false;
+            }
+        }
+
+        private bool UpdateRainMaxLevel(string userId, int newLevel)
+        {
+            string query = @"UPDATE UserStats SET rainMaxLevel = @level WHERE userId = @userId;";
+
+            try
+            {
+                using (SqlConnection conn = new SqlConnection(connectionString))
+                {
+                    conn.Open();
+                    using (SqlCommand command = new SqlCommand(query, conn))
+                    {
+                        command.Parameters.AddWithValue("@level", newLevel);
+                        command.Parameters.AddWithValue("@userId", userId);
+                        return command.ExecuteNonQuery() > 0;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("[DB 오류 - UPDATE RainMaxLevel] " + ex.Message);
+                return false;
+            }
+        }
+
+        private bool UpdateBlockRecord(string userId, float newRecord)
+        {
+            string query = @"UPDATE UserStats SET blockRecord = @record WHERE userId = @userId;";
+
+            try
+            {
+                using (SqlConnection conn = new SqlConnection(connectionString))
+                {
+                    conn.Open();
+                    using (SqlCommand command = new SqlCommand(query, conn))
+                    {
+                        command.Parameters.AddWithValue("@record", newRecord);
+                        command.Parameters.AddWithValue("@userId", userId);
+                        return command.ExecuteNonQuery() > 0;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("[DB 오류 - UPDATE BlockRecord] " + ex.Message);
+                return false;
+            }
+        }
+
+        private bool UpdateQuizMaxScore(string userId, int newScore)
+        {
+            string query = @"UPDATE UserStats SET quizMaxScore = @score WHERE userId = @userId;";
+
+            try
+            {
+                using (SqlConnection conn = new SqlConnection(connectionString))
+                {
+                    conn.Open();
+                    using (SqlCommand command = new SqlCommand(query, conn))
+                    {
+                        command.Parameters.AddWithValue("@score", newScore);
+                        command.Parameters.AddWithValue("@userId", userId);
+                        return command.ExecuteNonQuery() > 0;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("[DB 오류 - UPDATE QuizMaxScore] " + ex.Message);
+                return false;
+            }
+        }
+
+        private bool UpdateQuizWinRate(string userId, float newRate)
+        {
+            string query = @"UPDATE UserStats SET quizWinRate = @rate WHERE userId = @userId;";
+
+            try
+            {
+                using (SqlConnection conn = new SqlConnection(connectionString))
+                {
+                    conn.Open();
+                    using (SqlCommand command = new SqlCommand(query, conn))
+                    {
+                        command.Parameters.AddWithValue("@rate", newRate);
+                        command.Parameters.AddWithValue("@userId", userId);
+                        return command.ExecuteNonQuery() > 0;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("[DB 오류 - UPDATE QuizWinRate] " + ex.Message);
+                return false;
+            }
+        }
+
+        private bool UpdateFoundWinRate(string userId, float newRate)
+        {
+            string query = @"UPDATE UserStats SET foundWinRate = @rate WHERE userId = @userId;";
+
+            try
+            {
+                using (SqlConnection conn = new SqlConnection(connectionString))
+                {
+                    conn.Open();
+                    using (SqlCommand command = new SqlCommand(query, conn))
+                    {
+                        command.Parameters.AddWithValue("@rate", newRate);
+                        command.Parameters.AddWithValue("@userId", userId);
+                        return command.ExecuteNonQuery() > 0;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("[DB 오류 - UPDATE FoundWinRate] " + ex.Message);
+                return false;
+            }
+        }
 
         // --------------------------------------- 홈 용 ------------------------------------ //
 
