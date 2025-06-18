@@ -15,21 +15,38 @@ namespace client.quizForm
     public partial class quizResult : Form
     {
         private TcpClient client;
+        private int playerNum;
 
-        public quizResult(List<PlayerResult> ranking, TcpClient client)
+        private int currentScore, currentRank;
+        public quizResult(List<PlayerResult> ranking, TcpClient client, Form1 parentForm, int playerNum)
         {
-            InitializeComponent(); // 반드시 있어야 함
+            InitializeComponent();
             this.client = client;
+            this.playerNum = playerNum;
 
             foreach (var r in ranking)
             {
-                listBox1.Items.Add($"🏅 {r.Rank}위 - Player {r.Player}: {r.Score}점");
+                if (r.Player == playerNum)
+                {
+                    currentScore = r.Score;
+                    currentRank = r.Rank;
+                }
+
+                listBox1.Items.Add($"🏅 {r.Rank}위 - {r.Name}: {r.Score}점");
             }
+
+            OnGameEnd(parentForm);
         }
 
         private void ResultForm_FormClosed(object sender, FormClosedEventArgs e)
         {
             client.Close();
+        }
+
+        private async void OnGameEnd(Form1 mainForm)
+        {
+            await mainForm.SaveQuizResult(currentScore, currentRank);
+            MessageBox.Show("점수가 저장되었습니다.");
         }
     }
 }

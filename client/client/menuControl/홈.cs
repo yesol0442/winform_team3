@@ -57,11 +57,24 @@ namespace client.menuControl
                 lblRainMaxLevel.Text = stats[5];
                 lblBlockRecord.Text = stats[6] + "초";
                 lblQuizMaxScore.Text = stats[7] + "점";
-                lblQuizWinRate.Text = stats[8] + "%";
-                lblFoundWinRate.Text = stats[9] + "%";
+                lblQuizWinRate.Text = stats[8] + "등";
+                //lblFoundWinRate.Text = stats[9] + "%";
 
-                // 2. 이미지 데이터 수신 (Base64 문자열, 끝에 ::END::)
-                string base64Image = await NetworkManager.Instance.ReceiveFullMessageUntilEndAsync("");
+                
+                if (stats[9]=="1")
+                {
+                    lblFoundWinRate.Text = "승리";
+                }else if(stats[9] == "0")
+                {
+                    lblFoundWinRate.Text = "패배";
+                }
+                else
+                {
+                    lblFoundWinRate.Text = "무승부";
+                }
+
+                    // 2. 이미지 데이터 수신 (Base64 문자열, 끝에 ::END::)
+                    string base64Image = await NetworkManager.Instance.ReceiveFullMessageUntilEndAsync("");
                 Console.WriteLine($"서버에서 받은 이미지 Base64 길이: {base64Image?.Length ?? 0}");
 
                 if (!string.IsNullOrWhiteSpace(base64Image))
@@ -98,8 +111,5 @@ namespace client.menuControl
                 MessageBox.Show("유저 통계 로드 중 오류가 발생했습니다.", "오류", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
-
-
-
     }
 }

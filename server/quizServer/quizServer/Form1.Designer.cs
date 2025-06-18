@@ -1,4 +1,4 @@
-﻿namespace server
+﻿namespace quizServer
 {
     partial class Form1
     {

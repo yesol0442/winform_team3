@@ -14,6 +14,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Xml.Linq;
 
 namespace client.quizForm
 {
@@ -28,26 +29,40 @@ namespace client.quizForm
         //들어온 순서대로 1p, 2p, 3p, 4p가 정해짐
         //화면을 보고 있는 플레이어가 몇p인지 나타내는 변수 필요
         //ready화면에서 받아와야할듯?
-        public int playerNum = 0; //배열 인덱스 생각해서, 실제 번호 -1 로 할까
+        public int playerNum = 0;
         public int playerScore = 0;
         public string yourAnswer = ""; //이번에 입력한 정답.
         public bool isAnswerCorrect = false;
 
-        List<(string Nickname, byte[] Image)> users = new List<(string Nickname, byte[] Image)>();
+        Form1 parentForm;
 
-        public quizForm(TcpClient client, NetworkStream stream, int playerNum)
+        class UserInfo
+        {
+            public string userNickname;
+            public string userImage;
+            public UserInfo(string nickname, string image)
+            {
+                userNickname = nickname;
+                userImage = image;
+            }
+        }
+
+        UserInfo userInfo;
+
+        public quizForm(TcpClient client, NetworkStream stream, int playerNum, string nickname, string user64image, Form1 parentForm)
         {
             InitializeComponent();
 
             this.client = client;
             this.stream = stream;
             this.playerNum = playerNum;
-
-            SendUserData(stream, userInfo.userNickname, userInfo.userImage);
-            this.Load += async (s, e) => await quizForm_Load(s, e);
+            this.parentForm = parentForm;
 
             reader = new StreamReader(this.stream);
             writer = new StreamWriter(this.stream) { AutoFlush = true };
+
+            userInfo = new UserInfo(nickname, user64image);
+            SendUserData(userInfo.userNickname, userInfo.userImage);
 
             PictureBox[] playerPics = { playerPic1, playerPic2, playerPic3, playerPic4 };
             Label[] playerScores = { playerScore1, playerScore2, playerScore3, playerScore4 };
@@ -223,22 +238,20 @@ namespace client.quizForm
                                 }
                             }
 
-                            foreach (var kvp in scoreMap)
+                            List<PlayerResult> ranking = new List<PlayerResult>();
+                            Label[] labels = { pname1, pname2, pname3, pname4 };
+                            int rank = 1;
+                            foreach (var kvp in scoreMap.OrderByDescending(kvp => kvp.Value))
                             {
                                 Console.WriteLine($"Player {kvp.Key + 1}: {kvp.Value}점");
+                                ranking.Add(new PlayerResult(rank++, kvp.Key + 1, labels[kvp.Key].Text, kvp.Value));
                             }
-
-                            // 순위 계산
-                            var ranking = scoreMap
-                                .OrderByDescending(kvp => kvp.Value)
-                                .Select((kvp, idx) => new PlayerResult(idx + 1, kvp.Key + 1, kvp.Value))
-                                .ToList();
 
                             Invoke(new Action(() =>
                             {
                                 try
                                 {
-                                    var resultForm = new quizResult(ranking, client);
+                                    var resultForm = new quizResult(ranking, client, parentForm, playerNum);
                                     resultForm.Show();
                                     this.Close();
                                 }
@@ -252,6 +265,37 @@ namespace client.quizForm
                         {
                             MessageBox.Show("결과창 오류 (외부): " + ex.Message);
                         }
+                    }
+                    else if (msg.StartsWith("ALL_USERS:"))
+                    {
+                        UserInfo[] users = ReceiveAllClientsData(msg);
+
+                        Invoke(new Action(() =>
+                        {
+                            PictureBox[] playerPics = { playerPic1, playerPic2, playerPic3, playerPic4 };
+                            Label[] labels = { pname1, pname2, pname3, pname4 };
+
+                            for (int i = 0; i < users.Length; i++)
+                            {
+                                if (users[i] != null)
+                                {
+                                    labels[i].Text = (i + 1) + "P " + users[i].userNickname;
+
+                                    try
+                                    {
+                                        byte[] imgBytes = Convert.FromBase64String(users[i].userImage);
+                                        using (MemoryStream ms = new MemoryStream(imgBytes))
+                                        {
+                                            playerPics[i].Image = Image.FromStream(ms);
+                                        }
+                                    }
+                                    catch (Exception ex)
+                                    {
+                                        MessageBox.Show("이미지 변환 오류: " + ex.Message);
+                                    }
+                                }
+                            }
+                        }));
                     }
 
                 }
@@ -313,120 +357,44 @@ namespace client.quizForm
             }
         }
 
-        void SendUserData(NetworkStream stream, string nickname, byte[] profileImage)
+        private void SendUserData(string nickname, string imageBase64)
         {
-            using (BinaryWriter writer = new BinaryWriter(stream, Encoding.UTF8, true))
+            if (writer == null)
             {
-                writer.Write(nickname.Length);
-                writer.Write(nickname);
-                writer.Write(profileImage.Length);
-                writer.Write(profileImage);
-            }
-        }
-
-        List<(string Nickname, byte[] Image)> ReceiveAllClientsData(NetworkStream stream)
-        {
-            List<(string, byte[])> result = new List<(string, byte[])>();
-            using (BinaryReader reader = new BinaryReader(stream, Encoding.UTF8, true))
-            {
-                int count = reader.ReadInt32();
-                for (int i = 0; i < count; i++)
-                {
-                    int nameLen = reader.ReadInt32();
-                    string nickname = new string(reader.ReadChars(nameLen));
-
-                    int imageLen = reader.ReadInt32();
-                    byte[] image = reader.ReadBytes(imageLen);
-
-                    result.Add((nickname, image));
-                }
-            }
-            return result;
-        }
-
-        class UserInfo
-        {
-            public string userNickname;
-            public byte[] userImage;
-        }
-
-        UserInfo userInfo = new UserInfo();
-        //5000번 포트에서 데이터를 가져오는 작업. 이후 게임이 시작되면 그쪽으로 보낼듯
-        //애초에 게임폼에서 가져오는게 나으려나???
-        //5000번에서 가져옴 -> 8888로 보냄 -> 8888이 네개를 모아서 클라이언트 전부에게 보냄
-
-        public async Task LoadUserInfo(string currentUserId)
-        {
-            if (string.IsNullOrEmpty(currentUserId))
+                MessageBox.Show("writer가 null입니다 (SendUserData)");
                 return;
-
-            try
-            {
-                string request = $"LOAD_STATS:{currentUserId}";
-                await NetworkManager.Instance.SendMessageAsync(request);
-
-                // 1. 헤더(통계 데이터) 수신 (끝에 ::END_HEADER:: 포함)
-                string header = await NetworkManager.Instance.ReceiveHeaderAsync();
-                //Console.WriteLine($"서버에서 받은 헤더: '{header}'");
-
-                if (string.IsNullOrEmpty(header) || header == "STATS_LOAD_FAIL")
-                {
-                    MessageBox.Show("유저 통계 정보를 불러오지 못했습니다.", "오류", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    return;
-                }
-
-                string[] stats = header.Split('|');
-                if (stats.Length < 10)
-                {
-                    MessageBox.Show("유효하지 않은 데이터 형식입니다.", "오류", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    return;
-                }
-
-                // UI에 데이터 설정
-                userInfo.userNickname = stats[0];
-
-                // 2. 이미지 데이터 수신 (Base64 문자열, 끝에 ::END::)
-                string base64Image = await NetworkManager.Instance.ReceiveFullMessageUntilEndAsync("");
-                //Console.WriteLine($"서버에서 받은 이미지 Base64 길이: {base64Image?.Length ?? 0}");
-
-                if (!string.IsNullOrWhiteSpace(base64Image))
-                {
-                    try
-                    {
-                        byte[] imgBytes = Convert.FromBase64String(base64Image);
-                        userInfo.userImage = imgBytes;
-                    }
-                    catch (FormatException ex)
-                    {
-                        //Console.WriteLine($"[프로필 이미지 오류] {ex.Message}");
-                        //MessageBox.Show("프로필 이미지 데이터가 손상되었습니다.", "오류", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    }
-                }
-                else
-                {
-                    userInfo.userImage = null;
-                }
-
-                //Console.WriteLine("[클라이언트] 유저 통계 및 프로필 사진 로드 완료");
             }
-            catch (Exception ex)
-            {
-                //Console.WriteLine($"[클라이언트] 유저 통계 로드 중 오류 발생: {ex}");
-                //MessageBox.Show("유저 통계 로드 중 오류가 발생했습니다.", "오류", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
+
+            string msg = $"USER_INFO:NICKNAME={nickname};IMAGE={imageBase64}";
+            writer.WriteLine(msg);
         }
 
-        private async Task quizForm_Load(object sender, EventArgs e)
+        private UserInfo[] ReceiveAllClientsData(string message)
         {
-            await LoadUserInfo(UserSession.Instance.UserId);
-            //SendServerUserInfo();
+            UserInfo[] users = new UserInfo[4];
 
-            // 모든 클라이언트 정보 수신
-            users = ReceiveAllClientsData(stream);
+            // 메시지 예시: SEND_ALL_USERS:0=Alice;base64img1|1=Bob;base64img2|2=Carol;base64img3|3=Dan;base64img4
+            string raw = message.Substring("ALL_USERS:".Length); // 앞부분 제거
+            string[] entries = raw.Split('|');
 
-            // 이후 UI 반영
-            //label1.Text = users[playerNum].userNickname;
-            //pictureBox1.Image = ByteArrayToImage(users[playerNum].userImage);
+            foreach (string entry in entries)
+            {
+                string[] kv = entry.Split('=');
+                if (kv.Length != 2) continue;
+
+                int idx = int.Parse(kv[0]);
+                string[] infoParts = kv[1].Split(';');
+
+                if (infoParts.Length == 2)
+                {
+                    string nickname = infoParts[0];
+                    string imageBase64 = infoParts[1];
+
+                    users[idx] = new UserInfo(nickname, imageBase64);
+                }
+            }
+
+            return users;
         }
     }
 }

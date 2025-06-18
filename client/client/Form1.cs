@@ -23,10 +23,10 @@ namespace client
     {
         private Guna2BorderlessForm borderlessForm;
         private menuControl.홈 홈 = new menuControl.홈();
-        private new menuControl.미니게임 미니게임 = new menuControl.미니게임();
+        private new menuControl.미니게임 미니게임;
         private menuControl.코드연습 코드연습 = new menuControl.코드연습();
         private menuControl.환경설정 환경설정 = new menuControl.환경설정();
-        private new menuControl.PVP PVP = new menuControl.PVP();
+        private new menuControl.PVP PVP;
         private new menuControl.초기화면 초기화면 = new menuControl.초기화면();
         private Guna.UI2.WinForms.Guna2Button currentSelectedButton = null;
 
@@ -35,6 +35,8 @@ namespace client
         public Form1()
         {
             InitializeComponent();
+            미니게임 = new menuControl.미니게임();
+            PVP = new menuControl.PVP(this);
 
             borderlessForm = new Guna2BorderlessForm();
             borderlessForm.ContainerControl = this;
@@ -69,13 +71,13 @@ namespace client
 
         private void OnRainGameRequested(object sender, EventArgs e)
         {
-            rainMain form = new rainMain(currentLanguage);
-            form.Show();
+            rainMain form = new rainMain(this,currentLanguage);
+            form.ShowDialog();
         }
 
         private void OnBLockGameRequested(object sender, EventArgs e)
         {
-            BlockStart form = new BlockStart(currentLanguage);
+            BlockStart form = new BlockStart(this, currentLanguage);
             form.Show();
         }
 
@@ -114,10 +116,19 @@ namespace client
             메뉴버튼_Click(sender, e);
         }
 
-        private void PVP_Click(object sender, EventArgs e)
+        private async void PVP_Click(object sender, EventArgs e)
         {
             PVP.BringToFront();
             PVP.Show();
+            try
+            {
+                // 로그인한 사용자 ID로 최신 정보 다시 불러오기
+                await PVP.LoadUserInfos(UserSession.Instance.UserId);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"홈 화면 정보 갱신 실패: {ex.Message}");
+            }
             메뉴버튼_Click(sender, e);
         }
 
@@ -207,6 +218,178 @@ namespace client
             }
 
             btn홈.PerformClick();
+        }
+
+        /********************************************************************/
+        public async Task SaveQuizResult(int score, int rank)
+        {
+            string UserId = UserSession.Instance.UserId;
+            if (string.IsNullOrEmpty(UserId))
+            {
+                MessageBox.Show("사용자 ID가 설정되지 않았습니다.", "오류", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+            try
+            {
+                string scoremessage = $"UPDATE_QUIZMAXSCORE:{UserId}:{score}";
+                await NetworkManager.Instance.SendMessageAsync(scoremessage);
+                string response = await NetworkManager.Instance.ReceiveMessageAsync();
+
+                if (response == "OK")
+                {
+                    MessageBox.Show("퀴즈점수업데이트", "변경 완료", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+                else
+                {
+                    MessageBox.Show("퀴즈점수 업데이트 실패: " + response);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"퀴즈점수 업데이트 중 오류 발생: {ex.Message}", "오류", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+
+            try
+            {
+                string rankmessage = $"UPDATE_QUIZWINRATE:{UserId}:{rank}";
+                await NetworkManager.Instance.SendMessageAsync(rankmessage);
+                string response = await NetworkManager.Instance.ReceiveMessageAsync();
+
+                if (response == "OK")
+                {
+                    MessageBox.Show("퀴즈랭크업데이트", "변경 완료", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+                else
+                {
+                    MessageBox.Show("퀴즈랭크 업데이트 실패: " + response);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"퀴즈랭크 업데이트 중 오류 발생: {ex.Message}", "오류", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        public async Task SaveBlockResult(int record)
+        {
+            string UserId = UserSession.Instance.UserId;
+            if (string.IsNullOrEmpty(UserId))
+            {
+                MessageBox.Show("사용자 ID가 설정되지 않았습니다.", "오류", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+            try
+            {
+                string message = $"UPDATE_BLOCKRECORD:{UserId}:{record}";
+                await NetworkManager.Instance.SendMessageAsync(message);
+                string response = await NetworkManager.Instance.ReceiveMessageAsync();
+
+                if (response == "OK")
+                {
+                    MessageBox.Show("블록기록 업데이트", "변경 완료", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+                else
+                {
+                    MessageBox.Show("블록기록 업데이트 실패: " + response);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"블록기록 업데이트 중 오류 발생: {ex.Message}", "오류", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+
+        public async Task SaveRainResult(int score, int level)
+        {
+            string UserId = UserSession.Instance.UserId;
+
+            // 점수
+            if (string.IsNullOrEmpty(UserId))
+            {
+                MessageBox.Show("사용자 ID가 설정되지 않았습니다.", "오류", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
+            try
+            {
+                string message1 = $"UPDATE_RAINMAXSCORE:{UserId}:{score}";
+                await NetworkManager.Instance.SendMessageAsync(message1);
+                string response = await NetworkManager.Instance.ReceiveMessageAsync();
+
+                if (response == "OK")
+                {
+                    MessageBox.Show("산성비 점수가 업데이트되었습니다..", "변경 완료", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+                else
+                {
+                    MessageBox.Show("산성비 점수 업데이트 실패: " + response);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"산성비 점수 업데이트 중 오류 발생: {ex.Message}", "오류", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+
+            // 레벨
+            if (string.IsNullOrEmpty(UserId))
+            {
+                MessageBox.Show("사용자 ID가 설정되지 않았습니다.", "오류", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
+            try
+            {
+                string message2 = $"UPDATE_RAINMAXLEVEL:{UserId}:{level}";
+                await NetworkManager.Instance.SendMessageAsync(message2);
+                string response = await NetworkManager.Instance.ReceiveMessageAsync();
+
+                if (response == "OK")
+                {
+                    MessageBox.Show("산성비 레벨이 업데이트되었습니다..", "변경 완료", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+                else
+                {
+                    MessageBox.Show("산성비 레벨 업데이트 실패: " + response);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"산성비 레벨 업데이트 중 오류 발생: {ex.Message}", "오류", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+
+
+
+        public async Task SaveCodeFindResult(float result)
+        {
+            string UserId = UserSession.Instance.UserId;
+            if (string.IsNullOrEmpty(UserId))
+            {
+                MessageBox.Show("사용자 ID가 설정되지 않았습니다.", "오류", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
+            try
+            {
+                string message = $"UPDATE_FOUNDWINRATE:{UserId}:{result}";
+                await NetworkManager.Instance.SendMessageAsync(message);
+                string response = await NetworkManager.Instance.ReceiveMessageAsync();
+
+                if (response == "OK")
+                {
+                    MessageBox.Show("틀코찾 점수가 업데이트되었습니다..", "변경 완료", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+                else
+                {
+                    MessageBox.Show("틀코찾 점수 업데이트 실패: " + response);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"틀코찾 점수 업데이트 중 오류 발생: {ex.Message}", "오류", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
     }

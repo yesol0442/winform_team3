@@ -35,6 +35,7 @@
             this.lbScore = new System.Windows.Forms.Label();
             this.StartTimer = new System.Windows.Forms.Timer(this.components);
             this.lbCount = new System.Windows.Forms.Label();
+            this.lbLevel = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // inputTxt
@@ -87,6 +88,16 @@
             this.lbCount.TabIndex = 2;
             this.lbCount.Text = "label1";
             // 
+            // lbLevel
+            // 
+            this.lbLevel.AutoSize = true;
+            this.lbLevel.Font = new System.Drawing.Font("휴먼옛체", 12F);
+            this.lbLevel.Location = new System.Drawing.Point(151, 28);
+            this.lbLevel.Name = "lbLevel";
+            this.lbLevel.Size = new System.Drawing.Size(117, 34);
+            this.lbLevel.TabIndex = 3;
+            this.lbLevel.Text = "레벨: 1";
+            // 
             // rainMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(13F, 26F);
@@ -94,6 +105,7 @@
             this.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("$this.BackgroundImage")));
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.ClientSize = new System.Drawing.Size(374, 429);
+            this.Controls.Add(this.lbLevel);
             this.Controls.Add(this.lbCount);
             this.Controls.Add(this.lbScore);
             this.Controls.Add(this.inputTxt);
@@ -112,5 +124,6 @@
         private System.Windows.Forms.Label lbScore;
         private System.Windows.Forms.Timer StartTimer;
         private System.Windows.Forms.Label lbCount;
+        private System.Windows.Forms.Label lbLevel;
     }
 }
