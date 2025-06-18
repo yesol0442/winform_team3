@@ -8,6 +8,10 @@ using System.Windows.Forms;
 using System.Net.Sockets;
 using System.Threading;
 using System;
+using System.Collections.Generic;
+using System.Xml.Serialization;
+using System.Diagnostics;
+using client.classes.NetworkManager;
 
 namespace client.quizForm
 {
@@ -15,13 +19,14 @@ namespace client.quizForm
     {
         TcpClient client;
         NetworkStream stream;
-        byte[] buffer = new byte[4];
+
+        int playerNum;
 
         public quizReady()
         {
             InitializeComponent();
             client = new TcpClient();
-            client.Connect("127.0.0.1", 9000); // 서버 IP 주소
+            client.Connect("127.0.0.1", 8888); // 서버 IP 주소
             stream = client.GetStream();
 
             Thread receiveThread = new Thread(ReceiveData);
@@ -31,34 +36,56 @@ namespace client.quizForm
 
         private void guna2Button1_Click(object sender, EventArgs e)
         {
+            try
+            {
+                StreamWriter writer = new StreamWriter(stream) { AutoFlush = true };
+                writer.WriteLine("LEAVE");
+            }
+            catch { }
+
             this.Close();
+            stream.Close();
+            client.Close();
         }
 
         private void ReceiveData()
         {
+            StreamReader reader = new StreamReader(stream);
+
             while (true)
             {
                 try
                 {
-                    byte[] buffer = new byte[256];
-                    int bytes = stream.Read(buffer, 0, buffer.Length);
-                    if (bytes > 0)
+                    string serverMessage = reader.ReadLine();
+                    if (serverMessage == null) break;
+
+                    if (serverMessage.Contains("START"))
                     {
-                        string msg = Encoding.UTF8.GetString(buffer, 0, bytes);
+                        StartGame();
+                        break;
+                    }
 
-                        if (msg == "FULL")
+                    if (serverMessage.Contains("ROOM") && serverMessage.Contains("PLAYER"))
+                    {
+                        string[] parts = serverMessage.Split(';');
+                        string roomInfo = parts[0].Split(':')[1];
+                        string playerNumber = parts[1].Split(':')[1];
+
+                        playerNum = Int32.Parse(playerNumber);
+                        UpdatePanels(playerNum + 1);
+                    }
+
+                    if (serverMessage.StartsWith("UPDATE_PANEL:"))
+                    {
+                        int count = int.Parse(serverMessage.Substring(13));
+
+                        if (playerNum >= 0)  // playerNum 설정 전이면 무시
                         {
-                            MessageBox.Show("정원이 초과되어 접속할 수 없습니다.", "접속 실패", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                            client.Close();
-                            break;
+                            UpdatePanels(count);
                         }
-
-                        // 접속 인원 수인 경우
-                        int count = BitConverter.ToInt32(buffer, 0);
-                        UpdatePanels(count);
                     }
                 }
-                catch
+                catch (Exception ex)
                 {
                     break;
                 }
@@ -78,6 +105,21 @@ namespace client.quizForm
             {
                 panels[i].BackColor = (i < count) ? Color.Green : Color.Silver;
             }
+        }
+
+        private void StartGame()
+        {
+
+            if (InvokeRequired)
+            {
+                Invoke(new Action(StartGame));
+                return;
+            }
+
+            // 기존 TcpClient 전달
+            quizForm quiz = new quizForm(client, stream, playerNum);
+            quiz.Show();
+            this.Close();
         }
     }
 }
