@@ -69,6 +69,8 @@ namespace client.HambugiGame
         private const int TotalSec = 3000;
         private int _remain = TotalSec;
 
+        private readonly Dictionary<Control, Color> _origColor = new Dictionary<Control, Color>();
+
         public HambugiGameForm()
         {
             InitializeComponent();
@@ -358,10 +360,14 @@ namespace client.HambugiGame
             if (_selectedBlock != null && _selectedBlock != ctrl)
             {
                 _selectedBlock.Padding = Padding.Empty;
-                _selectedBlock.BackColor = SystemColors.Control;
+                _selectedBlock.BackColor = _origColor[_selectedBlock];
             }
 
             _selectedBlock = ctrl;
+
+            if (!_origColor.ContainsKey(ctrl)) 
+                _origColor[ctrl] = ctrl.BackColor;
+
             _selectedBlock.Padding = new Padding(2);
             _selectedBlock.BackColor = Color.DeepSkyBlue;
         }
