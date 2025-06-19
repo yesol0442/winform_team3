@@ -36,7 +36,7 @@
             // 
             // codeTxt
             // 
-            this.codeTxt.Font = new System.Drawing.Font("휴먼옛체", 12F);
+            this.codeTxt.Font = new System.Drawing.Font("휴먼옛체", 10.875F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.codeTxt.ImeMode = System.Windows.Forms.ImeMode.Disable;
             this.codeTxt.Location = new System.Drawing.Point(52, 62);
             this.codeTxt.Name = "codeTxt";

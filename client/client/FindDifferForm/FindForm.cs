@@ -23,14 +23,9 @@ namespace client.FindDifferForm
         // 틀린 줄 번호 (0부터 시작)
         private List<(int line, int charIndex)> answerPositions = new List<(int, int)>
         {
-            (2, 1),   // "  static void Main..." → 's' 앞 접근제한자 없던 자리
-            (4, 20),  // "int number = 5" → '5' 바로 뒤 (길이 22 → 인덱스 21까지 가능)
-            (5, 18),  // "Writeine"의 e
-            (6, 0),   // if문의 들여쓰기 오류 (줄 시작)
-            (8, 37),  // ? "Y" "N"; → "Y" 끝나는 위치 기준 (길이 안 넘도록 조정)
-
-
-
+            (8, 33),
+            (10, 40),
+            (12, 25)
         };
 
         // 이미 맞춘 정답 좌표 리스트
@@ -128,18 +123,25 @@ namespace client.FindDifferForm
         {
             string[] codeLines = new string[]
             {
-                 "using System;",
-                "public class Sample{",                         // ← 중괄호 없음
-            "  static void Main(string[] args)",           // ← 접근제한자 누락 + 들여쓰기 부족
-            "  {",
-            "      int number = 5" ,                        // ← 세미콜론 누락
-            "      Console.Writeine(number);",             // ← 오타: Writeine → WriteLine
-            "    if(number > 3)",                          // ← 들여쓰기 불일치
-            "    Console.WriteLine(\"Greater\");",
-            "      string result = number > 3 ? \"Y\" \"N\";", // ← 삼항 연산자 오류 (콜론 누락)
-            "  }",
-            "}"
 
+                //"using System;",
+                //"using System.Collections.Generic;",
+                //"",
+                "public class NameChecker",
+                "{",
+                "    public void CheckNames()",
+                "    {",
+                "        List<string> names = new List<string> { \"Alice\", \"Bob\", \"Charlie\" };",
+                "        foreach(string name in names)",
+                "        {",
+                "            if (name.Contains(\"a\"))",
+                "                Console.Write(namee);",                  // ← 오타: namee → name
+                "        }",
+                "        Console.WriteLine(\"검사가 완료되었습니다.\")", // ← 세미콜론 누락
+                "        int total = names.Count;",
+                "        string output = total;",                         // ← 타입 오류: string ← int 직접 대입
+                "    }",
+                "}"
 
             };
 
