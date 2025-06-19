@@ -278,7 +278,7 @@
             this.pic_sb4.Image = global::client.Properties.Resources.speech_bubble;
             this.pic_sb4.ImageRotate = 0F;
             this.pic_sb4.Location = new System.Drawing.Point(1004, 184);
-            this.pic_sb4.Margin = new System.Windows.Forms.Padding(5, 5, 5, 5);
+            this.pic_sb4.Margin = new System.Windows.Forms.Padding(5);
             this.pic_sb4.Name = "pic_sb4";
             this.pic_sb4.Size = new System.Drawing.Size(162, 128);
             this.pic_sb4.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
@@ -290,7 +290,7 @@
             this.pic_sb3.Image = global::client.Properties.Resources.speech_bubble;
             this.pic_sb3.ImageRotate = 0F;
             this.pic_sb3.Location = new System.Drawing.Point(728, 184);
-            this.pic_sb3.Margin = new System.Windows.Forms.Padding(5, 5, 5, 5);
+            this.pic_sb3.Margin = new System.Windows.Forms.Padding(5);
             this.pic_sb3.Name = "pic_sb3";
             this.pic_sb3.Size = new System.Drawing.Size(162, 128);
             this.pic_sb3.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
@@ -302,7 +302,7 @@
             this.pic_sb2.Image = global::client.Properties.Resources.speech_bubble;
             this.pic_sb2.ImageRotate = 0F;
             this.pic_sb2.Location = new System.Drawing.Point(452, 184);
-            this.pic_sb2.Margin = new System.Windows.Forms.Padding(5, 5, 5, 5);
+            this.pic_sb2.Margin = new System.Windows.Forms.Padding(5);
             this.pic_sb2.Name = "pic_sb2";
             this.pic_sb2.Size = new System.Drawing.Size(162, 128);
             this.pic_sb2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
@@ -314,7 +314,7 @@
             this.pic_sb1.Image = global::client.Properties.Resources.speech_bubble;
             this.pic_sb1.ImageRotate = 0F;
             this.pic_sb1.Location = new System.Drawing.Point(176, 184);
-            this.pic_sb1.Margin = new System.Windows.Forms.Padding(5, 5, 5, 5);
+            this.pic_sb1.Margin = new System.Windows.Forms.Padding(5);
             this.pic_sb1.Name = "pic_sb1";
             this.pic_sb1.Size = new System.Drawing.Size(162, 128);
             this.pic_sb1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
@@ -344,10 +344,10 @@
             this.playerPic4.Image = global::client.Properties.Resources.profile_image;
             this.playerPic4.ImageRotate = 0F;
             this.playerPic4.Location = new System.Drawing.Point(988, 312);
-            this.playerPic4.Margin = new System.Windows.Forms.Padding(5, 5, 5, 5);
+            this.playerPic4.Margin = new System.Windows.Forms.Padding(5);
             this.playerPic4.Name = "playerPic4";
             this.playerPic4.Size = new System.Drawing.Size(195, 192);
-            this.playerPic4.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.playerPic4.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.playerPic4.TabIndex = 51;
             this.playerPic4.TabStop = false;
             // 
@@ -356,10 +356,10 @@
             this.playerPic3.Image = global::client.Properties.Resources.profile_image;
             this.playerPic3.ImageRotate = 0F;
             this.playerPic3.Location = new System.Drawing.Point(712, 312);
-            this.playerPic3.Margin = new System.Windows.Forms.Padding(5, 5, 5, 5);
+            this.playerPic3.Margin = new System.Windows.Forms.Padding(5);
             this.playerPic3.Name = "playerPic3";
             this.playerPic3.Size = new System.Drawing.Size(195, 192);
-            this.playerPic3.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.playerPic3.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.playerPic3.TabIndex = 50;
             this.playerPic3.TabStop = false;
             // 
@@ -368,10 +368,10 @@
             this.playerPic2.Image = global::client.Properties.Resources.profile_image;
             this.playerPic2.ImageRotate = 0F;
             this.playerPic2.Location = new System.Drawing.Point(436, 312);
-            this.playerPic2.Margin = new System.Windows.Forms.Padding(5, 5, 5, 5);
+            this.playerPic2.Margin = new System.Windows.Forms.Padding(5);
             this.playerPic2.Name = "playerPic2";
             this.playerPic2.Size = new System.Drawing.Size(195, 192);
-            this.playerPic2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.playerPic2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.playerPic2.TabIndex = 49;
             this.playerPic2.TabStop = false;
             // 
@@ -380,10 +380,10 @@
             this.playerPic1.Image = global::client.Properties.Resources.profile_image;
             this.playerPic1.ImageRotate = 0F;
             this.playerPic1.Location = new System.Drawing.Point(159, 312);
-            this.playerPic1.Margin = new System.Windows.Forms.Padding(5, 5, 5, 5);
+            this.playerPic1.Margin = new System.Windows.Forms.Padding(5);
             this.playerPic1.Name = "playerPic1";
             this.playerPic1.Size = new System.Drawing.Size(195, 192);
-            this.playerPic1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.playerPic1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.playerPic1.TabIndex = 48;
             this.playerPic1.TabStop = false;
             // 
@@ -493,7 +493,7 @@
             this.Controls.Add(this.playerPic2);
             this.Controls.Add(this.playerPic1);
             this.Controls.Add(this.txt_question);
-            this.Margin = new System.Windows.Forms.Padding(5, 5, 5, 5);
+            this.Margin = new System.Windows.Forms.Padding(5);
             this.Name = "quizForm";
             this.Text = "quizForm";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.quizForm_FormClosed);

@@ -26,7 +26,7 @@ namespace client.quizForm
 
             foreach (var r in ranking)
             {
-                if (r.Player == playerNum)
+                if (r.Player - 1 == playerNum)
                 {
                     currentScore = r.Score;
                     currentRank = r.Rank;
