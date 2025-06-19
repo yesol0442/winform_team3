@@ -31,6 +31,8 @@ namespace client.menuControl
         {
             InitializeComponent();
             txtNickname.Visible = false;
+            togSound.Checked = true;
+            chkGuide.Checked = true;
             chkGuide.CheckedChanged += chkGuide_CheckedChanged;
         }
 
@@ -328,6 +330,7 @@ namespace client.menuControl
         {
             SoundManager.SoundEnabled = togSound.Checked;
         }
+
 
     }
 }
