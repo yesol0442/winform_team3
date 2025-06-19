@@ -48,7 +48,10 @@ namespace client.HambugiGame
 
         public static (int earned, string comment) Evaluate(Order order, Burger cooked)
         {
-            if(cooked == null) return (0, "뭘 먹으라는거죠?");
+            if (cooked == null) {
+                HambugiGameForm.bugerimage = Properties.Resources.ppp;
+                return (0, "뭘 먹으라는거죠?"); 
+            }
             int earned = order.BasePrice;
             string comment = null;
 

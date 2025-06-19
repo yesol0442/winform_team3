@@ -555,5 +555,8 @@
   <ItemGroup>
     <None Include="Resources\button_enable.png" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\ppp.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
