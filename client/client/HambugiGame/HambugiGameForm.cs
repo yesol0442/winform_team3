@@ -12,6 +12,8 @@ using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using static System.Windows.Forms.Design.AxImporter;
+
 
 namespace client.HambugiGame
 {
@@ -70,16 +72,17 @@ namespace client.HambugiGame
         public HambugiGameForm()
         {
             InitializeComponent();
-
             SoundManager.PlaySoundLoop(@"..\..\Resources\hamburger.wav");
-
             this.DoubleBuffered = true;
             EnableDoubleBufferRecursive(this);
-
             this.MaximumSize = this.Size;
             this.MinimumSize = this.Size;
-
             button1.Enabled = false;
+
+            button1.BackgroundImage = Properties.Resources.button_enable;
+            button1.BackgroundImageLayout = ImageLayout.Stretch;
+            음식만들기Bt.BackgroundImage = Properties.Resources.button_enable;
+            음식만들기Bt.BackgroundImageLayout = ImageLayout.Stretch;
 
             말풍선P.BackgroundImage = Properties.Resources.bubble;
             말풍선P.BackgroundImageLayout = ImageLayout.Stretch;
@@ -87,12 +90,6 @@ namespace client.HambugiGame
             orderPanel.BackgroundImageLayout = ImageLayout.Stretch;
             BackgroundImage = Properties.Resources.burger_background;
             BackgroundImageLayout = ImageLayout.Stretch;
-
-            button1.BackgroundImage = Properties.Resources.button_enable;
-            button1.BackgroundImageLayout = ImageLayout.Stretch;
-            음식만들기Bt.BackgroundImage = Properties.Resources.button_enable;
-            음식만들기Bt.BackgroundImageLayout = ImageLayout.Stretch;
-
 
             flowLayoutPanel1.WrapContents = false;
             flowLayoutPanel1.AutoScroll = true;
@@ -213,7 +210,7 @@ namespace client.HambugiGame
 
             음식만들기Bt.Enabled = anyBlock;
             button1.Enabled = anyBlock;
-            if(음식만들기Bt.Enabled == true)
+            if (음식만들기Bt.Enabled == true)
             {
                 음식만들기Bt.BackgroundImage = Properties.Resources.button;
             }
@@ -356,7 +353,17 @@ namespace client.HambugiGame
         }
         private void Block_Click(object sender, EventArgs e)
         {
+            var ctrl = (Control)sender;
 
+            if (_selectedBlock != null && _selectedBlock != ctrl)
+            {
+                _selectedBlock.Padding = Padding.Empty;
+                _selectedBlock.BackColor = SystemColors.Control;
+            }
+
+            _selectedBlock = ctrl;
+            _selectedBlock.Padding = new Padding(2);
+            _selectedBlock.BackColor = Color.DeepSkyBlue;
         }
         private async void 음식만들기Bt_Click(object sender, EventArgs e)
         {
@@ -523,7 +530,6 @@ namespace client.HambugiGame
 
             RefreshCookButton();
         }
-
         private void HambugiGameForm_FormClosed(object sender, FormClosedEventArgs e)
         {
             SoundManager.StopSound();
