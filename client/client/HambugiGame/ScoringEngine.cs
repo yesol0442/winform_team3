@@ -138,7 +138,7 @@ namespace client.HambugiGame
 
                     if (!bottomOk || !topOk)
                     {
-                        // 빵이 필요한데 빠졌거나 위치가 틀림(왜냐면 빵은 중요하니까)
+                        
                         earned = (int)(earned * 0.9);
                         comment = "빵이 ..? ";
                     }
@@ -184,7 +184,7 @@ namespace client.HambugiGame
             if (comment == null && earned == order.BasePrice) comment = "완벽해요!";
 
 
-            if (earned == order.BasePrice)
+            if (comment == null && earned == order.BasePrice)
             {
                 HambugiGameForm.bugerimage = Properties.Resources.hamburger_best;
             }
@@ -192,7 +192,7 @@ namespace client.HambugiGame
             {
                 HambugiGameForm.bugerimage = Properties.Resources.hamburger_cheap;
             }
-            else if (earned < order.BasePrice * 0.3)
+            else if (earned < order.BasePrice * 0.8)
             {
                 HambugiGameForm.bugerimage = Properties.Resources.hamburger;
             }
