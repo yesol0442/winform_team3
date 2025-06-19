@@ -236,14 +236,6 @@ namespace client
                 await NetworkManager.Instance.SendMessageAsync(scoremessage);
                 string response = await NetworkManager.Instance.ReceiveMessageAsync();
 
-                if (response == "OK")
-                {
-                    MessageBox.Show("퀴즈점수업데이트", "변경 완료", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                }
-                else
-                {
-                    MessageBox.Show("퀴즈점수 업데이트 실패: " + response);
-                }
             }
             catch (Exception ex)
             {
@@ -256,14 +248,6 @@ namespace client
                 await NetworkManager.Instance.SendMessageAsync(rankmessage);
                 string response = await NetworkManager.Instance.ReceiveMessageAsync();
 
-                if (response == "OK")
-                {
-                    MessageBox.Show("퀴즈랭크업데이트", "변경 완료", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                }
-                else
-                {
-                    MessageBox.Show("퀴즈랭크 업데이트 실패: " + response);
-                }
             }
             catch (Exception ex)
             {
@@ -285,14 +269,6 @@ namespace client
                 await NetworkManager.Instance.SendMessageAsync(message);
                 string response = await NetworkManager.Instance.ReceiveMessageAsync();
 
-                if (response == "OK")
-                {
-                    MessageBox.Show("블록기록 업데이트", "변경 완료", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                }
-                else
-                {
-                    MessageBox.Show("블록기록 업데이트 실패: " + response);
-                }
             }
             catch (Exception ex)
             {
@@ -318,14 +294,6 @@ namespace client
                 await NetworkManager.Instance.SendMessageAsync(message1);
                 string response = await NetworkManager.Instance.ReceiveMessageAsync();
 
-                if (response == "OK")
-                {
-                    MessageBox.Show("산성비 점수가 업데이트되었습니다..", "변경 완료", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                }
-                else
-                {
-                    MessageBox.Show("산성비 점수 업데이트 실패: " + response);
-                }
             }
             catch (Exception ex)
             {
@@ -345,14 +313,6 @@ namespace client
                 await NetworkManager.Instance.SendMessageAsync(message2);
                 string response = await NetworkManager.Instance.ReceiveMessageAsync();
 
-                if (response == "OK")
-                {
-                    MessageBox.Show("산성비 레벨이 업데이트되었습니다..", "변경 완료", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                }
-                else
-                {
-                    MessageBox.Show("산성비 레벨 업데이트 실패: " + response);
-                }
             }
             catch (Exception ex)
             {
@@ -378,14 +338,6 @@ namespace client
                 await NetworkManager.Instance.SendMessageAsync(message);
                 string response = await NetworkManager.Instance.ReceiveMessageAsync();
 
-                if (response == "OK")
-                {
-                    MessageBox.Show("틀코찾 점수가 업데이트되었습니다..", "변경 완료", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                }
-                else
-                {
-                    MessageBox.Show("틀코찾 점수 업데이트 실패: " + response);
-                }
             }
             catch (Exception ex)
             {

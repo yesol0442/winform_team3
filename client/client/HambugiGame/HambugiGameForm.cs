@@ -1,4 +1,5 @@
-﻿using client.HambugiGame.Controls;
+﻿using client.classes;
+using client.HambugiGame.Controls;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -69,6 +70,9 @@ namespace client.HambugiGame
         public HambugiGameForm()
         {
             InitializeComponent();
+
+            SoundManager.PlaySoundLoop(@"..\..\Resources\hamburger.wav");
+
             this.DoubleBuffered = true;
             EnableDoubleBufferRecursive(this);
 
@@ -522,7 +526,7 @@ namespace client.HambugiGame
 
         private void HambugiGameForm_FormClosed(object sender, FormClosedEventArgs e)
         {
-
+            SoundManager.StopSound();
         }
     }
 }

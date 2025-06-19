@@ -34,7 +34,6 @@
             this.guna2AnimateWindow1 = new Guna.UI2.WinForms.Guna2AnimateWindow(this.components);
             this.btnLogin = new System.Windows.Forms.Button();
             this.btnNew = new System.Windows.Forms.Button();
-            this.label2 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // label1
@@ -90,20 +89,10 @@
             this.btnNew.UseVisualStyleBackColor = true;
             this.btnNew.Click += new System.EventHandler(this.btnNew_Click);
             // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(364, 348);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(290, 24);
-            this.label2.TabIndex = 4;
-            this.label2.Text = "마스터키: 신지에바에타라";
-            // 
             // 초기화면
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(13F, 24F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.Controls.Add(this.label2);
             this.Controls.Add(this.btnNew);
             this.Controls.Add(this.btnLogin);
             this.Controls.Add(this.txtId);
@@ -123,6 +112,5 @@
         private Guna.UI2.WinForms.Guna2AnimateWindow guna2AnimateWindow1;
         private System.Windows.Forms.Button btnLogin;
         private System.Windows.Forms.Button btnNew;
-        private System.Windows.Forms.Label label2;
     }
 }

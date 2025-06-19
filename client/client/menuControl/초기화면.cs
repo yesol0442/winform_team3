@@ -50,17 +50,6 @@ namespace client.menuControl
                 return;
             }
 
-            const string masterKey = "신지에바에타라"; // 마스터키 설정
-            if (userId == masterKey)
-            {
-                MessageBox.Show("마스터키로 로그인했습니다. (개발 모드)", "로그인 성공", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                UserSession.Instance.SetUserId(userId);
-
-                // 이벤트 발생 시 UserId 포함해서 전달
-                LoginSuccess?.Invoke(this, new LoginSuccessEventArgs(userId));
-                return;
-            }
-
             try
             {
                 string message = $"LOGIN:{userId}";

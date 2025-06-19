@@ -53,7 +53,6 @@ namespace client.menuControl
                 // 서버에 프로필 로드 요청
                 string message = $"LOAD_PROFILE:{userId}";
                 await NetworkManager.Instance.SendMessageAsync(message);
-                MessageBox.Show("서버에 프로필 로드 요청 전송 완료", "알림", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
                 // 헤더 수신
                 string headerResponse = await NetworkManager.Instance.ReceiveHeaderAsync();
@@ -76,7 +75,6 @@ namespace client.menuControl
 
                 string nickname = parts[1];
                 string language = parts[2].Trim();
-                MessageBox.Show($"프로필 데이터 수신 완료: {language}", "알림", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 string base64ImageStart = parts.Length == 4 ? parts[3] : "";
 
                 // UI 업데이트
@@ -95,11 +93,8 @@ namespace client.menuControl
                 }
                 LanguageChanged?.Invoke(this, new LanguageChangedEventArgs(language));
 
-                MessageBox.Show($"닉네임 설정 완료: {nickname}", "알림", MessageBoxButtons.OK, MessageBoxIcon.Information);
-
                 // 이미지 수신
                 string fullBase64Image = await NetworkManager.Instance.ReceiveFullMessageUntilEndAsync(base64ImageStart);
-                MessageBox.Show($"최종 이미지 데이터 길이: {fullBase64Image?.Length}", "알림", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
                 if (string.IsNullOrEmpty(fullBase64Image))
                 {
@@ -116,15 +111,12 @@ namespace client.menuControl
                         Image img = Image.FromStream(ms);
                         SetProfileImage(img);
                     }
-                    MessageBox.Show("프로필 이미지 설정 완료", "알림", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
                 catch (FormatException ex)
                 {
                     MessageBox.Show($"프로필 이미지 데이터가 손상되었습니다.\n{ex.Message}", "오류", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     SetProfileImage(null);
                 }
-
-                MessageBox.Show("유저 프로필 로드 완료", "알림", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             catch (Exception ex)
             {
@@ -191,7 +183,6 @@ namespace client.menuControl
                         if (response == "OK")
                         {
                             picProfile.Image = Image.FromFile(imagePath);
-                            MessageBox.Show("프로필 사진이 변경되었습니다.", "변경 완료", MessageBoxButtons.OK, MessageBoxIcon.Information);
                         }
                         else
                         {
@@ -244,7 +235,6 @@ namespace client.menuControl
                         lblNickname.Text = newNickname;
                         txtNickname.Visible = false;
                         lblNickname.Visible = true;
-                        MessageBox.Show("닉네임이 변경되었습니다.", "변경 완료", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     }
                     else
                     {
@@ -321,7 +311,7 @@ namespace client.menuControl
 
                 if (response == "OK")
                 {
-                    MessageBox.Show("사용 언어가 변경되었습니다.", "변경 완료", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
                 }
                 else
                 {
