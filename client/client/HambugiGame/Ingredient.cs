@@ -8,7 +8,7 @@ namespace client.HambugiGame
 {
     public class Ingredient
     {
-        public IngredientType Type { get; }
+        public IngredientType Type { get; set; }
         public CookState CookState { get; set; } = CookState.Raw;
         public Ingredient(IngredientType type) => Type = type;
     }

@@ -49,14 +49,16 @@
             this.textBox1.Name = "textBox1";
             this.textBox1.Size = new System.Drawing.Size(76, 28);
             this.textBox1.TabIndex = 1;
+            this.textBox1.Text = "0";
             this.textBox1.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textBox1_KeyPress);
             // 
             // flowLayoutPanel1
             // 
             this.flowLayoutPanel1.AutoSize = true;
+            this.flowLayoutPanel1.BackColor = System.Drawing.Color.PeachPuff;
             this.flowLayoutPanel1.Location = new System.Drawing.Point(26, 48);
             this.flowLayoutPanel1.Name = "flowLayoutPanel1";
-            this.flowLayoutPanel1.Size = new System.Drawing.Size(396, 58);
+            this.flowLayoutPanel1.Size = new System.Drawing.Size(296, 78);
             this.flowLayoutPanel1.TabIndex = 2;
             // 
             // RepeatBlockUI
@@ -69,7 +71,7 @@
             this.Controls.Add(this.textBox1);
             this.Controls.Add(this.label1);
             this.Name = "RepeatBlockUI";
-            this.Size = new System.Drawing.Size(445, 131);
+            this.Size = new System.Drawing.Size(333, 133);
             this.ResumeLayout(false);
             this.PerformLayout();
 

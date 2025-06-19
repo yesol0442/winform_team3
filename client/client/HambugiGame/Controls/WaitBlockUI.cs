@@ -10,7 +10,7 @@ using System.Windows.Forms;
 
 namespace client.HambugiGame.Controls
 {
-    public partial class WaitBlockUI : UserControl, ICloneable
+    public partial class WaitBlockUI : UserControl, ICloneable, IDataGettable, IDraggableBlock
     {
         public bool CanDrag { get; set; } = true;
         public string DragTag { get; protected set; } = "WaitBlockUI";
@@ -19,6 +19,7 @@ namespace client.HambugiGame.Controls
             InitializeComponent();
 
             MouseDown += OnMouseDownStartDrag;
+            label1.MouseDown += OnMouseDownStartDrag;
         }
 
         private void OnMouseDownStartDrag(object sender, MouseEventArgs e)
@@ -41,5 +42,10 @@ namespace client.HambugiGame.Controls
                 e.Handled = true;
             }
         }
+        public void GetData()
+        {
+            UserBlockParser.Ham.Add("| Wait " + textBox1.Text + " |");
+        }
     }
 }
+

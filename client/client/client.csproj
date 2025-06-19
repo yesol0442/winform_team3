@@ -182,6 +182,7 @@
     <Compile Include="HambugiGame\Order.cs" />
     <Compile Include="HambugiGame\OrderGenerator.cs" />
     <Compile Include="HambugiGame\ScoringEngine.cs" />
+    <Compile Include="HambugiGame\UserBlockParser.cs" />
     <Compile Include="menuControl\CodePreacticeControl\CodeExplainControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -358,6 +359,9 @@
     <EmbeddedResource Include="HambugiGame\Controls\IngredientBlockUI.resx">
       <DependentUpon>IngredientBlockUI.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="HambugiGame\Controls\PlaceIngredientBlockUI.resx">
+      <DependentUpon>PlaceIngredientBlockUI.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="HambugiGame\Controls\RepeatBlockUI.resx">
       <DependentUpon>RepeatBlockUI.cs</DependentUpon>
     </EmbeddedResource>
@@ -465,10 +469,67 @@
     <None Include="Resources\res_quiz\speech_bubble.png" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="Resources\ham\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\order.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\burger_background.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\bubble.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\bread_top.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\cheese.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\bbq.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\bread_bottom.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\deriyakki.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\hamburger.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\hamburger_best.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\hamburger_cheap.png" />
+  </ItemGroup>
+  <ItemGroup>
     <None Include="Resources\ketchup.png" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Resources\ham\" />
+    <None Include="Resources\lettuce.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\mayo.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\mustard.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\onion.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\patty_medium.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\patty_raw.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\pickle.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\tomato.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

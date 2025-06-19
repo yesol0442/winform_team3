@@ -48,7 +48,7 @@
             this.BackColor = System.Drawing.Color.LightSalmon;
             this.Controls.Add(this.label1);
             this.Name = "AssembleBlockUI";
-            this.Size = new System.Drawing.Size(360, 48);
+            this.Size = new System.Drawing.Size(259, 48);
             this.ResumeLayout(false);
             this.PerformLayout();
 

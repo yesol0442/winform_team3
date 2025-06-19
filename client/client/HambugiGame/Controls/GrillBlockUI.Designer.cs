@@ -37,7 +37,7 @@
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("휴먼매직체", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            this.label1.Location = new System.Drawing.Point(95, 34);
+            this.label1.Location = new System.Drawing.Point(74, 29);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(44, 24);
             this.label1.TabIndex = 3;
@@ -48,7 +48,7 @@
             this.pictureBox1.BackColor = System.Drawing.Color.MistyRose;
             this.pictureBox1.Location = new System.Drawing.Point(8, 8);
             this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(70, 70);
+            this.pictureBox1.Size = new System.Drawing.Size(60, 60);
             this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pictureBox1.TabIndex = 4;
             this.pictureBox1.TabStop = false;
@@ -61,7 +61,7 @@
             this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.label1);
             this.Name = "GrillBlockUI";
-            this.Size = new System.Drawing.Size(375, 86);
+            this.Size = new System.Drawing.Size(259, 76);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();

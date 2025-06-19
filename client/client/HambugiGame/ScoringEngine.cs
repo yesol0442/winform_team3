@@ -46,7 +46,7 @@ namespace client.HambugiGame
         }
 
 
-        public (int earned, string comment) Evaluate(Order order, Burger cooked)
+        public static (int earned, string comment) Evaluate(Order order, Burger cooked)
         {
             int earned = order.BasePrice;
             string comment = null;
@@ -80,7 +80,7 @@ namespace client.HambugiGame
                 earned = (int)(earned * 0.7);
                 comment = "퉤퉤 이게 뭐야! 음식이 장난이야?";
             }
-            
+
             foreach (var layer in cooked.Layers)
             {
                 if (IsCookableVeg(layer.Type) && layer.CookState != CookState.Raw)
@@ -140,7 +140,7 @@ namespace client.HambugiGame
                     {
                         // 빵이 필요한데 빠졌거나 위치가 틀림(왜냐면 빵은 중요하니까)
                         earned = (int)(earned * 0.9);
-                        comment = "빵을 참 신기하게 배치 해뒀네";
+                        comment = "빵이 ..? ";
                     }
                 }
             }
@@ -155,7 +155,20 @@ namespace client.HambugiGame
                     if (extra.Count > 0)
                         comment = "너무 과해!";
                 }
-                earned = (int)(earned * 0.8);
+                else
+                {
+                    comment = "제 햄버거 아닌것 같은데요";
+                }
+                int unitPenalty = order.BasePrice / order.Recipe.Count;
+                int rawPenalty = unitPenalty * (missing.Count + extra.Count);
+
+                int maxPenalty = (int)(order.BasePrice * 0.8);
+                int finalPenalty = Math.Min(rawPenalty, maxPenalty);
+
+                earned -= finalPenalty;
+
+                if (earned < 0) earned = 0;
+
             }
 
             // 햄북스딱스를 제대로 주지 않은 경우 0원
@@ -168,7 +181,21 @@ namespace client.HambugiGame
             }
 
             // 완벽한경우
-            if (comment == null) comment = "완벽해요!";
+            if (comment == null && earned == order.BasePrice) comment = "완벽해요!";
+
+
+            if (earned == order.BasePrice)
+            {
+                HambugiGameForm.bugerimage = Properties.Resources.hamburger_best;
+            }
+            else if (earned < order.BasePrice * 0.3)
+            {
+                HambugiGameForm.bugerimage = Properties.Resources.hamburger_cheap;
+            }
+            else if (earned < order.BasePrice * 0.3)
+            {
+                HambugiGameForm.bugerimage = Properties.Resources.hamburger;
+            }
 
             return (earned, comment);
         }

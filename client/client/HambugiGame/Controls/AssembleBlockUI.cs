@@ -10,7 +10,7 @@ using System.Windows.Forms;
 
 namespace client.HambugiGame.Controls
 {
-    public partial class AssembleBlockUI : UserControl, ICloneable
+    public partial class AssembleBlockUI : UserControl, ICloneable, IDataGettable, IDraggableBlock
     {
         public bool CanDrag { get; set; } = true;
         public string DragTag { get; protected set; } = "Default";
@@ -20,6 +20,7 @@ namespace client.HambugiGame.Controls
             InitializeComponent();
             DragTag = "AssembleBlockUI";
             MouseDown += OnMouseDownStartDrag;
+            label1.MouseDown += OnMouseDownStartDrag;
         }
 
         private void OnMouseDownStartDrag(object sender, MouseEventArgs e)
@@ -34,6 +35,12 @@ namespace client.HambugiGame.Controls
             DoDragDrop(data, DragDropEffects.Copy);
         }
         public object Clone() => new AssembleBlockUI();
-        
+
+        public void GetData()
+        {
+            UserBlockParser.Ham.Add("| Assemble |");
+        }
+
     }
 }
+

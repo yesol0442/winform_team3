@@ -10,7 +10,7 @@ using System.Windows.Forms;
 
 namespace client.HambugiGame.Controls
 {
-    public partial class RepeatBlockUI : UserControl, ICloneable
+    public partial class RepeatBlockUI : UserControl, ICloneable, IDataGettable, IDraggableBlock
     {
         public bool CanDrag { get; set; } = true;
         public string DragTag { get; protected set; } = "RepeatBlockUI";
@@ -20,12 +20,18 @@ namespace client.HambugiGame.Controls
             InitializeComponent();
 
             flowLayoutPanel1.FlowDirection = FlowDirection.TopDown;
+            flowLayoutPanel1.AllowDrop = true;
 
             MouseDown += OnMouseDownStartDrag;
+            label1.MouseDown += OnMouseDownStartDrag;
 
             DragEnter += A_DragEnter;
             DragLeave += (s, e) => Invalidate();
             DragDrop += A_DragDrop;
+
+            flowLayoutPanel1.DragEnter += A_DragEnter;
+            flowLayoutPanel1.DragLeave += (s, e) => Invalidate();
+            flowLayoutPanel1.DragDrop += A_DragDrop;
         }
 
         private void OnMouseDownStartDrag(object sender, MouseEventArgs e)
@@ -76,6 +82,8 @@ namespace client.HambugiGame.Controls
 
             var src = e.Data.GetData(typeof(ICloneable)) as ICloneable;
             var copy = src.Clone() as Control;
+            if (copy is IDraggableBlock b) b.CanDrag = false;
+
             flowLayoutPanel1.Controls.Add(copy);
 
 
@@ -83,6 +91,17 @@ namespace client.HambugiGame.Controls
             pt.Offset(-copy.Width / 2, -copy.Height / 2);
             copy.Location = pt;
             flowLayoutPanel1.Controls.Add(copy);
+        }
+        public void GetData()
+        {
+            UserBlockParser.Ham.Add("| RepeatStart " + textBox1.Text + " |");
+            foreach (Control ctrl in flowLayoutPanel1.Controls)
+            {
+                if (ctrl is IDataGettable data)
+                    data.GetData();
+            }
+
+            UserBlockParser.Ham.Add("| RepeatEnd |");
         }
     }
 }

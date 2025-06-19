@@ -10,7 +10,7 @@ using System.Windows.Forms;
 
 namespace client.HambugiGame.Controls
 {
-    public partial class IngredientBlockUI : UserControl, ICloneable
+    public partial class IngredientBlockUI : UserControl, ICloneable, IDraggableBlock
     {
         public bool CanDrag { get; set; } = true;
         public string DragTag { get; protected set; } = "IngredientBlockUI";
@@ -20,7 +20,9 @@ namespace client.HambugiGame.Controls
         {
             InitializeComponent();
             pictureBox1.Image = im;
+            image = im;
             MouseDown += OnMouseDownStartDrag;
+            pictureBox1.MouseDown += OnMouseDownStartDrag;
             IngredientName = ingredientName;
         }
         private void OnMouseDownStartDrag(object sender, MouseEventArgs e)
@@ -34,6 +36,6 @@ namespace client.HambugiGame.Controls
 
             DoDragDrop(data, DragDropEffects.Copy);
         }
-        public object Clone() => new IngredientBlockUI(image,IngredientName);
+        public object Clone() => new IngredientBlockUI(image, IngredientName);
     }
 }
