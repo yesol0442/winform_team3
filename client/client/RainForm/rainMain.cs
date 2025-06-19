@@ -70,7 +70,7 @@ namespace client.RainForm
 
             // "Level Up!" 라벨 생성 및 설정
             levelUpLabel = new Label();
-            levelUpLabel.Text = "LEVEL UP!";
+            levelUpLabel.Text = "레벨 업!!";
             levelUpLabel.Font = new Font("휴먼옛체", 28, FontStyle.Bold);
             levelUpLabel.ForeColor = Color.Gold;
             levelUpLabel.BackColor = Color.Transparent;

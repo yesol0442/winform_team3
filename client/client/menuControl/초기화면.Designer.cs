@@ -40,12 +40,12 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("휴먼옛체", 14F, ((System.Drawing.FontStyle)(((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic) 
+            this.label1.Font = new System.Drawing.Font("휴먼옛체", 19.875F, ((System.Drawing.FontStyle)(((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic) 
                 | System.Drawing.FontStyle.Underline))), System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            this.label1.Location = new System.Drawing.Point(443, 180);
+            this.label1.Location = new System.Drawing.Point(418, 177);
             this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(135, 41);
+            this.label1.Size = new System.Drawing.Size(184, 57);
             this.label1.TabIndex = 0;
             this.label1.Text = "로그인";
             // 
@@ -70,10 +70,10 @@
             // 
             // btnLogin
             // 
-            this.btnLogin.Font = new System.Drawing.Font("휴먼옛체", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            this.btnLogin.Location = new System.Drawing.Point(405, 396);
+            this.btnLogin.Font = new System.Drawing.Font("휴먼옛체", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.btnLogin.Location = new System.Drawing.Point(382, 416);
             this.btnLogin.Name = "btnLogin";
-            this.btnLogin.Size = new System.Drawing.Size(198, 57);
+            this.btnLogin.Size = new System.Drawing.Size(235, 70);
             this.btnLogin.TabIndex = 2;
             this.btnLogin.Text = "로그인";
             this.btnLogin.UseVisualStyleBackColor = true;
@@ -81,10 +81,10 @@
             // 
             // btnNew
             // 
-            this.btnNew.Font = new System.Drawing.Font("휴먼옛체", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            this.btnNew.Location = new System.Drawing.Point(405, 496);
+            this.btnNew.Font = new System.Drawing.Font("휴먼옛체", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.btnNew.Location = new System.Drawing.Point(382, 508);
             this.btnNew.Name = "btnNew";
-            this.btnNew.Size = new System.Drawing.Size(198, 59);
+            this.btnNew.Size = new System.Drawing.Size(235, 78);
             this.btnNew.TabIndex = 3;
             this.btnNew.Text = "계정 만들기";
             this.btnNew.UseVisualStyleBackColor = true;

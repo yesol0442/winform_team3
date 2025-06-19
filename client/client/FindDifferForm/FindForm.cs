@@ -59,6 +59,10 @@ namespace client.FindDifferForm
 
             this.FormBorderStyle = FormBorderStyle.FixedSingle;
 
+            lbNoti.AutoSize = true;
+            lbNoti.Visible = false;
+            lbNoti.ForeColor = Color.Crimson;
+
 
             // 투명 판넬 생성
             overlayPanel.Location = codeTxt.Location;
@@ -105,7 +109,18 @@ namespace client.FindDifferForm
 
         }
 
+        private async void ShowFeedback(string text,
+                                Color color,
+                                int milliSeconds = 1000)
+        {
+            lbNoti.Text = text;
+            lbNoti.ForeColor = color;
+            lbNoti.Visible = true;
 
+            await Task.Delay(milliSeconds);
+
+            lbNoti.Visible = false;
+        }
 
         private void LoadSampleCode()
         {
@@ -185,6 +200,7 @@ namespace client.FindDifferForm
 
             }
 
+            /*
             foreach (var (line, col) in answerPositions)
             {
                 answerLine = line;
@@ -201,7 +217,7 @@ namespace client.FindDifferForm
                 g.DrawEllipse(pen, new Rectangle(pos.X+2, pos.Y+4, 14, 14));   // 동그라미
                 //g.DrawEllipse(pen, new Rectangle(pos.X, pos.Y, 14, 14));
 
-            }
+            }*/
             //answerPositions.Remove((answerLine, answerCol));
         }
 
@@ -257,6 +273,9 @@ namespace client.FindDifferForm
             int bestCol = -1;
             double minDist = double.MaxValue;
 
+            const int LINE_TOLERANCE = 0;   // 같은 줄만 인정 → 0
+            const int COL_TOLERANCE = 3;   // 좌우 ±3 칸까지 정답 처리
+
             for (int line = 0; line < codeTxt.Lines.Length; line++)
             {
                 int lineStart = codeTxt.GetFirstCharIndexFromLine(line);
@@ -283,8 +302,12 @@ namespace client.FindDifferForm
             {
                 Console.WriteLine($"[정규화된 클릭 위치] line={bestLine}, col={bestCol}");
 
+                //var matched = answerPositions.FirstOrDefault(pos =>
+                //pos.line == bestLine && Math.Abs(pos.charIndex - bestCol) <= 1);
+
                 var matched = answerPositions.FirstOrDefault(pos =>
-                    pos.line == bestLine && Math.Abs(pos.charIndex - bestCol) <= 1);
+                                Math.Abs(pos.line - bestLine) <= LINE_TOLERANCE &&
+                                Math.Abs(pos.charIndex - bestCol) <= COL_TOLERANCE);
 
                 if (matched != default)
                 {
@@ -311,6 +334,11 @@ namespace client.FindDifferForm
                             Console.WriteLine($"[클라] END 메시지 보냄: {endMsg}");
                         });
                     }
+                }
+                else
+                {
+                    //MessageBox.Show("오답!");
+                    ShowFeedback("오답!", Color.Gold, 1200);
                 }
             }
         }

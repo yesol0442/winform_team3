@@ -31,6 +31,7 @@
             this.codeTxt = new System.Windows.Forms.RichTextBox();
             this.lbScore = new System.Windows.Forms.Label();
             this.lbCount = new System.Windows.Forms.Label();
+            this.lbNoti = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // codeTxt
@@ -65,11 +66,22 @@
             this.lbCount.TabIndex = 2;
             this.lbCount.Text = "남은 개수: ";
             // 
+            // lbNoti
+            // 
+            this.lbNoti.AutoSize = true;
+            this.lbNoti.Font = new System.Drawing.Font("휴먼옛체", 36F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.lbNoti.Location = new System.Drawing.Point(487, 299);
+            this.lbNoti.Name = "lbNoti";
+            this.lbNoti.Size = new System.Drawing.Size(298, 102);
+            this.lbNoti.TabIndex = 3;
+            this.lbNoti.Text = "label1";
+            // 
             // FindForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(13F, 24F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1296, 710);
+            this.Controls.Add(this.lbNoti);
             this.Controls.Add(this.lbCount);
             this.Controls.Add(this.lbScore);
             this.Controls.Add(this.codeTxt);
@@ -86,5 +98,6 @@
         private System.Windows.Forms.RichTextBox codeTxt;
         private System.Windows.Forms.Label lbScore;
         private System.Windows.Forms.Label lbCount;
+        private System.Windows.Forms.Label lbNoti;
     }
 }
