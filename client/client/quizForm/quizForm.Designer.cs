@@ -77,9 +77,10 @@
             this.lbl_timer.AutoSize = true;
             this.lbl_timer.Font = new System.Drawing.Font("휴먼옛체", 19.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.lbl_timer.ForeColor = System.Drawing.Color.Blue;
-            this.lbl_timer.Location = new System.Drawing.Point(36, 37);
+            this.lbl_timer.Location = new System.Drawing.Point(58, 59);
+            this.lbl_timer.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
             this.lbl_timer.Name = "lbl_timer";
-            this.lbl_timer.Size = new System.Drawing.Size(53, 35);
+            this.lbl_timer.Size = new System.Drawing.Size(83, 57);
             this.lbl_timer.TabIndex = 77;
             this.lbl_timer.Text = "10";
             // 
@@ -87,9 +88,10 @@
             // 
             this.playerAnswer4.BackColor = System.Drawing.Color.White;
             this.playerAnswer4.Font = new System.Drawing.Font("휴먼옛체", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            this.playerAnswer4.Location = new System.Drawing.Point(623, 132);
+            this.playerAnswer4.Location = new System.Drawing.Point(1012, 211);
+            this.playerAnswer4.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
             this.playerAnswer4.Name = "playerAnswer4";
-            this.playerAnswer4.Size = new System.Drawing.Size(86, 26);
+            this.playerAnswer4.Size = new System.Drawing.Size(140, 42);
             this.playerAnswer4.TabIndex = 76;
             this.playerAnswer4.Text = "O";
             this.playerAnswer4.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -98,9 +100,10 @@
             // 
             this.playerAnswer3.BackColor = System.Drawing.Color.White;
             this.playerAnswer3.Font = new System.Drawing.Font("휴먼옛체", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            this.playerAnswer3.Location = new System.Drawing.Point(452, 132);
+            this.playerAnswer3.Location = new System.Drawing.Point(734, 211);
+            this.playerAnswer3.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
             this.playerAnswer3.Name = "playerAnswer3";
-            this.playerAnswer3.Size = new System.Drawing.Size(86, 26);
+            this.playerAnswer3.Size = new System.Drawing.Size(140, 42);
             this.playerAnswer3.TabIndex = 75;
             this.playerAnswer3.Text = "O";
             this.playerAnswer3.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -109,9 +112,10 @@
             // 
             this.playerAnswer2.BackColor = System.Drawing.Color.White;
             this.playerAnswer2.Font = new System.Drawing.Font("휴먼옛체", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            this.playerAnswer2.Location = new System.Drawing.Point(283, 132);
+            this.playerAnswer2.Location = new System.Drawing.Point(460, 211);
+            this.playerAnswer2.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
             this.playerAnswer2.Name = "playerAnswer2";
-            this.playerAnswer2.Size = new System.Drawing.Size(86, 26);
+            this.playerAnswer2.Size = new System.Drawing.Size(140, 42);
             this.playerAnswer2.TabIndex = 74;
             this.playerAnswer2.Text = "O";
             this.playerAnswer2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -120,9 +124,10 @@
             // 
             this.playerAnswer1.BackColor = System.Drawing.Color.White;
             this.playerAnswer1.Font = new System.Drawing.Font("휴먼옛체", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            this.playerAnswer1.Location = new System.Drawing.Point(113, 132);
+            this.playerAnswer1.Location = new System.Drawing.Point(184, 211);
+            this.playerAnswer1.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
             this.playerAnswer1.Name = "playerAnswer1";
-            this.playerAnswer1.Size = new System.Drawing.Size(86, 26);
+            this.playerAnswer1.Size = new System.Drawing.Size(140, 42);
             this.playerAnswer1.TabIndex = 73;
             this.playerAnswer1.Text = "O";
             this.playerAnswer1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -132,9 +137,10 @@
             this.player4Plus.BackColor = System.Drawing.Color.Transparent;
             this.player4Plus.Font = new System.Drawing.Font("휴먼옛체", 19.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.player4Plus.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.player4Plus.Location = new System.Drawing.Point(608, 239);
+            this.player4Plus.Location = new System.Drawing.Point(988, 382);
+            this.player4Plus.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
             this.player4Plus.Name = "player4Plus";
-            this.player4Plus.Size = new System.Drawing.Size(120, 35);
+            this.player4Plus.Size = new System.Drawing.Size(195, 56);
             this.player4Plus.TabIndex = 72;
             this.player4Plus.Text = "+10";
             this.player4Plus.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -144,9 +150,10 @@
             this.player3Plus.BackColor = System.Drawing.Color.Transparent;
             this.player3Plus.Font = new System.Drawing.Font("휴먼옛체", 19.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.player3Plus.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.player3Plus.Location = new System.Drawing.Point(438, 239);
+            this.player3Plus.Location = new System.Drawing.Point(712, 382);
+            this.player3Plus.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
             this.player3Plus.Name = "player3Plus";
-            this.player3Plus.Size = new System.Drawing.Size(120, 35);
+            this.player3Plus.Size = new System.Drawing.Size(195, 56);
             this.player3Plus.TabIndex = 71;
             this.player3Plus.Text = "+10";
             this.player3Plus.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -156,9 +163,10 @@
             this.player2Plus.BackColor = System.Drawing.Color.Transparent;
             this.player2Plus.Font = new System.Drawing.Font("휴먼옛체", 19.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.player2Plus.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.player2Plus.Location = new System.Drawing.Point(268, 239);
+            this.player2Plus.Location = new System.Drawing.Point(436, 382);
+            this.player2Plus.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
             this.player2Plus.Name = "player2Plus";
-            this.player2Plus.Size = new System.Drawing.Size(120, 35);
+            this.player2Plus.Size = new System.Drawing.Size(195, 56);
             this.player2Plus.TabIndex = 70;
             this.player2Plus.Text = "+10";
             this.player2Plus.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -168,9 +176,10 @@
             this.player1Plus.BackColor = System.Drawing.Color.Transparent;
             this.player1Plus.Font = new System.Drawing.Font("휴먼옛체", 19.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.player1Plus.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.player1Plus.Location = new System.Drawing.Point(98, 239);
+            this.player1Plus.Location = new System.Drawing.Point(159, 382);
+            this.player1Plus.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
             this.player1Plus.Name = "player1Plus";
-            this.player1Plus.Size = new System.Drawing.Size(120, 35);
+            this.player1Plus.Size = new System.Drawing.Size(195, 56);
             this.player1Plus.TabIndex = 69;
             this.player1Plus.Text = "+10";
             this.player1Plus.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -179,9 +188,10 @@
             // 
             this.playerScore4.AutoSize = true;
             this.playerScore4.Font = new System.Drawing.Font("휴먼옛체", 11F);
-            this.playerScore4.Location = new System.Drawing.Point(662, 345);
+            this.playerScore4.Location = new System.Drawing.Point(1076, 552);
+            this.playerScore4.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
             this.playerScore4.Name = "playerScore4";
-            this.playerScore4.Size = new System.Drawing.Size(19, 20);
+            this.playerScore4.Size = new System.Drawing.Size(30, 32);
             this.playerScore4.TabIndex = 68;
             this.playerScore4.Text = "0";
             // 
@@ -189,9 +199,10 @@
             // 
             this.playerScore3.AutoSize = true;
             this.playerScore3.Font = new System.Drawing.Font("휴먼옛체", 11F);
-            this.playerScore3.Location = new System.Drawing.Point(492, 345);
+            this.playerScore3.Location = new System.Drawing.Point(800, 552);
+            this.playerScore3.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
             this.playerScore3.Name = "playerScore3";
-            this.playerScore3.Size = new System.Drawing.Size(19, 20);
+            this.playerScore3.Size = new System.Drawing.Size(30, 32);
             this.playerScore3.TabIndex = 67;
             this.playerScore3.Text = "0";
             // 
@@ -199,9 +210,10 @@
             // 
             this.playerScore2.AutoSize = true;
             this.playerScore2.Font = new System.Drawing.Font("휴먼옛체", 11F);
-            this.playerScore2.Location = new System.Drawing.Point(322, 345);
+            this.playerScore2.Location = new System.Drawing.Point(523, 552);
+            this.playerScore2.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
             this.playerScore2.Name = "playerScore2";
-            this.playerScore2.Size = new System.Drawing.Size(19, 20);
+            this.playerScore2.Size = new System.Drawing.Size(30, 32);
             this.playerScore2.TabIndex = 66;
             this.playerScore2.Text = "0";
             // 
@@ -209,9 +221,10 @@
             // 
             this.playerScore1.AutoSize = true;
             this.playerScore1.Font = new System.Drawing.Font("휴먼옛체", 11F);
-            this.playerScore1.Location = new System.Drawing.Point(152, 345);
+            this.playerScore1.Location = new System.Drawing.Point(247, 552);
+            this.playerScore1.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
             this.playerScore1.Name = "playerScore1";
-            this.playerScore1.Size = new System.Drawing.Size(19, 20);
+            this.playerScore1.Size = new System.Drawing.Size(30, 32);
             this.playerScore1.TabIndex = 65;
             this.playerScore1.Text = "0";
             // 
@@ -219,9 +232,10 @@
             // 
             this.label4.AutoSize = true;
             this.label4.Font = new System.Drawing.Font("휴먼옛체", 11F);
-            this.label4.Location = new System.Drawing.Point(604, 345);
+            this.label4.Location = new System.Drawing.Point(982, 552);
+            this.label4.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(52, 20);
+            this.label4.Size = new System.Drawing.Size(82, 32);
             this.label4.TabIndex = 64;
             this.label4.Text = "점수:";
             // 
@@ -229,9 +243,10 @@
             // 
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("휴먼옛체", 11F);
-            this.label3.Location = new System.Drawing.Point(434, 345);
+            this.label3.Location = new System.Drawing.Point(705, 552);
+            this.label3.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(52, 20);
+            this.label3.Size = new System.Drawing.Size(82, 32);
             this.label3.TabIndex = 63;
             this.label3.Text = "점수:";
             // 
@@ -239,9 +254,10 @@
             // 
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("휴먼옛체", 11F);
-            this.label2.Location = new System.Drawing.Point(264, 345);
+            this.label2.Location = new System.Drawing.Point(429, 552);
+            this.label2.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(52, 20);
+            this.label2.Size = new System.Drawing.Size(82, 32);
             this.label2.TabIndex = 62;
             this.label2.Text = "점수:";
             // 
@@ -249,9 +265,10 @@
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("휴먼옛체", 11F);
-            this.label1.Location = new System.Drawing.Point(94, 345);
+            this.label1.Location = new System.Drawing.Point(153, 552);
+            this.label1.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(52, 20);
+            this.label1.Size = new System.Drawing.Size(82, 32);
             this.label1.TabIndex = 61;
             this.label1.Text = "점수:";
             // 
@@ -260,9 +277,10 @@
             this.pic_sb4.BackColor = System.Drawing.SystemColors.Control;
             this.pic_sb4.Image = global::client.Properties.Resources.speech_bubble;
             this.pic_sb4.ImageRotate = 0F;
-            this.pic_sb4.Location = new System.Drawing.Point(618, 115);
+            this.pic_sb4.Location = new System.Drawing.Point(1004, 184);
+            this.pic_sb4.Margin = new System.Windows.Forms.Padding(5, 5, 5, 5);
             this.pic_sb4.Name = "pic_sb4";
-            this.pic_sb4.Size = new System.Drawing.Size(100, 80);
+            this.pic_sb4.Size = new System.Drawing.Size(162, 128);
             this.pic_sb4.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pic_sb4.TabIndex = 56;
             this.pic_sb4.TabStop = false;
@@ -271,9 +289,10 @@
             // 
             this.pic_sb3.Image = global::client.Properties.Resources.speech_bubble;
             this.pic_sb3.ImageRotate = 0F;
-            this.pic_sb3.Location = new System.Drawing.Point(448, 115);
+            this.pic_sb3.Location = new System.Drawing.Point(728, 184);
+            this.pic_sb3.Margin = new System.Windows.Forms.Padding(5, 5, 5, 5);
             this.pic_sb3.Name = "pic_sb3";
-            this.pic_sb3.Size = new System.Drawing.Size(100, 80);
+            this.pic_sb3.Size = new System.Drawing.Size(162, 128);
             this.pic_sb3.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pic_sb3.TabIndex = 55;
             this.pic_sb3.TabStop = false;
@@ -282,9 +301,10 @@
             // 
             this.pic_sb2.Image = global::client.Properties.Resources.speech_bubble;
             this.pic_sb2.ImageRotate = 0F;
-            this.pic_sb2.Location = new System.Drawing.Point(278, 115);
+            this.pic_sb2.Location = new System.Drawing.Point(452, 184);
+            this.pic_sb2.Margin = new System.Windows.Forms.Padding(5, 5, 5, 5);
             this.pic_sb2.Name = "pic_sb2";
-            this.pic_sb2.Size = new System.Drawing.Size(100, 80);
+            this.pic_sb2.Size = new System.Drawing.Size(162, 128);
             this.pic_sb2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pic_sb2.TabIndex = 54;
             this.pic_sb2.TabStop = false;
@@ -293,9 +313,10 @@
             // 
             this.pic_sb1.Image = global::client.Properties.Resources.speech_bubble;
             this.pic_sb1.ImageRotate = 0F;
-            this.pic_sb1.Location = new System.Drawing.Point(108, 115);
+            this.pic_sb1.Location = new System.Drawing.Point(176, 184);
+            this.pic_sb1.Margin = new System.Windows.Forms.Padding(5, 5, 5, 5);
             this.pic_sb1.Name = "pic_sb1";
-            this.pic_sb1.Size = new System.Drawing.Size(100, 80);
+            this.pic_sb1.Size = new System.Drawing.Size(162, 128);
             this.pic_sb1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pic_sb1.TabIndex = 53;
             this.pic_sb1.TabStop = false;
@@ -308,13 +329,13 @@
             this.txt_answer.DefaultText = "";
             this.txt_answer.Font = new System.Drawing.Font("Segoe UI", 11F);
             this.txt_answer.ForeColor = System.Drawing.Color.Black;
-            this.txt_answer.Location = new System.Drawing.Point(298, 385);
-            this.txt_answer.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.txt_answer.Location = new System.Drawing.Point(484, 616);
+            this.txt_answer.Margin = new System.Windows.Forms.Padding(5, 6, 5, 6);
             this.txt_answer.Name = "txt_answer";
             this.txt_answer.PlaceholderForeColor = System.Drawing.Color.Black;
             this.txt_answer.PlaceholderText = "";
             this.txt_answer.SelectedText = "";
-            this.txt_answer.Size = new System.Drawing.Size(230, 45);
+            this.txt_answer.Size = new System.Drawing.Size(374, 72);
             this.txt_answer.TabIndex = 52;
             this.txt_answer.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txt_answer_KeyDown);
             // 
@@ -322,9 +343,10 @@
             // 
             this.playerPic4.Image = global::client.Properties.Resources.profile_image;
             this.playerPic4.ImageRotate = 0F;
-            this.playerPic4.Location = new System.Drawing.Point(608, 195);
+            this.playerPic4.Location = new System.Drawing.Point(988, 312);
+            this.playerPic4.Margin = new System.Windows.Forms.Padding(5, 5, 5, 5);
             this.playerPic4.Name = "playerPic4";
-            this.playerPic4.Size = new System.Drawing.Size(120, 120);
+            this.playerPic4.Size = new System.Drawing.Size(195, 192);
             this.playerPic4.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.playerPic4.TabIndex = 51;
             this.playerPic4.TabStop = false;
@@ -333,9 +355,10 @@
             // 
             this.playerPic3.Image = global::client.Properties.Resources.profile_image;
             this.playerPic3.ImageRotate = 0F;
-            this.playerPic3.Location = new System.Drawing.Point(438, 195);
+            this.playerPic3.Location = new System.Drawing.Point(712, 312);
+            this.playerPic3.Margin = new System.Windows.Forms.Padding(5, 5, 5, 5);
             this.playerPic3.Name = "playerPic3";
-            this.playerPic3.Size = new System.Drawing.Size(120, 120);
+            this.playerPic3.Size = new System.Drawing.Size(195, 192);
             this.playerPic3.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.playerPic3.TabIndex = 50;
             this.playerPic3.TabStop = false;
@@ -344,9 +367,10 @@
             // 
             this.playerPic2.Image = global::client.Properties.Resources.profile_image;
             this.playerPic2.ImageRotate = 0F;
-            this.playerPic2.Location = new System.Drawing.Point(268, 195);
+            this.playerPic2.Location = new System.Drawing.Point(436, 312);
+            this.playerPic2.Margin = new System.Windows.Forms.Padding(5, 5, 5, 5);
             this.playerPic2.Name = "playerPic2";
-            this.playerPic2.Size = new System.Drawing.Size(120, 120);
+            this.playerPic2.Size = new System.Drawing.Size(195, 192);
             this.playerPic2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.playerPic2.TabIndex = 49;
             this.playerPic2.TabStop = false;
@@ -355,9 +379,10 @@
             // 
             this.playerPic1.Image = global::client.Properties.Resources.profile_image;
             this.playerPic1.ImageRotate = 0F;
-            this.playerPic1.Location = new System.Drawing.Point(98, 195);
+            this.playerPic1.Location = new System.Drawing.Point(159, 312);
+            this.playerPic1.Margin = new System.Windows.Forms.Padding(5, 5, 5, 5);
             this.playerPic1.Name = "playerPic1";
-            this.playerPic1.Size = new System.Drawing.Size(120, 120);
+            this.playerPic1.Size = new System.Drawing.Size(195, 192);
             this.playerPic1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.playerPic1.TabIndex = 48;
             this.playerPic1.TabStop = false;
@@ -368,13 +393,13 @@
             this.txt_question.DefaultText = "３";
             this.txt_question.Font = new System.Drawing.Font("휴먼옛체", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.txt_question.ForeColor = System.Drawing.Color.Black;
-            this.txt_question.Location = new System.Drawing.Point(113, 15);
-            this.txt_question.Margin = new System.Windows.Forms.Padding(7, 6, 7, 6);
+            this.txt_question.Location = new System.Drawing.Point(184, 24);
+            this.txt_question.Margin = new System.Windows.Forms.Padding(11, 10, 11, 10);
             this.txt_question.Name = "txt_question";
             this.txt_question.PlaceholderText = "";
             this.txt_question.ReadOnly = true;
             this.txt_question.SelectedText = "";
-            this.txt_question.Size = new System.Drawing.Size(600, 80);
+            this.txt_question.Size = new System.Drawing.Size(975, 128);
             this.txt_question.TabIndex = 47;
             this.txt_question.TabStop = false;
             this.txt_question.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
@@ -389,9 +414,10 @@
             this.pname1.AutoSize = true;
             this.pname1.Font = new System.Drawing.Font("휴먼옛체", 10.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.pname1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.pname1.Location = new System.Drawing.Point(94, 321);
+            this.pname1.Location = new System.Drawing.Point(153, 514);
+            this.pname1.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
             this.pname1.Name = "pname1";
-            this.pname1.Size = new System.Drawing.Size(32, 19);
+            this.pname1.Size = new System.Drawing.Size(49, 31);
             this.pname1.TabIndex = 78;
             this.pname1.Text = "1P";
             // 
@@ -400,9 +426,10 @@
             this.pname2.AutoSize = true;
             this.pname2.Font = new System.Drawing.Font("휴먼옛체", 10.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.pname2.ForeColor = System.Drawing.Color.Blue;
-            this.pname2.Location = new System.Drawing.Point(264, 321);
+            this.pname2.Location = new System.Drawing.Point(429, 514);
+            this.pname2.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
             this.pname2.Name = "pname2";
-            this.pname2.Size = new System.Drawing.Size(32, 19);
+            this.pname2.Size = new System.Drawing.Size(49, 31);
             this.pname2.TabIndex = 79;
             this.pname2.Text = "2P";
             // 
@@ -411,9 +438,10 @@
             this.pname3.AutoSize = true;
             this.pname3.Font = new System.Drawing.Font("휴먼옛체", 10.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.pname3.ForeColor = System.Drawing.Color.Goldenrod;
-            this.pname3.Location = new System.Drawing.Point(434, 321);
+            this.pname3.Location = new System.Drawing.Point(705, 514);
+            this.pname3.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
             this.pname3.Name = "pname3";
-            this.pname3.Size = new System.Drawing.Size(32, 19);
+            this.pname3.Size = new System.Drawing.Size(49, 31);
             this.pname3.TabIndex = 80;
             this.pname3.Text = "3P";
             // 
@@ -422,17 +450,18 @@
             this.pname4.AutoSize = true;
             this.pname4.Font = new System.Drawing.Font("휴먼옛체", 10.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.pname4.ForeColor = System.Drawing.Color.Green;
-            this.pname4.Location = new System.Drawing.Point(604, 321);
+            this.pname4.Location = new System.Drawing.Point(982, 514);
+            this.pname4.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
             this.pname4.Name = "pname4";
-            this.pname4.Size = new System.Drawing.Size(32, 19);
+            this.pname4.Size = new System.Drawing.Size(49, 31);
             this.pname4.TabIndex = 81;
             this.pname4.Text = "4P";
             // 
             // quizForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(13F, 24F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
+            this.ClientSize = new System.Drawing.Size(1300, 720);
             this.Controls.Add(this.pname4);
             this.Controls.Add(this.pname3);
             this.Controls.Add(this.pname2);
@@ -464,8 +493,10 @@
             this.Controls.Add(this.playerPic2);
             this.Controls.Add(this.playerPic1);
             this.Controls.Add(this.txt_question);
+            this.Margin = new System.Windows.Forms.Padding(5, 5, 5, 5);
             this.Name = "quizForm";
             this.Text = "quizForm";
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.quizForm_FormClosed);
             ((System.ComponentModel.ISupportInitialize)(this.pic_sb4)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pic_sb3)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pic_sb2)).EndInit();

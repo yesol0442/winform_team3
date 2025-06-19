@@ -112,6 +112,7 @@
             this.Font = new System.Drawing.Font("휴먼옛체", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.Name = "rainMain";
             this.Text = "산성비";
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.rainMain_FormClosed);
             this.ResumeLayout(false);
             this.PerformLayout();
 

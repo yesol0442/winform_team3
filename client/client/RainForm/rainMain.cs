@@ -43,6 +43,7 @@ namespace client.RainForm
         public rainMain(Form1 form1,string language)
         {
             InitializeComponent();
+
             lang = language;
             this.Form1 = form1;
 
@@ -202,6 +203,8 @@ namespace client.RainForm
         {
             timer.Stop();
 
+            SoundManager.StopSound();
+
             GameOver gameOver = new GameOver(score, level, Form1);
             gameOver.StartPosition = FormStartPosition.CenterParent;
             gameOver.ShowDialog();
@@ -234,6 +237,8 @@ namespace client.RainForm
             blockSpawnInterval = 30;  
             elapsedTicks = 0;
             StartTimer.Start();
+
+            SoundManager.PlaySoundLoop(@"..\..\Resources\RainGame.wav");
         }
 
         private void StartTimer_Tick(object sender, EventArgs e)
@@ -255,7 +260,14 @@ namespace client.RainForm
                 this.Controls.Remove(lbCount);
                 inputTxt.Enabled = true;
                 timer.Start();
+
+                SoundManager.PlaySoundLoop(@"..\..\Resources\RainGame.wav");
             }
+        }
+
+        private void rainMain_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            SoundManager.StopSound();
         }
     }
 }

@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Windows.Forms.VisualStyles;
 using System.Threading;
+using client.classes;
 
 namespace client.BlockForm
 {
@@ -42,6 +43,8 @@ namespace client.BlockForm
         public BlockGame(Form1 main, string lang)
         {
             InitializeComponent();
+
+            SoundManager.PlaySoundLoop(@"..\..\Resources\BlockGame.wav");
 
             question_list = new List<Question>();
             if (lang.Equals("C"))
@@ -112,6 +115,7 @@ namespace client.BlockForm
             {
                 BlockResult blockResult = new BlockResult(time_result, parentForm);
                 blockResult.Show();
+                SoundManager.StopSound();
                 this.Close();
             }
             else
@@ -203,6 +207,9 @@ namespace client.BlockForm
                 new String[] { "for (int i = 0; i<5; i++)", "{", "sum+= arr[i];", "}" }));
         }
 
-
+        private void BlockGame_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            SoundManager.StopSound();
+        }
     }
 }
