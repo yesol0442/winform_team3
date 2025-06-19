@@ -39,6 +39,7 @@ namespace client.menuControl.CodePreacticeControl
             shareBeeform.ShowDialog();
         }
 
+      
         private void ShareControl_Load(object sender, EventArgs e)
         {
             pictureBox2.BackgroundImage = Properties.Resources.shareBee1;

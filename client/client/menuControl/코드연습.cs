@@ -24,12 +24,33 @@ namespace client.menuControl
             panel2.Controls.Add(codecontrol);
             this.환경설정컨트롤 = settings;
             sharecontrol = new CodePreacticeControl.ShareControl();
+            sharecontrol.NotifyParent += Sharecontrol_NotifyParent;
+
             codecontrol = new CodePreacticeControl.CodeExplainControl(환경설정컨트롤);
 
             panel2.Controls.Add(sharecontrol);
             panel2.Controls.Add(codecontrol);
         }
 
+        private void Sharecontrol_NotifyParent(object sender, string msg)
+        {
+            if (msg == "초기화필요")
+            {
+                RefreshShareList();
+                sharecontrol.BringToFront();
+            }
+        }
+
+        private void RefreshShareList()
+        {
+            sharCodeSaves.Clear();
+            listBox1.Items.Clear();
+
+            loadfile();
+
+            foreach (var scs in sharCodeSaves)
+                listBox1.Items.Add(scs);
+        }
         private void 코드연습_Load(object sender, EventArgs e)
         {
             InitializeDefaultFiles();
@@ -42,7 +63,7 @@ namespace client.menuControl
             sharecontrol.BringToFront();
             sharecontrol.Show();
 
-            
+
         }
 
         private void listBox1_SelectedIndexChanged(object sender, EventArgs e)
