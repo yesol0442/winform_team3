@@ -152,8 +152,8 @@ namespace client.HambugiGame
                 {
                     if (missing.Count > 0)
                         comment = string.Format("{0} 빠졌어요!", string.Join(", ", missing));
-                    if (extra.Count > 0)
-                        comment = "너무 과해!";
+                    else if (extra.Count > 0)
+                        comment = "뭔가 이상한데?";
                 }
                 else
                 {
@@ -184,7 +184,7 @@ namespace client.HambugiGame
             if (comment == null && earned == order.BasePrice) comment = "완벽해요!";
 
 
-            if (comment == null && earned == order.BasePrice)
+            if (earned == order.BasePrice)
             {
                 HambugiGameForm.bugerimage = Properties.Resources.hamburger_best;
             }

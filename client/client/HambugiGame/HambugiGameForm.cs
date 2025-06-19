@@ -394,6 +394,8 @@ namespace client.HambugiGame
             수입금TB.Text = (int.Parse(수입금TB.Text) + earned).ToString();
             ShowBalloon(comment, earned);
 
+            UserBlockParser.Ham.Clear();
+
             var hideTimer = new System.Windows.Forms.Timer
             {
                 Interval = 2000   // 밀리초
