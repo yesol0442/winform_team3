@@ -30,6 +30,7 @@
         {
             this.rainBtn = new Guna.UI2.WinForms.Guna2Button();
             this.blockBtn = new Guna.UI2.WinForms.Guna2Button();
+            this.guna2Button1 = new Guna.UI2.WinForms.Guna2Button();
             this.SuspendLayout();
             // 
             // rainBtn
@@ -43,10 +44,10 @@
             this.rainBtn.FillColor = System.Drawing.Color.White;
             this.rainBtn.Font = new System.Drawing.Font("휴먼옛체", 16F);
             this.rainBtn.ForeColor = System.Drawing.Color.Black;
-            this.rainBtn.Location = new System.Drawing.Point(137, 289);
-            this.rainBtn.Margin = new System.Windows.Forms.Padding(5);
+            this.rainBtn.Location = new System.Drawing.Point(102, 166);
+            this.rainBtn.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.rainBtn.Name = "rainBtn";
-            this.rainBtn.Size = new System.Drawing.Size(310, 109);
+            this.rainBtn.Size = new System.Drawing.Size(238, 82);
             this.rainBtn.TabIndex = 1;
             this.rainBtn.Text = "산성비";
             this.rainBtn.Click += new System.EventHandler(this.rainBtn_Click);
@@ -62,24 +63,43 @@
             this.blockBtn.FillColor = System.Drawing.Color.White;
             this.blockBtn.Font = new System.Drawing.Font("휴먼옛체", 16F);
             this.blockBtn.ForeColor = System.Drawing.Color.Black;
-            this.blockBtn.Location = new System.Drawing.Point(566, 289);
-            this.blockBtn.Margin = new System.Windows.Forms.Padding(5);
+            this.blockBtn.Location = new System.Drawing.Point(432, 166);
+            this.blockBtn.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.blockBtn.Name = "blockBtn";
-            this.blockBtn.Size = new System.Drawing.Size(310, 109);
+            this.blockBtn.Size = new System.Drawing.Size(238, 82);
             this.blockBtn.TabIndex = 2;
             this.blockBtn.Text = "블록 맞추기";
             this.blockBtn.Click += new System.EventHandler(this.blockBtn_Click);
             // 
+            // guna2Button1
+            // 
+            this.guna2Button1.BackColor = System.Drawing.Color.White;
+            this.guna2Button1.BorderThickness = 1;
+            this.guna2Button1.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
+            this.guna2Button1.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
+            this.guna2Button1.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
+            this.guna2Button1.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
+            this.guna2Button1.FillColor = System.Drawing.Color.White;
+            this.guna2Button1.Font = new System.Drawing.Font("휴먼옛체", 16F);
+            this.guna2Button1.ForeColor = System.Drawing.Color.Black;
+            this.guna2Button1.Location = new System.Drawing.Point(262, 277);
+            this.guna2Button1.Margin = new System.Windows.Forms.Padding(4);
+            this.guna2Button1.Name = "guna2Button1";
+            this.guna2Button1.Size = new System.Drawing.Size(238, 82);
+            this.guna2Button1.TabIndex = 3;
+            this.guna2Button1.Text = "코드 요리사";
+            this.guna2Button1.Click += new System.EventHandler(this.guna2Button1_Click);
+            // 
             // 미니게임
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(13F, 24F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 18F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ActiveBorder;
+            this.Controls.Add(this.guna2Button1);
             this.Controls.Add(this.blockBtn);
             this.Controls.Add(this.rainBtn);
-            this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "미니게임";
-            this.Size = new System.Drawing.Size(1049, 689);
+            this.Size = new System.Drawing.Size(807, 517);
             this.ResumeLayout(false);
 
         }
@@ -88,5 +108,6 @@
 
         private Guna.UI2.WinForms.Guna2Button rainBtn;
         private Guna.UI2.WinForms.Guna2Button blockBtn;
+        private Guna.UI2.WinForms.Guna2Button guna2Button1;
     }
 }

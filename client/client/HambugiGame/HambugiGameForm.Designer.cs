@@ -78,24 +78,36 @@
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(1157, 603);
+            this.button1.BackColor = System.Drawing.Color.Transparent;
+            this.button1.FlatAppearance.BorderSize = 0;
+            this.button1.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
+            this.button1.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
+            this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.button1.Font = new System.Drawing.Font("휴먼매직체", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.button1.Location = new System.Drawing.Point(1157, 566);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(148, 40);
+            this.button1.Size = new System.Drawing.Size(148, 77);
             this.button1.TabIndex = 23;
             this.button1.Text = "블록 삭제";
-            this.button1.UseVisualStyleBackColor = true;
+            this.button1.UseVisualStyleBackColor = false;
             this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // 음식만들기Bt
             // 
             this.음식만들기Bt.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.음식만들기Bt.BackColor = System.Drawing.Color.Transparent;
             this.음식만들기Bt.Enabled = false;
+            this.음식만들기Bt.FlatAppearance.BorderSize = 0;
+            this.음식만들기Bt.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
+            this.음식만들기Bt.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
+            this.음식만들기Bt.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.음식만들기Bt.Font = new System.Drawing.Font("휴먼매직체", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.음식만들기Bt.Location = new System.Drawing.Point(1157, 649);
             this.음식만들기Bt.Name = "음식만들기Bt";
             this.음식만들기Bt.Size = new System.Drawing.Size(148, 77);
             this.음식만들기Bt.TabIndex = 22;
             this.음식만들기Bt.Text = "음식 만들기";
-            this.음식만들기Bt.UseVisualStyleBackColor = true;
+            this.음식만들기Bt.UseVisualStyleBackColor = false;
             this.음식만들기Bt.Click += new System.EventHandler(this.음식만들기Bt_Click);
             // 
             // 말풍선P

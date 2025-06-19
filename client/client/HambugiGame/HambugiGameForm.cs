@@ -72,6 +72,9 @@ namespace client.HambugiGame
             this.DoubleBuffered = true;
             EnableDoubleBufferRecursive(this);
 
+            this.MaximumSize = this.Size;
+            this.MinimumSize = this.Size;
+
             button1.Enabled = false;
 
             말풍선P.BackgroundImage = Properties.Resources.bubble;
@@ -80,6 +83,12 @@ namespace client.HambugiGame
             orderPanel.BackgroundImageLayout = ImageLayout.Stretch;
             BackgroundImage = Properties.Resources.burger_background;
             BackgroundImageLayout = ImageLayout.Stretch;
+
+            button1.BackgroundImage = Properties.Resources.button_enable;
+            button1.BackgroundImageLayout = ImageLayout.Stretch;
+            음식만들기Bt.BackgroundImage = Properties.Resources.button_enable;
+            음식만들기Bt.BackgroundImageLayout = ImageLayout.Stretch;
+
 
             flowLayoutPanel1.WrapContents = false;
             flowLayoutPanel1.AutoScroll = true;
@@ -200,6 +209,22 @@ namespace client.HambugiGame
 
             음식만들기Bt.Enabled = anyBlock;
             button1.Enabled = anyBlock;
+            if(음식만들기Bt.Enabled == true)
+            {
+                음식만들기Bt.BackgroundImage = Properties.Resources.button;
+            }
+            else
+            {
+                음식만들기Bt.BackgroundImage = Properties.Resources.button_enable;
+            }
+            if (button1.Enabled == true)
+            {
+                button1.BackgroundImage = Properties.Resources.button;
+            }
+            else
+            {
+                button1.BackgroundImage = Properties.Resources.button_enable;
+            }
         }
 
         void controlInit()

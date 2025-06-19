@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using client.HambugiGame;
 using client.RainForm;
 
 namespace client.menuControl
@@ -29,6 +30,12 @@ namespace client.menuControl
         private void blockBtn_Click(object sender, EventArgs e)
         {
             BlockButtonClicked?.Invoke(this, EventArgs.Empty);
+        }
+
+        private void guna2Button1_Click(object sender, EventArgs e)
+        {
+            HambugiStart hambugiStart = new HambugiStart();
+            hambugiStart.ShowDialog();
         }
     }
 }

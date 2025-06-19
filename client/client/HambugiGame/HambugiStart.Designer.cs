@@ -1,6 +1,6 @@
-﻿namespace client.quizForm
+﻿namespace client.HambugiGame
 {
-    partial class quizStart
+    partial class HambugiStart
     {
         /// <summary>
         /// Required designer variable.
@@ -38,12 +38,12 @@
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("휴먼옛체", 30F, System.Drawing.FontStyle.Bold);
-            this.label1.Location = new System.Drawing.Point(348, 132);
+            this.label1.Location = new System.Drawing.Point(354, 105);
             this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(292, 64);
-            this.label1.TabIndex = 8;
-            this.label1.Text = "퀴즈 대결";
+            this.label1.Size = new System.Drawing.Size(352, 64);
+            this.label1.TabIndex = 12;
+            this.label1.Text = "코드 요리사";
             // 
             // btnTutorial
             // 
@@ -55,11 +55,11 @@
             this.btnTutorial.FillColor = System.Drawing.Color.White;
             this.btnTutorial.Font = new System.Drawing.Font("휴먼옛체", 14F);
             this.btnTutorial.ForeColor = System.Drawing.Color.Black;
-            this.btnTutorial.Location = new System.Drawing.Point(388, 336);
-            this.btnTutorial.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnTutorial.Location = new System.Drawing.Point(394, 309);
+            this.btnTutorial.Margin = new System.Windows.Forms.Padding(4);
             this.btnTutorial.Name = "btnTutorial";
             this.btnTutorial.Size = new System.Drawing.Size(225, 54);
-            this.btnTutorial.TabIndex = 7;
+            this.btnTutorial.TabIndex = 11;
             this.btnTutorial.Text = "게임방법";
             this.btnTutorial.Click += new System.EventHandler(this.btnTutorial_Click);
             // 
@@ -73,11 +73,11 @@
             this.btnExit.FillColor = System.Drawing.Color.White;
             this.btnExit.Font = new System.Drawing.Font("휴먼옛체", 14F);
             this.btnExit.ForeColor = System.Drawing.Color.Black;
-            this.btnExit.Location = new System.Drawing.Point(388, 408);
-            this.btnExit.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnExit.Location = new System.Drawing.Point(394, 381);
+            this.btnExit.Margin = new System.Windows.Forms.Padding(4);
             this.btnExit.Name = "btnExit";
             this.btnExit.Size = new System.Drawing.Size(225, 54);
-            this.btnExit.TabIndex = 6;
+            this.btnExit.TabIndex = 10;
             this.btnExit.Text = "끝내기";
             this.btnExit.Click += new System.EventHandler(this.btnExit_Click);
             // 
@@ -91,15 +91,15 @@
             this.btnStart.FillColor = System.Drawing.Color.White;
             this.btnStart.Font = new System.Drawing.Font("휴먼옛체", 14F);
             this.btnStart.ForeColor = System.Drawing.Color.Black;
-            this.btnStart.Location = new System.Drawing.Point(388, 264);
-            this.btnStart.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnStart.Location = new System.Drawing.Point(394, 237);
+            this.btnStart.Margin = new System.Windows.Forms.Padding(4);
             this.btnStart.Name = "btnStart";
             this.btnStart.Size = new System.Drawing.Size(225, 54);
-            this.btnStart.TabIndex = 5;
+            this.btnStart.TabIndex = 9;
             this.btnStart.Text = "시작하기";
             this.btnStart.Click += new System.EventHandler(this.btnStart_Click);
             // 
-            // quizStart
+            // HambugiStart
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 18F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -108,9 +108,8 @@
             this.Controls.Add(this.btnTutorial);
             this.Controls.Add(this.btnExit);
             this.Controls.Add(this.btnStart);
-            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
-            this.Name = "quizStart";
-            this.Text = "quizStart";
+            this.Name = "HambugiStart";
+            this.Text = "코드 요리사";
             this.ResumeLayout(false);
             this.PerformLayout();
 

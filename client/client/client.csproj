@@ -177,6 +177,18 @@
     <Compile Include="HambugiGame\HambugiGameForm.Designer.cs">
       <DependentUpon>HambugiGameForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="HambugiGame\HambugiStart.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="HambugiGame\HambugiStart.Designer.cs">
+      <DependentUpon>HambugiStart.cs</DependentUpon>
+    </Compile>
+    <Compile Include="HambugiGame\HambugiTutorial.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="HambugiGame\HambugiTutorial.Designer.cs">
+      <DependentUpon>HambugiTutorial.cs</DependentUpon>
+    </Compile>
     <Compile Include="HambugiGame\Ingredient.cs" />
     <Compile Include="HambugiGame\IngredientType.cs" />
     <Compile Include="HambugiGame\Order.cs" />
@@ -371,6 +383,12 @@
     <EmbeddedResource Include="HambugiGame\HambugiGameForm.resx">
       <DependentUpon>HambugiGameForm.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="HambugiGame\HambugiStart.resx">
+      <DependentUpon>HambugiStart.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="HambugiGame\HambugiTutorial.resx">
+      <DependentUpon>HambugiTutorial.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="menuControl\CodePreacticeControl\CodeExplainControl.resx">
       <DependentUpon>CodeExplainControl.cs</DependentUpon>
     </EmbeddedResource>
@@ -530,6 +548,12 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\tomato.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\button.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\button_enable.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
