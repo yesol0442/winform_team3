@@ -24,7 +24,7 @@ namespace client
         private Guna2BorderlessForm borderlessForm;
         private menuControl.홈 홈 = new menuControl.홈();
         private new menuControl.미니게임 미니게임;
-        private menuControl.코드연습 코드연습 = new menuControl.코드연습();
+        private menuControl.코드연습 코드연습;
         private menuControl.환경설정 환경설정 = new menuControl.환경설정();
         private new menuControl.PVP PVP;
         private new menuControl.초기화면 초기화면 = new menuControl.초기화면();
@@ -37,6 +37,7 @@ namespace client
             InitializeComponent();
             미니게임 = new menuControl.미니게임();
             PVP = new menuControl.PVP(this);
+            코드연습 = new menuControl.코드연습(this.환경설정);
 
             borderlessForm = new Guna2BorderlessForm();
             borderlessForm.ContainerControl = this;

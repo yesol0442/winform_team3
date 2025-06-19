@@ -1,10 +1,12 @@
 ﻿using client.classes;
 using client.menuControl;
+using client.Properties;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices;
 using System.Text;
@@ -43,25 +45,160 @@ namespace client.CodePracticeForm
 
         public event EventHandler<CodePracticeResult> DataSent;
 
+        // 타자 가이드
+        private PictureBox kbBase;          // 키보드 사진
+        private PictureBox kbOverlay;       // 투명한 오버레이 – 강조 사각형을 그릴 캔버스
+        private readonly Dictionary<char, Rectangle> keyMap = new Dictionary<char, Rectangle>(); // 문자→키 좌표
+        string imgPath = @"C:\Users\cheae\source\repos\winform_team3\client\client\Resources\키보드.png";
+        private int _linesPerPage = 13;
 
-        public CodePracticeFo(ShareCodeSave scs)
+
+
+
+
+        public CodePracticeFo(ShareCodeSave scs, 환경설정 settings)
         {
             InitializeComponent();
+
             FormBorderStyle = FormBorderStyle.None;
             WindowState = FormWindowState.Maximized;
 
-            환경설정컨트롤 = new 환경설정();
-            환경설정컨트롤.CheckBoxChecked += 환경설정_CheckBoxChecked;
+
+            this.환경설정컨트롤 =settings;
+            settings.CheckBoxChecked += 환경설정_CheckBoxChecked;
+
 
             shareCodeSave = scs;
             code_line_num = scs.Code.Count;
             _totalLines = scs.Code.Count;
+
+            InitKeyboard();
+
+            if (settings.IsGuideChecked)
+            {
+                _linesPerPage = 10;
+                kbBase.Visible = true;
+
+            }
+
+
         }
 
         private void 환경설정_CheckBoxChecked(object sender, EventArgs e)
         {
-            // 타자가이드 이미지 추가, 불러오기 등 동작 수행
+
+            if (_linesPerPage == 10) return;         // 이미 10줄이면 무시
+
+            _linesPerPage = 10;                      // ① 페이지당 10줄
+            kbBase.Visible = true;                  // ② 키보드 그림 표시
         }
+
+        void InitKeyboard()
+        {
+
+            // (1) 바탕 사진
+            kbBase = new PictureBox
+            {
+
+
+                Image = Image.FromFile(imgPath),
+                SizeMode = PictureBoxSizeMode.StretchImage,
+                Dock = DockStyle.Bottom,
+                Height = 250,     // 사진 높이(마음대로)
+                Visible=false
+            };
+            // (2) 반투명 오버레이 – 키 강조용
+            kbOverlay = new PictureBox
+            {
+                Dock = DockStyle.Fill,
+                BackColor = Color.Transparent
+            };
+            kbBase.Controls.Add(kbOverlay);
+            this.Controls.Add(kbBase);      // 폼 제일 밑에 깔기
+            kbBase.BringToFront();          // 필요하면 BringToFront
+
+            BuildKeyMap();                  // 문자→좌표 사전 작성
+        }
+
+
+        void BuildKeyMap()
+        {
+            /*
+            // ※ 키보드 PNG 안에서 각 키의 픽셀 위치·크기를 직접 재서 채워넣어야 합니다.
+            //    숫자는 예시입니다.
+            keyMap['a'] = new Rectangle(50, 90, 40, 40);
+            keyMap['b'] = new Rectangle(170, 130, 40, 40);
+            keyMap['c'] = new Rectangle(110, 130, 40, 40);
+            // … 나머지 모든 키
+            keyMap['A'] = keyMap['a'];      // 대소문자 동일 좌표
+            keyMap['{'] = keyMap['['];      // 중괄호 등도 동일 키*/
+
+            // ───────── 숫자줄 ─────────
+            keyMap['`'] = keyMap['~'] = new Rectangle(23, 12, 80, 40);
+            keyMap['1'] = keyMap['!'] = new Rectangle(117, 12, 80, 40);
+            keyMap['2'] = keyMap['@'] = new Rectangle(211, 12, 80, 40);
+            keyMap['3'] = keyMap['#'] = new Rectangle(305, 12, 80, 40);
+            keyMap['4'] = keyMap['$'] = new Rectangle(399, 12, 80, 40);
+            keyMap['5'] = keyMap['%'] = new Rectangle(493, 12, 80, 40);
+            keyMap['6'] = keyMap['^'] = new Rectangle(587, 12, 80, 40);
+            keyMap['7'] = keyMap['&'] = new Rectangle(681, 12, 80, 40);
+            keyMap['8'] = keyMap['*'] = new Rectangle(775, 12, 80, 40);
+            keyMap['9'] = keyMap['('] = new Rectangle(869, 12, 80, 40);
+            keyMap['0'] = keyMap[')'] = new Rectangle(963, 12, 80, 40);
+            keyMap['-'] = keyMap['_'] = new Rectangle(1057, 12, 80, 40);   
+            keyMap['='] = keyMap['+'] = new Rectangle(1151, 12, 80, 40);
+            //keyMap['\b'] = new Rectangle(618, 20, 86, 40); // Backspace
+
+            // ───────── Tab + QWERTY ─────────
+            //keyMap['\t'] = new Rectangle(20, 66, 60, 40); // Tab (1.5칸)
+            keyMap['q'] = keyMap['Q'] = new Rectangle(160, 57, 80, 40);
+            keyMap['w'] = keyMap['W'] = new Rectangle(254, 57, 80, 40);
+            keyMap['e'] = keyMap['E'] = new Rectangle(348, 57, 80, 40);
+            keyMap['r'] = keyMap['R'] = new Rectangle(442, 57, 80, 40);
+            keyMap['t'] = keyMap['T'] = new Rectangle(536, 57, 80, 40);   
+            keyMap['y'] = keyMap['Y'] = new Rectangle(630, 57, 80, 40);
+            keyMap['u'] = keyMap['U'] = new Rectangle(724, 57, 80, 40);
+            keyMap['i'] = keyMap['I'] = new Rectangle(818, 57, 80, 40);
+            keyMap['o'] = keyMap['O'] = new Rectangle(912, 57, 80, 40);
+            keyMap['p'] = keyMap['P'] = new Rectangle(1006, 57, 80, 40);
+            keyMap['['] = keyMap['{'] = new Rectangle(1100, 57, 80, 40);
+            keyMap[']'] = keyMap['}'] = new Rectangle(1194, 57, 80, 40);
+            keyMap['\\'] = keyMap['|'] = new Rectangle(1288, 57, 100, 40);
+
+            // ───────── Caps + ASDF ─────────
+            // CapsLock은 생략(필요하면 넣으세요)
+            keyMap['a'] = keyMap['A'] = new Rectangle(208, 105, 80, 40);
+            keyMap['s'] = keyMap['S'] = new Rectangle(302, 105, 80, 40);
+            keyMap['d'] = keyMap['D'] = new Rectangle(396, 105, 80, 40);
+            keyMap['f'] = keyMap['F'] = new Rectangle(490, 105, 80, 40);
+            keyMap['g'] = keyMap['G'] = new Rectangle(584, 105, 80, 40);
+            keyMap['h'] = keyMap['H'] = new Rectangle(678, 105, 80, 40);
+            keyMap['j'] = keyMap['J'] = new Rectangle(772, 105, 80, 40);
+            keyMap['k'] = keyMap['K'] = new Rectangle(866, 105, 80, 40);
+            keyMap['l'] = keyMap['L'] = new Rectangle(960, 105, 80, 40);
+            keyMap[';'] = keyMap[':'] = new Rectangle(1054, 105, 80, 40);
+            keyMap['\''] = keyMap['"'] = new Rectangle(1148, 105, 80, 40);
+            keyMap['\n'] = new Rectangle(1242, 105, 160, 40); // Enter(2.5칸)
+
+            // ───────── Shift + ZXCV ─────────
+            // 왼쪽 Shift 생략
+            keyMap['z'] = keyMap['Z'] = new Rectangle(252, 152, 80, 40);
+            keyMap['x'] = keyMap['X'] = new Rectangle(346, 152, 80, 40);
+            keyMap['c'] = keyMap['C'] = new Rectangle(440, 152, 80, 40);
+            keyMap['v'] = keyMap['V'] = new Rectangle(534, 152, 80, 40);
+            keyMap['b'] = keyMap['B'] = new Rectangle(628, 152, 80, 40);
+            keyMap['n'] = keyMap['N'] = new Rectangle(722, 152, 80, 40);   
+            keyMap['m'] = keyMap['M'] = new Rectangle(816, 152, 80, 40);
+            keyMap[','] = keyMap['<'] = new Rectangle(910, 152, 80, 40);
+            keyMap['.'] = keyMap['>'] = new Rectangle(1004, 152, 80, 40);
+            keyMap['/'] = keyMap['?'] = new Rectangle(1098, 152, 80, 40);
+            // 오른쪽 Shift 생략
+
+            // ───────── Space 줄 ─────────
+            keyMap[' '] = new Rectangle(392, 198, 552, 40); // SpaceBar (약 5칸 폭)
+        }
+
+
 
         private void CodePracticeFo_Load(object sender, EventArgs e)
         {
@@ -88,7 +225,7 @@ namespace client.CodePracticeForm
         private void table_fill(int line_num)
         {
             int startIndex = _totalLines - code_line_num;
-            int chunk = Math.Min(12, line_num);
+            int chunk = Math.Min(_linesPerPage, line_num);
 
 
             for (int i = 0; i < chunk; i++)
@@ -177,7 +314,7 @@ namespace client.CodePracticeForm
 
         private void FocusNextInputBox(int nextTableNum)
         {
-            if (nextTableNum % 13 == 0 && code_line_num > 0)
+            if (nextTableNum % _linesPerPage == 0 && code_line_num > 0)
             {
                 코드연습panel.Controls.Clear();
                 table_fill(code_line_num);
@@ -193,6 +330,11 @@ namespace client.CodePracticeForm
                     rtb.ReadOnly = false;
                     rtb.TabStop = true;
                     rtb.Focus();
+
+                    // ❷ 새 줄 첫 글자 하이라이트
+                    string nextLineCode = ((Tuple<int, string>)rtb.Tag).Item2;
+                    if (!string.IsNullOrEmpty(nextLineCode))
+                        HighlightKey(nextLineCode[0]);
                 }
             }
         }
@@ -328,6 +470,8 @@ namespace client.CodePracticeForm
             // 줄이 완성되면 최종 검사
             if (rtb.TextLength == code.Length)
             {
+                HighlightKey('\n');
+
                 int errorsThisLine = 0;
                 for (int i = 0; i < code.Length; i++)
                 {
@@ -348,8 +492,55 @@ namespace client.CodePracticeForm
                     BeginInvoke((Action)ShowResultAndFinish);
                     return;
                 }
+                return;
+            }
+
+            // 타자가이드
+            if (!_finished)                           // 아직 안 끝났으면
+            {
+                char next = GetNextExpectedChar(rtb, code);
+                HighlightKey(next);
             }
         }
+
+
+        char GetNextExpectedChar(RichTextBox rtb, string code)
+        {
+            int pos = rtb.TextLength;             // 다음에 입력해야 할 index
+            if (pos >= code.Length) return '\0';  // 줄이 끝났으면 빈 문자
+            return code[pos];
+        }
+
+
+        void HighlightKey(char c)
+        {
+            // ① 기존 강조 지우기
+            if (kbOverlay.Image != null)
+            {
+                kbOverlay.Image.Dispose();
+                kbOverlay.Image = null;
+            }
+
+            // ② 다음에 표시할 키가 없는 경우 그대로 종료
+            if (c == '\0' || !keyMap.TryGetValue(c, out var rect))
+                return;
+
+            // ③ 새 비트맵과 그래픽 객체 준비
+            Bitmap bmp = new Bitmap(kbOverlay.Width, kbOverlay.Height);
+            Graphics g = Graphics.FromImage(bmp);
+            Brush brush = new SolidBrush(Color.FromArgb(120, Color.Red)); // 투명 빨강
+
+            // ④ 사각형 채우기
+            g.FillRectangle(brush, rect);
+
+            // ⑤ GDI 자원 해제
+            brush.Dispose();
+            g.Dispose();
+
+            // ⑥ PictureBox 에 적용 (비트맵은 Dispose 하지 말아야 화면에 남아있음!)
+            kbOverlay.Image = bmp;
+        }
+
 
 
 

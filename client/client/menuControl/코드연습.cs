@@ -13,15 +13,21 @@ namespace client.menuControl
 {
     public partial class 코드연습 : UserControl
     {
+        환경설정 환경설정컨트롤;
         private CodePreacticeControl.ShareControl sharecontrol = new CodePreacticeControl.ShareControl();
-        private CodePreacticeControl.CodeExplainControl codecontrol = new CodePreacticeControl.CodeExplainControl();
+        private CodePreacticeControl.CodeExplainControl codecontrol;
         private List<ShareCodeSave> sharCodeSaves = new List<ShareCodeSave>();
-        public 코드연습()
+        public 코드연습(환경설정 settings)
         {
             InitializeComponent();
             panel2.Controls.Add(sharecontrol);
             panel2.Controls.Add(codecontrol);
+            this.환경설정컨트롤 = settings;
+            sharecontrol = new CodePreacticeControl.ShareControl();
+            codecontrol = new CodePreacticeControl.CodeExplainControl(환경설정컨트롤);
 
+            panel2.Controls.Add(sharecontrol);
+            panel2.Controls.Add(codecontrol);
         }
 
         private void 코드연습_Load(object sender, EventArgs e)
@@ -35,6 +41,8 @@ namespace client.menuControl
             //로컬DB에서 title 가져와서 listbox에 추가
             sharecontrol.BringToFront();
             sharecontrol.Show();
+
+            
         }
 
         private void listBox1_SelectedIndexChanged(object sender, EventArgs e)

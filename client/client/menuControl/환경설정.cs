@@ -25,10 +25,13 @@ namespace client.menuControl
         private bool soundEnabled = true;
         public static string currentUserId;
 
+        public bool IsGuideChecked => chkGuide.Checked;
+
         public 환경설정()
         {
             InitializeComponent();
             txtNickname.Visible = false;
+            chkGuide.CheckedChanged += chkGuide_CheckedChanged;
         }
 
         public async Task SetCurrentUserIdAsync(string userId)
@@ -292,8 +295,12 @@ namespace client.menuControl
 
         private void chkGuide_CheckedChanged(object sender, EventArgs e)
         {
+            
+            
             if (chkGuide.Checked)
             {
+               
+
                 CheckBoxChecked?.Invoke(this, EventArgs.Empty);
             }
         }

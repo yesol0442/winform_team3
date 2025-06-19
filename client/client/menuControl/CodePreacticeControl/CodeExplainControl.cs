@@ -17,9 +17,13 @@ namespace client.menuControl.CodePreacticeControl
     public partial class CodeExplainControl : UserControl
     {
         private ShareCodeSave shareCodeSave;
-        public CodeExplainControl()
+
+        환경설정 환경설정컨트롤;
+
+        public CodeExplainControl(환경설정 settings)
         {
             InitializeComponent();
+            this.환경설정컨트롤 = settings;
         }
 
         private void 뒤로가기btn_Click(object sender, EventArgs e)
@@ -49,7 +53,7 @@ namespace client.menuControl.CodePreacticeControl
         private void 시작btn_Click(object sender, EventArgs e)
         {
             this.Hide();
-            CodePracticeForm.CodePracticeFo codePracticeForm = new CodePracticeForm.CodePracticeFo(shareCodeSave);
+            CodePracticeForm.CodePracticeFo codePracticeForm = new CodePracticeForm.CodePracticeFo(shareCodeSave, 환경설정컨트롤);
             codePracticeForm.FormClosed += (s, args) => this.Show();
             codePracticeForm.DataSent += PracticeForm_DataSent;
             codePracticeForm.ShowDialog();
