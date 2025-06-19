@@ -73,8 +73,8 @@ namespace client.menuControl
                     lblFoundWinRate.Text = "무승부";
                 }
 
-                    // 2. 이미지 데이터 수신 (Base64 문자열, 끝에 ::END::)
-                    string base64Image = await NetworkManager.Instance.ReceiveFullMessageUntilEndAsync("");
+                // 2. 이미지 데이터 수신 (Base64 문자열, 끝에 ::END::)
+                string base64Image = await NetworkManager.Instance.ReceiveFullMessageUntilEndAsync("");
                 Console.WriteLine($"서버에서 받은 이미지 Base64 길이: {base64Image?.Length ?? 0}");
 
                 if (!string.IsNullOrWhiteSpace(base64Image))

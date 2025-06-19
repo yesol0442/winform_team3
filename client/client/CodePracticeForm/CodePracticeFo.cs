@@ -26,7 +26,6 @@ namespace client.CodePracticeForm
         [DllImport("user32.dll")]
         static extern bool ShowCaret(IntPtr hWnd);
 
-
         private readonly Dictionary<RichTextBox, int> _prevLen = new Dictionary<RichTextBox, int>();
         private readonly Dictionary<RichTextBox, int> _prevErrors = new Dictionary<RichTextBox, int>();
 
