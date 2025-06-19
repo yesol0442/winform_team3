@@ -86,6 +86,7 @@
     <Compile Include="classes\OtherUserCodeList.cs" />
     <Compile Include="classes\Quiz.cs" />
     <Compile Include="classes\ShareCodeSave.cs" />
+    <Compile Include="classes\SoundManager.cs" />
     <Compile Include="classes\UserCodeList.cs" />
     <Compile Include="classes\UserSession.cs" />
     <Compile Include="CodePracticeForm\CodePracticeFo.cs">

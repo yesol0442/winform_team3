@@ -295,12 +295,8 @@ namespace client.menuControl
 
         private void chkGuide_CheckedChanged(object sender, EventArgs e)
         {
-            
-            
             if (chkGuide.Checked)
             {
-               
-
                 CheckBoxChecked?.Invoke(this, EventArgs.Empty);
             }
         }
@@ -340,21 +336,7 @@ namespace client.menuControl
 
         private void togSound_CheckedChanged(object sender, EventArgs e)
         {
-            soundEnabled = togSound.Checked;
-
-            //사운드 집어 넣게 되면 soundFilePath에 사운드 파일 경로 입력해서 소리 안 나도록 설정
-            //if (soundEnabled)
-            //{
-            //    try
-            //    {
-            //        SoundPlayer player = new SoundPlayer(soundFilePath);
-            //        player.Play();
-            //    }
-            //    catch (Exception ex)
-            //    {
-            //        MessageBox.Show($"사운드 재생 오류: {ex.Message}");
-            //    }
-            //}
+            SoundManager.SoundEnabled = togSound.Checked;
         }
 
     }

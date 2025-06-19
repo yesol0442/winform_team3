@@ -28,7 +28,6 @@ namespace client.CodePracticeForm
         [DllImport("user32.dll")]
         static extern bool ShowCaret(IntPtr hWnd);
 
-
         private readonly Dictionary<RichTextBox, int> _prevLen = new Dictionary<RichTextBox, int>();
         private readonly Dictionary<RichTextBox, int> _prevErrors = new Dictionary<RichTextBox, int>();
 
@@ -49,11 +48,8 @@ namespace client.CodePracticeForm
         private PictureBox kbBase;          // 키보드 사진
         private PictureBox kbOverlay;       // 투명한 오버레이 – 강조 사각형을 그릴 캔버스
         private readonly Dictionary<char, Rectangle> keyMap = new Dictionary<char, Rectangle>(); // 문자→키 좌표
-        string imgPath = @"C:\Users\cheae\source\repos\winform_team3\client\client\Resources\키보드.png";
+        string imgPath = @"..\..\Resources\키보드.png";
         private int _linesPerPage = 13;
-
-
-
 
 
         public CodePracticeFo(ShareCodeSave scs, 환경설정 settings)

@@ -55,6 +55,8 @@ namespace client.FindDifferForm
 
             InitializeComponent();
 
+            SoundManager.PlaySoundLoop(@"..\..\Resources\FindDiffer.wav");
+
             this.Form1 = form1;
 
             this.FormBorderStyle = FormBorderStyle.FixedSingle;
@@ -362,6 +364,7 @@ namespace client.FindDifferForm
                     else
                         result = "무승부";
 
+                    SoundManager.StopSound();
                     var endForm = new FindEnd(resultText,result,Form1);
                     endForm.ShowDialog();
 
@@ -400,6 +403,7 @@ namespace client.FindDifferForm
 
         private void FindForm_FormClosed(object sender, FormClosedEventArgs e)
         {
+            SoundManager.StopSound();
             var start = new FindStart(Form1);
             start.Show();
         }

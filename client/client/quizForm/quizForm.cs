@@ -53,6 +53,8 @@ namespace client.quizForm
         {
             InitializeComponent();
 
+            SoundManager.PlaySoundLoop(@"..\..\Resources\quiz.wav");
+
             this.client = client;
             this.stream = stream;
             this.playerNum = playerNum;
@@ -253,6 +255,7 @@ namespace client.quizForm
                                 {
                                     var resultForm = new quizResult(ranking, client, parentForm, playerNum);
                                     resultForm.Show();
+                                    SoundManager.StopSound();
                                     this.Close();
                                 }
                                 catch (Exception ex)
@@ -395,6 +398,11 @@ namespace client.quizForm
             }
 
             return users;
+        }
+
+        private void quizForm_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            SoundManager.StopSound();
         }
     }
 }
