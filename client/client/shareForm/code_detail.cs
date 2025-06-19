@@ -154,7 +154,7 @@ namespace client.shareForm
 
             // 저장
             shareCodeSave.SaveToFile();
-            MessageBox.Show("저장됨");
+            MessageBox.Show("저장 되었습니다.");
         }
 
         private void 난이도lbl_Click(object sender, EventArgs e)

@@ -145,7 +145,7 @@ namespace client.shareForm
                 if (shareCodeSave != null)
                 {
                     shareCodeSave.SaveToFile();
-                    MessageBox.Show("저장됨");
+                    MessageBox.Show("저장 되었습니다.");
                 }
                 else
                 {
